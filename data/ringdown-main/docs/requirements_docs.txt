@@ -1,8 +1,3 @@
-# docs/requirements_docs.txt
-sphinx
-sphinx-autobuild
-ipykernel
-nbsphinx
-sphinx-gallery
-sphinxemoji
-sphinx-argparse
+version https://git-lfs.github.com/spec/v1
+oid sha256:4760b32b486f45cc42a64551c1362d73270135c256e47d34c18c9f139e5e8434
+size 115
