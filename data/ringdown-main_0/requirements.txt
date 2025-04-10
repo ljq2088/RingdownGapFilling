@@ -1,14 +1,3 @@
-pymc==4
-aesara
-numpy
-h5py
-arviz
-matplotlib
-pandas
-scipy
-lalsuite
-qnm
-seaborn
-jupyterlab
-tqdm
-ipywidgets
+version https://git-lfs.github.com/spec/v1
+oid sha256:ab3002440b130f70c0a030511a016cf1354bde50a961d225f092351196392e5c
+size 104
