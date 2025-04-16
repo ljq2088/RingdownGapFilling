@@ -14,10 +14,22 @@ import os
 SAVE_PATH_1= 'data/signal_data.npz'
 SAVE_PATH_2 = 'data/signal_test_data.npz'
 SAVE_PATH_noise= 'data/signal_data_with_noise.npz'
+SAVE_PATH_noise_SNR5= 'data/signal_data_with_noise_SNR5.npz'
+SAVE_PATH_noise_SNR5_signals= 'data/signal_data_with_noise_SNR5_signals.npz'
 TEMP_DIR_1 = 'data/temp_files'
 TEMP_DIR_2 = 'data/temp_files2'
 TEMP_DIR_3 = 'data/temp_files3'
-signals, noises,datas,conditions = generate_data(Config.num_samples,TEMP_DIR=TEMP_DIR_3,SAVE_PATH=SAVE_PATH_noise)
+TEMP_DIR_4 = 'data/temp_files4'
+#检查文件夹是否存在，不存在则创建，存在则清空并重新创建
+if not os.path.exists(TEMP_DIR_4):
+    os.makedirs(TEMP_DIR_4)
+else:
+    for file in os.listdir(TEMP_DIR_4):
+        file_path = os.path.join(TEMP_DIR_4, file)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+
+signals, noises,datas,conditions = generate_data(Config.num_samples,TEMP_DIR=TEMP_DIR_4,SAVE_PATH=SAVE_PATH_noise_SNR5_signals)
 #combine_data()
 # signals,noises,datas, conditions = generate_data_with_noise(
 #         Config.num_samples

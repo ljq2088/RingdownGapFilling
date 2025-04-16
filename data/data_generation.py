@@ -6,10 +6,11 @@ import torch
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 from utils.psd import PSD_Lisa_no_Response
-from utils.noise import fftfilt, stat_gauss_noise,generate_noise_from_psd
+from utils.noise import *
 from scipy.fftpack import fft, ifft
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.signal import firwin2,welch
+from utils.SNR import compute_matched_filter_snr
 import os
 # def rotate_list(lst, position=2):
 #     index = len(lst) // position
@@ -25,24 +26,45 @@ samp_freq=Config.samp_freq
 N=round(samp_freq/Config.f_step)
 time_vec=1/samp_freq*np.arange(0,N,1)
 Noises=True
+num_sigs=3
+SNR=5
+
 def generate_single_data(i):
     # 生成单个数据的代码
-    Mtot = np.random.uniform(Config.parameters[0], Config.parameters[1])
-    M_ratio = np.random.uniform(Config.parameters[2], Config.parameters[3])
-    R_shift = np.random.uniform(Config.parameters[4], Config.parameters[5])
-    signal_length = Config.signal_length
+    M=[]
+    ratio=[]
+    R=[]
+    for j in range(num_sigs):  
+        
+        Mtot = np.random.uniform(Config.parameters[0], Config.parameters[1])
+        M_ratio = np.random.uniform(Config.parameters[2], Config.parameters[3])
+        R_shift = np.random.uniform(Config.parameters[4], Config.parameters[5])
+        signal_length = Config.signal_length
 
-    para = [Mtot, M_ratio, R_shift]
-    freq_ifft = np.arange(Config.f_in, Config.f_out, Config.f_step)
-    f_sf = sf(freq_ifft, para, para_dw, para_dtau)
-    st = Ga.Freq_ifft(f_sf)
+        para = [Mtot, M_ratio, R_shift]
+        freq_ifft = np.arange(Config.f_in, Config.f_out, Config.f_step)
+        f_sf = sf(freq_ifft, para, para_dw, para_dtau)
+        if j==0:
+            st=Ga.Freq_ifft(f_sf)*Config.zoom_factor
+        #给信号进行随机循环
+        elif np.random.rand() > 0.3:
+            
+            shift=np.random.randint(0,signal_length//Config.signal_to_gap_length_ratio//2)
+            
+            st +=np.roll(Ga.Freq_ifft(f_sf)*Config.zoom_factor,shift) 
+            
+        M=np.append(M,Mtot)
+        ratio=np.append(ratio,M_ratio)
+        R=np.append(R,R_shift)
+        paras= [M,ratio, R]
+        
 
     if Noises:
         
         index = int(1/2*len(st))
         st=np.concatenate((st[index:], st[:index]))
-        PSD=PSD_Lisa_no_Response(freq_ifft)
-        out_noise, _ = generate_noise_from_psd(N,freq_ifft,PSD, sample_rate=samp_freq)
+        PSD=psd_interp_func(freq_ifft)
+        out_noise, _ = generate_noise_from_psd(len(st),freq_ifft,PSD, sample_rate=samp_freq)
         
         #print(len(out_noise[0]))
         start1=int(1/2*(len(out_noise[0])-signal_length))
@@ -57,15 +79,15 @@ def generate_single_data(i):
         noise=torch.real(noise)
 
         data=signal+noise
-        return signal,noise,data, torch.tensor([Mtot, M_ratio, R_shift], dtype=torch.float32)
+        return signal,noise,data, torch.tensor(paras, dtype=torch.float32)
 
     else:
         original_signal = st[:signal_length]
         original_signal = torch.tensor(original_signal, dtype=torch.float32)
         original_signal = torch.real(original_signal)
-        return original_signal, torch.tensor([Mtot, M_ratio, R_shift], dtype=torch.float32)
+        return original_signal, torch.tensor(paras, dtype=torch.float32)
 
-def generate_data(num_samples,TEMP_DIR=TEMP_DIR_1, SAVE_PATH=SAVE_PATH_noise):
+def generate_data(num_samples,TEMP_DIR, SAVE_PATH):
    
     """生成指定数量的样本数据，支持断点续传
     
@@ -75,6 +97,8 @@ def generate_data(num_samples,TEMP_DIR=TEMP_DIR_1, SAVE_PATH=SAVE_PATH_noise):
     Returns:
         Tuple: (signals, conditions) 全部样本数据
     """
+    
+
     # 1. 初始化临时目录
     os.makedirs(TEMP_DIR, exist_ok=True)
     
@@ -113,7 +137,7 @@ def generate_data(num_samples,TEMP_DIR=TEMP_DIR_1, SAVE_PATH=SAVE_PATH_noise):
                             condition=condition.numpy()
                         )
                 else:
-                    print('generate data without noise')
+                    print('generate data without noise, SNR=',SNR)
                     for i, (signal, condition) in enumerate(results):
                         # 6. 实时保存每个样本
                         np.savez(

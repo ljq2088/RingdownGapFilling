@@ -20,7 +20,10 @@ def fftfilt(b, x):
     N = N_x + N_b - 1
     
     # 计算滤波器和输入信号的 FFT
-    X = np.fft.fft(x, N)
+    #X = np.fft.rfft(WGN) / np.sqrt(N)
+
+    X = (np.random.randn(N//2 + 1) + 1j * np.random.randn(N//2 + 1)) / np.sqrt(2)
+
     B = np.fft.fft(b, N)
     
     # 乘以滤波器的频率响应
@@ -70,13 +73,15 @@ def generate_noise_from_psd(N, freqVec, psd, sample_rate, num_noises=1,freq_rang
         newFreqVec = np.fft.rfftfreq(N+uneven, d=1.0/sample_rate)
         interpolated_asd = interp_asd(newFreqVec)
         nonSelected_indices = np.where(~ ((newFreqVec> freq_range[0]) & (newFreqVec < freq_range[1])))[0]
-        interpolated_asd[nonSelected_indices] = 1e-30
+        #interpolated_asd[nonSelected_indices] = 1e-30
         # interpolated_asd[interpolated_asd<1e-30] = 1e-30
 
         # Apply the random ASD to create colored noise
         # In order to keep the nSample equal to before
         Y_colored = X * interpolated_asd
-        y_colored = np.fft.irfft(Y_colored).real * np.sqrt(N*sample_rate)
+        #y_colored = np.fft.irfft(Y_colored).real * np.sqrt(N*sample_rate)
+        y_colored = np.fft.irfft(X * interpolated_asd, n=N) * np.sqrt(sample_rate)
+
         if uneven:
             y_colored = y_colored[:-1]
         
@@ -84,3 +89,45 @@ def generate_noise_from_psd(N, freqVec, psd, sample_rate, num_noises=1,freq_rang
         interpolated_asds.append(interpolated_asd)
         
     return noises, interpolated_asds
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import signal
+import h5py
+
+# Load LISA noise data
+LISA_noise_data = h5py.File("/home/ljq/code/Ringdown_gap_filling/Proj/data/LISA_noise.mat", 'r')
+
+# Extract noise data
+nX = np.array(LISA_noise_data['nXVec'][:]).flatten()
+nY = np.array(LISA_noise_data['nYVec'][:]).flatten()
+nZ = np.array(LISA_noise_data['nZVec'][:]).flatten()
+
+# Convert XYZ to A channel (simplified XYZ2AET function)
+noise_A = (nZ - nX)/np.sqrt(2)
+
+# Get sampling frequency
+dt = 15  # assuming 15 seconds based on standard LISA data
+fs = 1/dt
+
+# Calculate PSD using Welch method
+f_noise, psd_noise_A = signal.welch(noise_A, fs, nperseg=2**10)
+# #print(psd_noise_A)
+# # Plot the noise PSD
+# plt.figure(figsize=(8, 5))
+# plt.loglog(f_noise, np.sqrt(psd_noise_A), label='LISA Instrumental Noise (A channel)')
+# plt.xlabel('Frequency (Hz)')
+# plt.ylabel('ASD (1/√Hz)')
+# plt.title('LISA Instrumental Noise PSD')
+# plt.grid(True, which='both', linestyle='--', alpha=0.5)
+# plt.legend()
+# plt.show()
+from scipy.interpolate import interp1d
+
+# 自定义频率数组
+freq = np.arange(0.001, 0.5, 0.001)
+
+# 构建 PSD 插值函数（外推时自动填充极小值）
+psd_interp_func = interp1d(f_noise, psd_noise_A,
+                           kind='linear',
+                           bounds_error=False,
+                           fill_value=1e-40)
