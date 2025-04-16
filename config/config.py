@@ -4,6 +4,7 @@ class Config:
     Sopt=1.5*10**-11
     L=2.5*10**9
     #signal&gap parameters
+    zoom_factor=2e-2
     signal_to_gap_length_ratio = 8
     signal_length=1056
     num_samples = 10000

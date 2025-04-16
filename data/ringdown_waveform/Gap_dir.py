@@ -64,42 +64,49 @@ def PSD_plot(freqency,PSD,signal):
     return 0
 
 
-#这里是将频域的信号，通过一个小trick逆傅里叶变换到纯实的时域波形
-def Freq_ifft(h_f_1):
-    Htilde = h_f_1
-    n = len(h_f_1)
-    N = n*2
-    #构造用于ifft的频谱信号
-    Htilde1 = [0]
-    Htilde2 = Htilde[0:-1]*N/2
-    Htilde3 = Htilde[-1]*N
-    Htilde4 = np.conjugate(Htilde[0:-1])*N/2
-    #将Htilde4数组反转，以使之对于中间点对称
-    Htilde4 = Htilde4[::-1]
+# #这里是将频域的信号，通过一个小trick逆傅里叶变换到纯实的时域波形
+# def Freq_ifft(h_f_1):
+#     Htilde = h_f_1
+#     n = len(h_f_1)
+#     N = n*2
+#     #构造用于ifft的频谱信号
+#     Htilde1 = [0]
+#     Htilde2 = Htilde[0:-1]*N/2
+#     Htilde3 = Htilde[-1]*N
+#     Htilde4 = np.conjugate(Htilde[0:-1])*N/2
+#     #将Htilde4数组反转，以使之对于中间点对称
+#     Htilde4 = Htilde4[::-1]
 
-    #依次赋值每个数据点
-    Htilde_pre = np.zeros(N,dtype=complex)
-    for I in range(n-1):
-        Htilde_pre[I+1] = Htilde2[I]
-    Htilde_pre[n] = Htilde3
-    for I in range(n-1):
-        Htilde_pre[n+I+1] = Htilde4[I]
+#     #依次赋值每个数据点
+#     Htilde_pre = np.zeros(N,dtype=complex)
+#     for I in range(n-1):
+#         Htilde_pre[I+1] = Htilde2[I]
+#     Htilde_pre[n] = Htilde3
+#     for I in range(n-1):
+#         Htilde_pre[n+I+1] = Htilde4[I]
 
-    #逆傅里叶变换
-    htime = np.fft.ifft(Htilde_pre)
+#     #逆傅里叶变换
+#     htime = np.fft.ifft(Htilde_pre)
 
-    #plt.plot(np.real(htime))
-    #plt.plot(np.imag(htime))
-    #plt.xscale('log')
+#     #plt.plot(np.real(htime))
+#     #plt.plot(np.imag(htime))
+#     #plt.xscale('log')
    
-    #plt.show()
+#     #plt.show()
 
-    #plt.plot(np.abs(Htilde_pre))
-    #plt.xscale('log')
-    #plt.yscale('log')
-    #plt.show()
-    return htime
-
+#     #plt.plot(np.abs(Htilde_pre))
+#     #plt.xscale('log')
+#     #plt.yscale('log')
+#     #plt.show()
+#     return htime
+def Freq_ifft(h_f_1):
+    """
+    Perform real IFFT assuming h_f_1 is the one-sided spectrum (rfft output).
+    Automatically infers N such that len(h_f_1) = N // 2 + 1
+    """
+    n_freq = len(h_f_1)
+    N = 2 * (n_freq - 1)  # Recover time-domain length
+    return np.fft.irfft(h_f_1, n=N)
 
 
 '''

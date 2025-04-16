@@ -11,11 +11,12 @@ def visualize_waveform(original_signal, masked_signal, reconstructed_signal, tit
     plt.title(title)
     plt.grid(True)
     plt.show()
-def visualize_waveform_with_noise(original_signal, masked_signal,masked_data, reconstructed_signal, title='Waveform Reconstruction'):
+def visualize_waveform_with_noise(masked_data,original_signal, masked_signal, reconstructed_signal, title='Waveform Reconstruction'):
     plt.figure(figsize=(12, 6))
+    plt.plot(masked_data, 'y-', label='Masked Data')
     plt.plot(original_signal, 'b--', label='Original Signal')
     plt.plot(masked_signal, 'r-', label='Masked Signal (With Gap)')
-    plt.plot(masked_data, 'y-', label='Masked Data')
+    
     plt.plot(reconstructed_signal, 'g-', label='Reconstructed Signal')
     plt.xlabel('Sample Index')
     plt.ylabel('Amplitude')
