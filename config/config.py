@@ -12,6 +12,9 @@ class Config:
     parameters=[1.1e5,1.2e5,0.9,1,4, 6]#Mtot, M_ratio, R_shift
     scale=5e-5
     signal_length_before_whitened=4096
+    #IMR paras
+    parameters_IMR=[0.5,1,1e6,2e6,1e6, 2e6]#Deff,m1,m2
+    signal_length_IMR=10000
     #physical signal parameters
     f_in=1e-5
     f_out=1
