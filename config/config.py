@@ -14,7 +14,9 @@ class Config:
     signal_length_before_whitened=4096
     #IMR paras
     parameters_IMR=[0.5,1,1e6,2e6,1e6, 2e6]#Deff,m1,m2
-    signal_length_IMR=10000
+    signal_length_IMR=16512
+    #segment_length_IMR=256
+    signal_to_gap_length_ratio_IMR = 32
     #physical signal parameters
     f_in=1e-5
     f_out=1
@@ -46,13 +48,18 @@ class Config:
     
     #Segmentation
     segment_length=64
+    segment_length_IMR=256
     overlap=0.5
     num_token=32
+    num_token_IMR=128
     channels=8
+    
     #Embedding
     EMBEDDING_dim=512
+    EMBEDDING_dim_IMR=2048
     #CE
     CEkernel_size = (3, 3)
+    CEkernel_size_IMR=(30,30)
     CEpadding = (1, 1)
     CEout_channels=8
     #ConE

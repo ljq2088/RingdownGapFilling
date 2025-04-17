@@ -9,16 +9,18 @@ import torch
 import math
 device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 class SinusoidalPositionEmbedding(nn.Module):
-    def __init__(self, num_tokens, token_dim, output_dim=Config.EMBEDDING_dim):
+    def __init__(self, num_token=Config.num_token_IMR, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim):
         super(SinusoidalPositionEmbedding, self).__init__()
-        self.embedding_dim = token_dim
+        self.num_token = num_token
+        self.embedding_dim = embedding_dim
+        self.token_dim = token_dim
         
         # 创建正弦位置嵌入矩阵
-        position = torch.arange(0, num_tokens, dtype=torch.float).unsqueeze(1)
-        div_term = torch.exp(torch.arange(0, token_dim, 2).float() * (-math.log(10000.0) / token_dim))
+        position = torch.arange(0, self.num_token, dtype=torch.float).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, self.token_dim, 2).float() * (-math.log(10000.0) / self.token_dim))
         
         # 正弦和余弦函数的嵌入
-        pe = torch.zeros(num_tokens, token_dim)
+        pe = torch.zeros(self.num_token, self.token_dim)
         pe[:, 0::2] = torch.sin(position * div_term)
         pe[:, 1::2] = torch.cos(position * div_term)
         
@@ -26,45 +28,49 @@ class SinusoidalPositionEmbedding(nn.Module):
         self.register_buffer('pe', pe)
         
         # 线性映射层，将正弦位置嵌入映射到 output_dim
-        self.linear = nn.Linear(token_dim, output_dim)
+        self.linear = nn.Linear(self.token_dim, self.embedding_dim)
 
     def forward(self, x):
-        # x 的形状为 (batch_size, channels, num_tokens, embedding_dim)
-        batch_size, channels, num_tokens, embedding_dim = x.shape
+        # x 的形状为 (batch_size, channels, num_token, embedding_dim)
+        batch_size, channels, num_token,token_dim = x.shape
         
         # 扩展位置嵌入的维度以适应输入
-        position_embeds = self.pe[:num_tokens, :].unsqueeze(0).unsqueeze(0)  # 形状 (1, 1, num_tokens, embedding_dim)
-        position_embeds = position_embeds.expand(batch_size, channels, -1, -1)  # 形状 (batch_size, channels, num_tokens, embedding_dim)
+        position_embeds = self.pe[:self.num_token, :].unsqueeze(0).unsqueeze(0)  # 形状 (1, 1, num_token, embedding_dim)
+        position_embeds = position_embeds.expand(batch_size, channels, -1, -1)  # 形状 (batch_size, channels, num_token, embedding_dim)
         
         # 线性映射位置嵌入
-        position_embeds = self.linear(position_embeds)  # 形状变为 (batch_size, channels, num_tokens, output_dim)
+        position_embeds = self.linear(position_embeds)  # 形状变为 (batch_size, channels, num_token, output_dim)
         
         return position_embeds
 
 class TokenEmbedding(nn.Module):
-    def __init__(self, token_dim, embedding_dim=Config.EMBEDDING_dim):
+    def __init__(self, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim):
         super(TokenEmbedding, self).__init__()
+        self.token_dim = token_dim
+        self.embedding_dim = embedding_dim
         # 定义线性层，将 token_dim 映射到 embedding_dim
-        self.linear = nn.Linear(token_dim, embedding_dim)
+        self.linear = nn.Linear(self.token_dim, self.embedding_dim)
     
     def forward(self, x):
-        # x 的形状为 (batch_size, channels, num_tokens, token_dim)
+        # x 的形状为 (batch_size, channels, num_token, token_dim)
         # 我们对最后一维 (token_dim) 进行线性映射
         x = self.linear(x)
-        # 返回形状为 (batch_size, channels, num_tokens, embedding_dim)
+        # 返回形状为 (batch_size, channels, num_token, embedding_dim)
         return x
 
 
 
 class ConvEmbeddingWithLinear(nn.Module):
-    def __init__(self, channels=Config.channels, conv_out_channels=Config.CEout_channels, kernel_size=Config.CEkernel_size, padding=Config.CEpadding, embedding_dim=Config.EMBEDDING_dim):
+    def __init__(self, channels=Config.channels, conv_out_channels=Config.CEout_channels, kernel_size=Config.CEkernel_size, padding=Config.CEpadding, token_dim=Config.segment_length_IMR,embedding_dim=Config.EMBEDDING_dim):
         super(ConvEmbeddingWithLinear, self).__init__()
         self.channels=channels
+        self.token_dim = token_dim
+        self.embedding_dim = embedding_dim
         # 定义 2D 卷积层
         self.conv = nn.Conv2d(in_channels=channels, out_channels=conv_out_channels, kernel_size=kernel_size, padding=padding)
         
         # 定义线性映射层，映射到最终的 embedding_dim
-        self.linear = nn.Linear(Config.segment_length, embedding_dim)
+        self.linear = nn.Linear(self.token_dim, self.embedding_dim)
         
         # 激活函数
         self.relu = nn.ReLU()
@@ -93,9 +99,9 @@ class ConditionMLP(nn.Module):
         super(ConditionMLP, self).__init__()
         # 定义 MLP：输入维度为 input_dim，输出维度为 output_dim
         self.mlp = nn.Sequential(
-            nn.Linear(input_dim, Config.segment_length),  # 第一个线性层，映射到128维
+            nn.Linear(input_dim, Config.segment_length_IMR),  # 第一个线性层，映射到128维
             nn.ReLU(),                  # 激活函数
-            nn.Linear(Config.segment_length, output_dim)   # 映射到目标的 64 维
+            nn.Linear(Config.segment_length_IMR, output_dim)   # 映射到目标的 64 维
         )
 
     def forward(self, x):
@@ -105,7 +111,7 @@ class ConditionMLP(nn.Module):
 
 
 class ConditionConv1D(nn.Module):
-    def __init__(self, input_channels=1, output_channels=Config.num_token):
+    def __init__(self, input_channels=1, output_channels=Config.num_token_IMR):
         super(ConditionConv1D, self).__init__()
         # 定义 1D 卷积层
         # in_channels = 1 表示输入通道数为 1，out_channels = 32 表示输出通道数为 32
@@ -129,13 +135,19 @@ class ConditionConv1D(nn.Module):
 
 
 class Conv2DEMbedding(nn.Module):
-    def __init__(self, in_channels=1, out_channels=Config.channels, token_dim=Config.segment_length, embedding_dim=Config.EMBEDDING_dim, kernel_size=Config.ConEkernel_size, padding=Config.ConEpadding):
+    def __init__(self, in_channels=1, out_channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim, kernel_size=Config.ConEkernel_size, padding=Config.ConEpadding):
         super(Conv2DEMbedding, self).__init__()
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+        self.token_dim = token_dim
+        self.embedding_dim = embedding_dim
+        self.kernel_size = kernel_size
+        self.padding = padding
         # 定义 2D 卷积层
         # Conv2d: in_channels=1, out_channels=8, kernel_size=3x3, padding=1 保持输入的空间维度不变
-        self.conv2d = nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size, padding=padding)
+        self.conv2d = nn.Conv2d(in_channels=self.in_channels, out_channels=self.out_channels, kernel_size=self.kernel_size, padding=self.padding)
         self.relu = nn.ReLU()
-        self.linear = nn.Linear(token_dim, embedding_dim)
+        self.linear = nn.Linear(self.token_dim, self.embedding_dim)
 
     def forward(self, x):
         # 输入 x 的形状为 (batch_size, 32, 64)
@@ -167,15 +179,23 @@ class ConditionEmbedding(nn.Module):
 
         return x    
 class TotalEmbedding(nn.Module):
-    def __init__(self, token_dim, embedding_dim, conv_channels, conv_out_channels, num_tokens, dropout_p=0.1):
+    def __init__(self, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim, conv_channels=Config.channels, conv_out_channels=Config.channels,num_token=Config.num_token_IMR,kernel_size=Config.CEkernel_size_IMR, dropout_p=Config.dropout):
         super(TotalEmbedding, self).__init__()
+        self.token_dim = token_dim
+        self.embedding_dim = embedding_dim
+        self.conv_channels = conv_channels
+        self.conv_out_channels = conv_out_channels
+        self.num_token = num_token
+        self.kernel_size = kernel_size
+       
+        self.dropout_p = dropout_p
         # 初始化各个嵌入模块
-        self.token_embedding = TokenEmbedding(token_dim, embedding_dim)
-        self.conv_embedding = ConvEmbeddingWithLinear(conv_channels, conv_out_channels, embedding_dim=embedding_dim)
-        self.position_embedding = SinusoidalPositionEmbedding(num_tokens, embedding_dim)
+        self.token_embedding = TokenEmbedding(self.token_dim, self.embedding_dim)
+        self.conv_embedding = ConvEmbeddingWithLinear(self.conv_channels, self.conv_out_channels, embedding_dim=self.embedding_dim)
+        self.position_embedding = SinusoidalPositionEmbedding(self.num_token, self.embedding_dim)
         #self.condition_embedding=ConditionEmbedding()
         # 2D 卷积层，用于之后的卷积操作
-        self.conv2d = nn.Conv2d(in_channels=conv_channels, out_channels=conv_channels, kernel_size=(3, 3), padding=1)
+        self.conv2d = nn.Conv2d(in_channels=self.conv_channels, out_channels=self.conv_channels, kernel_size=self.kernel_size, padding=1)
         
         # 激活函数 GeLU
         self.gelu = nn.GELU()
@@ -206,23 +226,27 @@ class TotalEmbedding(nn.Module):
 class TransformerEncoderLayerWithChannels(nn.Module):
     def __init__(self, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, dim_feedforward=Config.FF_dim, dropout=Config.dropout):
         super(TransformerEncoderLayerWithChannels, self).__init__()
-        
+        self.embedding_dim = embedding_dim 
+        self.num_heads = num_heads
+        self.dim_feedforward = dim_feedforward  
+        self.dropout = dropout
+        # 定义多头自注意力机制
         # Multi-head Self-Attention
-        self.self_attn = nn.MultiheadAttention(embed_dim=embedding_dim, num_heads=num_heads, dropout=dropout)
+        self.self_attn = nn.MultiheadAttention(embed_dim=self.embedding_dim, num_heads=self.num_heads, dropout=self.dropout)
         
         # Feedforward Network
         self.feedforward = nn.Sequential(
-            nn.Linear(embedding_dim, dim_feedforward),
+            nn.Linear(self.embedding_dim, self.dim_feedforward),
             nn.ReLU(),
-            nn.Linear(dim_feedforward, embedding_dim),
+            nn.Linear(self.dim_feedforward, self.embedding_dim),
         )
         
         # Layer Normalization
-        self.norm1 = nn.LayerNorm(embedding_dim)
-        self.norm2 = nn.LayerNorm(embedding_dim)
+        self.norm1 = nn.LayerNorm(self.embedding_dim)
+        self.norm2 = nn.LayerNorm(self.embedding_dim)
         
         # Dropout
-        self.dropout = nn.Dropout(dropout)
+        self.dropout = nn.Dropout(self.dropout)
 
     def forward(self, src):
         # src 的形状为 (batch_size, channels, num_tokens, embedding_dim)
@@ -261,9 +285,14 @@ class TransformerEncoderLayerWithChannels(nn.Module):
         return outputs
 
 class TransformerEncoder(nn.Module):
-    def __init__(self, embedding_dim, num_heads, num_layers=Config.num_layers_T, dim_feedforward=Config.FF_dim, dropout=Config.dropout):
+    def __init__(self, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dim_feedforward=Config.FF_dim, dropout=Config.dropout):
         super(TransformerEncoder, self).__init__()
-        self.layers = nn.ModuleList([TransformerEncoderLayerWithChannels(embedding_dim, num_heads, dim_feedforward, dropout) for _ in range(num_layers)])
+        self.embedding_dim = embedding_dim
+        self.num_heads = num_heads
+        self.num_layers = num_layers
+        self.dim_feedforward = dim_feedforward
+        self.dropout = dropout
+        self.layers = nn.ModuleList([TransformerEncoderLayerWithChannels(self.embedding_dim, self.num_heads, self.dim_feedforward, self.dropout) for _ in range(self.num_layers)])
 
     def forward(self, x):
         for layer in self.layers:
@@ -271,14 +300,21 @@ class TransformerEncoder(nn.Module):
         return x
 
 class Encoder(nn.Module):
-    def __init__(self, channels=Config.channels, token_dim=Config.segment_length, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dropout=Config.dropout):
+    def __init__(self, channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dropout=Config.dropout):
         super(Encoder, self).__init__()
+        self.channels = channels
+        self.token_dim = token_dim
+        self.embedding_dim = embedding_dim
+        self.num_heads = num_heads
+        self.num_layers = num_layers
+        self.dropout = dropout
+        # 初始化各个嵌入模块
         #self.token_embedding = TokenEmbedding(token_dim, embedding_dim)
         #self.conv_embedding = ConvEmbeddingWithLinear(channels, token_dim, embedding_dim=embedding_dim)
         #self.position_embedding = SinusoidalPositionEmbedding(Config.num_token, token_dim, embedding_dim)
-        self.totalembedding=TotalEmbedding(token_dim, embedding_dim, channels, channels, Config.num_token, Config.dropout)
-        self.transformer = TransformerEncoder(embedding_dim=embedding_dim, num_heads=num_heads, num_layers=num_layers, dropout=dropout)
-        self.dropout = nn.Dropout(dropout)
+        self.totalembedding=TotalEmbedding()
+        self.transformer = TransformerEncoder()
+        self.dropout = nn.Dropout(self.dropout)
         self.gelu = nn.GELU()
 
     def forward(self, x):
@@ -286,21 +322,25 @@ class Encoder(nn.Module):
         RF=self.totalembedding(x)
         
         # Transformer Encoder
-        output = self.transformer(RF)
+        output = self.transformer(RF)# (batch_size, channels, num_tokens, embedding_dim)
         
         return output
 
 class MLP(nn.Module):
     def __init__(self, input_dim=Config.EMBEDDING_dim, hidden_dim=Config.h_dim_MLP, output_dim=Config.EMBEDDING_dim):
         super(MLP, self).__init__()
+        self.input_dim = input_dim
+        self.hidden_dim = hidden_dim
+        self.output_dim = output_dim
+        # 定义两层全连接层
         # 两层全连接层
         # print(input_dim)
         # print(f"input_dim: {input_dim}, type: {type(input_dim)}")
         # print(f"hidden_dim: {hidden_dim}, type: {type(hidden_dim)}")
         
-        self.fc1 = nn.Linear(input_dim, hidden_dim)  # 第一层
+        self.fc1 = nn.Linear(self.input_dim, self.hidden_dim)  # 第一层
         self.relu = nn.ReLU()  # 激活函数
-        self.fc2 = nn.Linear(hidden_dim, output_dim)  # 第二层，将输出维度映射到 64
+        self.fc2 = nn.Linear(self.hidden_dim, self.output_dim)  # 第二层，将输出维度映射到 64
 
     def forward(self, x):
         # 形状: (batch_size, channels, num_tokens, embedding_dim)
@@ -325,7 +365,7 @@ class InverseTokenEmbedding(nn.Module):
 
     def forward(self, x):
         return self.inverse_linear(x)
-def combine_segments(segments, segment_length=Config.segment_length, signal_length=Config.signal_length, overlap=Config.overlap):
+def combine_segments(segments, segment_length=Config.segment_length_IMR, signal_length=Config.signal_length_IMR, overlap=Config.overlap):
     """
     将分段的信号重新组合为原始信号，并处理重叠部分。
     
@@ -365,8 +405,12 @@ def combine_segments(segments, segment_length=Config.segment_length, signal_leng
 
     return output
 class ChannelMerger(nn.Module):
-    def __init__(self, input_channels=Config.channels, output_channels=1, signal_length=Config.signal_length):
+    def __init__(self, input_channels=Config.channels, output_channels=1, signal_length=Config.signal_length_IMR):
         super(ChannelMerger, self).__init__()
+        # 输入信号的通道数和输出信号的通道数
+        self.input_channels = input_channels
+        self.output_channels = output_channels
+        self.signal_length = signal_length
         # 定义 Conv1d 卷积层，将输入 8 个通道的信号变换为 1 个输出信号
         # kernel_size=3, padding=1 用于保持输入输出信号长度不变
         self.conv1d = nn.Conv1d(in_channels=input_channels, out_channels=output_channels, kernel_size=3, padding=1)
@@ -407,7 +451,7 @@ class Decoder(nn.Module):
         x = self.inverse_token_embedding(x)  # 逆 Token Embedding 输出形状为 (16, 8, 32, 64)
 
         # Step 3: Segment 拼接，将分段信号重新组合成 (16, 8, 1056)
-        x = combine_segments(x, segment_length=64, signal_length=1056, overlap=0.5)  # 拼接后形状为 (16, 8, 1056)
+        x = combine_segments(x, segment_length=Config.segment_length_IMR, signal_length=Config.signal_length_IMR, overlap=0.5)  # 拼接后形状为 (16, 8, 1056)
 
         # Step 4: 将 8 个通道的信号重建为 1 个通道
         x = self.CM(x)  # 小波逆变换后形状为 (16, 1, 1056)
@@ -415,9 +459,9 @@ class Decoder(nn.Module):
         return x
 
 
-class MaskedConditionalGapFiller(nn.Module):
-    def __init__(self, channels=Config.channels, token_dim=Config.segment_length, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dropout=Config.dropout):
-        super(MaskedConditionalGapFiller, self).__init__()
+class IMRGapsFiller(nn.Module):
+    def __init__(self, channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dropout=Config.dropout):
+        super(IMRGapsFiller, self).__init__()
         self.encoder = Encoder(channels, token_dim, embedding_dim, num_heads, num_layers, dropout)
         token_embedding_instance = self.encoder.totalembedding.token_embedding
         self.inverse_token_embedding = InverseTokenEmbedding(token_embedding_instance)

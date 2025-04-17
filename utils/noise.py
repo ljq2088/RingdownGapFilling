@@ -95,7 +95,7 @@ from scipy import signal
 import h5py
 
 # Load LISA noise data
-LISA_noise_data = h5py.File("/home/ljq/code/Ringdown_gap_filling/Proj/data/LISA_noise.mat", 'r')
+LISA_noise_data = h5py.File("/home/ljq/code/RingdownGapFilling/data/LISA_noise.mat", 'r')
 
 # Extract noise data
 nX = np.array(LISA_noise_data['nXVec'][:]).flatten()
