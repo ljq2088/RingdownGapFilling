@@ -59,7 +59,7 @@ class Config:
     EMBEDDING_dim_IMR=2048
     #CE
     CEkernel_size = (3, 3)
-    CEkernel_size_IMR=(30,30)
+    CEkernel_size_IMR=(3,3)
     CEpadding = (1, 1)
     CEout_channels=8
     #ConE

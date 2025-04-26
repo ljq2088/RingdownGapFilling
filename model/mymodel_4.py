@@ -9,7 +9,7 @@ import torch
 import math
 device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 class SinusoidalPositionEmbedding(nn.Module):
-    def __init__(self, num_token=Config.num_token_IMR, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim):
+    def __init__(self, num_token=Config.num_token_IMR, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim_IMR):
         super(SinusoidalPositionEmbedding, self).__init__()
         self.num_token = num_token
         self.embedding_dim = embedding_dim
@@ -44,7 +44,7 @@ class SinusoidalPositionEmbedding(nn.Module):
         return position_embeds
 
 class TokenEmbedding(nn.Module):
-    def __init__(self, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim):
+    def __init__(self, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim_IMR):
         super(TokenEmbedding, self).__init__()
         self.token_dim = token_dim
         self.embedding_dim = embedding_dim
@@ -61,7 +61,7 @@ class TokenEmbedding(nn.Module):
 
 
 class ConvEmbeddingWithLinear(nn.Module):
-    def __init__(self, channels=Config.channels, conv_out_channels=Config.CEout_channels, kernel_size=Config.CEkernel_size, padding=Config.CEpadding, token_dim=Config.segment_length_IMR,embedding_dim=Config.EMBEDDING_dim):
+    def __init__(self, channels=Config.channels, conv_out_channels=Config.CEout_channels, kernel_size=Config.CEkernel_size, padding=Config.CEpadding, token_dim=Config.segment_length_IMR,embedding_dim=Config.EMBEDDING_dim_IMR):
         super(ConvEmbeddingWithLinear, self).__init__()
         self.channels=channels
         self.token_dim = token_dim
@@ -95,7 +95,7 @@ class ConvEmbeddingWithLinear(nn.Module):
         return embedding
 
 class ConditionMLP(nn.Module):
-    def __init__(self, input_dim, output_dim=Config.EMBEDDING_dim):
+    def __init__(self, input_dim, output_dim=Config.EMBEDDING_dim_IMR):
         super(ConditionMLP, self).__init__()
         # 定义 MLP：输入维度为 input_dim，输出维度为 output_dim
         self.mlp = nn.Sequential(
@@ -135,7 +135,7 @@ class ConditionConv1D(nn.Module):
 
 
 class Conv2DEMbedding(nn.Module):
-    def __init__(self, in_channels=1, out_channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim, kernel_size=Config.ConEkernel_size, padding=Config.ConEpadding):
+    def __init__(self, in_channels=1, out_channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim_IMR, kernel_size=Config.ConEkernel_size, padding=Config.ConEpadding):
         super(Conv2DEMbedding, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -179,7 +179,7 @@ class ConditionEmbedding(nn.Module):
 
         return x    
 class TotalEmbedding(nn.Module):
-    def __init__(self, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim, conv_channels=Config.channels, conv_out_channels=Config.channels,num_token=Config.num_token_IMR,kernel_size=Config.CEkernel_size_IMR, dropout_p=Config.dropout):
+    def __init__(self, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim_IMR, conv_channels=Config.channels, conv_out_channels=Config.channels,num_token=Config.num_token_IMR,kernel_size=Config.CEkernel_size_IMR, dropout_p=Config.dropout):
         super(TotalEmbedding, self).__init__()
         self.token_dim = token_dim
         self.embedding_dim = embedding_dim
@@ -205,9 +205,12 @@ class TotalEmbedding(nn.Module):
 
     def forward(self, x):
         # 计算 Token Embedding, Convolutional Embedding, Position Embedding
+        
         token_embed = self.token_embedding(x)
+        
         conv_embed = self.conv_embedding(x)
         position_embed = self.position_embedding(x)
+      
         #condition_embed=self.condition_embedding(x)
        
 
@@ -217,6 +220,7 @@ class TotalEmbedding(nn.Module):
         # 进行 2D 卷积并加上残差连接
         conv_out = self.conv2d(DF)  # 卷积操作
         conv_out = self.gelu(conv_out)  # GeLU 激活
+        
         DF_with_conv = DF + conv_out  # 残差项
         
         # Dropout 操作
@@ -224,7 +228,7 @@ class TotalEmbedding(nn.Module):
         
         return RF
 class TransformerEncoderLayerWithChannels(nn.Module):
-    def __init__(self, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, dim_feedforward=Config.FF_dim, dropout=Config.dropout):
+    def __init__(self, embedding_dim=Config.EMBEDDING_dim_IMR, num_heads=Config.num_heads, dim_feedforward=Config.FF_dim, dropout=Config.dropout):
         super(TransformerEncoderLayerWithChannels, self).__init__()
         self.embedding_dim = embedding_dim 
         self.num_heads = num_heads
@@ -285,7 +289,7 @@ class TransformerEncoderLayerWithChannels(nn.Module):
         return outputs
 
 class TransformerEncoder(nn.Module):
-    def __init__(self, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dim_feedforward=Config.FF_dim, dropout=Config.dropout):
+    def __init__(self, embedding_dim=Config.EMBEDDING_dim_IMR, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dim_feedforward=Config.FF_dim, dropout=Config.dropout):
         super(TransformerEncoder, self).__init__()
         self.embedding_dim = embedding_dim
         self.num_heads = num_heads
@@ -300,7 +304,7 @@ class TransformerEncoder(nn.Module):
         return x
 
 class Encoder(nn.Module):
-    def __init__(self, channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dropout=Config.dropout):
+    def __init__(self, channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim_IMR, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dropout=Config.dropout):
         super(Encoder, self).__init__()
         self.channels = channels
         self.token_dim = token_dim
@@ -327,7 +331,7 @@ class Encoder(nn.Module):
         return output
 
 class MLP(nn.Module):
-    def __init__(self, input_dim=Config.EMBEDDING_dim, hidden_dim=Config.h_dim_MLP, output_dim=Config.EMBEDDING_dim):
+    def __init__(self, input_dim=Config.EMBEDDING_dim_IMR, hidden_dim=Config.h_dim_MLP, output_dim=Config.EMBEDDING_dim_IMR):
         super(MLP, self).__init__()
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
@@ -460,7 +464,7 @@ class Decoder(nn.Module):
 
 
 class IMRGapsFiller(nn.Module):
-    def __init__(self, channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dropout=Config.dropout):
+    def __init__(self, channels=Config.channels, token_dim=Config.segment_length_IMR, embedding_dim=Config.EMBEDDING_dim_IMR, num_heads=Config.num_heads, num_layers=Config.num_layers_T, dropout=Config.dropout):
         super(IMRGapsFiller, self).__init__()
         self.encoder = Encoder(channels, token_dim, embedding_dim, num_heads, num_layers, dropout)
         token_embedding_instance = self.encoder.totalembedding.token_embedding

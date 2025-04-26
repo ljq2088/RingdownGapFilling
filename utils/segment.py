@@ -5,7 +5,7 @@ from utils.wavelet import wavelet_bandpass
 from config.config import Config
 
 
-def segment_signal(transformed_signals, segment_length=Config.segment_length, overlap=Config.overlap):
+def segment_signal(transformed_signals, segment_length=Config.segment_length_IMR, overlap=Config.overlap):
     segmented_signals = []
     step_size = int(segment_length * (1 - overlap))
 
