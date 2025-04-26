@@ -1,0 +1,4 @@
+*.npz
+*.mat
+*.pth
+*.pt

@@ -1,14 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-    
-import numpy as np
-import matplotlib.pyplot as plt
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.signal import firwin
-from scipy.fft import ifft, ifftshift
-from scipy.signal import butter, filtfilt
-from scipy.signal.windows import tukey
 plt.rcParams['agg.path.chunksize'] = 10000
 # Bunch of units
 
@@ -243,71 +234,7 @@ def h_model(Deff,m1,m2,fmin):
     n_f = len(freq_bin)  
     pars = [logMchirp,eta,beta,Deff]
     h_f = htilde(freq_bin,eps_GR,pars)
-    return (freq_bin,h_f)
-
-
-
-def h_t(data):
-    freq,h_f = data
-
-    # ------------------------ 假设已有的正频谱数据 ------------------------
-    # h_f: 复数数组，代表正频率范围内的频谱数据（包括 DC 分量和最高频分量）
-    # freq: 与 h_f 对应的频率数组，单位 Hz，递增排列
-    # 下面示例中，我们假设 h_f 和 freq 已由其它程序生成，这里只做处理示例。
-    # 请确保 h_f 和 freq 的长度一致。
-
-    # 例如（注：这只是示例数据，请替换成你自己的数据）：
-    # N_orig = 1000
-    # freq = np.linspace(0, 50, N_orig)  # 频率从 0 Hz 到 50 Hz
-    # h_f = np.random.randn(N_orig) + 1j*np.random.randn(N_orig)
-
-    # ------------------------ 1. 平滑频域截断 ------------------------
-    # 为减少频谱在高频端的硬截断导致的时域振铃，我们对频谱施加一个余弦窗。
-    # 设定平滑截止起始频率和截止频率（一般取正频谱中最后一段，即高频部分）
-    f_taper_start = 0.8 * freq[-1]  # 从最高频的 80% 开始平滑
-    f_taper_end   = freq[-1]        # 最高频处窗函数值应为 0
-
-    # 构造窗函数: 当 f < f_taper_start 时窗函数值为 1；在 [f_taper_start, f_taper_end] 内由 1 平滑过渡到 0
-    W = np.ones_like(freq)
-    mask = (freq >= f_taper_start) & (freq <= f_taper_end)
-    # 余弦窗公式：W = 0.5*(1 + cos(pi*(f - f_taper_start)/(f_taper_end - f_taper_start)))
-    W[mask] = 0.5 * (1 + np.cos(np.pi * (freq[mask] - f_taper_start) / (f_taper_end - f_taper_start)))
-    # 对于 freq > f_taper_end（通常最高点），W 设为 0
-    W[freq > f_taper_end] = 0.0
-
-    # 将窗函数应用到频谱数据上
-    h_f_smoothed = h_f * W
-
-    # ------------------------ 2. 零填充 ------------------------
-    # 为提高时域分辨率（或延长时域信号长度），我们对正频谱进行零填充。
-    # 设定零填充因子 pad_factor（例如 2 表示扩展到原来的两倍正频谱长度）。
-    pad_factor = 2
-    # 原正频谱点数 (包含 DC 和最高频分量)
-    N_pos = len(h_f_smoothed)
-    # 对于实值时域信号，FFT 结果（全谱）应满足：正频谱长度 = N_total/2 + 1，其中 N_total 为时域采样点数
-    # 因此，新的正频谱长度为：
-    N_pos_new = pad_factor * (N_pos - 1) + 1
-    # 需要填充的零数目：
-    zero_pad_length = N_pos_new - N_pos
-    # 在频谱末尾追加零（注意数据类型为复数）
-    h_f_padded = np.concatenate([h_f_smoothed, np.zeros(zero_pad_length, dtype=complex)])
-
-    # ------------------------ 3. 构造共轭对称频谱 ------------------------
-    # 对于实值时域信号，其 FFT 必须满足共轭对称：H[-k] = conjugate(H[k])
-    # 已有的正频谱（经过 zero padding）的长度为 N_pos_new，对应的全谱长度应为：
-    N_total = 2 * (N_pos_new - 1)
-    #
-    # 构造负频部分：取正频谱中除 DC 和奈奎斯特分量外（即 h_f_padded[1:-1]）的共轭倒序
-    H_neg = h_f_padded[1:-1].conjugate()[::-1]
-    # 合并正负频谱，构成完整的频谱
-    H_full = np.concatenate([h_f_padded, H_neg])
-
-    # ------------------------ 4. 逆傅里叶变换得到时域波形 ------------------------
-    # 对完整频谱进行逆 FFT，得到时域信号
-    h_time = np.fft.ifft(H_full)
-    # 理论上结果应为实数，由于数值误差可取实部
-    h_time = np.real(h_time)
-    return h_time
-
+    return freq_bin,h_f
+    
 
     

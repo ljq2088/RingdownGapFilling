@@ -131,7 +131,7 @@ def tau33(m,a):
 
 # hst = hpt * antenna_plus + hct * antenna_cross
 
-def hst(time_array,logM,r,a,v,phi=0,x=np.pi,theta=0,psi=np.pi/3,phi0=np.pi):
+def hst(time_array,M_tot,DL,a,v,phi=0,x=np.pi,theta=0,psi=np.pi/3,phi0=np.pi):
     """
     计算 hst 的函数
     time_array: 时间序列
@@ -143,8 +143,8 @@ def hst(time_array,logM,r,a,v,phi=0,x=np.pi,theta=0,psi=np.pi/3,phi0=np.pi):
     返回 hst 数组
     """
     
-    M = (10**logM)*Ms          
-    DL = r*1e9*pc               
+    M = M_tot*Ms          
+    r = DL*1e9*pc               
     dM =0               
     dr = 0  
     # 模式参数：对两个模式(1)和(3)  即22和33
@@ -165,7 +165,7 @@ def hst(time_array,logM,r,a,v,phi=0,x=np.pi,theta=0,psi=np.pi/3,phi0=np.pi):
     Yc[1] = np.sqrt(5/(4*np.pi)) * np.cos(x)
     Yc[3] = - np.sqrt(21/(8*np.pi)) * np.cos(x) * np.sin(x)
     # ----------------------------
-    prefactor = cG * (M * (1 + dM)) / (c**2 * DL * (1 + dr))   
+    prefactor = cG * (M * (1 + dM)) / (c**2 * r * (1 + dr))   
     # ----------------------------
     # 时间参数，t为序列输入
     t= time_array

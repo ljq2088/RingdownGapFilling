@@ -1,4 +1,0 @@
-name: gw_env
-channels:
-  - defaults
-prefix: /home/ljq/miniconda3/envs/gw_env
