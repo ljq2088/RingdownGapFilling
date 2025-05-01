@@ -1,0 +1,17 @@
+# 忽略模型和权重文件
+*.pt
+*.pth
+*.npz
+
+# 如果你还有其他中间结果文件（如 TensorBoard 日志）
+*.ckpt
+*.onnx
+*.log
+*.tfevents*
+
+# 忽略 Conda/Mamba 环境缓存
+.env/
+.venv/
+__pycache__/
+*.pyc
+
