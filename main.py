@@ -15,7 +15,7 @@ import torch.optim as optim
 import numpy as np
 from utils.mask import generate_continuous_mask
 from utils.wavelet import wavelet_bandpass
-from utils.segment import segment_signal
+from utils.segment import segment_signal_IMR
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # def estimate_physical_parameters(signal):
 #     """
@@ -114,11 +114,11 @@ i=0
 for signal, masked_signal in zip(signals, masked_signals):
     # 对原始信号进行小波变换和分段
     transformed_signal = wavelet_bandpass(signal)
-    segmented_signal = segment_signal(transformed_signal)
+    segmented_signal = segment_signal_IMR(transformed_signal)
 
     # 对掩码信号进行小波变换和分段
     transformed_masked_signal = wavelet_bandpass(masked_signal)
-    segmented_masked_signal = segment_signal(transformed_masked_signal)
+    segmented_masked_signal = segment_signal_IMR(transformed_masked_signal)
 
     processed_signals.append(segmented_signal)
     processed_masked_signals.append(segmented_masked_signal)
