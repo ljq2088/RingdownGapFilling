@@ -26,7 +26,7 @@ samp_freq=Config.samp_freq
 N=round(samp_freq/Config.f_step)
 time_vec=1/samp_freq*np.arange(0,N,1)
 Noises=True
-num_sigs=3
+num_sigs=1
 SNR=5
 
 def generate_single_data(i):
@@ -68,7 +68,7 @@ def generate_single_data(i):
         
         #print(len(out_noise[0]))
         start1=int(1/2*(len(out_noise[0])-signal_length))
-        start2=int(1/2*(len(st)-signal_length))
+        start2=int(1/2*(len(st)-signal_length))+np.random.randint(0,signal_length//Config.signal_to_gap_length_ratio)-signal_length//Config.signal_to_gap_length_ratio//2
         #print(len(out_noise[0][start:start+signal_length]))
         signal = st[start2:start2+signal_length]
         signal=torch.tensor(signal)
@@ -171,7 +171,7 @@ def combine_data(TEMP_DIR=TEMP_DIR_1, SAVE_PATH=SAVE_PATH_1):
                 signals.append(torch.tensor(data['signal']))
                 noises.append(torch.tensor(data['noise']))
                 datas.append(torch.tensor(data['data']))
-                conditions.append(torch.tensor(data['condition']))
+                conditions.append(data['condition'].clone().detach())
             
             # 合并数据
             signals = torch.stack(signals)

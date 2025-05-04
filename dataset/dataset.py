@@ -2,7 +2,8 @@ import torch
 from torch.utils.data import Dataset
 from config.config import Config
 from utils.wavelet import wavelet_bandpass
-
+import numpy as np
+import tqdm._tqdm_notebook as tqdm
 # class GWSignalDataset(Dataset):
 #     def __init__(self, signals,  conditions):
 #         self.signals = signals 
@@ -102,6 +103,72 @@ class GWSignalDataset(Dataset):
             self.pro_masked_signals[idx],
             self.conditions[idx]
         )
+
+class QSpecDataset(Dataset):
+    def __init__(self, qt):
+        self.qt = self._ensure_tensor(qt)
+        self.total_len = len(self.qt)  # 获取数据集的总长度
+    
+    def __len__(self):
+        return len(self.qt)
+    
+    def _ensure_tensor(self, data) -> torch.Tensor:
+        """将输入转换为张量，支持列表、NumPy数组或已存在的张量"""
+        if not isinstance(data, torch.Tensor):
+            try:
+                # 转换时保留原始数据类型（若需调整类型，可在此指定 dtype）
+                if isinstance(data, list):
+                    data = np.array(data)
+                tensor = torch.as_tensor(data)
+                return tensor
+            except Exception as e:
+                raise ValueError(f"数据无法转换为张量: {type(data)} -> {e}")
+        return data
+
+    def _to_cpu(self):
+        """确保所有张量位于CPU（避免混用GPU张量）"""
+        self.qt = self.qt.cpu()
+
+    def __getitem__(self, idx):
+        # 每次读取一个数据项时，打印进度
+        # if idx % (self.total_len // 10) == 0:  # 每读取 10% 数据时显示一次进度
+        #     print(f"加载数据进度: {idx}/{self.total_len}")
+        
+        return self.qt[idx]
+
+# 示例使用 tqdm 进行进度条显示
+# 数据集的总长度由 Dataset 中的 len() 提供
+def load_data_with_progress(dataset):
+    # 使用 tqdm 显示进度条
+    for idx in tqdm(range(len(dataset))):
+        dataset[idx]
+
+class CombinedDataset(Dataset):
+    def __init__(self, dataset1, dataset2):
+        self.dataset1 = dataset1  # 第一个数据集
+        self.dataset2 = dataset2  # 第二个数据集
+
+    def __getitem__(self, idx):
+        # 从第一个数据集获取数据
+        signals, pro_signals, pro_masked_signals, conditions = self.dataset1[idx]
+        
+        # 从第二个数据集获取数据
+        qt = self.dataset2[idx]
+        
+        # 返回组合的数据：包括 signals, pro_signals, pro_masked_signals, conditions 和 qt
+        return (
+            signals, 
+            pro_signals, 
+            pro_masked_signals, 
+            conditions, 
+            qt
+        )
+        
+    def __len__(self):
+        return len(self.dataset1)  # 假设两个数据集长度相同
+
+
+
 class GWSignalWithNoiseDataset(Dataset):
     def __init__(self, signals,pro_signals,pro_masked_signals,pro_masked_datas, conditions):
         """
@@ -134,6 +201,7 @@ class GWSignalWithNoiseDataset(Dataset):
             torch.tensor(pro_masked_datas, dtype=torch.float32),
             torch.tensor(condition, dtype=torch.float32)
         )
+    
 class GWSignalDatasetForDecomposition(Dataset):
     def __init__(self, signals,pro_signals,signals_22,signals_21,signals_33,signals_44, conditions):
         """

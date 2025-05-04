@@ -1,6 +1,6 @@
 import torch
 from config.config import Config
-def generate_continuous_mask(batch_size, signal_length,gap_size,start=0):
+def generate_continuous_mask(batch_size, signal_length,gap_size,start):
     """
     为每个批次中的信号生成一个在随机位置的连续布尔类型掩码。
 
@@ -19,10 +19,10 @@ def generate_continuous_mask(batch_size, signal_length,gap_size,start=0):
     #gap_start = torch.randint(0, signal_length - (Config.signal_to_gap_length_ratio-2)*gap_size + 1, (batch_size,))
 
     for i in range(batch_size):
-        gap_start = torch.randint(start, start+1*gap_size + 1, (batch_size,))
+        gap_start = torch.randint(start, start+gap_size , (batch_size,))
         masks[i, gap_start[i]:gap_start[i] + gap_size] = False  # 将连续的部分设为False
 
-    return masks#,gap_start
+    return masks
 
 
 def generate_continuous_mask_with_noise(batch_size, total_length,signal_length,gap_size):

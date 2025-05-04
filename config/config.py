@@ -9,7 +9,7 @@ class Config:
     signal_length=1056
     num_samples = 10000
     samp_freq=2
-    parameters=[1.1e5,1.2e5,0.9,1,4, 6]#Mtot, M_ratio, R_shift
+    parameters=[1e5,2e5,0.8,1,4, 6]#Mtot, M_ratio, R_shift
     scale=5e-5
     signal_length_before_whitened=4096
     #IMR paras
@@ -50,7 +50,7 @@ class Config:
     num_token=32
     channels=8
     #Embedding
-    EMBEDDING_dim=512
+    EMBEDDING_dim=32
     #CE
     CEkernel_size = (3, 3)
     CEpadding = (1, 1)
