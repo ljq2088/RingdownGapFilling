@@ -22,7 +22,7 @@ class Config:
     f_out=1
     f_step=1e-5
     #training parameters
-    batch_size = 16
+    batch_size = 8
     num_epochs = 200
     learning_rate = 1e-4
     dropout=0.1
@@ -45,7 +45,9 @@ class Config:
     hidden_dim_E=[8*condition_dim,1028,256,64]#第一个是LSTM的维度
     
     hidden_dim_D=[48,8*condition_dim,64,128,256,64]#第一个是Attention的维度,最后一个是LSTM的维度
-    
+    #Pool
+    Pooling_dim_IMR=128
+
     #Segmentation
     segment_length=64
     segment_length_IMR=256
@@ -56,10 +58,10 @@ class Config:
     
     #Embedding
     EMBEDDING_dim=512
-    EMBEDDING_dim_IMR=2048
+    EMBEDDING_dim_IMR=128
     #CE
     CEkernel_size = (3, 3)
-    CEkernel_size_IMR=(30,30)
+    CEkernel_size_IMR=(3,3)
     CEpadding = (1, 1)
     CEout_channels=8
     #ConE

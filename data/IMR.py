@@ -243,6 +243,9 @@ def h_model(Deff,m1,m2,fmin):
     n_f = len(freq_bin)  
     pars = [logMchirp,eta,beta,Deff]
     h_f = htilde(freq_bin,eps_GR,pars)
+    # print(f"Deff={Deff}, m1={m1}, m2={m2}")
+    # print(f"→ Mchirp={M_chirp:.2e}, eta={eta:.2f}, f_max={f_max:.2e}, t_max={t_max:.2e}")
+    # print(f"→ t.shape={t.shape}, freq_bin.shape={freq_bin.shape}")
     return (freq_bin,h_f)
 
 

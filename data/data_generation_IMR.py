@@ -93,72 +93,130 @@ def generate_single_data(i):
     original_signal = st
     original_signal = torch.tensor(original_signal, dtype=torch.float32)
     original_signal = torch.real(original_signal)
-    return original_signal, torch.tensor(paras, dtype=torch.float32)
-def generate_data(num_samples,TEMP_DIR, SAVE_PATH):
+    paras_np = np.array([Deff,m1,m2], dtype=np.float32)
+    return original_signal, torch.tensor(paras_np)
+# def generate_data(num_samples,TEMP_DIR, SAVE_PATH):
    
-    """生成指定数量的样本数据，支持断点续传
+#     """生成指定数量的样本数据，支持断点续传
     
+#     Args:
+#         num_samples: 需要生成的总样本数量
+        
+#     Returns:
+#         Tuple: (signals, conditions) 全部样本数据
+#     """
+    
+
+#     # 1. 初始化临时目录
+#     os.makedirs(TEMP_DIR, exist_ok=True)
+    
+#     # 2. 准确计算已有样本数（忽略非样本文件）
+#     existing_samples = len([
+#         f for f in os.listdir(TEMP_DIR) 
+#         if f.startswith('sample_') and f.endswith('.npz')
+#     ])
+    
+#     # 3. 计算需要生成的数量
+#     start_index = existing_samples
+#     remaining_samples = max(0, num_samples - start_index)
+    
+#     # 4. 显示进度信息
+#     print(f"当前进度: {start_index}/{num_samples} | 待生成: {remaining_samples}")
+
+#     # 5. 生成缺失样本
+#     if remaining_samples > 0:
+#         try:
+#             with Pool(min(cpu_count(),1)) as pool:
+#                 results = tqdm(
+#                     pool.imap_unordered(generate_single_data, range(start_index, num_samples)),
+#                     #pool.imap_unordered(generate_single_data_with_noise, range(start_index, num_samples)),
+#                     total=remaining_samples,
+#                     desc="生成样本"
+#                 )
+#                 if Noises:
+#                     print('generate data with noise')
+#                     for i, (signal, noise, data, condition) in enumerate(results):
+#                         # 6. 实时保存每个样本
+#                         np.savez(
+#                             os.path.join(TEMP_DIR, f'sample_{start_index + i}.npz'),
+#                             signal=signal.numpy(),
+#                             noise=noise.numpy(),
+#                             data=data.numpy(),
+#                             condition=condition.numpy()
+#                         )
+#                 else:
+#                     print('generate data without noise')
+#                     for i, (signal, condition) in enumerate(results):
+#                         # 6. 实时保存每个样本
+#                         np.savez(
+#                             os.path.join(TEMP_DIR, f'sample_{start_index + i}.npz'),
+#                             signal=signal.numpy(),
+#                             condition=condition.numpy()
+#                     )
+#         except Exception as e:
+#             print(f"生成过程中出错: {str(e)}")
+#             raise RuntimeError("数据生成失败，请检查参数设置")
+    
+#     # 7. 返回当前内存中的所有数据（可选）
+#     # 注意：对于大数据集建议使用 combine_data() 单独处理
+#     return combine_data(TEMP_DIR, SAVE_PATH)  # 或者 return None 仅执行生成操作
+def generate_data(num_samples, TEMP_DIR, SAVE_PATH):
+    """
+    顺序生成指定数量的样本数据，支持断点续传
+
     Args:
         num_samples: 需要生成的总样本数量
-        
     Returns:
         Tuple: (signals, conditions) 全部样本数据
     """
-    
-
     # 1. 初始化临时目录
     os.makedirs(TEMP_DIR, exist_ok=True)
-    
-    # 2. 准确计算已有样本数（忽略非样本文件）
+
+    # 2. 准确计算已有样本数
     existing_samples = len([
-        f for f in os.listdir(TEMP_DIR) 
+        f for f in os.listdir(TEMP_DIR)
         if f.startswith('sample_') and f.endswith('.npz')
     ])
-    
+
     # 3. 计算需要生成的数量
     start_index = existing_samples
     remaining_samples = max(0, num_samples - start_index)
-    
+
     # 4. 显示进度信息
     print(f"当前进度: {start_index}/{num_samples} | 待生成: {remaining_samples}")
 
-    # 5. 生成缺失样本
+    # 5. 顺序生成缺失样本
     if remaining_samples > 0:
-        try:
-            with Pool(cpu_count()) as pool:
-                results = tqdm(
-                    pool.imap_unordered(generate_single_data, range(start_index, num_samples)),
-                    #pool.imap_unordered(generate_single_data_with_noise, range(start_index, num_samples)),
-                    total=remaining_samples,
-                    desc="生成样本"
+        results = []
+        for i in tqdm(range(start_index, num_samples), desc="生成样本（顺序）"):
+            try:
+                result = generate_single_data(i)
+                results.append(result)
+            except Exception as e:
+                print(f"生成样本 {i} 出错: {e}")
+                continue
+
+        if Noises:
+            print('generate data with noise')
+            for i, (signal, noise, data, condition) in enumerate(results):
+                np.savez(
+                    os.path.join(TEMP_DIR, f'sample_{start_index + i}.npz'),
+                    signal=signal.numpy(),
+                    noise=noise.numpy(),
+                    data=data.numpy(),
+                    condition=condition.numpy()
                 )
-                if Noises:
-                    print('generate data with noise')
-                    for i, (signal, noise, data, condition) in enumerate(results):
-                        # 6. 实时保存每个样本
-                        np.savez(
-                            os.path.join(TEMP_DIR, f'sample_{start_index + i}.npz'),
-                            signal=signal.numpy(),
-                            noise=noise.numpy(),
-                            data=data.numpy(),
-                            condition=condition.numpy()
-                        )
-                else:
-                    print('generate data without noise')
-                    for i, (signal, condition) in enumerate(results):
-                        # 6. 实时保存每个样本
-                        np.savez(
-                            os.path.join(TEMP_DIR, f'sample_{start_index + i}.npz'),
-                            signal=signal.numpy(),
-                            condition=condition.numpy()
-                    )
-        except Exception as e:
-            print(f"生成过程中出错: {str(e)}")
-            raise RuntimeError("数据生成失败，请检查参数设置")
-    
-    # 7. 返回当前内存中的所有数据（可选）
-    # 注意：对于大数据集建议使用 combine_data() 单独处理
-    return combine_data(TEMP_DIR, SAVE_PATH)  # 或者 return None 仅执行生成操作
+        else:
+            print('generate data without noise')
+            for i, (signal, condition) in enumerate(results):
+                np.savez(
+                    os.path.join(TEMP_DIR, f'sample_{start_index + i}.npz'),
+                    signal=signal.numpy(),
+                    condition=condition.numpy()
+                )
+
+    # 6. 合并返回
+    return combine_data(TEMP_DIR, SAVE_PATH)
 
 import torch
 
