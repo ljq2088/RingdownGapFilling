@@ -1,3 +1,4 @@
 *.npz
 *.pth
-*.ptdata/LISA_noise.mat
+*.pt
+data/LISA_noise.mat

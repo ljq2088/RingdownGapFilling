@@ -9,6 +9,7 @@ from utils.mask import generate_continuous_mask
 from utils.wavelet import wavelet_reconstruct_from_channels
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import os
+from tqdm import tqdm
 def save_checkpoint(path, epoch, model, optimizer, scheduler, early_stopping):
     """<<< CHECKPOINT >>>: 保存完整训练状态"""
     torch.save({
@@ -50,7 +51,7 @@ class EarlyStopping:
 def train_the_model(model, train_loader, val_loader, num_epochs, learning_rate, save_path, device, save_freq=10, early_stopping_patience=10,resume_checkpoint=None):
     criterion = nn.MSELoss(reduction='none')
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
-    scheduler = ReduceLROnPlateau(optimizer, 'min', factor=0.5, patience=10, verbose=True)
+    scheduler = ReduceLROnPlateau(optimizer, 'min', factor=0.5, patience=10)
     print(num_epochs)
     early_stopping = EarlyStopping(patience=early_stopping_patience)
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
@@ -58,7 +59,7 @@ def train_the_model(model, train_loader, val_loader, num_epochs, learning_rate, 
     for epoch in range(num_epochs):
         model.train()
         train_loss = 0
-        for targets,_,inputs, conditions,qt in train_loader:
+        for targets,_,inputs, conditions,qt in tqdm(train_loader, desc=f"Epoch {epoch+1}/{num_epochs}"):
             targets, inputs,conditions,qt = targets.to(device), inputs.to(device),conditions.to(device),qt.to(device)
             # masks,gap_start=generate_continuous_mask(targets.size(0), targets.size(1), model.gap_size)
             # masks=masks.to(device)
@@ -97,7 +98,8 @@ def train_the_model(model, train_loader, val_loader, num_epochs, learning_rate, 
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
             optimizer.step()
-            train_loss += loss.item()
+            train_loss += loss.detach().item()
+
         train_loss /= len(train_loader.dataset)
         
         model.eval()
@@ -117,7 +119,8 @@ def train_the_model(model, train_loader, val_loader, num_epochs, learning_rate, 
                 loss =criterion(outputs, targets.squeeze(1))
                 #loss=loss.mean()#+smooth_loss(outputs,  gap_start, gap_end, Config.Smoothloss_coeff)
                 loss=loss.mean()
-                val_loss += loss.item()# * inputs.size(0)
+                val_loss += loss.detach().item()
+
 
         # 计算平均验证损失
         val_loss /= len(val_loader.dataset)

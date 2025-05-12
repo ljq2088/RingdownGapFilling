@@ -20,7 +20,7 @@ class Config:
     f_out=1
     f_step=1e-5
     #training parameters
-    batch_size = 16
+    batch_size = 8
     num_epochs = 200
     learning_rate = 1e-4
     dropout=0.1
@@ -60,10 +60,10 @@ class Config:
     ConEpadding = (1, 1)
     #Transformer
     num_heads = 8
-    FF_dim=2048
-    num_layers_T=12
+    FF_dim=256
+    num_layers_T=16
     #MLP
-    h_dim_MLP=3072
+    h_dim_MLP=128
 
     #Decomposition
     n_modes=4
