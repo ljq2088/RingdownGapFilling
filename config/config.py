@@ -1,4 +1,6 @@
 class Config:
+    #mask
+    mask_dim=1
     #detector parameters
     Sacc=3*10**-15
     Sopt=1.5*10**-11
