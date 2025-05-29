@@ -1,6 +1,6 @@
 class Config:
-    #mask
-    mask_dim=1
+    #train_stage
+    stage='finetune'#'#'pretrain' or 'finetune'
     #detector parameters
     Sacc=3*10**-15
     Sopt=1.5*10**-11
@@ -22,10 +22,11 @@ class Config:
     f_out=1
     f_step=1e-5
     #training parameters
-    batch_size = 8
+    batch_size = 16
     num_epochs = 200
-    learning_rate = 1e-4
+    learning_rate = 3e-4
     dropout=0.1
+    weight_decay=1e-4
     #model parameters
     hidden_dim= 64
     num_layers = 2
@@ -37,7 +38,7 @@ class Config:
     #Loss
     Loss_coeff=[1e-7,1,1,1]
     Smooth_coeff=[0.001,0.001]
-    
+    loss_alpha=1.0
     #Position=8
     
     input_dim=1
@@ -51,6 +52,11 @@ class Config:
     overlap=0.5
     num_token=32
     channels=8
+    #QTransform
+    down_samp=4
+    scale_f=16
+    #L1 para
+    L1_weight=0.1
     #Embedding
     EMBEDDING_dim=32
     #CE
@@ -61,11 +67,11 @@ class Config:
     ConEkernel_size = (3, 3)
     ConEpadding = (1, 1)
     #Transformer
-    num_heads = 8
-    FF_dim=256
-    num_layers_T=16
+    num_heads = 4
+    FF_dim=32
+    num_layers_T=4
     #MLP
-    h_dim_MLP=128
+    h_dim_MLP=64
 
     #Decomposition
     n_modes=4

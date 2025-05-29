@@ -4,8 +4,8 @@ import torch.nn.functional as F
 import numpy as np
 from ssqueezepy import cwt  # 使用小波变换计算Q变换频谱图
 from config.config import Config
-down_samp = 4  # 下采样因子
-scale_f=16
+down_samp =Config.down_samp  # 下采样因子
+scale_f=Config.scale_f  # 小波变换的尺度数
 # Q变换模块，用于将输入的时间序列转换为时频图
 class QTransformModule(nn.Module):
     def __init__(self, wavelet="morlet", scales=scale_f):

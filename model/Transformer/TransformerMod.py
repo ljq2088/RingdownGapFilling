@@ -24,7 +24,7 @@ class TransformerEncoderLayerWithChannels(nn.Module):
         # Dropout
         self.dropout = nn.Dropout(dropout)
 
-    def forward(self, src):
+    def forward(self, src, key_padding_mask=None):
         # src 的形状为 (batch_size, channels, num_tokens, embedding_dim)
         batch_size, channels, num_tokens, embedding_dim = src.shape
         
@@ -38,8 +38,38 @@ class TransformerEncoderLayerWithChannels(nn.Module):
             src_ch_transposed = src_ch.transpose(0, 1)  # 转置为 (num_tokens, batch_size, embedding_dim)
             
             # Self-Attention, output shape: (num_tokens, batch_size, embedding_dim)
-            attn_output, _ = self.self_attn(src_ch_transposed, src_ch_transposed, src_ch_transposed)
+            # attn_output, _ = self.self_attn(src_ch_transposed, src_ch_transposed, src_ch_transposed)
             
+                # broadcast to match attention score shape: (num_tokens, batch_size, num_tokens)
+            
+            #attn_output, _ = self.self_attn(src_ch_transposed, src_ch_transposed, src_ch_transposed,key_padding_mask=key_padding_mask)
+            # src_ch_transposed: [T, B, D] -> 转换成 [B, T, D]
+            src_ch_seq = src_ch_transposed.transpose(0, 1)  # [B, T, D]
+
+            # 1️⃣ Q, K, V 直接取为原始输入（你也可以添加 Linear 层投影）
+            Q = src_ch_seq  # [B, T, D]
+            K = src_ch_seq
+            V = src_ch_seq
+            d_k = embedding_dim ** 0.5
+
+            # 2️⃣ 计算注意力分数 [B, T, T]
+            attn_scores = torch.matmul(Q, K.transpose(-2, -1)) / d_k  # [B, T, T]
+
+            # 3️⃣ 添加 soft bias（你之前的 attn_bias）
+            if key_padding_mask is not None:
+                # key_padding_mask: [B, T] -> [B, 1, T]
+                soft_bias = key_padding_mask.unsqueeze(1).to(attn_scores.dtype)  # float32
+                attn_scores = attn_scores - soft_bias * 5.0  # 可调节抑制强度
+
+            # 4️⃣ 归一化注意力
+            attn_weights = torch.softmax(attn_scores, dim=-1)  # [B, T, T]
+
+            # 5️⃣ 加权求值
+            attn_output = torch.matmul(attn_weights, V)  # [B, T, D]
+
+            # 6️⃣ 转回 PyTorch 多头 attention 的格式 [T, B, D]
+            attn_output = attn_output.transpose(0, 1)  # [T, B, D]
+
             # Residual Connection + Layer Normalization
             src2 = src_ch_transposed + self.dropout(attn_output)
             src2 = self.norm1(src2)
@@ -65,7 +95,7 @@ class TransformerEncoder(nn.Module):
         super(TransformerEncoder, self).__init__()
         self.layers = nn.ModuleList([TransformerEncoderLayerWithChannels(embedding_dim, num_heads, dim_feedforward, dropout) for _ in range(num_layers)])
 
-    def forward(self, x):
+    def forward(self, x, key_padding_mask=None):
         for layer in self.layers:
-            x = layer(x)
+            x = layer(x, key_padding_mask=key_padding_mask)
         return x
