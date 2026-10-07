@@ -19,6 +19,9 @@ def main():
  seeds={k:set(z['seeds'].tolist()) for k,z in archives.items()}
  assert not seeds['train']&seeds['validation'] and not seeds['train']&seeds['final_test'] and not seeds['validation']&seeds['final_test']
  assert [len(seeds[k]) for k in ['train','validation','final_test']]==[config['train_unique'],config['validation_natural'],config['final_test']]
+ old=np.load(ROOT/'data/cqg_fresh_refiner_test_seed2026100800_n500.npz');prior_seeds=set(old['generation_seeds'].tolist())
+ prior_overlap={k:len(prior_seeds&v) for k,v in seeds.items()}
+ assert prior_overlap['validation']==0 and prior_overlap['final_test']==0
  # Check exact array construction in the float32 cache, not only a string in config.
  invariants={}
  for name in archives:
@@ -51,6 +54,6 @@ def main():
   assert np.isclose(row['longrun']['mean'],metrics[group]['longrun']['PSD']['mean'],rtol=1e-12)
   assert np.isclose(row['reference']['mean'],metrics[group][reference]['PSD']['mean'],rtol=1e-12)
  gates={'mean_at_least_10pct_better_than_previous':metrics['all']['vs_previous']['mean_improvement_fraction']>=.10,'paired_CI_below_zero_vs_previous':metrics['all']['vs_previous']['paired_bootstrap95ci'][1]<0,'paired_CI_below_zero_vs_original':metrics['all']['vs_baseline']['paired_bootstrap95ci'][1]<0,'no_significant_peak_regression_vs_previous':metrics['peak_in_gap']['vs_previous']['paired_bootstrap95ci'][0]<=0}
- result={'data_and_hash_checks_passed':True,'invariants':invariants,'metrics':metrics,'gates':gates,'candidate_passes_numerical_gate':all(gates.values()),'selected_epoch':report['selected_epoch'],'limitations':'same simulator/distribution; one training seed; ablation and seed-stability evidence remain separate requirements'}
+ result={'data_and_hash_checks_passed':True,'invariants':invariants,'prior_fresh500_seed_overlap':prior_overlap,'prior_fresh500_independent_for_this_model':False,'metrics':metrics,'gates':gates,'candidate_passes_numerical_gate':all(gates.values()),'selected_epoch':report['selected_epoch'],'limitations':'same simulator/distribution; one training seed; prior fresh500 partly overlaps this training and must not serve as independent long-run evidence; ablation and seed-stability evidence remain separate requirements'}
  (OUT/'completion_audit.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))
 if __name__=='__main__':main()
