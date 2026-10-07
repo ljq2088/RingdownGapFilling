@@ -1,0 +1,74 @@
+RingdownGapFilling：保持 d=Gh+n 的模型优化结果，2026-10-08
+
+结论
+新模型在完整独立 1000 条测试上明显优于原 DGF14 及此前短训修正模型，且峰值缺口组改善也显著。没有删除最差样本。数据形式、采样率、窗口长度和主网络保持不变。
+工作分支：codex/mask-aware-ringdown-optimization。
+权威文章仍是 https://cn.overleaf.com/project/69bb9d12f9a917663fb9b9c0，本次未修改文章或 arXiv 版本。
+
+模型和训练
+冻结原 DGF14，增加 25,489 参数的 mask 残差 CNN。输入仅包含观测、原模型输出、已知 gap mask 和时间位置；不使用真实参数或真实信号作推理输入。
+修正模型的 mask=1 表示缺口。推理封装使用物理 strain；内部乘 1e22 避免数值下溢。
+损失包括按真值能量归一化的时域误差、额外缺口误差、PSD 加权复数 FFT 误差及 PSD cosine mismatch。
+12,000 个训练信号每个有自然随机缺口及峰值导向缺口，共 24,000 个训练视图；增强缺口仍限制在 start=132..263、长度66。峰值被遮挡的比例从自然视图的12.62%提高到增强视图的37.50%。
+独立验证1500条，使用自然缺口分布。epoch选择指标为0.75*总体PSD mismatch均值+0.25*峰值缺口组均值。
+最多600轮；patience=50、min_delta=1e-5。第238轮早停，采用第188轮最佳权重，不采用最后一轮。
+验证集和测试集与训练的种子及实际波形/噪声对均不重叠。旧500条测试有300条种子进入本次训练，不能作为本模型独立测试；本次主结论只使用另设的1000条测试。
+主模型和PSD在最终测试生成前冻结，最终测试没有参与epoch/方法选择。
+
+完整独立1000条测试：PSD加权mismatch
+                          mean         median        p95
+原DGF14                  0.02578832    0.00484390    0.08363028
+此前短训修正模型         0.01943677    0.00351682    0.04696219
+本次长训修正模型         0.00826373    0.00218915    0.01402456
+均值较原DGF14下降67.96%，较此前修正模型下降57.48%。
+5000次配对bootstrap：相对原DGF14的均值差95%CI[-0.02187862,-0.01354993]；相对此前修正模型[-0.01453878,-0.00807971]。
+时域mismatch均值：原0.02410626，此前0.01868140，新0.00772510。
+真值峰值处绝对相位误差均值：原3.8264度，此前3.2433度，新1.6757度。
+
+峰值落入缺口的118条，不作删除
+PSD mismatch均值：原0.12952776，此前0.11338522，新0.04348424。
+较原下降66.43%，较此前下降61.65%；两项配对置信区间均低于零。
+绝对峰值相位误差均值：原18.9736度，此前17.0297度，新5.4961度。
+仍存在困难尾部：该组新模型p95为0.21707，不意味着所有峰值缺失事件均恢复准确。
+
+PSD稳健性与非神经对照
+主指标用先前仅在校准纯噪声上估计的boxcar PSD，DC/Nyquist权重为零，不最大化时间/相位。
+改用同一校准噪声估计的Hann PSD：新均值0.00815969，原0.02806585，此前0.01968828；仍显著改善。
+此前拟合并冻结的简单频率修正滤波器在新测试上均值0.02575536，接近原模型，不能解释新CNN的收益。
+PSD来源为当前模拟噪声的经验校准谱，不能把这些数字泛化成真实LISA性能。
+
+mask/损失消融：4配置×3种子，全部已完成
+一致架构、相同2048个独立训练信号及两种缺口、最多100轮、patience20。从零输出head初始化，不使用主模型修正权重暖启动；原DGF14输出固定。
+验证综合分数三种子的均值±样本标准差：
+仅时域损失、不传mask     0.03003668 ±0.00071828
+时域损失、传mask         0.02657146 ±0.00086896
+频域组合损失、不传mask   0.02718597 ±0.00064493
+频域组合损失、传mask     0.02440039 ±0.00119338
+三个种子均为mask+频域组合最好。消融用的是验证集，分数包含峰值组加权，不应混称为独立测试mismatch。
+消融训练规模小于主长训，支持结构选择的稳定性，但不等于完整12000样本长训的三种子复制。
+
+实现修复和复现
+发现原DGF构造的CPU编码器与逆映射参数共享存储，而GPU训练后checkpoint中两者不同。新加载器在读取checkpoint前分离其存储，避免CPU加载时互相覆盖。不修改原checkpoint或主网络训练路径。
+已逐张量检查CPU加载后的编码器及逆映射权重等于checkpoint；CPU两条样本与训练CUDA输出相对L2差2.08475e-7。
+最终完整1000条通过独立推理CLI复现，CUDA输出与存档输出相对L2差4.01619e-8，所有输出有限。
+旧的失败推理输出仅保留用于排查，不应作为模型结果；应使用final_test_predictions.npz或full_wrapper_inference.npz。
+
+运行说明（WSL Ubuntu-22.04-D）
+仓库根目录：/home/ljq/code/RingdownGapFilling
+Python：/home/ljq/miniconda3/envs/gw_ml_env/bin/python
+推理输入NPZ必须提供observation和mask，均[N,1056]，mask仅0/1，observation为物理strain。
+命令：python FillingGap/infer_refined.py --input observation_and_mask.npz --output reconstructed.npz --device cuda
+默认基线：saved_models/noise/lowSNR/model_with_noise_gaps_HugeRangeParas_14.pth
+默认新权重：FillingGap/results_longrun_20261008/best_refiner.pth
+输出键：reconstruction。CPU使用--device cpu。已有输出文件会被拒绝覆盖。
+不应再次运行验证脚本来选取新epoch，或基于本次测试结果修调当前模型后继续称其为同一独立测试。
+核验命令：python FillingGap/audit_longrun.py；python FillingGap/summarize_refinement.py。
+关键证据：completion_audit.json、supplementary_checks.json、full_inference_reproduction.json、config.json、history.json、final_results.json。
+runtime_sources.zip及runtime_source_manifest.json保存当前运行依赖源码，包括未提交的原有依赖；分支只提交本次新增和修改的代码，保留用户原有改动。
+
+文献联系及限制
+显式mask参考方向：Liu等Partial Convolution，https://arxiv.org/abs/1804.07723；https://github.com/NVIDIA/partialconv。本模型采用普通mask残差CNN，不声称复现partial convolution。
+波形频域损失参考：Parallel WaveGAN，https://arxiv.org/abs/1910.11480；https://github.com/kan-bayashi/ParallelWaveGAN/blob/master/parallel_wavegan/losses/stft_loss.py。本模型用复数FFT而非多分辨率STFT，不声称复现该语音方法。
+真实GW去噪参考：WaveFormer，https://arxiv.org/abs/2212.14283；https://github.com/AI-HPC-Research-Team/LIGO_noise_suppression。公开pretrain_gw.py为带mask的MSE，其LIGO成功案例不等于本项目的LISA缺口结果。
+LISA PSD深谷和inpainting参考：https://arxiv.org/html/2605.13738v1；https://github.com/icg-gravwaves/lisa_premerger_sangria。作者的预并合搜索成功与本项目ringdown波形恢复不是相同任务。
+本轮达成小改动下的明确改善，未加入QNM损失、改写注意力、或切换成G(h+n)。没有作后验采样或真实探测器数据验证，不能声称质量/自旋后验已经无偏。
