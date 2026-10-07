@@ -29,6 +29,12 @@ class RefinedDGF(nn.Module):
  @classmethod
  def from_checkpoints(cls,baseline_path,refiner_path,device='cpu'):
   from model.mymodel_5 import DenoiseMaskedGapsFiller
-  base=DenoiseMaskedGapsFiller();base.load_state_dict(torch.load(baseline_path,map_location='cpu',weights_only=True))
+  base=DenoiseMaskedGapsFiller()
+  # The legacy constructor uses nn.Parameter(encoder_weight.T), sharing CPU
+  # storage. Training moved to CUDA before loading, so checkpoint encoder and
+  # inverse weights are independent. Untie before CPU load to preserve both.
+  layer=base.inverse_token_embedding.inverse_linear
+  layer.weight=nn.Parameter(layer.weight.detach().clone())
+  base.load_state_dict(torch.load(baseline_path,map_location='cpu',weights_only=True))
   state=torch.load(refiner_path,map_location='cpu',weights_only=True);refiner=MaskAwareRefiner(state['width']);refiner.load_state_dict(state['state_dict'])
   return cls(base,refiner).to(device).eval()
