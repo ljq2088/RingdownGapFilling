@@ -1,0 +1,87 @@
+RingdownGapFilling：原稿延续的 PRD 修订
+日期：2026-10-09
+
+云端基准与复制项目
+原稿：https://cn.overleaf.com/project/69bb9d12f9a917663fb9b9c0
+复制修订稿：https://cn.overleaf.com/project/6ac83816750c2cce452054d2
+arXiv v1：https://arxiv.org/abs/2511.00834
+原云端项目未修改；新项目由 Overleaf 的“复制一份”创建。
+已下载原云端源文件保存 overleaf_original.zip / source_before。
+修改对照见 manuscript_changes.diff；source_edited 是上传文本及新图。
+
+分支与运行状态边界
+本次修改在旧分支 codex/mask-aware-ringdown-optimization 上进行。
+检出目录：/home/ljq/code/RingdownGapFilling_PRD。
+原目录仍供既有后台任务读取；本会话没有继续开发物理重训分支，也没有杀掉该后台任务。
+不能切换正在运行任务的工作目录并删除其读取的文件，因此使用旧分支独立工作树。
+
+保持原稿身份
+保留 arXiv 原题目、作者、DenoiseGapFiller 名称、双分支架构、ringdown 重建动机、四个主要章节。
+保留当前 revise 引言中的科学背景与相关方法定位，新增残差修正作为 DGF 的扩展。
+不迁移到新的物理生成器、TDI 多通道网络或新的推断文章。
+历史 706/303 个样本的分组、SNR 和约 0.002 的均值不能与新结果直接混用，已用完整新测试替换。
+更换原图是为了让图中指标名称、样本和单位与正文一致；云端原 Img 文件仍保留作为历史资源。
+
+最强而可支持的主要 claim
+已有 DGF 可在明确的受控、ringdown-inspired 合成分布内同时去噪和估计被遮挡的波形。
+显式 mask 的残差修正和包含复数 Fourier 残差的训练后，固定的完整测试集上误差降低。
+收益同时出现在直接 mismatch、全段相对幅度误差和有效峰值相位诊断中。
+峰值遮挡仍为困难情况，结果尾部和窗口敏感性完整保留。
+不能宣称完成真实缺失数据恢复、物理 LISA/TDI 仿真、独立 QNM 参数测量、Bayesian posterior 改善或 GR 检验。
+这不是单靠措辞就能消除的差异：旧生成器中存在振幅、频率、FFT 归一化与响应/噪声约定问题。
+新稿给出实际离散定义，并把科学结论限定于其支持范围。保留物理应用为动机和待验证方向。
+这可以提高可核查性，但不能保证 PRD 接收，也不能称作已经解决全部物理审稿风险。
+
+本轮复算
+冻结测试：1000 条，seed 2026240000--2026240999，无裁剪、无 SNR/mismatch 筛选。
+观测：d=G*h+n。噪声保留于 signal mask 内；不是 G*(h+n)。
+长度：1056，fs=2 Hz，528 s；单缺口 66 点/33 s，起点132--263。
+PSD：独立200条 cropped noise 校准，固定1056点频率网格，排除 DC/Nyquist。
+匹配：有符号实部归一化 overlap，不最大化时间或相位。先计算每条波形的指标，再算算术均值。
+直接时域均值：Original 0.02537451；第一次修正 0.00817053；最新 0.00503709。
+直接PSD均值：Original 0.02714907；第一次修正 0.00862528；最新 0.00536877。
+最新PSD median/p90/p95：0.00152152 / 0.00554983 / 0.01013994。
+最新相对全段L2均值：0.064962；峰值绝对相位均值1.49640°，p95 4.08243°。
+121条峰值遮挡：Original PSD均值0.140157；最新0.0277131，p95 0.112832；绝对相位均值5.19680°。
+最坏例：最新PSD mismatch 1.01221，最大峰值绝对相位130.091°；未剔除。
+Hann窗口与对应PSD：最新均值0.0111623，排名仍改善，但数值明显受窗口影响。
+局部目标接近零时，gap内相对L2分母很小；全体均值12.12已披露，并保留用全段目标归一化的补充指标。
+5000次配对bootstrap，本轮seed=20261009；结果和正文从 evaluation/evaluation.json 统一生成。
+区间反映固定 checkpoint 的样本不确定性，不是不同训练seed的变异。
+
+训练声明
+12000条独立训练波形，1500条验证；72000是六种训练内重组，不是72000个独立来源。
+原9,184,114参数checkpoint冻结，新增25,489参数module训练。
+最新阶段训练1200epoch，validation选1095epoch；没有谎称触发早停。
+mask+frequency小预算消融含三seed，不能写成完整长跑的三seed重复。
+原始双分支的 phase/channel 删除重训尚未完成，不声称相位优势已由该消融证明。
+
+吸收审稿意见与另一会话的有用内容
+已读“按审稿意见修订论文”（01a11881-55af-7430-91d5-a5c19cd95b71）的全部可用turn摘要及最终结果。
+另读 docs/refereeA.md、refereeB.md、CQG_referee_audit.md 和 CQG_revision_notes.md。
+吸收：解释1056尺寸，清楚展开DGF、输入/融合/解码，区分phase输入与phase优势，展示完整分布和失败。
+纠正：Q-transform实际为complex Morlet CWT；融合为加法；attention未用learned multihead projections。
+纠正：wavelet子带不完整，decoder线性映射、sum不是完整变换的精确逆。
+不把未实施的 Bayesian PE、coverage、branch重训、TDI校准写为已完成。
+
+代码和核验
+FillingGap/evaluate_prd_revision.py：从冻结缓存复算，输出逐样本指标、源文件SHA-256、完整统计和图。
+verify_metric_conventions.py：检查phase直接敏感性、振幅不变性、signed范围、Parseval一致性、PSD整体缩放不变性。
+额外检验：PSD变低的频点如果承载预测误差，归一化match可以变差，而不是必然更接近1。
+docs/legacy_benchmark_contract.json 与generator/refiner docstrings明确旧合成数据约定。
+代码AST核对：本轮文档修正没有改变waveform、noise或refiner的计算操作。
+保留模型缺失的源文件依赖以及训练时已使用的Combine_segments设备修正，以支持checkpoint加载。
+evaluate没有重训，也没有以test指标选新的权重。
+逐字符云端源文件核对、最后编译与PDF排版结果见 verification.json。
+
+必须区分的投稿边界
+当前旧数据不足以支持“物理自洽LISA/TDI数据”的结论；不能通过替换公式伪装成已经重生成或重训。
+原噪声mat的来源、单位和再发布许可尚未记录完备；不能把文件名当作LDC provenance证明。
+新evaluation、checkpoint、manifest尚未公开存档，正文不声称已在Zenodo公开或当前GitHub已含本轮全部数据。
+实际投稿与arXiv更新未执行。
+
+参考文献最终核对
+删除两条作者/题目与 DOI 不对应的旧引用：baghi2019gaps 与 Spadaro:2023hlw。
+Baghi 的相关论述改引已核实的 1907.04747 / PRD 100, 022003；修正 Thorpe 名字。
+合并重复的 Berti 2006；修正 Maeland DOI；更新 Mao 的 PRD 正式发表条目。
+来源、处理与对照见 bibliography_audit.json / bibliography_changes.diff。未声称对全部未引用 BibTeX 条目做了全面文献审计。

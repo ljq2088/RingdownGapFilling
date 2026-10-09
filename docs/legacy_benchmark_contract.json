@@ -1,0 +1,38 @@
+{
+  "version": "legacy-benchmark-prd-20261009",
+  "interpretation": "phenomenological ringdown-inspired synthetic benchmark",
+  "observation": "d=G*h+n",
+  "mask_one_means": "signal suppressed; noise remains",
+  "amplitude_units": "legacy benchmark numerical units; not calibrated strain or TDI",
+  "sample_rate_hz": 2,
+  "length": 1056,
+  "gap_length": 66,
+  "gap_start_inclusive": [
+    132,
+    263
+  ],
+  "coordinates": {
+    "M_label": [
+      100000.0,
+      1000000.0
+    ],
+    "q": [
+      0.5,
+      0.8
+    ],
+    "z_label": [
+      4,
+      6
+    ]
+  },
+  "physical_validation": false,
+  "known_deviations": [
+    "33/44 frequency factors (3-chi)/(4-chi)",
+    "energy-fit-inspired coefficients used without strain conversion; 21/33 coefficient order differs",
+    "continuous spectrum treated as DFT input without sampling-rate normalization",
+    "TianQin-inspired signal modulation and undocumented noise reference channel units",
+    "colored-noise PSD scaling 2/N; out-of-reference-band fill 1e-40"
+  ],
+  "evaluation": "fixed 1000 prospective samples; direct real overlap; no phase/time maximization or exclusions; empirical cropped-noise PSD",
+  "scope": "Existing trained predictors only; no new physical-branch training in this revision"
+}

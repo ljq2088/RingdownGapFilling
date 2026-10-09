@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-09",
+  "branch": "codex/mask-aware-ringdown-optimization",
+  "worktree": "/home/ljq/code/RingdownGapFilling_PRD",
+  "original_cloud_project": "69bb9d12f9a917663fb9b9c0",
+  "edited_cloud_project": "6ac83816750c2cce452054d2",
+  "original_cloud_project_modified": false,
+  "pdf_pages": 10,
+  "pdf_sha256": "290562bbf96c8f3db3a553f7e6829cf32a3b5ce75636c9f4a61a1c848b2035af",
+  "cloud_compile_errors": 0,
+  "cloud_compile_warnings": 5,
+  "warning_scope": [
+    "nameref label-definition warning",
+    "REVTeX deferred-float placement warnings (all six figures present and visually inspected)",
+    "BibTeX jnrlst dependency warning"
+  ],
+  "cloud_archive_sha256": "0686b054d7382091f4cb953e76489bf4cf933f90c62be9697db09afc21f1fb1b",
+  "cloud_local_source_byte_identical": {
+    "architecture_prd.pdf": "a9a6ec1f58c1aa43c07390b2124c342c14b3ef2fa5bf37193c9150621a9ad25f",
+    "DGF.tex": "876705d991592d7b895696ef0ee97de73f600dc93da93bc00953b7884726c4c8",
+    "DGF_references.bib": "1183d35b9f63eb4b652d01206b8212cd2fb6e830d8ea9b7bfb30f48280d2ab47",
+    "error_psd.pdf": "9ddc2b1ab53c951fa064f12feefe0df6114c770ec4e7f1e18022e171ae96cbdb",
+    "examples.pdf": "8b38d3c3988f303b9dae32e1f89ae3abd73c5a25370455600026b80975b03412",
+    "mismatch_cdf.pdf": "f7e7fbc69b7c99e0023af5496bde8e9af5f7f6fb5261ede6301548221e7851cc",
+    "phase_and_R.pdf": "80d2c24fa826adc1ebd97ddb891b84336da4a45d524fe128f6739303e4416c81",
+    "training.pdf": "2438270e42cd6404457e45fb91c30b34ee98f81eec64b28dd458348ff8a3fcc1"
+  },
+  "visual_inspection": "All ten pages inspected; no clipped text, missing figures or isolated bibliography continuation; six figures present.",
+  "metric_tests": "PASS: phase sensitivity, positive amplitude invariance, signed mismatch range, Parseval agreement, PSD scale invariance, low-PSD error-bin penalty.",
+  "implementation_comparison": "Python AST excluding docstrings matches the source used for latest training for waveform, noise, refiner and segment combiner.",
+  "evaluation": "Independent float64 recomputation of frozen predictions for all 1000 test rows; no new training, waveform fitting or test-row exclusion.",
+  "bibliography_audit": "Two mismatched references removed, one duplicate merged, DOI/name metadata corrected; see bibliography_audit.json.",
+  "remaining_limitations": [
+    "Legacy benchmark is phenomenological, not calibrated Kerr/LISA/TDI.",
+    "Signal-only masking retains noise and differs from missing telemetry.",
+    "Historical base-training split indices are unavailable.",
+    "Noise file provenance, units and redistribution permission require documentation.",
+    "No downstream parameter estimation or posterior coverage experiment performed.",
+    "Only one full augmented long-run checkpoint; three seeds apply to small-budget ablation.",
+    "New checkpoint/data artifacts have not been publicly archived."
+  ],
+  "actions_not_performed": [
+    "Journal submission",
+    "arXiv update",
+    "Remote Git push",
+    "New-branch development in this conversation"
+  ]
+}

@@ -10,7 +10,7 @@ class MaskAwareRefiner(nn.Module):
   self.blocks=nn.ModuleList([nn.Sequential(nn.Conv1d(width,width,7,padding=3*d,dilation=d),nn.GroupNorm(4,width),nn.GELU()) for d in [1,2,4,8,16,32]])
   self.head=nn.Conv1d(width,1,7,padding=3);nn.init.zeros_(self.head.weight);nn.init.zeros_(self.head.bias)
  def forward(self,observation,baseline,mask):
-  # Numerical normalization operates on strains scaled by 1e22.
+  # Numerical normalization operates on benchmark amplitudes scaled by 1e22.
   scale=torch.sqrt(observation.square().mean(1,keepdim=True)).clamp_min(1e-4)
   time=torch.linspace(-1,1,observation.shape[1],device=observation.device,dtype=observation.dtype).expand_as(observation)
   features=torch.stack([observation/scale,baseline/scale,mask,time],dim=1)
@@ -19,7 +19,8 @@ class MaskAwareRefiner(nn.Module):
   return baseline+.2*scale*self.head(y).squeeze(1)
 
 class RefinedDGF(nn.Module):
- """Drop-in inference wrapper. mask=1 inside gap; x is physical strain."""
+ """Drop-in inference wrapper. mask=1 inside the signal mask; x uses legacy benchmark amplitude units.
+ x is not asserted to be calibrated LISA strain or a TDI observable."""
  def __init__(self,baseline,refiner):
   super().__init__();self.baseline=baseline;self.refiner=refiner
  def forward(self,x,qt,mask):

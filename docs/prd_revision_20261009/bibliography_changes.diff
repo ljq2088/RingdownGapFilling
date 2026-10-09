@@ -1,0 +1,107 @@
+--- Overleaf original/DGF_references.bib
++++ PRD revision/DGF_references.bib
+@@ -30,15 +30,10 @@
+ 
+ 
+ @article{Mao:2025cae,
+-  author       = {Ruiting Mao and Jeong Eun Lee and Matthew C. Edwards},
+-  title        = {{A novel stacked hybrid autoencoder for imputing LISA data gaps}},
+-  journal      = {arXiv e-prints},
+-  archivePrefix= {arXiv},
+-  eprint       = {2410.05571},
+-  primaryClass = {gr-qc},
+-  year         = {2025},
+-  month        = oct,
+-  note         = {v1},
++ author={Mao, Ruiting and Lee, Jeong Eun and Edwards, Matthew C.},
++ title={Novel stacked hybrid autoencoder for imputing {LISA} data gaps},
++ journal={Phys. Rev. D}, volume={111}, pages={024067}, year={2025},
++ doi={10.1103/PhysRevD.111.024067}, eprint={2410.05571}, archivePrefix={arXiv}, primaryClass={gr-qc}
+ }
+ 
+ @article{Wang:2024waveformer,
+@@ -675,25 +670,7 @@
+ }
+ 
+ 
+-@article{baghi2019gaps,
+-  author       = {Alessio Baghi and Jeff Crowder and Alberto Vecchio},
+-  title        = {{Bayesian inference for non-stationary data gaps in LISA}},
+-  journal      = {Phys.\ Rev.\ D},
+-  volume       = {100},
+-  pages        = {046017},
+-  doi          = {10.1103/PhysRevD.100.046017},
+-  year         = {2019},
+-}
+-
+-@article{Spadaro:2023hlw,
+-  author       = {E.B. Spadaro and Edward K. Porter and Karsten Danzmann},
+-  title        = {{Joint Parameter Estimation in the Presence of Time-Varying Non-stationarities for Space-based Gravitational Wave Detectors}},
+-  journal      = {Phys.\ Rev.\ D},
+-  volume       = {107},
+-  pages        = {064022},
+-  doi          = {10.1103/PhysRevD.107.064022},
+-  year         = {2023},
+-}
++
+ 
+ @article{Nissanke:2010tm,
+   author       = {Samaya Nissanke and M. Vallisneri and Jason A. Kanner and Craig M. Reitze and Nikoletta Dalya},
+@@ -862,7 +839,7 @@
+   volume  = {7},
+   number  = {3},
+   pages   = {213--217},
+-  doi     = {10.1109/42.730}
++  doi     = {10.1109/42.7784}
+ }
+ 
+ @article{Unser1999,
+@@ -898,7 +875,7 @@
+ }
+ 
+ @article{Baghi2019,
+-  author  = {Quentin Baghi and John I. Thorpe and Jacob Slutsky and John Baker and Tito Dal Canton and Natalia Korsakova and Nikos Karnesis},
++  author  = {Quentin Baghi and James Ira Thorpe and Jacob Slutsky and John Baker and Tito Dal Canton and Natalia Korsakova and Nikos Karnesis},
+   title   = {Gravitational-wave parameter estimation with gaps in LISA: A Bayesian data augmentation method},
+   journal = {Physical Review D},
+   year    = {2019},
+@@ -941,18 +918,7 @@
+    author={Berti, Emanuele and Cardoso, Jaime and Cardoso, Vitor and Cavaglià, Marco},
+    year={2007},
+    month=nov }
+-@article{Berti_2006,
+-   title={Gravitational-wave spectroscopy of massive black holes with the space interferometer LISA},
+-   volume={73},
+-   ISSN={1550-2368},
+-   url={http://dx.doi.org/10.1103/PhysRevD.73.064030},
+-   DOI={10.1103/physrevd.73.064030},
+-   number={6},
+-   journal={Physical Review D},
+-   publisher={American Physical Society (APS)},
+-   author={Berti, Emanuele and Cardoso, Vitor and Will, Clifford M.},
+-   year={2006},
+-   month=mar }
++
+ @article{AmaroSeoane:2021,
+   author  = {P. Amaro Seoane and M. Arca Sedda and S. Babak and C. P. L. Berry and E. Berti and G. Bertone and D. Blas and T. Bogdanović and M. Bonetti and K. Breivik and others},
+   title   = {Astrophysics with the Laser Interferometer Space Antenna},
+@@ -996,7 +962,7 @@
+ }
+ 
+ @article{Baghi:2019,
+-  author  = {Quentin Baghi and John I. Thorpe and Jacob Slutsky and John Baker and Tito Dal Canton and Natalia Korsakova and Nikos Karnesis},
++  author  = {Quentin Baghi and James Ira Thorpe and Jacob Slutsky and John Baker and Tito Dal Canton and Natalia Korsakova and Nikos Karnesis},
+   title   = {Gravitational-wave parameter estimation with gaps in LISA: A Bayesian data augmentation method},
+   journal = {Physical Review D},
+   year    = {2019},
+@@ -2443,3 +2409,10 @@
+ 
+ 
+ %---------------------------------------------------------------------------%
++
++@article{Baibhav2018energy,
++ author={Baibhav, Vishal and Berti, Emanuele and Cardoso, Vitor and Khanna, Gaurav},
++ title={Black Hole Spectroscopy: Systematic Errors and Ringdown Energy Estimates},
++ journal={Phys. Rev. D}, volume={97}, pages={044048}, year={2018},
++ doi={10.1103/PhysRevD.97.044048}, eprint={1710.02156}, archivePrefix={arXiv}, primaryClass={gr-qc}
++}

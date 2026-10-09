@@ -1,0 +1,847 @@
+\documentclass[prd,aps,a4paper,twocolumn,superscriptaddress,nofootinbib,floatfix]{revtex4-2}
+\pdfoutput=1
+
+
+% -------- 字体/编码（pdfLaTeX 友好） --------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% -------- 数学/符号 --------
+\usepackage{amsmath,amssymb,amsfonts,bm,mathrsfs}
+% \usepackage{physics}    % 若必须再打开，否则先注释，减少依赖
+% \usepackage{autobreak}  % 非必需先注释，避免包版本差异
+
+% -------- 图表 --------
+\usepackage{graphicx}
+\usepackage[caption=false]{subfig} % 替代 subcaption，RevTeX 推荐
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{dcolumn}
+
+% -------- 其它常用 --------
+\usepackage{color}
+\usepackage{placeins}
+\usepackage{float}
+% \usepackage[normalem]{ulem}
+\usepackage{wrapfig}
+
+\usepackage[final]{changes}
+% \setdeletedmarkup{\sout{#1}}
+% \definechangesauthor[name={JQL}, color=blue]{jql}
+\makeatletter
+\newcommand{\adddotsbeforeeqnnum}{%
+    \renewcommand{\theequation}{\arabic{equation}.}%
+}
+\makeatother
+
+%\captionsetup[subfigure]{  justification = raggedright,  singlelinecheck = false}
+
+\usepackage[justification=raggedright]{caption}
+\usepackage{braket}
+\allowdisplaybreaks
+\usepackage[linktoc=none]{hyperref}
+\hypersetup{colorlinks,			
+	linkcolor=blue,
+	citecolor=blue}
+\allowdisplaybreaks
+\begin{document}
+
+\title{Reconstruction of Black Hole Ringdown Signals with Data Gaps using a Deep-Learning Framework}
+\author{Jing-Qi Lai\footnote{E-mail: laijingqi19@mails.ucas.ac.cn}}
+\affiliation{School of Physical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China}
+\author{Jia-Geng Jiao\footnote{E-mail: jiaojiageng@ucas.ac.cn}}
+\affiliation{International Centre for Theoretical Physics Asia-Pacific,
+University of Chinese Academy of Sciences, Beijing 100190, China
+}
+\author{Cai-Ying Shao\footnote{E-mail: shaocaiying@ucas.ac.cn}}
+% \author{Zhi-Xiang Li\footnote{E-mail: lizhixiang21@mails.ucas.ac.cn}}
+\affiliation{School of Physical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China}
+
+\author{Jun-Xi Shi\footnote{E-mail: shijunxi23@mails.ucas.ac.cn}}
+\affiliation{International Centre for Theoretical Physics Asia-Pacific,
+University of Chinese Academy of Sciences, Beijing 100190, China
+}
+%找ridge的描述文献，修改结果之后重新叙述，对照result
+\author{Yu Tian\footnote{E-mail:  ytian@ucas.ac.cn}}
+\affiliation{School of Physical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China}
+\affiliation{Institute of Theoretical Physics, Chinese Academy of Sciences, Beijing 100190, China}
+
+%abstract精简
+\begin{abstract}
+Data gaps can interrupt the damped oscillations of a black hole ringdown and complicate the recovery of its amplitude and phase. We present DenoiseGapFiller (DGF), a deep-learning framework for jointly denoising and reconstructing ringdown waveforms from incomplete, noisy inputs. Its dual-branch encoder--decoder combines time--frequency features with multiresolution time-domain features through mixing layers and Transformer-style blocks. We evaluate DGF on synthetic ringdown signals using time-domain mismatch, amplitude residuals, spectral diagnostics, and phase deviations near the waveform peak. In the higher-SNR subset of the current benchmark, the mean time-domain mismatch is approximately $0.002$. The reconstructed waveforms also reproduce the principal oscillatory structure in the illustrated examples. These results demonstrate the feasibility of ringdown-oriented reconstruction in the studied synthetic setting and motivate subsequent validation at the level of quasi-normal-mode parameters.
+
+\end{abstract}
+%查xupeng，沈的文章中的评估手段
+
+
+
+\maketitle
+    
+
+%Junxi的评估gap工作
+%%在动机里就可以讨论优势之处（Methodology里的）
+
+
+\section{Introduction}
+
+The ringdown following a binary black hole merger provides a probe of the remnant spacetime. In the perturbative regime, its gravitational-wave signal is described by a superposition of damped quasi-normal modes (QNMs), whose frequencies and damping times are determined by the mass and spin of a Kerr black hole~\cite{berti2006gravitational,berti2009qnm}. Measuring these modes is the basis of black hole spectroscopy and ringdown tests of general relativity~\cite{Isi_2019}. Following the first gravitational-wave detection, GW150914~\cite{abbott2016observation,Abbott_2016}, planned space-based observatories such as LISA, Taiji, and TianQin offer a complementary route to studying the ringdowns of massive black hole binaries~\cite{amaroseoane2017laserinterferometerspaceantenna,robson2019construction,Ruan2020,Luo2016}.
+
+The scientific utility of a ringdown depends on preserving its oscillatory phase and decay envelope. Because the amplitude decreases rapidly, a short interruption can remove a substantial fraction of the informative cycles. The effect therefore depends on the location of a gap within the ringdown, as well as its duration. Space-based observations may contain scheduled interruptions associated with instrument operations and unscheduled losses of data~\cite{baghi2019gaps,dey2021gaps,Spadaro:2023hlw}. Shi \textit{et al.}~\cite{shi2024effectsdatagapsringdown} examined their effects on ringdown observability and parameter estimation in space-based detector combinations. In addition to removing signal content, a gap window redistributes spectral power and can complicate Fourier-domain analysis~\cite{Harris1978}. A reconstruction method must consequently be assessed through both waveform agreement and phase fidelity.
+
+Several approaches address incomplete gravitational-wave data. Interpolation estimates missing samples from their neighbors, but its accuracy for oscillatory signals depends on the sampling and interpolation scheme~\cite{Horowitz1974,Maeland1988,Unser1999}. Windowing can reduce spectral leakage, while Bayesian data augmentation treats missing samples as latent variables and infers them jointly with source parameters~\cite{Harris1978,Baghi2019}. Sparse inpainting uses structure in Fourier or wavelet representations and has been applied to LISA galactic-binary signals~\cite{Blelly2021,Starck2010}. These approaches provide different ways to handle missing information; their assumptions and reconstruction uncertainties remain relevant when interpreting the recovered waveform.
+
+Deep learning offers a complementary approach by learning waveform structure from simulated examples. Xu \textit{et al.}~\cite{Xu_2024} developed a DenseNet--BiLSTM model for denoising inspiral--merger--ringdown signals under several types of data corruption. Mao \textit{et al.}~\cite{Mao:2025cae} combined a denoising convolutional autoencoder with a bidirectional gated recurrent unit for recovering long LISA sequences affected by gaps. WaveFormer~\cite{Wang:2024waveformer} uses a Transformer-based architecture for extracting gravitational-wave signals from noisy ground-based data. These studies motivate learned reconstruction, while their different waveform families, noise models, and evaluation protocols require care in comparing reported accuracies.
+
+Here we focus on the joint denoising and reconstruction of gapped ringdown signals. This task requires the model to predict damped oscillations across missing intervals while distinguishing them from noise in the observed context. We introduce DenoiseGapFiller (DGF), which combines a time--frequency branch with a multiresolution time-domain branch in an encoder--decoder architecture. The design is motivated by the complementary roles of localized spectral structure and signed temporal context. Mixing and Transformer-style blocks combine these features before a time-domain decoder produces the reconstructed waveform. We evaluate amplitude, waveform mismatch, spectral structure, and phase deviations separately, so that agreement in one diagnostic is not taken as evidence of accuracy in all the others. The present study establishes reconstruction performance within a specified synthetic benchmark; its implications for QNM parameter inference require additional validation.
+
+Section~\ref{sec:method} specifies the signal and noise models, gap representation, reconstruction pipeline, and training procedure. Section~\ref{sec:results} presents qualitative examples and quantitative reconstruction diagnostics. Section~\ref{sec:discussion} discusses the relation to previous work, the limitations of the present benchmark, and directions for physical validation. Architectural details are provided in Appendixes~\ref{app:model_analysis} and~\ref{app:sequence_modeling}.
+
+\section{Methodology}
+\label{sec:method}
+
+We first specify the noise, ringdown, and gap models used to construct the inputs. We then describe the DGF reconstruction pipeline and its training objective. This ordering separates the physical setup from the learned mapping between the corrupted input and the clean target.
+
+\subsection{Noise Model}
+\label{noise model}
+We use the LISA sensitivity model of Ref.~\cite{Robson:2019psd} as a reference for the noise spectrum:
+\begin{align}
+S_n(f) &= \frac{10}{3L^2}
+\left[
+P_{\rm OMS}(f)
++\frac{4\,P_{\rm acc}(f)}{(2\pi f)^4}\right]
+\left[1+\Big(\frac{6}{10}\frac{f}{\,f_\ast}\Big)^2\right] + S_{\rm c}(f),\\
+P_{\rm OMS}(f) &=
+\left(1.5\times10^{-11}\,{\rm m}\right)^2
+\!\left[1+\left(\tfrac{2\,{\rm mHz}}{f}\right)^4\right],\\
+P_{\rm acc}(f) &=
+\left(3\times10^{-15}\,{\rm m\,s^{-2}}\right)^2
+\!\left[1+\left(\tfrac{0.4\,{\rm mHz}}{f}\right)^2\right]
+\!\left[1+\left(\tfrac{f}{8\,{\rm mHz}}\right)^4\right].
+\label{sensitivity}
+\end{align}
+Here $L=2.5\,\mathrm{Gm}$ is the interferometer arm length and $f_\ast=c/(2\pi L)=19.09\,\mathrm{mHz}$ is the transfer frequency. The Galactic confusion contribution is represented by the fit~\cite{Cornish_2017}
+
+\begin{equation}
+S_{\rm c}(f)=
+A\,f^{-7/3}\,
+\exp\!\big[-f^\alpha+\beta f\sin(\kappa f)\big]\,
+\Big[1+\tanh\!\big(\gamma(f_k-f)\big)\Big],
+\label{eq:Sconf_refined}
+\end{equation}
+with coefficients \(\{A,\alpha,\beta,\kappa,\gamma,f_k\}\) chosen for the observation time as tabulated in Ref.~\cite{Robson:2019psd}.
+
+The synthetic noise used in the reconstruction benchmark is generated from an empirical PSD obtained from LISA Data Challenge (LDC) noise realizations. The PSD is interpolated onto the analysis frequency grid and used to generate colored Gaussian noise. The analytic sensitivity curve and this empirical spectrum play distinct roles: the former provides a reference model, while the latter determines the simulated noise inputs.
+
+\subsection{Ringdown Signal}
+\label{ringdown signal}
+We model the ringdown as a superposition of the fundamental ($n=0$) QNMs of the remnant Kerr black hole. For each angular mode $(l,m)$, the two polarization components are~\cite{Baibhav_2019,Berti_2007}
+
+\begin{align}
+h_{+}^{lm}(t)&=\frac{M_z A_{lm}Y_{+}^{lm}}{r}\mathrm{Re} (e^{-t/\tau_{lm}+i(\omega_{lm}t+\phi_{lm})})\\
+h_{\times}^{lm}(t)&=\frac{M_z A_{lm}Y_{\times}^{lm}}{r}\mathrm{Im} (e^{-t/\tau_{lm}+i(\omega_{lm}t+\phi_{lm})}),
+\label{eq:ringdown}
+\end{align}
+
+where $M_z$ denotes the redshifted black hole mass, $\omega_{lm}$ is the angular oscillation frequency, and $\tau_{lm}$ is the damping time. The angular factors are
+\begin{align}
+Y_{+}^{lm}(\iota)&={}_{-2}Y^{lm}(\iota,0)+(-1)^l {}_{-2}Y^{l -m}(\iota,0)\\
+Y_{\times}^{lm}(\iota)&={}_{-2}Y^{lm}(\iota,0)-(-1)^l {}_{-2}Y^{l -m}(\iota,0),
+\label{eq:angular function}
+\end{align}
+The mode frequencies and damping times are specified by the fits~\cite{Berti_2016}
+\begin{align}
+\omega_{lm}&=\frac{f_1+f_2(1-\chi_f)^{f_3}}{M_z}\\
+\tau_{lm}&=\frac{2(q_1+q_2(1-\chi_f)^{q_3})}{\omega_{lm}}.
+\label{eq:omega and tau}
+\end{align}
+The mode-dependent coefficients are listed in Table~\ref{fitting para}. For a binary with nonspinning progenitor black holes, the remnant spin is approximated by~\cite{Barausse_2009}
+\begin{align}
+    \chi_f(q)=\eta(2\sqrt{3}-3.517\eta+2.5763\eta^2),
+\label{eq:angular momentum}
+\end{align}
+where $q$ is the mass ratio and $\eta=q/(1+q)^2$ is the symmetric mass ratio.
+
+\begin{table}[t]
+
+  \caption{Coefficients for the fundamental-mode frequency and damping-time fits in Eq.~\eqref{eq:omega and tau}, from Ref.~\cite{Berti_2006}.}
+  \label{tab:fit-coeff}
+  \begin{ruledtabular}
+    \begin{tabular}{crrrrrr}
+      $(\ell,m)$ & $f_1$   & $f_2$    & $f_3$   & $q_1$   & $q_2$   & $q_3$   \\
+      \hline
+      $(2,2)$    & 1.5251  & -1.1568  & 0.1292  & 0.7000  & 1.4187  & -0.4990 \\
+      $(3,3)$    & 1.8956  & -1.3043  & 0.1818  & 0.9000  & 2.3430  & -0.4810 \\
+      $(2,1)$    & 0.6000  & -0.2339  & 0.4175  & -0.3000 & 2.3561  & -0.2277 \\
+      $(4,4)$    & 2.3000  & -1.5056  & 0.2244  & 1.1929  & 3.1191  & -0.4825 \\
+    \end{tabular}
+  \end{ruledtabular}
+ \label{fitting para}
+\end{table}
+\subsection{Data Gaps}
+\label{subsec:data_gaps_condensed}
+Data interruptions can arise from scheduled instrument operations or unscheduled anomalies. Mission-level studies use duty-cycle assumptions to assess their cumulative impact~\cite{AmaroSeoane:2021}, whereas the effect on an individual ringdown depends on the timing of the interruption relative to the signal. Multiplication by a gap window also redistributes power in the Fourier domain~\cite{Harris:1978}.
+
+A stochastic description of successive interruptions models the waiting time $\Delta T$ between neighboring gaps as exponentially distributed,
+\begin{equation}
+p(\Delta T)=\lambda\,e^{-\lambda \Delta T},
+\end{equation}
+where $\lambda$ is the interruption rate. A duty-cycle model additionally requires a specification of gap durations. For an individual waveform $h(t)$, the gap window $G(t)$ gives
+\begin{equation}
+h_G(t)=G(t)\,h(t),
+\end{equation}
+where $G(t)=0$ inside the gap and $G(t)=1$ otherwise.
+
+The distinction between scheduled and unscheduled interruptions is relevant at the mission level. For ringdown reconstruction, the immediate concern is which oscillations are masked and how much temporal context remains available~\cite{shi2024effectsdatagapsringdown}. 
+
+
+
+
+
+% \subsection{Model Analysis}
+\deleted{
+We propose DGF, an encoder–decoder-based deep learning architecture designed to reconstruct ringdown waveforms from gravitational wave time-series data containing nontrivial gaps and noise. The core design is motivated by the need to preserve physical fidelity in both amplitude and phase, and to respect the localized and damped nature of QNM signals. As shown in Fig.~\ref{fig:pipeline} and Fig.~\ref{fig:architecture}, DGF overall pipeline consists of three main components: (1) a preprocessing flow of the dual-branch (2) a hybrid Encoder module combining convolutional, and Token learning and a sequence modeling network built from stacked TimeMixer blocks before positional encoding and Transformer block layers with residual connection (3) a relatively simple Decoder with MLP layers and reverse embedding and inverse transform and a 1D convolution. The final output reconstruction appears to be a complete waveform after inverting the normalization applied during preprocessing.}
+\deleted{Compared to recent deep learning methods for data gap imputation, our framework is specifically tailored for the ringdown phase. The Q-transform and wavelet transformation enhance the visibility of ridge structures, facilitating localized context encoding around the gap\mbox{\cite{Chatterji:2004qtf, McNabb:2019spectrogram}} and extracting the characteristics of the noise. While both the constant Q-transform and discrete wavelet transform (DWT) are time–frequency representations capable of capturing nonstationary signal components, they differ in formulation, resolution, and application focus. The Q-transform\mbox{\cite{Chatterji:2004qtf}} is based on short-time Fourier transform with a logarithmic frequency spacing and constant quality factor $Q = f/\Delta f$, allowing it to capture long-lived, narrowband structures such as the QNM ridges in black hole ringdowns. In contrast, the wavelet transform~\cite{MALLAT199942} decomposes signals using scaled and shifted versions of a mother wavelet, which is well suited for capturing transient components and is therefore convenient for denoising.}
+
+
+%ridge 文献
+%叙述Q-Transform和wavelet的原理
+% In our model, the Q-transform is used in the first input branch to extract the fine-grained ridge-like structure of the ringdown signal in the time–frequency domain, which is particularly effective for locating damped sinusoids. In contrast, the wavelet transform is applied in the second input branch, where it provides a compact multi-resolution representation of the full time series. The wavelet coefficients are normalized and then embedded into overlapping token segments for transformer-based modeling. This channel captures coarse structural features and statistical regularity across multiple time scales, helping the model infer context even in the presence of missing data.
+
+\deleted{Supplemented by two-dimensional convolution processing of the image after the Q-transform, the frequency domain information of the signal is further extracted\mbox{\cite{younesi2024comprehensivesurveyconvolutionsdeep}}. Time-mixing supports efficient and scalable modeling across short-duration sequences\mbox{~\cite{wang2025timemixergeneraltimeseries}}. Furthermore, DGF leverages Transformer-based attention mechanisms to capture long-range dependencies and subtle temporal patterns\mbox{~\cite{vaswani2023attentionneed,devlin2019bertpretrainingdeepbidirectional}}. %Its embedding layers provide a compact representation of the signal's statistical context, similar in spirit to conditional embedding in audio inpainting\cite{6020748}. 
+% The entire model is trained end-to-end using a composite loss function that incorporates time-domain amplitude, frequency-domain spectral alignment, and phase precision at signal peaks\cite{Babak_2017,Isi_2019}.
+%去掉condition
+}
+
+\begin{figure}[htbp]
+    %\centering
+    \includegraphics[width=0.48\textwidth]{Img/DGF_pipeline.png}
+    \caption{\textbf{Schematic overview of the pipeline of DGF.} The input data with a length of 1056 (noise plus signal with gap) goes through two branches. One branch directly performs q-transform on the data to obtain the amplitude and angle in the time direction and frequency scale, which is used as the first receiver of the dual-channel image format data input into the model, and the other branch normalizes data and performs wavelet transform processing to obtain the data of 8 channels. Finally, the data of each channel is segmented with 50\% overlap to obtain a 32-group signal with a length of 64. Each group is regarded as a token input into the second receiver of the model. Output from DGF model is inverse-normalized to obtain the reconstructed waveform.}
+    \label{fig:pipeline}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Img/DGF_architecture.png}
+    \caption{\textbf{Schematic overview of the DGF architecture.} The dual-branch encoder receives Q-transform and tokenized wavelet patches in parallel. The embedding module integrates token, convolutional embeddings to encode localized time–frequency features and statistical context. Positional embeddings are added, followed by residual connected 2D convolutions and stacked BiTransformer encoder layers (16 blocks) with multi-head attention to model both short- and long-range dependencies. The decoder contains an MLP layer, followed by reverse token embedding and inverse wavelet transform and 1D convolution to reconstruct the final waveform.}
+    \label{fig:architecture}
+\end{figure}
+
+\subsection{DGF reconstruction pipeline}
+\label{sec:dgf_overview}
+
+DGF maps a noisy input containing masked signal intervals to an estimate of the complete, clean ringdown. Its encoder receives two complementary representations: time--frequency features that describe localized oscillatory structure, and multiresolution time-domain features that retain signed temporal context across scales. Their combination is intended to provide context for both denoising the observed waveform and predicting its continuation through a gap.
+
+Figure~\ref{fig:pipeline} summarizes preprocessing, feature fusion, sequence modeling, and time-domain reconstruction. The input contains 1056 samples. Each of the eight wavelet-derived channels is divided into 32 patches of 64 samples with a stride of 32 samples; thus $1056=64+31\times32$. This length is a consequence of the patch layout rather than a characteristic ringdown timescale. At the sampling frequency of $2\,\mathrm{Hz}$, the full segment spans $528\,\mathrm{s}$.
+
+The fused features are processed by mixing and Transformer-style blocks, followed by a decoder and restoration of the input normalization. The two-branch design supplies phase-sensitive inputs, but its reconstruction accuracy must be established from the output diagnostics. Appendixes~\ref{app:model_analysis} and~\ref{app:sequence_modeling} provide further architectural details. The training objective is described below.
+
+\deleted{Given a noisy gravitational wave strain sequence containing a masked gap region as input $d=n(t)+G(t)(h(t))$ , where $n(t)$ denotes noise and $G(t)(h(t))$ denotes signal with gaps, the DGF model encodes and decodes the input before output a clean signal waveform $h(t)$. The  framework consists of a dual-branch encoder, a transformer-based sequence modeling core, and a structured decoder which handle the data. It is designed to reconstruct gravitational wave ringdown signals corrupted by gaps and noise using a hybrid representation of time--frequency and wavelet-transformed inputs.\mbox{\cite{Wang:2024waveformer}}}
+
+% \paragraph{Dual-branch Input Encoding.} Let $x \in \mathbb{R}^{T}$ be the raw 1D time-domain input signal of length $T$. We define two parallel encoding branches:
+
+% %解释MLP
+% \begin{enumerate}
+%     \item \textbf{Q-transform branch:} A Q-transform $\mathcal{Q}: \mathbb{R}^{T} \to \mathbb{R}^{H \times W \times C}$ is applied to obtain a time–frequency representation $X^{(1)} = \mathcal{Q}(x)$, where $H$ and $W$ denote the number of frequency bins and time steps and $C$ the number of channels (amplitude and phase). The output is passed through a modified TimeMixer module $\mathcal{T}$~\cite{wang2025timemixergeneraltimeseries}:
+%     \begin{equation}
+%         Z^{(1)} = \mathcal{T}(X^{(1)}),
+%     \end{equation}
+%     where $Z^{(1)}$ encodes short-duration temporal and spectral ridge structures in the ringdown signal.  
+%     \item \textbf{Wavelet branch:} A normalized version of $x$ is transformed via a discrete wavelet transform (DWT) $\mathcal{W}$ into multi-resolution coefficients $x_{w} = \mathcal{W}(x) \in \mathbb{R}^{C \times T}$, where $C$ is the number of wavelet channels~\cite{MALLAT199942}. The coefficients are segmented into $N$ overlapping chunks (tokens) of length $L$ with stride $L/2$ to form a token sequence\cite{nie2023timeseriesworth64}:
+%     \begin{equation}
+%         X^{(2)} = [x_{w}^{(1)}, x_{w}^{(2)}, \dots, x_{w}^{(N)}], \quad x_{w}^{(i)} \in \mathbb{R}^{C \times L}.
+%     \end{equation}
+%     Each token is embedded as $z_{i}^{(2)} = \mathcal{E}(x_{w}^{(i)}) \in \mathbb{R}^{d}$, where $\mathcal{E}$ includes token embedding and convolutional embedding blocks~\cite{Mao:2025cae, Xu_2024}. The sequence $Z^{(2)} = [z_1^{(2)}, \dots, z_N^{(2)}] \in \mathbb{R}^{N \times d}$ is then fused with positional encoding~\cite{vaswani2023attentionneed}.  
+% \end{enumerate}
+
+% \paragraph{Transformer Encoder.} The concatenated representation $Z = Z^{(1)} \oplus Z^{(2)}$ enters into a 2D convolution with residual connection and then be passed through stack of 16 bidirectional multi-head attention transformer blocks:
+% \cite{devlin2019bertpretrainingdeepbidirectional,xiong2020layernormalizationtransformerarchitecture}
+
+% \begin{align}
+%     Z_0' &= Z + \text{PosEmbed}(Z) \\
+%     Z_0  &= \text{Conv2d}(Z_0')+\text{Res}(Z_0')\\
+%     Z_{\ell} &= \text{TransformerBlock}_{\ell}(Z_{\ell-1}), \quad \ell=1,\dots,16,
+% \end{align}
+% where PosEmbed denotes positional embedding, Conv2d denotes 2D convolution, and Res denotes residual connection, and each TransformerBlock consists of:
+% \begin{itemize}
+%     \item Multi-head self-attention: captures long-range dependencies
+%     \item Feedforward layer: non-linear representation learning
+%     \item Residual connections and normalization for stability
+% \end{itemize}
+
+% \paragraph{Decoder.} The encoded output $Z_{16}$ is processed through:
+% \begin{align}
+%   Y &= \operatorname{MLP}(Z), \\
+%   \hat{x}_{\mathcal E'} &= (\mathcal E')^{-1}(Y), \\
+%   \hat{x}_{w} &= \mathcal W^{-1}\!\bigl(\hat{x}_{\mathcal E'}\bigr), \\
+%   \hat{x} &= \operatorname{Conv1d}\!\bigl(\hat{x}_{w}\bigr).
+% \end{align}
+
+% where MLP denotes multilayer perceptron, $\mathcal{E}^{\prime-1}$ denotes the reverse token embedding and $\mathcal{W}^{-1}$ is the inverse wavelet transform and $\text{Conv1d}$ denotes the 1D convolution. Finally, inverse normalization is applied to obtain the reconstructed time-domain signal $\hat{x}$.
+
+% \paragraph{Loss Function.} The model is optimized end-to-end using a composite loss:
+% \begin{equation}
+%     \mathcal{L} = \alpha_1 \mathcal{L}_{\text{time}} + \alpha_2 \mathcal{L}_{\text{freq}} + \alpha_3 \mathcal{L}_{\text{phase}},
+% \end{equation}
+% which balances time-domain amplitude error, frequency-domain spectral alignment, and phase accuracy at ringdown peaks.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.95\textwidth]{Img/DGF_architecture.png}
+%     \caption{Model architecture of DGF. Two branches extract complementary features via Q-transform (top) and wavelet token embedding (bottom). The sequence is encoded using 16 stacked BiTransformer layers and decoded into reconstructed waveforms.}
+%     \label{fig:architecture}
+% \end{figure}
+
+\subsection{Loss Function and Training Strategy}%这里之后准备大改
+\label{loss}
+
+
+
+Training pairs each corrupted input with its complete, clean target waveform. The training objective combines sequence-wide mean squared error (MSE) with an $L_1$ regularization term:
+
+\begin{equation}
+\mathcal{L}_{\text{Total}}
+= \mathcal{L}_{\text{MSE}} + \mathcal{L}_{\text{Reg}}
+= \frac{1}{T}\sum_{t=1}^{T}\!\bigl(\hat{h}(t)-h(t)\bigr)^{2}
+  + \alpha \sum_{i}\!\left\lvert \theta_{i} \right\rvert .
+\end{equation}
+
+Here $h(t)$ is the clean target, $\hat h(t)$ is the reconstruction, $\theta_i$ are model parameters, and $\alpha$ controls the regularization contribution. In this schedule, $\alpha$ increases during training. Evaluating the reconstruction term over the full sequence supervises both denoising outside the gap and prediction inside it.
+
+%光度距离和红移修改，把振幅factor换算一下，其他的参数空间也写出来
+
+The training population spans total masses of $10^5$--$10^6\,M_\odot$, mass ratios of $0.5$--$0.8$, and redshifts of $4$--$10$. The synthetic ringdown waveforms are combined with colored Gaussian noise and masked signal intervals. The gap durations extend to $20\%$ of the ringdown signal length, with a typical gap of 100 samples in a 1056-sample input. The waveform prescription follows Ref.~\cite{zhang2021parameter}, and the empirical noise spectrum is obtained from LDC simulations~\cite{Babak_2008,Babak_2010}.
+
+% EDITORIAL: Match the population, gap protocol, checkpoint, loss implementation,
+% and optimization settings to the completed training run before updating results.
+
+Optimization uses Adam with an initial learning rate of $3\times10^{-4}$ and a batch size of 32. Early stopping is based on validation loss. Reconstruction performance is evaluated separately in Sec.~\ref{sec:results}; the training loss alone does not establish phase accuracy or physical parameter recovery.
+
+Figure~\ref{fig:loss} shows the training and validation losses. Both decrease rapidly during the first 10 epochs, followed by a slower decline toward a plateau around epoch 90. Their similar evolution provides a diagnostic of optimization on these data, while the test-set statistics below assess reconstruction performance.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.48\textwidth]{Img/loss.png}
+  \caption{Training (blue) and validation (orange) loss as a function of epoch. The rapid initial decrease is followed by slower convergence; the two curves show similar evolution over the displayed run.}
+  \label{fig:loss}
+\end{figure}
+
+\section{Results}%考虑除了SNR的分类，
+\label{sec:results}
+%前面叙述太长，合并一下
+We evaluate DGF on synthetic ringdown waveforms constructed from damped QNM oscillations and corrupted by colored Gaussian noise and signal gaps. The clean target is available for each example, allowing direct comparison with the reconstruction. The current benchmark is divided into lower-SNR (1--5) and higher-SNR (5--10) subsets. We present waveform examples first, followed by amplitude, mismatch, spectral, and phase diagnostics.
+
+Figure~\ref{fig:glance} illustrates reconstructions for different oscillation periods and gap locations. In the displayed cases, the reconstructed waveform follows the principal oscillations and decay envelope and bridges the masked interval. Differences remain visible in some portions of the signal. These examples show the form of the reconstruction; the distributions below assess its accuracy across the evaluated samples.
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[]{
+    \includegraphics[width=0.48\textwidth]{Img/glance1.png}
+    \label{fig:glance1}
+  }\hfill
+  \subfloat[]{
+    \includegraphics[width=0.48\textwidth]{Img/glance2.png}
+    \label{fig:glance2}
+  }\hfill
+  \subfloat[]{
+    \includegraphics[width=0.48\textwidth]{Img/glance3.png}
+    \label{fig:glance3}
+  }
+  \caption{Examples of ringdown reconstruction. The clean target is blue, the noisy gapped input is yellow, and the DGF output is green. Red marks the gap interval. The sampling frequency is $2\,\mathrm{Hz}$. These examples illustrate waveform behavior rather than population-wide accuracy.}
+  \label{fig:glance}
+\end{figure}
+
+
+We next quantify the differences between the reconstructed and target waveforms in the synthetic benchmark.
+
+
+\subsection{Mean Squared Error and Mean Absolute Error}\label{subsec:MeanSquaredError}
+We quantify amplitude errors using the MSE and mean absolute error (MAE) between the reconstruction $\hat h$ and clean target $h$. For a sequence of $N$ samples,
+
+\begin{equation}
+\mathrm{MSE} = \frac{1}{N} \sum_{i=1}^{N} \bigl[h_i - \hat{h}_i\bigr]^2,
+\end{equation}
+\begin{equation}
+    \mathrm{MAE}=\frac{1}{N} \sum_{i=1}^{N}\left\lvert h_i - \hat{h}_i \right\rvert
+\end{equation}
+where \(N\) is the number of time samples.
+
+
+For the plotted statistics, both waveforms are multiplied by $10^{20}$ before computing the errors. The reported MSE and MAE therefore refer to rescaled strain and are not errors in physical strain units. Figure~\ref{fig:mse_snr} shows their distributions in the two SNR subsets.
+
+The lower-SNR subset has a mean MSE of $2.737\times10^{-2}$ and a mean MAE of $1.851\times10^{-1}$. The corresponding higher-SNR values are $1.666\times10^{-2}$ and $1.363\times10^{-1}$. These amplitude diagnostics complement the normalized waveform mismatch reported below.
+
+%The narrower spread at higher SNR indicates more consistent amplitude recovery when the signal is stronger relative to noise.
+
+\begin{figure*}[t]
+  \centering
+  % --- left ---
+  \subfloat[\textbf{lower-SNR 1--5}: mean MSE $=2.737\times10^{-2}$ and mean MAE $=1.851\times10^{-1}$.%
+  \label{fig:mse_1-5}]{
+    \includegraphics[width=0.48\textwidth]{Img/result_SNR1-5/MSE_MAE.png}
+  }\hfill
+  % --- right ---
+  \subfloat[\textbf{higher-SNR 5--10}: mean MSE $=1.666\times10^{-2}$ and mean MAE $=1.363\times10^{-1}$.%
+  \label{fig:mse_5-10}]{
+    \includegraphics[width=0.48\textwidth]{Img/result_SNR5-10/MSE_MAE.png}
+  }
+  \caption{MSE and MAE distributions in the lower-SNR (a) and higher-SNR (b) subsets. Both errors are computed after multiplying the true and reconstructed strain by $10^{20}$. Panel captions give the subset means.}
+  \label{fig:mse_snr}
+\end{figure*}
+
+\subsection{Mismatch}\label{subsec:Mismatch}
+To assess reconstruction fidelity, we report the time-domain normalized waveform mismatch used by the evaluation notebooks and divide the test samples into lower-SNR (1--5) and higher-SNR (5--10) groups. For the sampled true waveform $h_1$ and reconstruction $h_2$, this statistic is
+\begin{equation}
+\label{formula:mismatch}
+\mathcal{M}_{t}=1-\frac{\sum_k h_{1,k}h_{2,k}}{\sqrt{\sum_k h_{1,k}^{2}\sum_k h_{2,k}^{2}}}.
+\end{equation}
+The distributions and table below report $\mathcal{M}_{t}$ without maximization over time or phase. This statistic differs from the noise-weighted mismatch used in matched filtering \cite{Cutler_1994},
+\begin{equation}
+\mathcal{M}_{n}=1-\frac{(h_1|h_2)_n}{\sqrt{(h_1|h_1)_n(h_2|h_2)_n}},
+\end{equation}
+where $(h_1|h_2)_n=4\,\mathrm{Re}\int_{f_{\rm low}}^{f_{\rm high}}\tilde h_1(f)\tilde h_2^*(f)/S_n(f)\,df$. The two definitions are not interchangeable for a frequency-dependent PSD.
+
+Figure~\ref{fig:mismatch_SNR1-5}, Fig.~\ref{fig:mismatch_SNR5-10}, and Table~\ref{table:mismatch} summarize the time-domain mismatch. The lower-SNR subset contains 706 samples, with a mean of $0.004318$ and a median of $0.002148$. The higher-SNR subset contains 303 samples, with a mean of $0.001526$ and a median of $0.000854$. In both subsets, the mean exceeds the median, reflecting a tail of larger errors. The aggregate statistics do not identify the causes of those errors; attribution to gap geometry or noise level requires a stratified analysis.
+
+\begin{table}[ht]
+\centering
+\caption{Time-domain mismatch $\mathcal M_t$ in the two evaluated SNR subsets, without time or phase maximization. Counts refer to waveforms; percentile rows summarize the empirical distributions.}
+\label{table:mismatch}
+\begin{tabular}{lrr}
+\toprule
+  & SNR 1–5   & SNR 5–10  \\
+\midrule
+count   & 706   & 303 \\
+mean    & 0.004318  & 0.001526  \\
+std     & 0.007744  & 0.003568  \\
+min     & 0.000545  & 0.000425  \\
+25\%    & 0.001456  & 0.000652  \\
+50\%    & 0.002148  & 0.000854  \\
+75\%    & 0.004278  & 0.001261  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[Lower-SNR subset (1--5).]{
+
+\includegraphics[width=0.48\textwidth]{Img/result_SNR1-5/mismatch.png}
+    \label{fig:mismatch_SNR1-5}
+  }\hfill
+  \subfloat[Higher-SNR subset (5--10).]{
+
+\includegraphics[width=0.48\textwidth]{Img/result_SNR5-10/mismatch.png}
+    \label{fig:mismatch_SNR5-10}
+  }
+  \caption{Distributions of the fixed-time, fixed-phase mismatch $\mathcal M_t$ defined in Eq.~\eqref{formula:mismatch}. The subset means are $0.004318$ and $0.001526$, respectively. The larger-error tail explains the difference between mean and median in Table~\ref{table:mismatch}.}
+\end{figure}
+
+%把caption合并到大caption
+
+
+%高斯核估
+
+%放附录
+The connection to detection strength requires the noise-weighted overlap $\mathcal{O}_n=1-\mathcal{M}_n$. For a fixed PSD and a normalized template, the expected matched-filter SNR satisfies $\rho_{\rm rec}=\mathcal{O}_n\rho_{\rm opt}$ \cite{Owen:1996PRD,Cutler_1994}. In a Gaussian-noise approximation, the corresponding loss of maximized log likelihood is
+\begin{equation}
+\Delta\ln\mathcal{L}_{\max}\simeq\frac{\rho_{\rm opt}^{2}}{2}\left[1-(1-\mathcal{M}_n)^2\right]
+\simeq\mathcal{M}_n\rho_{\rm opt}^{2},
+\end{equation}
+where the final approximation assumes small $\mathcal{M}_n$. A Bayes factor also depends on priors and parameter marginalization \cite{Thrane:2019PASA,Veitch:2015PRD}; this likelihood estimate alone does not determine the evidence. Likewise, posterior uncertainties and systematic biases require a parameter-inference calculation or an assessment of waveform derivatives and residual projections \cite{Cutler_1994}. The time-domain mismatch distributions reported here demonstrate reconstruction agreement, but do not by themselves establish SNR retention, evidence penalties, or tighter posterior constraints.
+
+\subsection{Amplitude Distribution and Power Spectral Density}\label{subsec:AmplitudeDensityFrequencySpectrum}
+We examine the time-domain amplitude distribution and PSD of the reconstruction error, $h_{\rm res}=h_{\rm recon}-h_{\rm true}$. Figure~\ref{fig:amp_spec_snr} compares the input and output residuals for the two SNR subsets. In the lower-SNR amplitude panel, the three-standard-deviation widths decrease from approximately $1.1\times10^{-22}$ to $7\times10^{-23}$.
+
+The PSD panels show how the residual power varies with frequency. In substantial portions of the displayed $0.01$--$1\,\mathrm{Hz}$ band, the reconstruction residual lies below the input reference. The reduction is frequency dependent and should not be interpreted as a uniform suppression factor across the band. Moreover, the input residual includes the masked signal contribution as well as instrumental noise. The output residual is a reconstruction error rather than a new detector-noise process. Its spectrum provides an error diagnostic; it does not establish recovery of individual QNM parameters.
+
+\begin{figure*}[t]
+  \centering
+  % --- row 1 ---
+  \subfloat[Residual amplitude distribution (SNR 1--5).\label{fig:amp_stat_1-5}]{
+    \includegraphics[width=0.45\textwidth]{Img/result_SNR1-5/Amp_stat.png}
+  }\hfill
+  \subfloat[PSD comparison (SNR 1--5).\label{fig:psd_1-5}]{
+    \includegraphics[width=0.45\textwidth]{Img/result_SNR1-5/psd_comparsion.png}
+  }
+
+  \vspace{1em}
+
+  % --- row 2 ---
+  \subfloat[Residual amplitude distribution (SNR 5--10).\label{fig:amp_stat_5-10}]{
+    \includegraphics[width=0.45\textwidth]{Img/result_SNR5-10/Amp_stat.png}
+  }\hfill
+  \subfloat[PSD comparison (SNR 5--10).\label{fig:psd_5-10}]{
+    \includegraphics[width=0.45\textwidth]{Img/result_SNR5-10/psd_comparsion.png}
+  }
+
+  \caption{Residual amplitude distributions and PSDs for the lower-SNR (top row) and higher-SNR (bottom row) subsets. Blue and orange denote the input and reconstruction residuals, respectively. The output residual is defined relative to the clean target; spectral differences diagnose frequency-dependent reconstruction errors.}
+  \label{fig:amp_spec_snr}
+\end{figure*}
+
+
+%用welch平滑，低频踩点少，去噪后偏高
+%两个量级过于好
+%log均匀踩点，看其他的LISA PSD有没有问题
+
+
+%需要看看没有噪声的有gap的信号是怎么样的时频图
+\subsection{Spectral Fidelity and Time–Frequency Coherence}
+\label{subsec:SpectralFidelityTimeFrequencyCoherence}
+
+Time--frequency maps provide a complementary visual diagnostic of the localized oscillatory structure. Figure~\ref{fig:spec_q} compares the clean target, noisy gapped input, and reconstruction for representative examples in the two SNR subsets. These maps are used here to inspect spectral morphology rather than to measure a mode frequency or damping time.
+
+In the lower-SNR example, the principal ridge lies near $0.02$--$0.03\,\mathrm{Hz}$, and the marked gap interval is around $110$--$160\,\mathrm{s}$. The input contains additional spectral structure, while the reconstruction shows a more continuous ridge and less surrounding power. The higher-SNR example has its principal ridge near $0.01$--$0.02\,\mathrm{Hz}$. In both illustrated cases, the reconstructed map resembles the target around the dominant oscillations. Visual similarity complements the waveform diagnostics, but does not independently demonstrate phase accuracy or recovery of multiple QNMs.
+
+\begin{figure*}[t]
+  \centering
+  \subfloat[Q-transform (SNR 1--5). The QNM ridge at \(f\simeq0.02-0.03\,\mathrm{Hz}\) is disrupted by the gap windows (vertical dotted lines). \label{fig:spec_q_1-5}]{
+    \includegraphics[width=0.48\linewidth]{Img/result_SNR1-5/spec1.png}
+  }\hfill
+  \subfloat[Q-transform (SNR 5--10). The ridge sits at \(f\simeq0.01\!-\!0.02\,\mathrm{Hz}\).\label{fig:spec_q_5-10}]{
+    \includegraphics[width=0.48\linewidth]{Img/result_SNR5-10/spec2.png}
+  }
+  \caption{Q-transform maps of the clean target (top), noisy gapped input (middle), and DGF reconstruction (bottom) for a lower-SNR (a) and a higher-SNR (b) example. Vertical dotted lines mark the gap boundaries. The maps illustrate the localized spectral structure; phase accuracy is evaluated separately in Sec.~\ref{subsec:PhaseRecoveryAlignment}.}
+  \label{fig:spec_q}
+\end{figure*}
+
+
+% \begin{figure}[htbp]
+%   \centering
+%   % SNR 1--5
+%   \subfloat[Time-domain sample (SNR 1--5). The reconstructed waveform (green) recovers the burst-like ringdown near $t\!\sim\!60$--$120\,\mathrm{s}$, closely following the target (orange) while denoising the input (blue). Vertical scale $\times 10^{-22}$.%
+%   \label{fig:ts_snr15}]{
+%     \includegraphics[width=1\linewidth]{Img/result_SNR1-5/signal_selected.png}
+%   }\hfill
+%   % SNR 5--10
+%   \subfloat[Time-domain sample (SNR 5--10). The reconstruction tracks both amplitude and phase of multiple ringdown cycles and agrees with the target at the $\times 10^{-21}$ scale.%
+%   \label{fig:ts_snr510}]{
+%     \includegraphics[width=1\linewidth]{Img/result_SNR5-10/signal_selected.png}
+%   }
+%   \caption{\textbf{Time-domain samples corresponding to the spectrograms in Fig.~\ref{fig:spec_q}.}
+%   Panels (a) and (b) align with the SNR\,1--5 and SNR\,5--10 cases, respectively.}
+%   \label{fig:ts_samples}
+% \end{figure}
+
+
+
+
+% %这里可以提对于靠近merger的gap也能有很好的效果，同理abstract
+% The spectral artifacts seen in the gapped input are the expected consequence of
+% multiplying the true waveform by a time window $W(t)$ that vanishes inside each gap:
+% $s_{\rm gap}(t)=W(t)h(t)+n(t)$. By the convolution theorem, the corresponding
+% Fourier-domain data obey $\tilde{s}_{\rm gap}(f)=\tilde{W}(f)*\tilde{h}(f)+\tilde{n}(f)$,
+% so the narrow QNM line (with width set by the damping time, {\rm FWHM} (Full Width at Half Maximum) $\approx\!1/(\pi\tau)$) is
+% broadened and its energy is re-distributed into side lobes---the familiar phenomenon of spectral
+% leakage in windowed Fourier analysis \cite{Harris:1978}. In a time--frequency representation with
+% approximately constant quality factor (e.g.\ the Q-transform used here), this manifests as a broken
+% or thickened ridge and spurious power above/below the physical band \cite{Chatterji:2004}.
+
+% To quantify the recovery of band-limited signal content, let $B$ denote a narrow
+% ringdown band around the ridge frequency $f_0$ with width $\Delta f\simeq {\rm FWHM}$, and define
+% the band energy (noise-weighted) and leakage fraction
+% \begin{equation}
+% \mathcal{E}_{B}(x)\equiv \int_{B}\frac{|\tilde{x}(f)|^{2}}{S_{n}(f)}\,df,\qquad
+% \Lambda(x)\equiv 1-\frac{\mathcal{E}_{B}(x)}{\int_{0}^{\infty}\frac{|\tilde{x}(f)|^{2}}{S_{n}(f)}\,df}.
+% \label{eq:band-metrics}
+% \end{equation}
+% For gap-free data with a single damped sinusoid, $\Lambda(h)$ is minimal and
+% $\mathcal{E}_{B}(h)$ captures essentially all of the mode power; introducing gaps increases
+% $\Lambda(s_{\rm gap})$ by convolving $\tilde{h}$ with $\tilde{W}$, thereby smearing the ridge.
+% After reconstruction, we observe both a reduction of $\Lambda(\hat h)$ and an increase of
+% $\mathcal{E}_{B}(\hat h)$ toward $\mathcal{E}_{B}(h)$, consistent with the visual restoration of a
+% uniform, narrow ridge and with the time-domain phase continuity. From a physical standpoint,
+% recovering the ringdown band restores the effective quality factor $Q\simeq \pi f_0\tau$ and the
+% mode’s peak power, which in turn improves mode separability and stabilizes joint inference of
+% $(\omega_R,\tau,A_{\ell mn})$ in ringdown spectroscopy \cite{Berti:2009}.
+% The agreement between the reconstructed and original ridges across both SNR bins, together with
+% the band-power recovery in Eq.~\eqref{eq:band-metrics}, indicates that the inpainting is not merely
+% interpolating missing samples but is effectively reversing the window-induced convolution that causes
+% spectral leakage, thereby preserving time--frequency coherence in the physically relevant QNM band.
+
+
+% \begin{figure}[htbp]
+%   \centering
+%   \begin{subfigure}[t]{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{Img/result_SNR1-5/spec2.png}
+%     \caption{STFT (SNR 1–5)}
+%     \label{fig:spec_stft_1-5}
+%   \end{subfigure}
+%   \hfill
+%   \begin{subfigure}[t]{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{Img/result_SNR5-10/spec2.png}
+%     \caption{STFT (SNR 5–10)}
+%     \label{fig:spec_stft_5-10}
+%   \end{subfigure}
+%   \caption{STFT spectrograms showing noisy input (left) and DGF reconstruction (right) for two SNR bins. The ridge recovery is visible but with slightly reduced spectral coherence compared to Q-transform.}
+%   \label{fig:spec_stft}
+% \end{figure}
+% We repeat the analysis using STFT, which trades off frequency resolution for time localization. Figures~\ref{fig:spec_stft}a and \ref{fig:spec_stft}b present the STFT spectrograms for the same samples. While the overall ridge shape is recovered, the SSIM scores are slightly lower—$0.74 \pm 0.06$ for SNR 1–5 and $0.90 \pm 0.03$ for SNR 5–10—reflecting the resolution limitations of STFT in capturing narrow-band QNM features \cite{Baghi_2019}.
+
+
+
+
+
+%SSIM的定义
+% To visualize the spatial distribution of structural fidelity, we compute the SSIM map between the noisy input and DGF reconstruction Q-transform magnitude images. Figure~\ref{fig:ssim_maps} displays these SSIM maps for representative samples in both SNR bins. Bright regions along the QNM ridge correspond to high local coherence, with average SSIM values of $0.78 \pm 0.05$ for SNR 1–5 and $0.93 \pm 0.02$ for SNR 5–10.
+
+
+% \begin{figure}[htbp]
+%   \centering
+%   \begin{subfigure}[t]{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{Img/result_SNR1-5/SSIM.png}
+%     \caption{SSIM map (SNR 1–5)}
+%     \label{fig:ssim_1-5}
+%   \end{subfigure}
+%   \hfill
+%   \begin{subfigure}[t]{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{Img/result_SNR5-10/SSIM.png}
+%     \caption{SSIM map (SNR 5–10)}
+%     \label{fig:ssim_5-10}
+%   \end{subfigure}
+%   \caption{Structural similarity index (SSIM) maps comparing the Q-transform spectrograms of noisy input and DGF reconstruction in two SNR regimes. High-intensity regions along the QNM ridge indicate precise local recovery of time–frequency structure.}
+%   \label{fig:ssim_maps}
+% \end{figure}
+
+\subsection{Phase Recovery and Alignment}\label{subsec:PhaseRecoveryAlignment}
+Phase errors can alter the oscillatory structure even when the amplitude envelope is well reproduced. We therefore evaluate phase deviations separately from amplitude errors and normalized waveform mismatch. For a multimode signal, the Hilbert phase describes the combined waveform and is not the phase of an individual QNM. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Img/phase.png}
+    \caption{Close-up of a ringdown oscillation in the clean target (blue dashed) and reconstruction (red). Orange arrows illustrate the relative displacement of the waveform crests. Quantitative phase errors are computed from the Hilbert analytic signals at common sample times, as defined in the text.}
+    \label{fig:phase_recovery}
+\end{figure}
+Figure~\ref{fig:phase_recovery} illustrates the relative alignment of the reconstructed and true oscillations near a waveform crest. This example motivates a direct phase diagnostic, whose distribution is evaluated over the test subsets rather than inferred from the example alone.
+
+We obtain the analytic signal via the Hilbert transform,
+\[
+\mathcal{A}(t) = h(t) + i\,\mathcal{H}[h(t)],\quad
+\phi(t) = \arg\bigl(\mathcal{A}(t)\bigr),
+\]
+where \(\mathcal{H}[\cdot]\) denotes the Hilbert transform.
+
+
+
+For each test sample we compute:
+\begin{enumerate}
+  \item The signed, wrapped phase deviation at the maximum of the true Hilbert envelope \(t_p\):
+  \[
+    \Delta\phi_{\rm peak} = \operatorname{Arg}\!\left[ e^{i(\phi_{\rm recon}(t_p)-\phi_{\rm true}(t_p))} \right];
+  \]
+  \item The mean absolute wrapped phase deviation at the five samples with the largest true Hilbert-envelope amplitudes:
+  \[
+    \Delta\phi_{\rm mean} = \frac{1}{N}\sum_{n\in I_N}\left|\operatorname{Arg}\!\left[e^{i(\phi_{\rm recon}(t_n)-\phi_{\rm true}(t_n))}\right]\right|,
+  \]
+\end{enumerate}
+where $I_N$ contains the indices of the $N$ largest values of the true envelope $|\mathcal{A}(t)|$, with $N=5$. These are envelope-ranked samples and need not be distinct local peaks. The signed peak-phase mean measures systematic offset; it is not the mean absolute phase error. 
+%改成弧度（？）
+
+Figures~\ref{fig:phase_1-5} and~\ref{fig:phase_5-10} show the distributions of these two statistics in degrees. In the lower-SNR subset, the mean signed peak-phase deviation is $-0.20^\circ$; more than $90\%$ and $95\%$ of samples lie within $\pm3.06^\circ$ and $\pm4.11^\circ$, respectively. The mean of the five-sample absolute phase diagnostic is $1.44^\circ$, with more than $90\%$ below $2.88^\circ$ and more than $95\%$ below $3.82^\circ$.
+
+In the higher-SNR subset, the mean signed peak-phase deviation is $-0.09^\circ$, with $90\%$ of samples within $\pm1.7^\circ$ and more than $95\%$ within $\pm2.25^\circ$. The mean absolute diagnostic is $0.82^\circ$, with $90\%$ below $1.59^\circ$ and $95\%$ below $2.04^\circ$.
+
+The signed means indicate small average offsets in these subsets, while the absolute errors and percentile ranges describe the sample-to-sample deviations. The lower mean absolute error in the higher-SNR subset is consistent with its smaller waveform errors. These diagnostics concern the combined waveform near its envelope maximum and do not establish accuracy throughout the low-amplitude tail or for individual QNM parameters.
+
+%示意图
+
+%相位图片标题修改
+% 需在导言区已加载：\usepackage[caption=false]{subfig}
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[Peak-phase deviation : mean $=-0.20^\circ$.%
+  \label{fig:phase_peak1-5}]{
+    \includegraphics[width=0.48\linewidth]{Img/result_SNR1-5/phase1.png}
+  }\hfill
+  \subfloat[Five-sample mean absolute phase deviation: mean $=1.44^\circ$.%
+  \label{fig:phase_mean_ab1-5}]{
+    \includegraphics[width=0.48\linewidth]{Img/result_SNR1-5/phase2.png}
+  }
+  \caption{Phase diagnostics for the lower-SNR subset: (a) signed wrapped deviation at the maximum of the true Hilbert envelope; (b) mean absolute wrapped deviation at the five samples with the largest true-envelope amplitudes. The selected samples need not be separate peaks.}
+  \label{fig:phase_1-5}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \subfloat[Peak-phase deviation : mean $=-0.09^\circ$.%
+  \label{fig:phase_peak5-10}]{
+    \includegraphics[width=0.48\linewidth]{Img/result_SNR5-10/phase1.png}
+  }\hfill
+  \subfloat[Five-sample mean absolute phase deviation: mean $=0.82^\circ$.%
+  \label{fig:phase_mean_ab5-10}]{
+    \includegraphics[width=0.48\linewidth]{Img/result_SNR5-10/phase2.png}
+  }
+  \caption{The same phase diagnostics as in Fig.~\ref{fig:phase_1-5}, evaluated in the higher-SNR subset. The signed mean in panel (a) measures average offset; panel (b) reports an absolute error.}
+  \label{fig:phase_5-10}
+\end{figure}
+
+
+
+
+% For a damped quasi-sinusoid $h(t)\!\sim\! A\,e^{-t/\tau}\cos(\omega_R t+\phi_0)$, the instantaneous phase
+% $\phi(t)$ governs both the frequency estimate $\omega_R\simeq d\phi/dt$ and the stability of multimode fits.
+% Let the residual phase error be $\varepsilon(t)\!\equiv\!\phi_{\rm recon}(t)-\phi_{\rm true}(t)$. In the small-error
+% regime, the noise-weighted overlap admits the approximation
+% \begin{equation}
+% \mathcal{O}\;\equiv\;1-\mathcal{M}\;\simeq\;1-\tfrac{1}{2}\,\langle \varepsilon^2\rangle_w,\qquad
+% \langle a\rangle_w\!=\!\frac{\int a(t)\,w(t)\,dt}{\int w(t)\,dt},
+% \label{eq:phase-overlap}
+% \end{equation}
+% so tighter phase alignment ($\langle\varepsilon^2\rangle_w\!\downarrow$) directly maps into higher overlap and hence larger
+% effective SNR via $\rho_{\rm rec}\!\simeq\!\mathcal{O}\rho_{\rm opt}$ (cf.\ Sec.~\ref{subsec:Mismatch}). Because $\omega_R\!=\!d\phi/dt$,
+% a slowly varying phase bias induces a frequency bias $\delta\omega_R\simeq\langle d\varepsilon/dt\rangle_w$, while random
+% phase fluctuations set a variance that, under standard regularity conditions, scales as
+% \begin{equation}
+% {\rm Var}(\widehat{\omega}_R)\;\propto\;\frac{1}{\rho_{\rm eff}^{\,2}\,T_{\rm eff}^{\,2}},\qquad
+% {\rm Var}(\widehat{\tau})\;\propto\;\frac{1}{\rho_{\rm eff}^{\,2}\,T_{\rm eff}},
+% \label{eq:crlb-scaling}
+% \end{equation}
+% in accordance with Cram\'er--Rao/Bayesian bounds for single-(quasi)sine and exponentially damped sinusoids
+% \cite{Bretthorst1988}. Here $T_{\rm eff}$ is the effective
+% coherent baseline over the ringdown window and $\rho_{\rm eff}$ the in-band SNR; both increase when gaps are bridged with
+% phase continuity, shrinking uncertainties on $(\omega_R,\tau)$ and stabilizing joint fits for $A_{\ell mn}$. Moreover,
+% phase recovery governs coherent combination across segments/modes: if the residual jitter has rms $\sigma_\phi$, the
+% coherent gain carries the familiar phasor factor $e^{-\sigma_\phi^2/2}$, so the
+% sub-degree peak-phase errors observed here preserve near-optimal coherent SNR and enhance the resolvability of
+% secondary/overtones in ringdown spectroscopy \cite{Berti:2009}.
+
+
+
+%修改一下结构，不分点
+\section{Discussion and Conclusions}
+\label{sec:discussion}
+
+We have presented DGF for the joint denoising and reconstruction of synthetic black hole ringdown waveforms with signal gaps. The architecture combines localized time--frequency features with multiresolution temporal context and produces a time-domain estimate of the clean waveform. Its motivation is to represent both the oscillatory structure and the surrounding context needed to predict a damped signal across a missing interval.
+
+In the current benchmark, the mean time-domain mismatch is $0.004318$ in the lower-SNR subset and $0.001526$ in the higher-SNR subset. The corresponding mean absolute phase diagnostics at the five envelope-ranked samples are $1.44^\circ$ and $0.82^\circ$. Residual and time--frequency plots provide complementary views of the reconstruction error. Together, these diagnostics show that DGF can reproduce the principal waveform structure in the evaluated setting, while retaining a distribution of residual errors that matters for subsequent physical analysis.
+
+The contribution is a ringdown-oriented reconstruction framework and its waveform-level assessment. Xu \textit{et al.}~\cite{Xu_2024}, Mao \textit{et al.}~\cite{Mao:2025cae}, and WaveFormer~\cite{Wang:2024waveformer} address related denoising or recovery tasks using different waveform populations and data conditions. Their reported overlaps cannot be used as a controlled ranking against the present mismatch values. A shared benchmark would be needed to establish differences in accuracy, parameter count, or inference cost.
+
+The present conclusions are restricted to the synthetic waveform population, Gaussian-noise model, and gap configurations used in the evaluation. The limited training distribution constrains claims about generalization to different masses, spins, phase distributions, or noise processes. Real observations may contain nonstationarity, glitches, and other sources of mismatch not represented here~\cite{edwards2020nonstationary,baghi2019gaps}. The current reconstruction is also a deterministic prediction from the input and the learned waveform distribution; a smooth continuation through a gap does not imply that the missing information has been uniquely determined.
+
+An important next step is to connect reconstruction errors to QNM measurements and Bayesian parameter inference. The time-domain mismatch and Hilbert-phase diagnostics reported here do not by themselves determine detection evidence or posterior credible regions. Such an analysis must use a likelihood consistent with the observed data and noise, and account for the dependence of the reconstruction on those same data. DGF may provide initial estimates or sampling proposals for inference, but its benefit must be established against a reference analysis using the same data and priors.
+
+Further validation should compare the two-branch model with phase and time-domain ablations, characterize errors as a function of gap position and duration, and test broader noise and signal populations. Extending the training set to nonstationary noise, overlapping sources, and multiple channels would address additional conditions relevant to space-based observations. These extensions would clarify where learned reconstruction provides useful waveform estimates and where its assumptions limit physical interpretation.
+
+\begin{acknowledgments}
+The authors thank He Wang and Yiyang Guo for helpful discussions. This research is supported in part by the National Key R\&D Program of China, grant number 2020YFC2201300, and the National Natural Science Foundation of China, grant numbers 12035016, 12375058 and 12361141825.
+
+
+
+\end{acknowledgments}
+\label{sec:acknowledgement}
+
+
+
+
+
+
+\appendix
+
+% EDITORIAL: Technical appendixes require a checkpoint-specific implementation audit.
+\section{Extended model analysis and architectural details}
+\label{app:model_analysis}
+
+
+\subsection{Motivation and Model Composition}
+\label{app:motivation}
+We propose DGF, an encoder--decoder deep-learning architecture designed to reconstruct ringdown waveforms from gravitational-wave time-series data with gaps and noise. The design is motivated by the need to preserve physical fidelity in both amplitude and phase, while respecting the localized and strongly damped nature of QNM signals. As shown in Fig.~\ref{fig:pipeline} and Fig.~\ref{fig:architecture}, the DGF pipeline consists of three components: (i) a dual-branch preprocessing module based on the $Q$-transform and wavelet decomposition to enhance ridge structures and provide multiscale context; (ii) a hybrid embedding and sequence-modeling core that combines time--frequency feature extraction with stacked TimeMixer blocks, positional encoding, and Transformer blocks with residual connections; and (iii) a structured decoder with MLP layers, reverse embedding, inverse transforms, and a final 1D convolution. The reconstructed waveform is obtained after inverting the normalization used in preprocessing.
+
+\subsection{Why $Q$-transform and Wavelets}
+\label{app:q_wavelet}
+Compared to recent deep learning methods for data gap imputation, our framework is specifically tailored for the ringdown phase. The Q-transform and wavelet transformation enhance the visibility of ridge structures, facilitating localized context encoding around the gap\mbox{\cite{Chatterji:2004qtf, McNabb:2019spectrogram}} and extracting the characteristics of the noise. While both the constant Q-transform and discrete wavelet transform (DWT) are time–frequency representations capable of capturing nonstationary signal components, they differ in formulation, resolution, and application focus. The Q-transform~\mbox{\cite{Chatterji:2004qtf}} is based on short-time Fourier transform with a logarithmic frequency spacing and constant quality factor $Q = f/\Delta f$, allowing it to capture long-lived, narrowband structures such as the QNM ridges in black hole ringdowns. In contrast, the wavelet transform\mbox{\cite{MALLAT199942} }decomposes signals via scaled and shifted versions of a mother wavelet, which is born to recognize the transient information of the signal, providing convenience for denoising.
+
+\subsection{Additional Architectural Remarks}
+\label{app:additional_remarks}
+Supplemented by two-dimensional convolution processing of the image after the Q-transform, the frequency domain information of the signal is further extracted\mbox{\cite{younesi2024comprehensivesurveyconvolutionsdeep}}. Time-mixing supports efficient and scalable modeling across short-duration sequences\mbox{~\cite{wang2025timemixergeneraltimeseries}}. Furthermore, DGF leverages Transformer-based attention mechanisms to capture long-range dependencies and subtle temporal patterns\mbox{~\cite{vaswani2023attentionneed, devlin2019bertpretrainingdeepbidirectional}}. This allows the model to leverage both local and global context when reconstructing missing data.
+%Its embedding layers provide a compact representation of the signal's statistical context, similar in spirit to conditional embedding in audio inpainting\cite{6020748}. 
+% The entire model is trained end-to-end using a composite loss function that incorporates time-domain amplitude, frequency-domain spectral alignment, and phase precision at signal peaks\cite{Babak_2017,Isi_2019}.
+%去掉condition
+
+\subsection{Architecture Schematic}
+\label{app:arch_schematic}
+
+Figure~\ref{fig:architecture} provides a schematic overview of the DGF architecture, including the dual-branch encoder, the sequence modeling core, and the structured decoder.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.48\textwidth]{Img/DGF_architecture.png}
+%     \caption{\textbf{Schematic overview of the DGF architecture.} The dual-branch encoder receives Q-transform and tokenized wavelet patches in parallel. The embedding module integrates token, convolutional embeddings to encode localized time–frequency features and statistical context. Positional embeddings are added, followed by residual connected 2D convolutions and stacked BiTransformer encoder layers (16 blocks) with multi-head attention to model both short- and long-range dependencies. The decoder contains an MLP layer, followed by reverse token embedding and inverse wavelet transform and 1D convolution to reconstruct the final waveform.}
+%     \label{fig:architecture}
+% \end{figure}
+
+
+\section{Mathematical Formulation of the Sequence Modeling}
+\label{app:sequence_modeling}
+
+Given a noisy gravitational wave strain sequence containing a masked gap region as input $d=n(t)+G(t)(h(t))$ , where $n(t)$ denotes noise and $G(t)(h(t))$ denotes signal with gaps, the DGF model encodes and decodes the input before output a clean signal waveform $h(t)$. The  framework consists of a dual-branch encoder, a transformer-based sequence modeling core, and a structured decoder which handle the data. It is designed to reconstruct gravitational wave ringdown signals corrupted by gaps and noise using a hybrid representation of time--frequency and wavelet-transformed inputs.\mbox{\cite{Wang:2024waveformer}}
+
+\noindent In the following derivation, we denote the input time series by $x$ (i.e., $x \equiv d$), and define the dual-branch encoding, the Transformer-based sequence modeling core, and the decoder in a self-contained manner.
+
+\subsection{Dual-branch Input Encoding}
+\label{app:dual_branch_input}
+Let $x \in \mathbb{R}^{T}$ be the raw 1D time-domain input signal of length $T$. We define two parallel encoding branches:
+
+%解释MLP
+\begin{enumerate}
+    \item \textbf{Q-transform branch:} A Q-transform $\mathcal{Q}: \mathbb{R}^{T} \to \mathbb{R}^{H \times W \times C}$ is applied to obtain a time–frequency representation $X^{(1)} = \mathcal{Q}(x)$, where $H$ and $W$ denote the number of frequency bins and time steps and $C$ the number of channels (amplitude and phase). The output is passed through a modified TimeMixer module $\mathcal{T}$~\cite{wang2025timemixergeneraltimeseries}:
+    \begin{equation}
+        Z^{(1)} = \mathcal{T}(X^{(1)}),
+    \end{equation}
+    where $Z^{(1)}$ encodes short-duration temporal and spectral ridge structures in the ringdown signal.  
+    \item \textbf{Wavelet branch:} A normalized version of $x$ is transformed via a discrete wavelet transform (DWT) $\mathcal{W}$ into multi-resolution coefficients $x_{w} = \mathcal{W}(x) \in \mathbb{R}^{C \times T}$, where $C$ is the number of wavelet channels~\cite{MALLAT199942}. The coefficients are segmented into $N$ overlapping chunks (tokens) of length $L$ with stride $L/2$ to form a token sequence\cite{nie2023timeseriesworth64}:
+    \begin{equation}
+        X^{(2)} = [x_{w}^{(1)}, x_{w}^{(2)}, \dots, x_{w}^{(N)}], \quad x_{w}^{(i)} \in \mathbb{R}^{C \times L}.
+    \end{equation}
+    Each token is embedded as $z_{i}^{(2)} = \mathcal{E}(x_{w}^{(i)}) \in \mathbb{R}^{d}$, where $\mathcal{E}$ includes token embedding and convolutional embedding blocks~\cite{Mao:2025cae, Xu_2024}. The sequence $Z^{(2)} = [z_1^{(2)}, \dots, z_N^{(2)}] \in \mathbb{R}^{N \times d}$ is then fused with positional encoding~\cite{vaswani2023attentionneed}.  
+\end{enumerate}
+
+\subsection{Sequence Modeling Core}
+\label{app:sequence_core}
+The concatenated representation $Z = Z^{(1)} \oplus Z^{(2)}$ enters into a 2D convolution with residual connection and then be passed through stack of 16 bidirectional multi-head attention transformer blocks:
+\cite{devlin2019bertpretrainingdeepbidirectional,xiong2020layernormalizationtransformerarchitecture}
+
+\begin{align}
+    Z_0' &= Z + \text{PosEmbed}(Z) \\
+    Z_0  &= \text{Conv2d}(Z_0')+\text{Res}(Z_0')\\
+    Z_{\ell} &= \text{TransformerBlock}_{\ell}(Z_{\ell-1}), \quad \ell=1,\dots,16,
+\end{align}
+where PosEmbed denotes positional embedding, Conv2d denotes 2D convolution, and Res denotes residual connection, and each TransformerBlock consists of:
+\begin{itemize}
+    \item Multi-head self-attention: captures long-range dependencies
+    \item Feedforward layer: non-linear representation learning
+    \item Residual connections and normalization for stability
+\end{itemize}
+
+\subsection{Decoder and Inverse Transforms}
+\label{app:decoder_inverse}
+The encoded output $Z_{16}$ is processed through:
+\begin{align}
+  Y &= \operatorname{MLP}(Z_{16}), \\
+  \hat{x}_{\mathcal E'} &= (\mathcal E')^{-1}(Y), \\
+  \hat{x}_{w} &= \mathcal W^{-1}\!\bigl(\hat{x}_{\mathcal E'}\bigr), \\
+  \hat{x} &= \operatorname{Conv1d}\!\bigl(\hat{x}_{w}\bigr).
+\end{align}
+
+where MLP denotes multilayer perceptron, $\mathcal{E}^{\prime-1}$ denotes the reverse token embedding and $\mathcal{W}^{-1}$ is the inverse wavelet transform and $\text{Conv1d}$ denotes the 1D convolution. Finally, inverse normalization is applied to obtain the reconstructed time-domain signal $\hat{x}$.
+
+\newpage
+\bibliography{DGF_references}
+
+\end{document}
+
+
+
+
+
+%abstract（最后的描述整合一下）
+%introduction简练
+%methodology 添加ringdown和noise model
+%sequence modelling放附录
+%applicability limitation简略

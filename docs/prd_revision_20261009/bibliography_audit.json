@@ -1,0 +1,33 @@
+[
+  {
+    "key": "baghi2019gaps",
+    "action": "Removed mismatched title/authors/DOI; citations merged into verified Baghi2019",
+    "actual_doi_url": "https://journals.aps.org/prd/abstract/10.1103/PhysRevD.100.046017",
+    "replacement": "https://arxiv.org/abs/1907.04747"
+  },
+  {
+    "key": "Spadaro:2023hlw",
+    "action": "Removed mismatched title/authors/DOI; introductory gap motivation retained with Baghi and Dey",
+    "actual_doi_url": "https://journals.aps.org/prd/abstract/10.1103/PhysRevD.107.064022"
+  },
+  {
+    "key": "Berti_2006",
+    "action": "Duplicate merged into berti2006gravitational",
+    "doi": "10.1103/PhysRevD.73.064030"
+  },
+  {
+    "key": "Maeland1988",
+    "action": "Corrected DOI from 10.1109/42.730 to 10.1109/42.7784",
+    "source": "https://pubmed.ncbi.nlm.nih.gov/18230471/"
+  },
+  {
+    "key": "Baghi2019",
+    "action": "Corrected Thorpe first names to James Ira",
+    "source": "https://link.aps.org/accepted/10.1103/PhysRevD.100.022003"
+  },
+  {
+    "key": "Mao:2025cae",
+    "action": "Updated mismatched arXiv year/version annotation to verified journal publication",
+    "source": "https://arxiv.org/abs/2410.05571"
+  }
+]

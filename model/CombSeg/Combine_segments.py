@@ -20,18 +20,15 @@ def combine_segments(segments, segment_length=Config.segment_length, signal_leng
     step_size = int(segment_length * (1 - overlap))  # 步长，重叠 50% 的话，步长是 segment_length 的一半
 
     # 初始化输出张量，用于存储重新拼接后的信号
-    output = torch.zeros((batch_size, channels, signal_length), dtype=segments.dtype)
+    output = torch.zeros((batch_size, channels, signal_length), dtype=segments.dtype, device=segments.device)
 
     # 初始化一个计数器张量，用于记录每个位置被覆盖的次数
-    counter = torch.zeros((batch_size, channels, signal_length), dtype=segments.dtype)
+    counter = torch.zeros((batch_size, channels, signal_length), dtype=segments.dtype, device=segments.device)
 
     # 将每个 segment 拼接到输出张量中
     for i in range(num_segments):
         start = i * step_size  # 计算每个分段的起始位置
         end = start + segment_length
-        output=output.to(device)
-        segments=segments.to(device)
-        counter=counter.to(device)
         # 将当前分段添加到输出张量
         output[:, :, start:end] += segments[:, :, i, :]
         

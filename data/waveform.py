@@ -193,6 +193,12 @@ def fout(Mass,massratio):
     return 2*(w4/2/pi)
 
 def sf(freq,paramater,delta_w,delta_tau,iot = pi/4):
+    """Legacy phenomenological spectrum retained for trained-checkpoint compatibility.
+
+    This function is NOT a calibrated Kerr/LISA waveform: 33/44 spin factors
+    differ from Kerr fits, excitation coefficients are not calibrated strain
+    amplitudes, and the response is TianQin-inspired. See docs/legacy_benchmark_contract.json.
+    """
     M = paramater[0] * TSUN
     Mz = M
     mass_ratio = paramater[1]

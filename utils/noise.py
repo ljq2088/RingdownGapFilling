@@ -1,3 +1,7 @@
+"""Legacy empirical benchmark noise, with unverified reference units/provenance.
+The normalization and out-of-band fill are retained for checkpoint compatibility;
+do not use the coloring PSD as calibrated LISA sensitivity. See the data contract.
+"""
 import sys
 import os
 import math
