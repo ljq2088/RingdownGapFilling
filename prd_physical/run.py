@@ -14,10 +14,10 @@ from .model import PhysicalDGF
 from .resources import GPU_MEMORY_FRACTION,cache_on_gpu,guard_headroom,slice_to_gpu
 BASE=ROOT/'saved_models/noise/lowSNR/model_with_noise_gaps_HugeRangeParas_14.pth'
 LEGACY_REFINER=ROOT/'FillingGap/results_augmented_longrun_20261008/best_refiner.pth'
-START=time.time();BATCH=128;MAX_EPOCHS=600;MIN_EPOCHS=100;PATIENCE=100;DELTA=1e-5
+START=time.monotonic();BATCH=128;MAX_EPOCHS=600;MIN_EPOCHS=100;PATIENCE=100;DELTA=1e-5
 
 def status(stage,**kw):
- v=dict(stage=stage,pid=os.getpid(),updated_unix=time.time(),elapsed_seconds=time.time()-START,**kw)
+ v=dict(stage=stage,pid=os.getpid(),updated_unix=time.time(),elapsed_seconds=time.monotonic()-START,**kw)
  write(OUT/os.environ.get('PRD_STATUS_FILE','status.json'),v);print(json.dumps(v),flush=True)
 
 def save(path,v):
@@ -104,22 +104,22 @@ def _train(kind):
   offload=guard_headroom([tr,va])
   if offload is not None:
    residency=offload;write(path/'resource_status.json',residency);status('resource_fallback',variant=kind,**residency)
-  t=time.time();model.train();order=torch.randperm(len(tr['input'])).numpy();total=0.;done=0;last_report=0
+  t=time.monotonic();model.train();order=torch.randperm(len(tr['input'])).numpy();total=0.;done=0;last_report=0
   for v in batches(tr,order):
    opt.zero_grad(set_to_none=True);p=model(v['input'],v['q'],v['mask']);loss=lossfn(p,v['target'],v['mask'],w,time_transfer)
    if not torch.isfinite(loss):raise ValueError('nonfinite training loss')
    loss.backward();torch.nn.utils.clip_grad_norm_(model.parameters(),1.);opt.step()
    done+=len(v['input']);total+=float(loss.detach())*len(v['input'])
-   if time.time()-last_report>45:
-    torch.cuda.synchronize();elapsed=time.time()-t;rate=elapsed/max(done,1)
+   if time.monotonic()-last_report>45:
+    torch.cuda.synchronize();elapsed=time.monotonic()-t;rate=elapsed/max(done,1)
     status('training',variant=kind,epoch=epoch,sources_done=done,sources_total=len(order),epoch_remaining_seconds=(len(order)-done)*rate,best_score=best,best_epoch=best_epoch,stale_epochs=stale,gpu_peak_allocated_mb=torch.cuda.max_memory_allocated()/2**20)
-    last_report=time.time()
+    last_report=time.monotonic()
   result=evaluate(model,va,pre,psd);score=result['score'];sch.step(score)
   if score<best-DELTA:
    best=score;best_epoch=epoch;stale=0
    save(path/'best.pth',dict(state_dict=model.state_dict(),epoch=epoch,score=score,kind=kind))
   else:stale+=1
-  secs=time.time()-t;row=dict(epoch=epoch,train_loss=total/len(order),**result,best_epoch=best_epoch,best_score=best,stale_epochs=stale,epoch_seconds=secs,resource_mode=residency['mode'],gpu_allocated_mb=torch.cuda.memory_allocated()/2**20,gpu_reserved_mb=torch.cuda.memory_reserved()/2**20,lr=[g['lr'] for g in opt.param_groups]);history.append(row);write(path/'history.json',history)
+  secs=time.monotonic()-t;row=dict(epoch=epoch,train_loss=total/len(order),**result,best_epoch=best_epoch,best_score=best,stale_epochs=stale,epoch_seconds=secs,resource_mode=residency['mode'],gpu_allocated_mb=torch.cuda.memory_allocated()/2**20,gpu_reserved_mb=torch.cuda.memory_reserved()/2**20,lr=[g['lr'] for g in opt.param_groups]);history.append(row);write(path/'history.json',history)
   save(last,dict(state_dict=model.state_dict(),optimizer=opt.state_dict(),scheduler=sch.state_dict(),epoch=epoch,best=best,best_epoch=best_epoch,stale=stale,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),numpy_rng=np.random.get_state()))
   median=float(np.median([x['epoch_seconds'] for x in history[-10:]]))
   status('epoch_complete',variant=kind,**row,median_epoch_seconds=median,minimum_remaining_seconds=max(MIN_EPOCHS-epoch,PATIENCE-stale,0)*median,max_remaining_seconds=(MAX_EPOCHS-epoch)*median)
