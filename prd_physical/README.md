@@ -42,3 +42,11 @@ PYTHONDONTWRITEBYTECODE=1 python -m prd_physical.run
 Overleaf修订项目仍为 https://cn.overleaf.com/project/6ac83816750c2cce452054d2 。目前其中经核验的结果来自旧基准。本轮物理训练完成且独立测试通过之前，不更新该项目的数值结果或宣称性能已改善；原cloud/arXiv保持。后续把物理迁移作为原方法的扩展，保留标题、作者、DGF主干和文章身份。
 
 振幅拟合原文已核对：https://arxiv.org/pdf/1107.0854 ，Eqs31–34确为0.25 exp(-Q/7.5)及21/33/44相对振幅；Q=m_heavy/m_light与代码q倒数对应，参考时刻10M after22 luminosity peak，非任意辐射能量直接作为 strain。
+
+## 用户要求的资源调整（2026-10-09，raw epoch37后）
+
+系统检查：WSL可用RAM约27GiB、GPU空余约10GiB。现将每版本约1.12GiB训练/验证特征常驻GPU；每worker allocator上限从20%提升至40%，GPU缓存前预留3GiB激活预算及4GiB全局空余。每epoch检查CUDA和nvidia-smi全局空余；不足4GiB则退回CPU缓存。缓存等价、预测逐位一致、CUDA RNG不变、保存checkpoint未修改、主动提高门槛触发offload均通过实测。单worker GPU训练峰值约3.46GiB。
+
+raw从epoch37的last checkpoint继续，white同时独立训练；每版本batch128、数据、目标、seed、优化器/学习率、选模及早停预算保持一致。per-variant文件锁防止两个进程写同一版本；white worker有独立status/log/checkpoint，永不读取test。主进程只有在两个版本选模结束后才统一读取test。并行仅改变执行顺序和资源使用，原“之后自动训练white”的串行说明由本段覆盖。
+
+原执行snapshot与新snapshot及checkpoint hash保留在结果目录resource_adjustment_20261009中。资源变更前后loss/metric/eval/test函数AST一致，模型和数据来源文件hash不变。

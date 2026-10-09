@@ -3,7 +3,7 @@ Test targets are read once, after BOTH variants finish selecting checkpoints.
 """
 import os
 os.environ.setdefault('OMP_NUM_THREADS','2');os.environ.setdefault('NUMBA_NUM_THREADS','1');os.environ.setdefault('MPLBACKEND','Agg')
-import time,json,traceback,copy,zipfile,signal
+import time,json,traceback,copy,zipfile,signal,subprocess,fcntl
 from pathlib import Path
 import numpy as np
 import torch
@@ -11,13 +11,14 @@ import h5py
 from .common import N,FS,SEED,sha,write,Preprocess,metric,summary
 from .prepare import OUT,PARENT,ROOT,COUNTS,crop_meta,prepare
 from .model import PhysicalDGF
+from .resources import GPU_MEMORY_FRACTION,cache_on_gpu,guard_headroom,slice_to_gpu
 BASE=ROOT/'saved_models/noise/lowSNR/model_with_noise_gaps_HugeRangeParas_14.pth'
 LEGACY_REFINER=ROOT/'FillingGap/results_augmented_longrun_20261008/best_refiner.pth'
 START=time.time();BATCH=128;MAX_EPOCHS=600;MIN_EPOCHS=100;PATIENCE=100;DELTA=1e-5
 
 def status(stage,**kw):
  v=dict(stage=stage,pid=os.getpid(),updated_unix=time.time(),elapsed_seconds=time.time()-START,**kw)
- write(OUT/'status.json',v);print(json.dumps(v),flush=True)
+ write(OUT/os.environ.get('PRD_STATUS_FILE','status.json'),v);print(json.dumps(v),flush=True)
 
 def save(path,v):
  tmp=path.with_suffix('.tmp');torch.save(v,tmp);tmp.replace(path)
@@ -32,7 +33,7 @@ def load(split,kind):
 def batches(a,indices):
  for lo in range(0,len(indices),BATCH):
   ix=indices[lo:lo+BATCH]
-  yield {k:a[k][ix].cuda() for k in ['input','target','q','mask']}
+  yield slice_to_gpu(a,ix)
 
 def lossfn(p,h,m,w,time_transfer=None):
  P,H=torch.fft.rfft(p,dim=-1),torch.fft.rfft(h,dim=-1)
@@ -75,7 +76,7 @@ def legacy_gate():
  write(OUT/'legacy_inference_gate.json',dict(passed=True,n=8,relative_l2=err,base_sha256=sha(BASE),refiner_sha256=sha(LEGACY_REFINER)))
  del model;torch.cuda.empty_cache()
 
-def train(kind):
+def _train(kind):
  path=OUT/kind;path.mkdir(exist_ok=True)
  if (path/'selected.json').exists():return json.loads((path/'selected.json').read_text())
  torch.manual_seed(SEED);np.random.seed(SEED)
@@ -84,6 +85,8 @@ def train(kind):
  transfer=pre.sigma[:,None] if kind=='raw' else pre.asd
  time_transfer=torch.tensor(transfer/pre.sigma.mean(),device='cuda',dtype=torch.float32)
  tr=load('train',kind);va=load('validation',kind)
+ residency=cache_on_gpu([tr,va]);write(path/'resource_status.json',residency)
+ status('resource_configuration',variant=kind,**residency)
  opt=torch.optim.AdamW([{'params':model.base.parameters(),'lr':2e-5},{'params':model.refiner.parameters(),'lr':1e-4}],weight_decay=1e-4)
  sch=torch.optim.lr_scheduler.ReduceLROnPlateau(opt,mode='min',factor=.5,patience=20,threshold=DELTA,threshold_mode='abs',min_lr=[2e-7,1e-6])
  best=float('inf');best_epoch=0;stale=0;history=[];first=1
@@ -98,6 +101,9 @@ def train(kind):
   save(path/'best.pth',dict(state_dict=model.state_dict(),epoch=0,score=best,kind=kind))
  # No stopping before min epochs; test is not loaded in this function.
  for epoch in range(first,MAX_EPOCHS+1):
+  offload=guard_headroom([tr,va])
+  if offload is not None:
+   residency=offload;write(path/'resource_status.json',residency);status('resource_fallback',variant=kind,**residency)
   t=time.time();model.train();order=torch.randperm(len(tr['input'])).numpy();total=0.;done=0;last_report=0
   for v in batches(tr,order):
    opt.zero_grad(set_to_none=True);p=model(v['input'],v['q'],v['mask']);loss=lossfn(p,v['target'],v['mask'],w,time_transfer)
@@ -113,7 +119,7 @@ def train(kind):
    best=score;best_epoch=epoch;stale=0
    save(path/'best.pth',dict(state_dict=model.state_dict(),epoch=epoch,score=score,kind=kind))
   else:stale+=1
-  secs=time.time()-t;row=dict(epoch=epoch,train_loss=total/len(order),**result,best_epoch=best_epoch,best_score=best,stale_epochs=stale,epoch_seconds=secs,lr=[g['lr'] for g in opt.param_groups]);history.append(row);write(path/'history.json',history)
+  secs=time.time()-t;row=dict(epoch=epoch,train_loss=total/len(order),**result,best_epoch=best_epoch,best_score=best,stale_epochs=stale,epoch_seconds=secs,resource_mode=residency['mode'],gpu_allocated_mb=torch.cuda.memory_allocated()/2**20,gpu_reserved_mb=torch.cuda.memory_reserved()/2**20,lr=[g['lr'] for g in opt.param_groups]);history.append(row);write(path/'history.json',history)
   save(last,dict(state_dict=model.state_dict(),optimizer=opt.state_dict(),scheduler=sch.state_dict(),epoch=epoch,best=best,best_epoch=best_epoch,stale=stale,torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state(),numpy_rng=np.random.get_state()))
   median=float(np.median([x['epoch_seconds'] for x in history[-10:]]))
   status('epoch_complete',variant=kind,**row,median_epoch_seconds=median,minimum_remaining_seconds=max(MIN_EPOCHS-epoch,PATIENCE-stale,0)*median,max_remaining_seconds=(MAX_EPOCHS-epoch)*median)
@@ -122,6 +128,26 @@ def train(kind):
    status('paused_by_STOP',variant=kind,epoch=epoch);raise SystemExit(0)
  result=dict(variant=kind,selected_epoch=best_epoch,finished_epoch=epoch,best_validation_score=best,stop_reason='patience' if stale>=PATIENCE else 'max_epochs',checkpoint_sha256=sha(path/'best.pth'))
  write(path/'selected.json',result);del model,opt,sch,tr,va;torch.cuda.empty_cache();return result
+
+def train(kind):
+ # One writer per variant even when two workers run concurrently.
+ path=OUT/kind;path.mkdir(exist_ok=True)
+ with open(path/'training.lock','a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  return _train(kind)
+
+def start_white_worker():
+ path=OUT/'white';path.mkdir(exist_ok=True)
+ if (path/'selected.json').exists():return
+ meta=OUT/'parallel_worker.json'
+ if meta.exists():
+  old=json.loads(meta.read_text());proc=Path('/proc')/str(old['pid'])/'cmdline'
+  if proc.exists() and 'prd_physical.train_variant' in proc.read_bytes().decode(errors='replace'):return
+ env=os.environ.copy();env['PYTHONDONTWRITEBYTECODE']='1';env['PRD_STATUS_FILE']='white/status.json'
+ with open(path/'pipeline.log','ab',buffering=0) as log:
+  child=subprocess.Popen(['/home/ljq/miniconda3/envs/gw_ml_env/bin/python','-u','-m','prd_physical.train_variant','white'],cwd=ROOT,env=env,stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+ write(meta,dict(pid=child.pid,variant='white',started_unix=time.time(),execution='parallel independent training; same batch/seed/loss and separate status/checkpoints'))
+ status('parallel_worker_started',white_pid=child.pid)
 
 def final_test(selected):
  # Freeze all choices BEFORE the first read of test truth/noise.
@@ -177,8 +203,8 @@ def final_test(selected):
 def main():
  OUT.mkdir(exist_ok=True);torch.set_num_threads(2)
  assert torch.cuda.is_available()
- # Existing unrelated training is left running. Cap THIS process at 3.2 GiB.
- torch.cuda.set_per_process_memory_fraction(.20,0)
+ # Use free VRAM for cached data while retaining explicit allocator/headroom caps.
+ torch.cuda.set_per_process_memory_fraction(GPU_MEMORY_FRACTION,0)
  files=[*list((ROOT/'prd_physical').glob('*.py')),*list((ROOT/'model').rglob('*.py')),*list((ROOT/'utils').glob('*.py')),ROOT/'config/config.py']
  manifest={str(p.relative_to(ROOT)):sha(p) for p in files}
  if (OUT/'runtime_source_manifest.json').exists():
@@ -187,11 +213,12 @@ def main():
   write(OUT/'runtime_source_manifest.json',manifest)
   with zipfile.ZipFile(OUT/'runtime_sources.zip','w',zipfile.ZIP_DEFLATED) as z:
    for p in files:z.write(p,str(p.relative_to(ROOT)))
- status('preparing',gpu=torch.cuda.get_device_name(),gpu_memory_fraction=.20)
+ status('preparing',gpu=torch.cuda.get_device_name(),gpu_memory_fraction=GPU_MEMORY_FRACTION)
  legacy_gate();prepare()
  for name in ['physics_gates.json','metric_gates.json','training_probe.json','prepared.json']:
   if not json.loads((OUT/name).read_text()).get('passed'):raise RuntimeError('pre-training gate failed: '+name)
  write(OUT/'training_config.json',dict(max_epochs=MAX_EPOCHS,min_epochs=MIN_EPOCHS,patience=PATIENCE,min_delta=DELTA,batch_sources=BATCH,train_unique=COUNTS['train'],validation_unique=COUNTS['validation'],test_unique=COUNTS['test'],observation='G*h+n',variants=['raw','white'],learning_rates=[2e-5,1e-4],schedule='ReduceLROnPlateau factor0.5 patience20',seed=SEED,base_sha256=sha(BASE),legacy_refiner_sha256=sha(LEGACY_REFINER),train_loss='joint direct PSD mismatch + 0.5 PSD relative squared error + 0.5 time/gap relative squared error; same physical-space loss for raw/white variants; training numeric norm guards 1e-12; no evaluation ratio floor',model='unchanged original double-branch DGF + 25489-parameter mask adapter; shared A/E weights, channels combined only in loss/metric',selection='lower all-population joint A/E validation direct PSD mismatch; equal max/min/patience budget'))
+ start_white_worker()
  selected=[train(kind) for kind in ['raw','white']]
  final_test(selected)
 

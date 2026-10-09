@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "cache": {
+    "mode": "gpu",
+    "cache_bytes": 1197504000,
+    "free_gpu_bytes": 12544114688,
+    "reason": "observed available headroom",
+    "rng_unchanged": true
+  },
+  "batch_sources": 128,
+  "input_bitwise_equal": true,
+  "inference_bitwise_equal": true,
+  "CUDA_RNG_unchanged": true,
+  "finite_training_loss": true,
+  "training_peak_gpu_mb": 3545.78662109375,
+  "forced_threshold_offload_passed": true,
+  "checkpoint_sha256": "4abcfd11c10d2e988a17baa6825bcf413dcea4a050f71bb8a8ccdb327dd60bbb",
+  "checkpoint_unmodified": true,
+  "guard_free_GiB": 4.0,
+  "allocator_fraction": 0.4
+}

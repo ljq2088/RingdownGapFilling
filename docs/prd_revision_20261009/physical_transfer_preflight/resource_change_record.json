@@ -1,0 +1,28 @@
+{
+  "user_request": "use more available memory while preserving safe headroom",
+  "resumed_after_epoch": 37,
+  "checkpoint_sha256": "4abcfd11c10d2e988a17baa6825bcf413dcea4a050f71bb8a8ccdb327dd60bbb",
+  "unchanged": [
+    "batch128",
+    "model",
+    "loss",
+    "source data",
+    "validation/test policy",
+    "learning rates",
+    "optimizer state",
+    "scheduler",
+    "RNG state",
+    "min/max epochs",
+    "early stopping"
+  ],
+  "GPU_cache_bytes_per_variant": 1197504000,
+  "GPU_allocator_fraction_per_worker": 0.4,
+  "global_free_VRAM_guard_GiB": 4,
+  "cache_admission_activation_reserve_GiB": 3,
+  "parallel_variants": [
+    "raw",
+    "white"
+  ],
+  "scientific_function_AST_unchanged": true,
+  "adjusted_unix": 1791513738.5896103
+}
