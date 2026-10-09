@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "protocol_sha256": "6d07110fa02ed252fec0fefe636dc27a209679fd997ab82bec4b6cc2ae4f8d16",
+  "psd_sha256": "79b825b04bbe1ac09790f70e23fbac6743dab75f710fb1dc70fea0f22c67a5b8",
+  "crop_sha256": {
+    "train_crops.h5": "0291ac0f5fd01ea8665e1c5c4fab92cac90677dc9876f36505f6c9c0c74569fb",
+    "validation_crops.h5": "75d217e7d8d3a650f70fc8cb627f0205e53e400472189dca189494f80e31e60f"
+  }
+}

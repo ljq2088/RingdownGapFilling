@@ -1,0 +1,24 @@
+{
+  "n": 1500,
+  "all_rows_retained": true,
+  "PSD_snr_definition": "sqrt(4/(fs*N) sum_channels sum_interior_bins abs(rfft(h))^2 / S); finite-crop diagonal noise metric",
+  "snr_quantiles": {
+    "0": 3.323623807281489,
+    "0.05": 12.43956006964085,
+    "0.5": 55.76828401177812,
+    "0.95": 252.65777484296632,
+    "1": 738.0169305071822
+  },
+  "time_energy_ratio_quantiles": {
+    "0": 0.00500353340938392,
+    "0.05": 0.014243170763398523,
+    "0.5": 0.0522385281712881,
+    "0.95": 0.228194551179952,
+    "1": 0.7109081753751877
+  },
+  "source_total_mass_range": [
+    100991.89892380989,
+    4951851.124736793
+  ],
+  "scope": "validation-source descriptors, not model performance; no filtering"
+}

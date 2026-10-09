@@ -1,0 +1,29 @@
+{
+  "rows": [
+    {
+      "batch_sources": 16,
+      "median_step_seconds": 0.6455323696136475,
+      "sources_per_second": 24.78574391176702,
+      "peak_gpu_mb": 417.86328125
+    },
+    {
+      "batch_sources": 32,
+      "median_step_seconds": 0.961788535118103,
+      "sources_per_second": 33.27134690378749,
+      "peak_gpu_mb": 709.060546875
+    },
+    {
+      "batch_sources": 64,
+      "median_step_seconds": 0.2419191598892212,
+      "sources_per_second": 264.5511832519039,
+      "peak_gpu_mb": 1294.298828125
+    },
+    {
+      "batch_sources": 128,
+      "median_step_seconds": 0.21687746047973633,
+      "sources_per_second": 590.1950332545484,
+      "peak_gpu_mb": 2466.8701171875
+    }
+  ],
+  "purpose": "compute-only sizing, not training evidence"
+}

@@ -1,0 +1,10 @@
+{
+  "raw": {
+    "roundtrip_relative_l2": 2.5511332680391304e-08,
+    "overlap_equivalence_max_error": 5.531246571877091e-10
+  },
+  "white": {
+    "roundtrip_relative_l2": 1.870958502796257e-07,
+    "overlap_equivalence_max_error": 8.321099365105056e-11
+  }
+}

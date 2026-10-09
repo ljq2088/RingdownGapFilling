@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "phase_expected": 0.06767265439396553,
+  "positive_amplitude_invariance": true,
+  "signed_range": [
+    0,
+    2
+  ],
+  "white_parseval": true,
+  "global_psd_scaling_invariance": true,
+  "low_psd_erroneous_bin_increases_mismatch": true,
+  "matched_physical_losses": {
+    "raw": 0.015703899785876274,
+    "white": 0.015703842043876648
+  },
+  "physical_loss_delta": 5.774199962615967e-08
+}

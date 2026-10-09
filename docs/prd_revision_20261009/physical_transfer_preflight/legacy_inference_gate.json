@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "n": 8,
+  "relative_l2": 1.587680537552651e-07,
+  "base_sha256": "e7dcf7e55cc6b3f54dd943d3876a78068001cdbc376719b5e832003c09d797b1",
+  "refiner_sha256": "5572f9630494eefaf439510c98d16a5093433ea39d7c72c5427800c86899e47b"
+}

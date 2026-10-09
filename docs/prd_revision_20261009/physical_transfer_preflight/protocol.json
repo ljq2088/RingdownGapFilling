@@ -1,0 +1,139 @@
+{
+  "physics": {
+    "schema_version": 1,
+    "source_total_mass_msun": [
+      100000.0,
+      5000000.0
+    ],
+    "mass_prior": "log-uniform",
+    "q_light_over_heavy": [
+      0.3,
+      1.0
+    ],
+    "redshift": [
+      1.0,
+      6.0
+    ],
+    "orientations": "isotropic",
+    "progenitor_spins": [
+      0.0,
+      0.0
+    ],
+    "cosmology": {
+      "H0": 67.4,
+      "Om0": 0.315
+    },
+    "fs_hz": 2.0,
+    "n_samples": 32768,
+    "tdi": "2nd generation",
+    "channels": [
+      "A",
+      "E"
+    ],
+    "aet_convention": [
+      "(Z-X)/sqrt(2)",
+      "(X-2Y+Z)/sqrt(6)",
+      "(X+Y+Z)/sqrt(3)"
+    ],
+    "noise_model": "scirdv1",
+    "units": "fractional frequency",
+    "observation": "G*h+n",
+    "pad_seconds": 2048.0,
+    "reference_seconds": 2048.0,
+    "amplitude_fit": "Kamaretsos 1107.0854 Eqs31-34 at 10 remnant M after 22 luminosity peak",
+    "angular_harmonics": "spherical",
+    "relative_mode_phases": "m*orbital_phase; simplified coherent convention, not NR-fitted",
+    "mission_epoch_seconds": 31558149.7632,
+    "foreground": false,
+    "gap_seconds": 33.0,
+    "natural_gap_offset_seconds": [
+      -66.0,
+      66.0
+    ],
+    "invalid_policy": "abort; no outcome-based exclusion",
+    "numerical_ringup": "PyCBC taper=True, short tau/10 pre-reference ringup; t>=0 amplitude unchanged; not an IMR model"
+  },
+  "splits": {
+    "train": {
+      "parent_path": "/home/ljq/code/RingdownGapFilling/FillingGap/results_physical_retraining_20261009/train.h5",
+      "parent_rows": 60000,
+      "rows_used": 12000,
+      "seed_min": 2028000000,
+      "seed_max": 2028011999,
+      "seeds_sha256": "175371d92f5b056c1259e55455799ef6e521d6b24613f1d086d50e7f725a5890",
+      "target_read": true
+    },
+    "validation": {
+      "parent_path": "/home/ljq/code/RingdownGapFilling/FillingGap/results_physical_retraining_20261009/validation.h5",
+      "parent_rows": 6000,
+      "rows_used": 1500,
+      "seed_min": 2028100000,
+      "seed_max": 2028101499,
+      "seeds_sha256": "2d12841c6193b26401b9d25add8fca58bbf70782e9f70596c4b6381446f6e882",
+      "target_read": true
+    },
+    "test": {
+      "parent_path": "/home/ljq/code/RingdownGapFilling/FillingGap/results_physical_retraining_20261009/test.h5",
+      "parent_rows": 6000,
+      "rows_used": 6000,
+      "seed_min": 2028200000,
+      "seed_max": 2028205999,
+      "seeds_sha256": "499dd1b638a7302b6001174c5f97f35951f2f8b0654e89852bc6e33307689122",
+      "target_read": false
+    }
+  },
+  "crop_samples": 1056,
+  "crop_seconds": 528.0,
+  "gap_samples": 66,
+  "crop_rule": "segment placement from supplied gap start with seeded local gap start 132..263; parent gap population is near injected peak; no outcome exclusion",
+  "scope": "finite 528-s two-channel segments; no claim of recovering the full longest ringdown",
+  "mask_semantics": "1 suppresses signal; noise remains inside gap; not missing spacecraft samples",
+  "selection": "unmaximized joint A/E mean PSD mismatch on validation only",
+  "test_policy": "no test target read until both raw/white training checkpoints are selected; retain all 6000 rows",
+  "same_budget_variants": [
+    "raw",
+    "white"
+  ],
+  "cwt": "Morlet magnitude and phase of input divided by observed-input channel RMS; no target feature",
+  "noise_psd": "512 independent pure-noise crops, rectangular window; diagonal finite-crop metric, not full correlated likelihood",
+  "max_epochs": 600,
+  "min_epochs": 100,
+  "patience": 100,
+  "min_delta": 1e-05,
+  "batch_sources": 128,
+  "seed": 2026100931,
+  "parent_train_attribute_note": "early train config lacks numerical_ringup key; six stored rows including prefix boundary reproduce current frozen simulator bitwise",
+  "reproduction": [
+    {
+      "index": 0,
+      "seed": 2028000000,
+      "bitwise_reproduced": true
+    },
+    {
+      "index": 511,
+      "seed": 2028000511,
+      "bitwise_reproduced": true
+    },
+    {
+      "index": 7985,
+      "seed": 2028007985,
+      "bitwise_reproduced": true
+    },
+    {
+      "index": 7986,
+      "seed": 2028007986,
+      "bitwise_reproduced": true
+    },
+    {
+      "index": 11999,
+      "seed": 2028011999,
+      "bitwise_reproduced": true
+    },
+    {
+      "index": 59999,
+      "seed": 2028059999,
+      "bitwise_reproduced": true
+    }
+  ],
+  "training_loss": "identical physical-space loss for raw/white; joint direct PSD mismatch + 0.5 PSD relative squared error + 0.5 time/gap relative squared error; numerical guards 1e-12 in calibrated working units; no evaluation floor"
+}

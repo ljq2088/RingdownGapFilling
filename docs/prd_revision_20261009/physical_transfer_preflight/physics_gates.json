@@ -1,0 +1,78 @@
+{
+  "equal_mass_odd_modes_zero": true,
+  "white_psd_ratio": 1.0010603206332376,
+  "white_variance_ratio": 1.0014843794473767,
+  "qnm_max_relative_error": 6.396264492947168e-06,
+  "largest_corner_tau_seconds": 1964.1447138525841,
+  "worst_tail_damping_times": 6.993374725967842,
+  "distance_scaling_relative_l2": 0.0,
+  "padding_relative_l2": 2.8651764786363393e-08,
+  "interpolation_relative_l2": 0.0002867868645453177,
+  "padding_accepted_seconds": 2048.0,
+  "interpolation_order": 25,
+  "colored_psd_ratios": [
+    0.9999204946740285,
+    0.9980290340823427
+  ],
+  "colored_variance_ratios": [
+    0.99957048613282,
+    0.9986162956873931
+  ],
+  "AE_mean_cross_coherence": 0.007790004594475926,
+  "passed": true,
+  "seconds": 3.5314247608184814,
+  "config": {
+    "schema_version": 1,
+    "source_total_mass_msun": [
+      100000.0,
+      5000000.0
+    ],
+    "mass_prior": "log-uniform",
+    "q_light_over_heavy": [
+      0.3,
+      1.0
+    ],
+    "redshift": [
+      1.0,
+      6.0
+    ],
+    "orientations": "isotropic",
+    "progenitor_spins": [
+      0.0,
+      0.0
+    ],
+    "cosmology": {
+      "H0": 67.4,
+      "Om0": 0.315
+    },
+    "fs_hz": 2.0,
+    "n_samples": 32768,
+    "tdi": "2nd generation",
+    "channels": [
+      "A",
+      "E"
+    ],
+    "aet_convention": [
+      "(Z-X)/sqrt(2)",
+      "(X-2Y+Z)/sqrt(6)",
+      "(X+Y+Z)/sqrt(3)"
+    ],
+    "noise_model": "scirdv1",
+    "units": "fractional frequency",
+    "observation": "G*h+n",
+    "pad_seconds": 2048.0,
+    "reference_seconds": 2048.0,
+    "amplitude_fit": "Kamaretsos 1107.0854 Eqs31-34 at 10 remnant M after 22 luminosity peak",
+    "angular_harmonics": "spherical",
+    "relative_mode_phases": "m*orbital_phase; simplified coherent convention, not NR-fitted",
+    "mission_epoch_seconds": 31558149.7632,
+    "foreground": false,
+    "gap_seconds": 33.0,
+    "natural_gap_offset_seconds": [
+      -66.0,
+      66.0
+    ],
+    "invalid_policy": "abort; no outcome-based exclusion",
+    "numerical_ringup": "PyCBC taper=True, short tau/10 pre-reference ringup; t>=0 amplitude unchanged; not an IMR model"
+  }
+}

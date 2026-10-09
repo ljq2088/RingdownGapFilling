@@ -2,3 +2,8 @@
 *.pth
 *.pt
 data/LISA_noise.mat
+
+# Local PRD physical transfer artifacts
+FillingGap/results_prd_physical_transfer_20261009/
+**/__pycache__/
+*.pyc

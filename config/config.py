@@ -1,17 +1,20 @@
 class Config:
     #train_stage
     stage='finetune'#'#'pretrain' or 'finetune'
+    #train loss
+    Amp_factor=1e11
+
     #detector parameters
     Sacc=3*10**-15
     Sopt=1.5*10**-11
     L=2.5*10**9
     #signal&gap parameters
-    zoom_factor=2e-2
+    zoom_factor=3e-2
     signal_to_gap_length_ratio = 8
     signal_length=1056
     num_samples = 10000
     samp_freq=2
-    parameters=[1e5,2e5,0.8,1,4, 6]#Mtot, M_ratio, R_shift
+    parameters=[1e5,1e6,0.5,0.8,4, 6]#Mtot, M_ratio, R_shift
     scale=5e-5
     signal_length_before_whitened=4096
     #IMR paras
@@ -22,14 +25,14 @@ class Config:
     f_out=1
     f_step=1e-5
     #training parameters
-    batch_size = 16
+    batch_size = 32
     num_epochs = 200
-    learning_rate = 3e-4
+    learning_rate = 8e-4
     dropout=0.1
     weight_decay=1e-4
     #model parameters
     hidden_dim= 64
-    num_layers = 2
+    num_layers = 4
     condition_dim = 3
     #Save
     model_save_path = './saved_models/No_noise/model'
@@ -39,14 +42,15 @@ class Config:
     Loss_coeff=[1e-7,1,1,1]
     Smooth_coeff=[0.001,0.001]
     loss_alpha=1.0
+    L1_lambda=1e-7
     #Position=8
-    
+
     input_dim=1
     output_dim=1
     hidden_dim_E=[8*condition_dim,1028,256,64]#第一个是LSTM的维度
-    
+
     hidden_dim_D=[48,8*condition_dim,64,128,256,64]#第一个是Attention的维度,最后一个是LSTM的维度
-    
+
     #Segmentation
     segment_length=64
     overlap=0.5
@@ -58,7 +62,7 @@ class Config:
     #L1 para
     L1_weight=0.1
     #Embedding
-    EMBEDDING_dim=32
+    EMBEDDING_dim=64
     #CE
     CEkernel_size = (3, 3)
     CEpadding = (1, 1)
@@ -67,11 +71,11 @@ class Config:
     ConEkernel_size = (3, 3)
     ConEpadding = (1, 1)
     #Transformer
-    num_heads = 4
-    FF_dim=32
-    num_layers_T=4
+    num_heads=8
+    FF_dim=64
+    num_layers_T=16
     #MLP
-    h_dim_MLP=64
+    h_dim_MLP=128
 
     #Decomposition
     n_modes=4
