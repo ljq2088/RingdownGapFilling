@@ -1,0 +1,28 @@
+{
+  "event": "WSL restarted after reported accidental logout; prior PIDs absent; full checkpoints recovered",
+  "resume_epochs": {
+    "raw": 53,
+    "white": 17
+  },
+  "new_optimization": "cache deterministic normalized-input db4 bands; no new trainable weights",
+  "checkpoint_sha256": {
+    "raw": "21fb0be8c03efe67a6ee6d1ccbb7ca28cc58ef9177cc956d14def6a953f343b8",
+    "white": "89336ff2833818ca3fd6244255b9a224764cf98a61e05493025c64a76ddbe47f"
+  },
+  "unchanged": [
+    "batch128",
+    "model parameters",
+    "observation G*h+n",
+    "train/validation/test source sets",
+    "direct metric",
+    "loss",
+    "optimizer/scheduler saved states",
+    "RNG states",
+    "learning rates",
+    "epoch budget",
+    "early stopping"
+  ],
+  "cache_equivalence_gates": "band_cache_gates.json",
+  "preprocessing_source_hashes_unchanged": true,
+  "logged_unix": 1791514872.1122296
+}

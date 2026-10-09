@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "results": {
+    "raw": {
+      "cases": [
+        {
+          "batch_sources": 128,
+          "inference_bitwise_equal": true,
+          "inference_relative_l2": 0.0,
+          "gradient_relative_l2": 1.5736221494535202e-07,
+          "loss_absolute_difference": 0.0
+        },
+        {
+          "batch_sources": 96,
+          "inference_bitwise_equal": true,
+          "inference_relative_l2": 0.0,
+          "gradient_relative_l2": 1.6875380238098946e-07,
+          "loss_absolute_difference": 0.0
+        }
+      ],
+      "cache_generation_seconds": 3.298053097000036,
+      "cache": {
+        "train": {
+          "path": "/home/ljq/code/RingdownGapFilling_PRD/FillingGap/results_prd_physical_transfer_20261009/train_raw_db4_bands.h5",
+          "bytes": 811008000,
+          "provenance": {
+            "utils/wavelet.py": "13d0262ad9043cd6bd20aa95f1051791e239feb286a5473643e1ef87f03a1813",
+            "utils/normalize.py": "7551c1113c374941ad4bd7b303b4368f915123aff90e8521cf84023f6e195320",
+            "config/config.py": "86ea246760f8e2e635727a6d0c46c523e1c2cb0757efe91bcddc51b20a3e3b8c"
+          },
+          "input_features_sha256": "7b5132480981c791205a8b171f299bf02a34a4e511f10eec021ead12e1eb6dcd",
+          "RNG_unchanged": true
+        },
+        "validation": {
+          "path": "/home/ljq/code/RingdownGapFilling_PRD/FillingGap/results_prd_physical_transfer_20261009/validation_raw_db4_bands.h5",
+          "bytes": 101376000,
+          "provenance": {
+            "utils/wavelet.py": "13d0262ad9043cd6bd20aa95f1051791e239feb286a5473643e1ef87f03a1813",
+            "utils/normalize.py": "7551c1113c374941ad4bd7b303b4368f915123aff90e8521cf84023f6e195320",
+            "config/config.py": "86ea246760f8e2e635727a6d0c46c523e1c2cb0757efe91bcddc51b20a3e3b8c"
+          },
+          "input_features_sha256": "7ca879ec11e518fce85204087707e19e4dabd57cf085dc498732efe3eff16f11",
+          "RNG_unchanged": true
+        }
+      },
+      "residency": {
+        "mode": "gpu",
+        "cache_bytes": 2109888000,
+        "free_gpu_bytes": 12955156480,
+        "reason": "observed available headroom",
+        "rng_unchanged": true
+      },
+      "forward_backward_seconds": {
+        "fresh": 0.2022395220000135,
+        "cached": 0.18003546049996544
+      },
+      "speedup": 1.123331600554616,
+      "peak_gpu_mb": 4458.07177734375,
+      "checkpoint_sha256": "21fb0be8c03efe67a6ee6d1ccbb7ca28cc58ef9177cc956d14def6a953f343b8",
+      "checkpoint_unmodified": true
+    },
+    "white": {
+      "cases": [
+        {
+          "batch_sources": 128,
+          "inference_bitwise_equal": true,
+          "inference_relative_l2": 0.0,
+          "gradient_relative_l2": 2.0349902586117538e-07,
+          "loss_absolute_difference": 0.0
+        },
+        {
+          "batch_sources": 96,
+          "inference_bitwise_equal": true,
+          "inference_relative_l2": 0.0,
+          "gradient_relative_l2": 3.190934945364157e-07,
+          "loss_absolute_difference": 0.0
+        }
+      ],
+      "cache_generation_seconds": 2.521250082999984,
+      "cache": {
+        "train": {
+          "path": "/home/ljq/code/RingdownGapFilling_PRD/FillingGap/results_prd_physical_transfer_20261009/train_white_db4_bands.h5",
+          "bytes": 811008000,
+          "provenance": {
+            "utils/wavelet.py": "13d0262ad9043cd6bd20aa95f1051791e239feb286a5473643e1ef87f03a1813",
+            "utils/normalize.py": "7551c1113c374941ad4bd7b303b4368f915123aff90e8521cf84023f6e195320",
+            "config/config.py": "86ea246760f8e2e635727a6d0c46c523e1c2cb0757efe91bcddc51b20a3e3b8c"
+          },
+          "input_features_sha256": "2770c68c90c36b93a007d5ee68ff41c3eaf086f797877e425034fa3623274e95",
+          "RNG_unchanged": true
+        },
+        "validation": {
+          "path": "/home/ljq/code/RingdownGapFilling_PRD/FillingGap/results_prd_physical_transfer_20261009/validation_white_db4_bands.h5",
+          "bytes": 101376000,
+          "provenance": {
+            "utils/wavelet.py": "13d0262ad9043cd6bd20aa95f1051791e239feb286a5473643e1ef87f03a1813",
+            "utils/normalize.py": "7551c1113c374941ad4bd7b303b4368f915123aff90e8521cf84023f6e195320",
+            "config/config.py": "86ea246760f8e2e635727a6d0c46c523e1c2cb0757efe91bcddc51b20a3e3b8c"
+          },
+          "input_features_sha256": "fc9f3cd14f1935df101be36ae4576f77c630f9192b53b33265424f057e613164",
+          "RNG_unchanged": true
+        }
+      },
+      "residency": {
+        "mode": "gpu",
+        "cache_bytes": 2109888000,
+        "free_gpu_bytes": 12886999040,
+        "reason": "observed available headroom",
+        "rng_unchanged": true
+      },
+      "forward_backward_seconds": {
+        "fresh": 0.20651293800003145,
+        "cached": 0.17980346999996755
+      },
+      "speedup": 1.1485481231261483,
+      "peak_gpu_mb": 4457.2841796875,
+      "checkpoint_sha256": "89336ff2833818ca3fd6244255b9a224764cf98a61e05493025c64a76ddbe47f",
+      "checkpoint_unmodified": true
+    }
+  },
+  "scope": "execution-equivalence check; no test targets read and no model training result asserted"
+}

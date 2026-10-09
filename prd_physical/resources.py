@@ -14,12 +14,15 @@ def available_gpu_bytes():
   global_free=cuda_free
  return min(cuda_free,global_free),total
 
+def data_keys(dataset):
+ return KEYS+(('bands',) if 'bands' in dataset else ())
+
 def dataset_bytes(datasets):
- return sum(a[k].numel()*a[k].element_size() for a in datasets for k in KEYS)
+ return sum(a[k].numel()*a[k].element_size() for a in datasets for k in data_keys(a))
 
 def cpu_cache(datasets):
  for a in datasets:
-  for k in KEYS:
+  for k in data_keys(a):
    if a[k].is_cuda:a[k]=a[k].cpu()
  torch.cuda.empty_cache()
 
@@ -30,7 +33,7 @@ def cache_on_gpu(datasets):
  rng=torch.cuda.get_rng_state().clone()
  try:
   for a in datasets:
-   for k in KEYS:a[k]=a[k].cuda()
+   for k in data_keys(a):a[k]=a[k].cuda()
  except torch.cuda.OutOfMemoryError:
   cpu_cache(datasets)
   return dict(mode='cpu',cache_bytes=needed,reason='allocation fallback')
@@ -46,4 +49,4 @@ def guard_headroom(datasets):
 def slice_to_gpu(a,indices):
  # Same source indices/order and values in both paths; no random operation.
  ix=torch.as_tensor(indices,device=a['input'].device,dtype=torch.long)
- return {k:a[k].index_select(0,ix).cuda() for k in KEYS}
+ return {k:a[k].index_select(0,ix).cuda() for k in data_keys(a)}

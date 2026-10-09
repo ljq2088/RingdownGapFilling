@@ -50,3 +50,11 @@ Overleaf修订项目仍为 https://cn.overleaf.com/project/6ac83816750c2cce45205
 raw从epoch37的last checkpoint继续，white同时独立训练；每版本batch128、数据、目标、seed、优化器/学习率、选模及早停预算保持一致。per-variant文件锁防止两个进程写同一版本；white worker有独立status/log/checkpoint，永不读取test。主进程只有在两个版本选模结束后才统一读取test。并行仅改变执行顺序和资源使用，原“之后自动训练white”的串行说明由本段覆盖。
 
 原执行snapshot与新snapshot及checkpoint hash保留在结果目录resource_adjustment_20261009中。资源变更前后loss/metric/eval/test函数AST一致，模型和数据来源文件hash不变。
+
+## 登录中断后的恢复与固定小波缓存（2026-10-09）
+
+用户报告意外退出登录；检查确认WSL已重新启动、旧进程不存在，而raw epoch52和white epoch16的完整checkpoint与history一致。恢复时保留模型、优化器、scheduler、best/stale、CPU/CUDA/NumPy随机状态；未保存的局部epoch重做。
+
+现缓存仅由observed input确定的normalized db4八个子带，每版本train+validation额外约0.85GiB。无新参数、不改变batch128和损失、数据及测试封存。缓存生成不读取test、不依赖clean target或学习权重；记录input-feature/固定变换源码SHA并核对。缓存前后128/96源batch的预测逐位相同、loss完全一致，梯度relative L2最大3.2e-7；短forward/backward探针速度约提升12%–15%。此探针不是held-out性能结果。
+
+CUDA缓存准入仍预留3GiB激活与4GiB全局空余，每worker allocator上限40%。每epoch检查全局空余并可退回CPU，CPU缓存仍避免重复小波计算。两版本并行，统一选模后才读取test。运行时长需以新的完整epoch测量更新。WSL重启/系统注销会终止进程，磁盘checkpoint仍可恢复。

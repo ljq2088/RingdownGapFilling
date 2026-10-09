@@ -11,6 +11,7 @@ import h5py
 from .common import N,FS,SEED,sha,write,Preprocess,metric,summary
 from .prepare import OUT,PARENT,ROOT,COUNTS,crop_meta,prepare
 from .model import PhysicalDGF
+from .band_cache import attach_bands
 from .resources import GPU_MEMORY_FRACTION,cache_on_gpu,guard_headroom,slice_to_gpu
 BASE=ROOT/'saved_models/noise/lowSNR/model_with_noise_gaps_HugeRangeParas_14.pth'
 LEGACY_REFINER=ROOT/'FillingGap/results_augmented_longrun_20261008/best_refiner.pth'
@@ -52,7 +53,7 @@ def predict(model,a,pre):
  model.eval();arr=[]
  with torch.no_grad():
   for v in batches(a,np.arange(len(a['input']))):
-   p=model(v['input'],v['q'],v['mask']).cpu().numpy()
+   p=model(v['input'],v['q'],v['mask'],v.get('bands')).cpu().numpy()
    if not np.isfinite(p).all():raise ValueError('nonfinite prediction')
    arr.append(pre.decode(p))
  return np.concatenate(arr)
@@ -85,6 +86,8 @@ def _train(kind):
  transfer=pre.sigma[:,None] if kind=='raw' else pre.asd
  time_transfer=torch.tensor(transfer/pre.sigma.mean(),device='cuda',dtype=torch.float32)
  tr=load('train',kind);va=load('validation',kind)
+ band_info={split:attach_bands(a,kind,split,model) for split,a in [('train',tr),('validation',va)]}
+ write(path/'band_cache_status.json',band_info)
  residency=cache_on_gpu([tr,va]);write(path/'resource_status.json',residency)
  status('resource_configuration',variant=kind,**residency)
  opt=torch.optim.AdamW([{'params':model.base.parameters(),'lr':2e-5},{'params':model.refiner.parameters(),'lr':1e-4}],weight_decay=1e-4)
@@ -106,7 +109,7 @@ def _train(kind):
    residency=offload;write(path/'resource_status.json',residency);status('resource_fallback',variant=kind,**residency)
   t=time.monotonic();model.train();order=torch.randperm(len(tr['input'])).numpy();total=0.;done=0;last_report=0
   for v in batches(tr,order):
-   opt.zero_grad(set_to_none=True);p=model(v['input'],v['q'],v['mask']);loss=lossfn(p,v['target'],v['mask'],w,time_transfer)
+   opt.zero_grad(set_to_none=True);p=model(v['input'],v['q'],v['mask'],v.get('bands'));loss=lossfn(p,v['target'],v['mask'],w,time_transfer)
    if not torch.isfinite(loss):raise ValueError('nonfinite training loss')
    loss.backward();torch.nn.utils.clip_grad_norm_(model.parameters(),1.);opt.step()
    done+=len(v['input']);total+=float(loss.detach())*len(v['input'])
@@ -215,7 +218,7 @@ def main():
    for p in files:z.write(p,str(p.relative_to(ROOT)))
  status('preparing',gpu=torch.cuda.get_device_name(),gpu_memory_fraction=GPU_MEMORY_FRACTION)
  legacy_gate();prepare()
- for name in ['physics_gates.json','metric_gates.json','training_probe.json','prepared.json']:
+ for name in ['physics_gates.json','metric_gates.json','training_probe.json','prepared.json','band_cache_gates.json']:
   if not json.loads((OUT/name).read_text()).get('passed'):raise RuntimeError('pre-training gate failed: '+name)
  write(OUT/'training_config.json',dict(max_epochs=MAX_EPOCHS,min_epochs=MIN_EPOCHS,patience=PATIENCE,min_delta=DELTA,batch_sources=BATCH,train_unique=COUNTS['train'],validation_unique=COUNTS['validation'],test_unique=COUNTS['test'],observation='G*h+n',variants=['raw','white'],learning_rates=[2e-5,1e-4],schedule='ReduceLROnPlateau factor0.5 patience20',seed=SEED,base_sha256=sha(BASE),legacy_refiner_sha256=sha(LEGACY_REFINER),train_loss='joint direct PSD mismatch + 0.5 PSD relative squared error + 0.5 time/gap relative squared error; same physical-space loss for raw/white variants; training numeric norm guards 1e-12; no evaluation ratio floor',model='unchanged original double-branch DGF + 25489-parameter mask adapter; shared A/E weights, channels combined only in loss/metric',selection='lower all-population joint A/E validation direct PSD mismatch; equal max/min/patience budget'))
  start_white_worker()

@@ -12,7 +12,7 @@ def main():
  manifest=json.loads((OUT/'runtime_source_manifest.json').read_text())
  for name,expected in manifest.items():
   if sha(ROOT/name)!=expected:raise RuntimeError('runtime source changed: '+name)
- for name in ['prepared.json','metric_gates.json','training_probe.json','resource_change_gates.json']:
+ for name in ['prepared.json','metric_gates.json','training_probe.json','resource_change_gates.json','band_cache_gates.json']:
   if not json.loads((OUT/name).read_text()).get('passed'):raise RuntimeError('preflight failed: '+name)
  result=train('white');status('variant_completed',variant='white',selection=result)
 
