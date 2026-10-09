@@ -7,3 +7,6 @@ data/LISA_noise.mat
 FillingGap/results_prd_physical_transfer_20261009/
 **/__pycache__/
 *.pyc
+
+# Frozen DGF optimization runtime artifacts
+FillingGap/results_prd_optimization_20261010/
