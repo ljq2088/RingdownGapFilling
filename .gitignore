@@ -10,3 +10,6 @@ FillingGap/results_prd_physical_transfer_20261009/
 
 # Frozen DGF optimization runtime artifacts
 FillingGap/results_prd_optimization_20261010/
+
+# Observation-frequency adapter experiment
+FillingGap/results_prd_optimization_20261013/
