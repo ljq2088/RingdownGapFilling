@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "scope": "existing1500 validation sources, parent and crop bitwise reproduced",
+  "n": 1500,
+  "parent_samples": 32768,
+  "parent_seconds": 16384.0,
+  "input_samples": 1056,
+  "input_seconds": 528.0,
+  "dt_seconds": 0.5,
+  "gap_lengths_tested": [
+    66,
+    100,
+    132,
+    210
+  ],
+  "longest_tau_seconds": {
+    "n": 1500,
+    "mean": 322.24360122721214,
+    "median": 174.57352452697873,
+    "p95": 1121.7738746701623,
+    "max": 1920.3191636151819
+  },
+  "tau_quantiles": {
+    "p10": 34.418699725494086,
+    "p50": 174.57352452697873,
+    "p90": 820.4286407971485
+  },
+  "tau_gt_input_window_n": 316,
+  "tau_gt_input_window_percent": 21.066666666666666,
+  "post_peak_duration_seconds": {
+    "n": 1500,
+    "mean": 429.24766666666665,
+    "median": 431.0,
+    "p95": 499.525,
+    "max": 525.5
+  },
+  "post_peak_at_least_one_longest_tau_n": 1086,
+  "post_peak_at_least_three_longest_tau_n": 668,
+  "post_peak_at_least_five_longest_tau_n": 486,
+  "joint_AE_unweighted_time_squared_norm_retained": {
+    "n": 1500,
+    "mean": 0.9834425905412749,
+    "median": 0.9967460466383382,
+    "p95": 0.9999999999987471,
+    "max": 1.0000000000000002
+  },
+  "coverage_quantiles": {
+    "p10": 0.9772187358011889,
+    "p50": 0.9967460466383382,
+    "p90": 0.999999998925555
+  },
+  "coverage_scope": "unweighted joint A/E fractional-frequency time squared norm fraction in the 528-s crop relative to its 16384-s parent; separate from PSD-weighted SNR or radiated energy",
+  "strata": {
+    "mass_lt5e5": {
+      "n": 606,
+      "retained_norm": {
+        "n": 606,
+        "mean": 0.9781327835913859,
+        "median": 0.9999942788133347,
+        "p95": 0.9999999999999998,
+        "max": 1.0000000000000002
+      },
+      "tau": {
+        "n": 606,
+        "mean": 63.64046203665457,
+        "median": 53.1626686304369,
+        "p95": 144.66016446447853,
+        "max": 191.27356002949406
+      }
+    },
+    "mass_5e5_2e6": {
+      "n": 530,
+      "retained_norm": {
+        "n": 530,
+        "mean": 0.9866650870412085,
+        "median": 0.994358112572674,
+        "p95": 0.9998494566878453,
+        "max": 0.9999983525596623
+      },
+      "tau": {
+        "n": 530,
+        "mean": 276.5247459990091,
+        "median": 232.74818477511312,
+        "p95": 582.1587851423018,
+        "max": 781.2354471377304
+      }
+    },
+    "mass_ge2e6": {
+      "n": 364,
+      "retained_norm": {
+        "n": 364,
+        "mean": 0.9875904473178354,
+        "median": 0.9944369428815556,
+        "p95": 0.9986103820733213,
+        "max": 0.9994463925300795
+      },
+      "tau": {
+        "n": 364,
+        "mean": 819.3438639206886,
+        "median": 735.3384668046572,
+        "p95": 1486.8082339534355,
+        "max": 1920.3191636151819
+      }
+    },
+    "snr_ge10": {
+      "n": 1456,
+      "retained_norm": {
+        "n": 1456,
+        "mean": 0.9838792658614705,
+        "median": 0.9965687265883074,
+        "p95": 0.9999999999938468,
+        "max": 1.0000000000000002
+      },
+      "tau": {
+        "n": 1456,
+        "mean": 323.1973121265652,
+        "median": 177.78191293422967,
+        "p95": 1112.0004985907667,
+        "max": 1852.1370414849782
+      }
+    }
+  }
+}
