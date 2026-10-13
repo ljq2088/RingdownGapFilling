@@ -1,0 +1,13 @@
+{
+  "prd_strategy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "prd_strategy/analyze.py": "210a600301426bd9ca1fae29347dfe6a5c85ed1f9cb4f6a0dc314afd86af1d89",
+  "prd_strategy/audit.py": "9302e2ae0764e1e91a478ffe95ee02a574202bf39fab31838502abfc69b2e5d9",
+  "prd_strategy/augment.py": "03b4f32b2c9c94ce5c093f660b30c705011f42d11e5e4c7b6ecf4064e0597fa8",
+  "prd_strategy/augmented_predict.py": "7211b5bc6226192d81745280268a98d4138e980137cb190ee6390f99ace975ec",
+  "prd_strategy/check_augment.py": "411fb0b469ab0bc5a3207470c5249904397cc68dcbf46a08579e2d832d9eea7a",
+  "prd_strategy/latent.py": "61fb5fd7e3ef3e441df45622c9fda2d44b82933b052af8895c756c4316f62abc",
+  "prd_strategy/loss.py": "fe4423378270babc1e15408df75b24e8450bcf5242d8d27bacf78cacc1ae06bb",
+  "prd_strategy/pilot_head.py": "8705c362f023c50a6834ebd5887b0ea32924a14d57ed01cf07d3ba0cba7c4144",
+  "prd_strategy/predict.py": "fd49ae084f0e4ab392543b5e507633728ed6641aad336b76390fc2b4fbddd657",
+  "prd_strategy/settings.py": "7afbcfc611d9ed1977b1d24022d047b9e0995633727d30d5a299666064c2c794"
+}

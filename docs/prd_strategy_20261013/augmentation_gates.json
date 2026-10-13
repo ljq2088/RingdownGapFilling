@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "noise_bank_rows": 512,
+  "maximum_empirical_periodogram_relative_error": 2.6941821453009894e-15,
+  "joint_AE_cross_frequency_uncentered_second_moment_relative_error": 4.045362938080216e-16,
+  "noise_changed": true,
+  "mask_semantics": "G*h+n; noise retained in the gap",
+  "noise_units": "fractional frequency",
+  "recrop_rows": [
+    {
+      "index": 0,
+      "start": 3284,
+      "gap_samples": 66,
+      "observation_and_global_sign_reproduced": true,
+      "both_cwt_banks_recomputed": true
+    },
+    {
+      "index": 11999,
+      "start": 3955,
+      "gap_samples": 66,
+      "observation_and_global_sign_reproduced": true,
+      "both_cwt_banks_recomputed": true
+    },
+    {
+      "index": 12000,
+      "start": 4645,
+      "gap_samples": 66,
+      "observation_and_global_sign_reproduced": true,
+      "both_cwt_banks_recomputed": true
+    },
+    {
+      "index": 23456,
+      "start": 3352,
+      "gap_samples": 66,
+      "observation_and_global_sign_reproduced": true,
+      "both_cwt_banks_recomputed": true
+    },
+    {
+      "index": 40000,
+      "start": 4726,
+      "gap_samples": 66,
+      "observation_and_global_sign_reproduced": true,
+      "both_cwt_banks_recomputed": true
+    },
+    {
+      "index": 59999,
+      "start": 4526,
+      "gap_samples": 66,
+      "observation_and_global_sign_reproduced": true,
+      "both_cwt_banks_recomputed": true
+    }
+  ],
+  "sign_symmetry": "simultaneous signal+noise sign, corresponding to polarization psi+pi/2 and zero-mean Gaussian noise",
+  "proof_scope": "orthogonal row rotation exactly preserves the noise-bank uncentered second moment; iid same-covariance Gaussian rows retain their joint Gaussian law",
+  "test_read": false
+}

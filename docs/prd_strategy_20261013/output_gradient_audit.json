@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "scope": "gradients with respect to predicted samples on 512 training rows; not parameter-gradient conflicts",
+  "anchors": {
+    "previous_joint": {
+      "direct_mismatch": {
+        "value": 0.007565416027042718,
+        "output_gradient_norm": 0.0007904637263478876,
+        "median_per_source_norm_ratio_to_primary": 1.0,
+        "median_cosine_with_primary": 1.0,
+        "fraction_opposite_to_primary": 0.0
+      },
+      "spectral_mse": {
+        "value": 0.007961085360625599,
+        "output_gradient_norm": 0.0007006708289008412,
+        "median_per_source_norm_ratio_to_primary": 1.0097264698612705,
+        "median_cosine_with_primary": 0.9833497864836543,
+        "fraction_opposite_to_primary": 0.0
+      },
+      "time_gap_mse": {
+        "value": 0.018114358622954428,
+        "output_gradient_norm": 0.008029165501864062,
+        "median_per_source_norm_ratio_to_primary": 15.90889754239478,
+        "median_cosine_with_primary": 0.1897148135448551,
+        "fraction_opposite_to_primary": 0.0
+      },
+      "hann_auxiliary": {
+        "value": 0.0033616408836857703,
+        "output_gradient_norm": 0.006017444412972295,
+        "median_per_source_norm_ratio_to_primary": 1.945416888391366,
+        "median_cosine_with_primary": 0.13849131030320955,
+        "fraction_opposite_to_primary": 0.005859375
+      }
+    },
+    "frequency_snapshot": {
+      "direct_mismatch": {
+        "value": 0.007475841864298775,
+        "output_gradient_norm": 0.000775621789494325,
+        "median_per_source_norm_ratio_to_primary": 1.0,
+        "median_cosine_with_primary": 1.0,
+        "fraction_opposite_to_primary": 0.0
+      },
+      "spectral_mse": {
+        "value": 0.007888935793229373,
+        "output_gradient_norm": 0.0006960456361872711,
+        "median_per_source_norm_ratio_to_primary": 1.0083628232997552,
+        "median_cosine_with_primary": 0.9833137783371644,
+        "fraction_opposite_to_primary": 0.0
+      },
+      "time_gap_mse": {
+        "value": 0.018018171308293144,
+        "output_gradient_norm": 0.00803098286445306,
+        "median_per_source_norm_ratio_to_primary": 15.73447116172682,
+        "median_cosine_with_primary": 0.18901158950160446,
+        "fraction_opposite_to_primary": 0.0
+      },
+      "hann_auxiliary": {
+        "value": 0.003408671351326975,
+        "output_gradient_norm": 0.006938194919011811,
+        "median_per_source_norm_ratio_to_primary": 1.969931587162482,
+        "median_cosine_with_primary": 0.13896330342435415,
+        "fraction_opposite_to_primary": 0.009765625
+      }
+    }
+  },
+  "test_read": false
+}

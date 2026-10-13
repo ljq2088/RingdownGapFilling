@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "train_unique": 4096,
+  "basis_fit_train_unique": 60000,
+  "validation_unique": 1500,
+  "test_read": false,
+  "primary_metric": "direct signed unmaximized joint A/E PSD mismatch arithmetic mean",
+  "noise_refresh_equal_updates": true,
+  "paired_training_seeds": [
+    {
+      "seed": 2026101347,
+      "control": 0.007493556388319002,
+      "augmented": 0.007479315523115301,
+      "reduction_percent": 0.19004147651306827,
+      "control_best_epoch": 11,
+      "augmented_best_epoch": 11
+    },
+    {
+      "seed": 2026101348,
+      "control": 0.007487654019075177,
+      "augmented": 0.0074749283791074985,
+      "reduction_percent": 0.16995496767424556,
+      "control_best_epoch": 11,
+      "augmented_best_epoch": 13
+    },
+    {
+      "seed": 2026101349,
+      "control": 0.007489006540689937,
+      "augmented": 0.007477243217562264,
+      "reduction_percent": 0.15707454738835153,
+      "control_best_epoch": 11,
+      "augmented_best_epoch": 10
+    }
+  ],
+  "control_mean": 0.007490072316028038,
+  "augmented_mean": 0.007477162373261688,
+  "augmentation_mean_reduction_percent": 0.17236072258907797,
+  "augmented_mean_reduction_vs_frequency_snapshot_percent": 4.9546719598370395,
+  "selection_scope": "small-budget frozen-backbone feasibility; each seed checkpoint chosen using the same fixed validation population",
+  "next_full_training_direction": "rank128 train-derived joint A/E basis plus observation-conditioned residual head; controlled noise/sign augmentation; balanced nonzero time/Hann regularizers",
+  "new_independent_test_required": true,
+  "historical_numeric_target": 0.005368768966470572,
+  "current_long_run_sources_unchanged": true
+}

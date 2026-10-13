@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "python_sources_parsed": true,
+  "main_runtime_hashes_unchanged": true,
+  "train_validation_disjoint": true,
+  "all1500_validation_rows_retained": true,
+  "independent_metric_max_error": 8.881784197001252e-16,
+  "all_pilots_completed": true,
+  "new_test_files_read": false
+}

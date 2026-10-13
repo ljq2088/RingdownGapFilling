@@ -1,0 +1,12 @@
+{
+  "previous_checkpoint_sha256": "7ab7fd7bbead48e0ef5408ecceaaaadacd9e00eeecd0bf9a28185912e3edcea5",
+  "frequency_snapshot_sha256": "c7069d01d852cfaa5bf33f367d491b76b94ef08ff32f72c56525fa38c53a1774",
+  "frequency_snapshot_epoch": 25,
+  "frequency_snapshot_validation_score": 0.007866943478123875,
+  "training_indices": [
+    0,
+    4095
+  ],
+  "validation_count": 1500,
+  "test_read": false
+}
