@@ -1,0 +1,49 @@
+{
+  "time": "2026-10-13T09:51:14",
+  "timezone": "Asia/Shanghai",
+  "pipeline_started": "2026-10-13T09:48:30",
+  "coordinator_pid": 19246,
+  "state": {
+    "stage": "preparing_training_features",
+    "pid": 19249,
+    "updated_unix": 1791856261.4261339,
+    "view": 0,
+    "completed": 12064,
+    "total": 60000,
+    "sources_per_second": 79.64989865022918,
+    "current_view_remaining_seconds": 601.8337852569518,
+    "elapsed_seconds": 151.4628418170032,
+    "device": "cpu"
+  },
+  "code_commit": "9b1c6bb",
+  "train_unique": 60000,
+  "observations_per_source": 3,
+  "training_observations_per_epoch": 180000,
+  "rank": 128,
+  "trainable_parameters": 66688,
+  "cpu_threads_per_head": 2,
+  "device": "cpu",
+  "runtime_source_hashes_verified": true,
+  "existing_gpu_workers_active": true,
+  "feature_preparation_finish_estimate": [
+    "2026-10-13 10:25",
+    "2026-10-13 10:35"
+  ],
+  "estimated_epoch_seconds": [
+    25,
+    40
+  ],
+  "epoch_estimate_basis": "two simultaneous CPU benchmarks; full data access, validation and checkpoint overhead included as estimate",
+  "early_stop_finish_estimate_including_test": [
+    "2026-10-13 11:45",
+    "2026-10-13 13:15"
+  ],
+  "early_stop_condition": "best validation checkpoint in epochs20..80 followed by120 stale epochs",
+  "maximum_budget_finish_estimate_including_test": [
+    "2026-10-13 16:30",
+    "2026-10-13 20:00"
+  ],
+  "fresh_test_sources": 6000,
+  "fresh_test_created_after_selection": true,
+  "remaining_uncertainty": "continuing validation improvement extends training; actual full-population epoch throughput updates ETA"
+}
