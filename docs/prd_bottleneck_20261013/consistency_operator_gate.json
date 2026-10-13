@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "operator_linearity_relative_errors": [
+    6.246864822870722e-16,
+    6.502556755646001e-16,
+    6.053648923710173e-16,
+    6.616535556663865e-16
+  ],
+  "ridge_stationarity_relative_errors": [
+    3.1871821362319695e-15,
+    4.1103505672570716e-15,
+    5.008020738594709e-15,
+    4.380924564715169e-15
+  ],
+  "scope": "four validation rows, float64 forward operator and selected regularization; no target used",
+  "current_training_source_hashes_unchanged": true
+}

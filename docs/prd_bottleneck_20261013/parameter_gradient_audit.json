@@ -1,0 +1,712 @@
+{
+  "passed": true,
+  "scope": "16 training sources per SNR stratum, fixed66, frozen old DGF+epoch374 coefficient adapter; deterministic eval forward; derivatives of the actual .5/.05/.02 training losses; weights unchanged",
+  "joint_training_pipeline_changed": false,
+  "test_read": false,
+  "results": {
+    "0_10": {
+      "n": 16,
+      "indices": [
+        6,
+        24,
+        25,
+        31,
+        45,
+        128,
+        161,
+        193,
+        212,
+        241,
+        307,
+        365,
+        378,
+        409,
+        460,
+        491
+      ],
+      "loss_sum_equivalence_error": 0.0,
+      "terms": {
+        "direct": {
+          "weighted_value": 0.037070877850055695,
+          "gradient_norm": 1.84217168414035,
+          "ratio_to_direct": 1.0,
+          "cosine_to_direct": 1.000000000000002,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.13737555461747716,
+              "direct_norm": 0.13737555461747716,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 1.0000000000000215
+            },
+            "mask_refiner": {
+              "norm": 1.8022966622104146,
+              "direct_norm": 1.8022966622104146,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999984
+            },
+            "joint": {
+              "norm": 0.33343273642766674,
+              "direct_norm": 0.33343273642766674,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999911
+            },
+            "frequency": {
+              "norm": 0.009903656927632593,
+              "direct_norm": 0.009903656927632593,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999984
+            },
+            "coefficients": {
+              "norm": 0.12318985382343646,
+              "direct_norm": 0.12318985382343646,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999989
+            }
+          }
+        },
+        "spectral": {
+          "weighted_value": 0.041586872190237045,
+          "gradient_norm": 1.7686167257038499,
+          "ratio_to_direct": 0.9600716051225028,
+          "cosine_to_direct": 0.7733462420599743,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.17244219719195109,
+              "direct_norm": 0.13737555461747716,
+              "ratio_to_direct": 1.2552611537920058,
+              "cosine_to_direct": 0.8592278662513151
+            },
+            "mask_refiner": {
+              "norm": 1.7123149188465017,
+              "direct_norm": 1.8022966622104146,
+              "ratio_to_direct": 0.9500738445281502,
+              "cosine_to_direct": 0.7709467300895029
+            },
+            "joint": {
+              "norm": 0.3836684333293224,
+              "direct_norm": 0.33343273642766674,
+              "ratio_to_direct": 1.1506621618497064,
+              "cosine_to_direct": 0.8127385139991574
+            },
+            "frequency": {
+              "norm": 0.011954675858507837,
+              "direct_norm": 0.009903656927632593,
+              "ratio_to_direct": 1.2070971304703229,
+              "cosine_to_direct": 0.8426064050314725
+            },
+            "coefficients": {
+              "norm": 0.13748472189465047,
+              "direct_norm": 0.12318985382343646,
+              "ratio_to_direct": 1.116039329762517,
+              "cosine_to_direct": 0.9442048294077897
+            }
+          }
+        },
+        "time_gap": {
+          "weighted_value": 0.008926684968173504,
+          "gradient_norm": 0.3083202995202604,
+          "ratio_to_direct": 0.1673678420826114,
+          "cosine_to_direct": 0.7687871631891561,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.031079410418452073,
+              "direct_norm": 0.13737555461747716,
+              "ratio_to_direct": 0.22623683307407078,
+              "cosine_to_direct": 0.49244631437501085
+            },
+            "mask_refiner": {
+              "norm": 0.2973009787912812,
+              "direct_norm": 1.8022966622104146,
+              "ratio_to_direct": 0.16495673826896978,
+              "cosine_to_direct": 0.7786522612990846
+            },
+            "joint": {
+              "norm": 0.06334448773642468,
+              "direct_norm": 0.33343273642766674,
+              "ratio_to_direct": 0.18997681036086964,
+              "cosine_to_direct": 0.7100193642128173
+            },
+            "frequency": {
+              "norm": 0.0018855411270536984,
+              "direct_norm": 0.009903656927632593,
+              "ratio_to_direct": 0.19038837278306503,
+              "cosine_to_direct": 0.782766138149886
+            },
+            "coefficients": {
+              "norm": 0.04112816507112684,
+              "direct_norm": 0.12318985382343646,
+              "ratio_to_direct": 0.33386000384475123,
+              "cosine_to_direct": 0.4579722821106895
+            }
+          }
+        },
+        "hann": {
+          "weighted_value": 0.0022290986962616444,
+          "gradient_norm": 0.19707523205266636,
+          "ratio_to_direct": 0.10697984001672003,
+          "cosine_to_direct": -0.03120410593157812,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.009742225399454843,
+              "direct_norm": 0.13737555461747716,
+              "ratio_to_direct": 0.07091673206766744,
+              "cosine_to_direct": 0.12326754598225681
+            },
+            "mask_refiner": {
+              "norm": 0.1253044960114887,
+              "direct_norm": 1.8022966622104146,
+              "ratio_to_direct": 0.06952490044441953,
+              "cosine_to_direct": -0.0844318749199283
+            },
+            "joint": {
+              "norm": 0.13808954274571258,
+              "direct_norm": 0.33343273642766674,
+              "ratio_to_direct": 0.414145126315961,
+              "cosine_to_direct": 0.14607648107741886
+            },
+            "frequency": {
+              "norm": 0.0010279268573363128,
+              "direct_norm": 0.009903656927632593,
+              "ratio_to_direct": 0.103792656071138,
+              "cosine_to_direct": 0.6484562881479682
+            },
+            "coefficients": {
+              "norm": 0.06302968318848563,
+              "direct_norm": 0.12318985382343646,
+              "ratio_to_direct": 0.5116467081682213,
+              "cosine_to_direct": 0.10840824974041284
+            }
+          }
+        }
+      }
+    },
+    "10_20": {
+      "n": 16,
+      "indices": [
+        8,
+        10,
+        18,
+        32,
+        43,
+        56,
+        68,
+        71,
+        79,
+        80,
+        91,
+        93,
+        111,
+        112,
+        118,
+        121
+      ],
+      "loss_sum_equivalence_error": 3.725290298461914e-09,
+      "terms": {
+        "direct": {
+          "weighted_value": 0.013747643679380417,
+          "gradient_norm": 0.5888566551965427,
+          "ratio_to_direct": 1.0,
+          "cosine_to_direct": 0.999999999999999,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.049713251987199295,
+              "direct_norm": 0.049713251987199295,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 1.0000000000000362
+            },
+            "mask_refiner": {
+              "norm": 0.5732906715161692,
+              "direct_norm": 0.5732906715161692,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999963
+            },
+            "joint": {
+              "norm": 0.12168933060415912,
+              "direct_norm": 0.12168933060415912,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999999
+            },
+            "frequency": {
+              "norm": 0.003383394797753854,
+              "direct_norm": 0.003383394797753854,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 1.0000000000000002
+            },
+            "coefficients": {
+              "norm": 0.028263374805747244,
+              "direct_norm": 0.028263374805747244,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999994
+            }
+          }
+        },
+        "spectral": {
+          "weighted_value": 0.015754878520965576,
+          "gradient_norm": 0.5672307909631265,
+          "ratio_to_direct": 0.9632748241145407,
+          "cosine_to_direct": 0.8300379070761409,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.0889421141730609,
+              "direct_norm": 0.049713251987199295,
+              "ratio_to_direct": 1.7891027164338933,
+              "cosine_to_direct": 0.8793192518890374
+            },
+            "mask_refiner": {
+              "norm": 0.5412960517911918,
+              "direct_norm": 0.5732906715161692,
+              "ratio_to_direct": 0.9441912779770828,
+              "cosine_to_direct": 0.8316672776366868
+            },
+            "joint": {
+              "norm": 0.1406531318496605,
+              "direct_norm": 0.12168933060415912,
+              "ratio_to_direct": 1.1558378302465018,
+              "cosine_to_direct": 0.8455134046177323
+            },
+            "frequency": {
+              "norm": 0.005567309144039887,
+              "direct_norm": 0.003383394797753854,
+              "ratio_to_direct": 1.645480198685615,
+              "cosine_to_direct": 0.881979217588623
+            },
+            "coefficients": {
+              "norm": 0.032005568704845166,
+              "direct_norm": 0.028263374805747244,
+              "ratio_to_direct": 1.1324043545690432,
+              "cosine_to_direct": 0.8710211263434492
+            }
+          }
+        },
+        "time_gap": {
+          "weighted_value": 0.003276484552770853,
+          "gradient_norm": 0.12129409602079895,
+          "ratio_to_direct": 0.20598238119651482,
+          "cosine_to_direct": 0.7944078505146985,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.013507068688776372,
+              "direct_norm": 0.049713251987199295,
+              "ratio_to_direct": 0.2716995599534369,
+              "cosine_to_direct": 0.9464479938695939
+            },
+            "mask_refiner": {
+              "norm": 0.11665277416876052,
+              "direct_norm": 0.5732906715161692,
+              "ratio_to_direct": 0.2034792819151435,
+              "cosine_to_direct": 0.8014112353254245
+            },
+            "joint": {
+              "norm": 0.027659816688393183,
+              "direct_norm": 0.12168933060415912,
+              "ratio_to_direct": 0.22729861813742133,
+              "cosine_to_direct": 0.7009034689221001
+            },
+            "frequency": {
+              "norm": 0.0010178380165496053,
+              "direct_norm": 0.003383394797753854,
+              "ratio_to_direct": 0.3008333574389016,
+              "cosine_to_direct": 0.8911628234871515
+            },
+            "coefficients": {
+              "norm": 0.012483815530842766,
+              "direct_norm": 0.028263374805747244,
+              "ratio_to_direct": 0.4416958560909093,
+              "cosine_to_direct": 0.41818547044446747
+            }
+          }
+        },
+        "hann": {
+          "weighted_value": 0.000950654037296772,
+          "gradient_norm": 0.13744461604503946,
+          "ratio_to_direct": 0.23340929381050227,
+          "cosine_to_direct": 0.20835345838851527,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.01199878196604103,
+              "direct_norm": 0.049713251987199295,
+              "ratio_to_direct": 0.2413598283437705,
+              "cosine_to_direct": 0.7135788294164288
+            },
+            "mask_refiner": {
+              "norm": 0.12430861827920205,
+              "direct_norm": 0.5732906715161692,
+              "ratio_to_direct": 0.21683349207557448,
+              "cosine_to_direct": 0.21907305013010953
+            },
+            "joint": {
+              "norm": 0.049720520491638866,
+              "direct_norm": 0.12168933060415912,
+              "ratio_to_direct": 0.4085857013493959,
+              "cosine_to_direct": 0.11929688964205251
+            },
+            "frequency": {
+              "norm": 0.0004508316461756857,
+              "direct_norm": 0.003383394797753854,
+              "ratio_to_direct": 0.1332483121612,
+              "cosine_to_direct": 0.7028776424545057
+            },
+            "coefficients": {
+              "norm": 0.028672037344466463,
+              "direct_norm": 0.028263374805747244,
+              "ratio_to_direct": 1.0144590850005684,
+              "cosine_to_direct": 0.12632264357677345
+            }
+          }
+        }
+      }
+    },
+    "20_50": {
+      "n": 16,
+      "indices": [
+        11,
+        13,
+        14,
+        15,
+        16,
+        19,
+        20,
+        22,
+        23,
+        27,
+        28,
+        33,
+        42,
+        44,
+        47,
+        50
+      ],
+      "loss_sum_equivalence_error": 9.313225746154785e-10,
+      "terms": {
+        "direct": {
+          "weighted_value": 0.0053154341876506805,
+          "gradient_norm": 0.2329759732477212,
+          "ratio_to_direct": 1.0,
+          "cosine_to_direct": 1.000000000000004,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.02506819241198856,
+              "direct_norm": 0.02506819241198856,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999872
+            },
+            "mask_refiner": {
+              "norm": 0.2233530059644698,
+              "direct_norm": 0.2233530059644698,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999951
+            },
+            "joint": {
+              "norm": 0.059588260121375886,
+              "direct_norm": 0.059588260121375886,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999964
+            },
+            "frequency": {
+              "norm": 0.0016176538313612571,
+              "direct_norm": 0.0016176538313612571,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999993
+            },
+            "coefficients": {
+              "norm": 0.0144722844894353,
+              "direct_norm": 0.0144722844894353,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999978
+            }
+          }
+        },
+        "spectral": {
+          "weighted_value": 0.005453391931951046,
+          "gradient_norm": 0.31024816258857746,
+          "ratio_to_direct": 1.3316744995789478,
+          "cosine_to_direct": 0.8484031203694533,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.023827752545991166,
+              "direct_norm": 0.02506819241198856,
+              "ratio_to_direct": 0.9505173789313915,
+              "cosine_to_direct": 0.93806174637491
+            },
+            "mask_refiner": {
+              "norm": 0.30244045036745043,
+              "direct_norm": 0.2233530059644698,
+              "ratio_to_direct": 1.3540916947209638,
+              "cosine_to_direct": 0.8437427861564296
+            },
+            "joint": {
+              "norm": 0.06314389135421808,
+              "direct_norm": 0.059588260121375886,
+              "ratio_to_direct": 1.0596699958280322,
+              "cosine_to_direct": 0.9432150490350212
+            },
+            "frequency": {
+              "norm": 0.0015753301177674395,
+              "direct_norm": 0.0016176538313612571,
+              "ratio_to_direct": 0.9738363593166269,
+              "cosine_to_direct": 0.977137185695308
+            },
+            "coefficients": {
+              "norm": 0.015043334051835878,
+              "direct_norm": 0.0144722844894353,
+              "ratio_to_direct": 1.0394581493210309,
+              "cosine_to_direct": 0.989607034671935
+            }
+          }
+        },
+        "time_gap": {
+          "weighted_value": 0.0013092720182612538,
+          "gradient_norm": 0.05649668491643273,
+          "ratio_to_direct": 0.24250004894865412,
+          "cosine_to_direct": 0.8769774151568509,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.004807801104392342,
+              "direct_norm": 0.02506819241198856,
+              "ratio_to_direct": 0.19178890226217785,
+              "cosine_to_direct": 0.9245620645035353
+            },
+            "mask_refiner": {
+              "norm": 0.054604578193664516,
+              "direct_norm": 0.2233530059644698,
+              "ratio_to_direct": 0.24447657625145558,
+              "cosine_to_direct": 0.8815662936354246
+            },
+            "joint": {
+              "norm": 0.012791563198330904,
+              "direct_norm": 0.059588260121375886,
+              "ratio_to_direct": 0.2146658280049736,
+              "cosine_to_direct": 0.8412796993362472
+            },
+            "frequency": {
+              "norm": 0.000389862266268825,
+              "direct_norm": 0.0016176538313612571,
+              "ratio_to_direct": 0.24100475559765192,
+              "cosine_to_direct": 0.9175936998699424
+            },
+            "coefficients": {
+              "norm": 0.004829535561073204,
+              "direct_norm": 0.0144722844894353,
+              "ratio_to_direct": 0.3337092747588497,
+              "cosine_to_direct": 0.5462229739592269
+            }
+          }
+        },
+        "hann": {
+          "weighted_value": 0.0005112048820592463,
+          "gradient_norm": 0.14300643358684634,
+          "ratio_to_direct": 0.6138248146077661,
+          "cosine_to_direct": 0.33822178378858847,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.004851504739675438,
+              "direct_norm": 0.02506819241198856,
+              "ratio_to_direct": 0.19353229223481083,
+              "cosine_to_direct": 0.3951400464485188
+            },
+            "mask_refiner": {
+              "norm": 0.12178815116778685,
+              "direct_norm": 0.2233530059644698,
+              "ratio_to_direct": 0.5452720487995603,
+              "cosine_to_direct": 0.40768168042607017
+            },
+            "joint": {
+              "norm": 0.060635808803038004,
+              "direct_norm": 0.059588260121375886,
+              "ratio_to_direct": 1.0175797829896083,
+              "cosine_to_direct": 0.03556329856792784
+            },
+            "frequency": {
+              "norm": 0.00035676902303595053,
+              "direct_norm": 0.0016176538313612571,
+              "ratio_to_direct": 0.22054719997524383,
+              "cosine_to_direct": 0.3943140286028102
+            },
+            "coefficients": {
+              "norm": 0.04379635362433388,
+              "direct_norm": 0.0144722844894353,
+              "ratio_to_direct": 3.026222546710232,
+              "cosine_to_direct": 0.00334616388856217
+            }
+          }
+        }
+      }
+    },
+    "50_inf": {
+      "n": 16,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        12,
+        17,
+        21,
+        26,
+        29,
+        30,
+        34,
+        35
+      ],
+      "loss_sum_equivalence_error": 2.3283064365386963e-10,
+      "terms": {
+        "direct": {
+          "weighted_value": 0.001109890639781952,
+          "gradient_norm": 0.16324248797380736,
+          "ratio_to_direct": 1.0,
+          "cosine_to_direct": 0.9999999999999954,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.023357200777724126,
+              "direct_norm": 0.023357200777724126,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999882
+            },
+            "mask_refiner": {
+              "norm": 0.1605864065225302,
+              "direct_norm": 0.1605864065225302,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999947
+            },
+            "joint": {
+              "norm": 0.017428163400173613,
+              "direct_norm": 0.017428163400173613,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999952
+            },
+            "frequency": {
+              "norm": 0.0007396636012893206,
+              "direct_norm": 0.0007396636012893206,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999984
+            },
+            "coefficients": {
+              "norm": 0.003204545231728704,
+              "direct_norm": 0.003204545231728704,
+              "ratio_to_direct": 1.0,
+              "cosine_to_direct": 0.9999999999999992
+            }
+          }
+        },
+        "spectral": {
+          "weighted_value": 0.0012266559060662985,
+          "gradient_norm": 0.21990032371086563,
+          "ratio_to_direct": 1.347077751878844,
+          "cosine_to_direct": 0.9526017478909049,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.03063274013263414,
+              "direct_norm": 0.023357200777724126,
+              "ratio_to_direct": 1.3114902091285154,
+              "cosine_to_direct": 0.997955010449206
+            },
+            "mask_refiner": {
+              "norm": 0.21669221586762008,
+              "direct_norm": 0.1605864065225302,
+              "ratio_to_direct": 1.3493808134826049,
+              "cosine_to_direct": 0.9528739101422324
+            },
+            "joint": {
+              "norm": 0.02121184512932627,
+              "direct_norm": 0.017428163400173613,
+              "ratio_to_direct": 1.2171015753223293,
+              "cosine_to_direct": 0.8455256684551252
+            },
+            "frequency": {
+              "norm": 0.0009443167370903242,
+              "direct_norm": 0.0007396636012893206,
+              "ratio_to_direct": 1.2766840702236382,
+              "cosine_to_direct": 0.9808394439116057
+            },
+            "coefficients": {
+              "norm": 0.003381874421093905,
+              "direct_norm": 0.003204545231728704,
+              "ratio_to_direct": 1.055336772160192,
+              "cosine_to_direct": 0.9582170734541031
+            }
+          }
+        },
+        "time_gap": {
+          "weighted_value": 0.00039756481419317424,
+          "gradient_norm": 0.04949013404568286,
+          "ratio_to_direct": 0.30316944234287624,
+          "cosine_to_direct": 0.9149381284275262,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.006994233602932375,
+              "direct_norm": 0.023357200777724126,
+              "ratio_to_direct": 0.29944656765560745,
+              "cosine_to_direct": 0.9884594876643312
+            },
+            "mask_refiner": {
+              "norm": 0.048650580428465574,
+              "direct_norm": 0.1605864065225302,
+              "ratio_to_direct": 0.30295578238522897,
+              "cosine_to_direct": 0.9162183323386798
+            },
+            "joint": {
+              "norm": 0.0054250926019741175,
+              "direct_norm": 0.017428163400173613,
+              "ratio_to_direct": 0.31128309262466947,
+              "cosine_to_direct": 0.7329536059224117
+            },
+            "frequency": {
+              "norm": 0.00022619164161777588,
+              "direct_norm": 0.0007396636012893206,
+              "ratio_to_direct": 0.3058033966028574,
+              "cosine_to_direct": 0.9644312290911887
+            },
+            "coefficients": {
+              "norm": 0.001998073007155851,
+              "direct_norm": 0.003204545231728704,
+              "ratio_to_direct": 0.623512187430721,
+              "cosine_to_direct": 0.4181559192147343
+            }
+          }
+        },
+        "hann": {
+          "weighted_value": 8.5575578850694e-05,
+          "gradient_norm": 0.035443921027623955,
+          "ratio_to_direct": 0.21712436184696607,
+          "cosine_to_direct": 0.8574666430284051,
+          "groups": {
+            "original_dgf": {
+              "norm": 0.004190173898552034,
+              "direct_norm": 0.023357200777724126,
+              "ratio_to_direct": 0.17939537954172244,
+              "cosine_to_direct": 0.9113562437761328
+            },
+            "mask_refiner": {
+              "norm": 0.03450245566139729,
+              "direct_norm": 0.1605864065225302,
+              "ratio_to_direct": 0.21485290323472436,
+              "cosine_to_direct": 0.8752869057938305
+            },
+            "joint": {
+              "norm": 0.0062379646987151946,
+              "direct_norm": 0.017428163400173613,
+              "ratio_to_direct": 0.35792438683774647,
+              "cosine_to_direct": 0.1919169876850466
+            },
+            "frequency": {
+              "norm": 0.00014429427904593333,
+              "direct_norm": 0.0007396636012893206,
+              "ratio_to_direct": 0.1950809513871055,
+              "cosine_to_direct": 0.6767603386048843
+            },
+            "coefficients": {
+              "norm": 0.0030596583835884542,
+              "direct_norm": 0.003204545231728704,
+              "ratio_to_direct": 0.9547870797061304,
+              "cosine_to_direct": 0.15234933254513597
+            }
+          }
+        }
+      }
+    }
+  }
+}
