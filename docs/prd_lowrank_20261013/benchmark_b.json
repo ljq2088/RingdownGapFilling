@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "concurrent_benchmark": true,
+  "weights_discarded": true,
+  "threads": 2,
+  "mean_batch_seconds": 0.02333748653553711,
+  "estimated_epoch_compute_seconds": 32.83584355550071
+}

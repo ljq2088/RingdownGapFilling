@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "n": 8,
+  "smoke_seed_range": [
+    2099100000,
+    2099100007
+  ],
+  "full_benchmark_test_read": false,
+  "scope": "pipeline smoke data separate from benchmark; 128-source three-epoch weights"
+}

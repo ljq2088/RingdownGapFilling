@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "train_unique": 60000,
+  "validation_unique": 1500,
+  "test_unique": 6000,
+  "new_noise_psd_ratio_channel_medians": [
+    0.9957118532255796,
+    0.9979853201056884
+  ],
+  "whitened_noise_std_channel_means": [
+    0.9988004565238953,
+    0.9976251721382141
+  ],
+  "initial_projection_validation": {
+    "score": 0.00760124174652734,
+    "time": 0.012038750966632358,
+    "relative_l2": 0.12778546028456036
+  },
+  "old_objective_max_error": 3.725290298461914e-09,
+  "head_gradient_norm": 0.007450373377650976,
+  "pilot_prediction_relative_error": 3.880250343257785e-09,
+  "resume_bitwise_equal": true,
+  "recomputed_feature_prediction_relative_error": 2.584308163022797e-07,
+  "train_validation_test_seed_ranges_disjoint": true,
+  "current_long_sources_unchanged": true,
+  "test_read": false,
+  "compute_only_seconds_per_batch": 0.02327717599996504,
+  "estimated_full_epoch_seconds": 32.75098663195081,
+  "benchmark_weights_discarded": true
+}

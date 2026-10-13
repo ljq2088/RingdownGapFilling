@@ -1,0 +1,24 @@
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / 'FillingGap/results_prd_lowrank_20261013'
+PROBE = ROOT / 'FillingGap/results_prd_strategy_20261013'
+CACHE = ROOT / 'FillingGap/results_prd_optimization_20261013/cache'
+CAL = ROOT / 'FillingGap/results_prd_physical_transfer_20261009/calibration_psd.npz'
+TRAIN_N = 60000
+VAL_N = 1500
+RANK = 128
+VIEWS = 3
+BATCH = 128
+INFERENCE_BATCH = 16
+SEED = 2026101347
+NOISE_SEED = 2146200000
+TEST_SEED = 2034200000
+TEST_N = 6000
+MAX_EPOCHS = 800
+MIN_EPOCHS = 80
+PATIENCE = 120
+DELTA = 1e-6
+EMA = .995
+VARIANTS = ('repeated_control', 'noise_augmented')
+MIN_RAM_GIB = 6
+SNAPSHOT_SHA = 'c7069d01d852cfaa5bf33f367d491b76b94ef08ff32f72c56525fa38c53a1774'
