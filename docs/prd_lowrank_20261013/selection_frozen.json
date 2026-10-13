@@ -1,0 +1,48 @@
+{
+  "candidates": [
+    {
+      "passed": true,
+      "variant": "repeated_control",
+      "best_epoch": 9,
+      "finished_epoch": 129,
+      "validation": {
+        "score": 0.007287706950561342,
+        "time": 0.011659208302642976,
+        "relative_l2": 0.12478464130853606
+      },
+      "checkpoint_sha256": "459b21c135f3bf816809d8b89ff85252be8c326f2845b8e5369c9256e97ac57d",
+      "train_unique": 60000,
+      "training_observations_per_epoch": 180000,
+      "test_read": false,
+      "selected_weights": "EMA .995",
+      "full_budget": true
+    },
+    {
+      "passed": true,
+      "variant": "noise_augmented",
+      "best_epoch": 374,
+      "finished_epoch": 494,
+      "validation": {
+        "score": 0.007023387986331746,
+        "time": 0.011531986969318732,
+        "relative_l2": 0.12370410444500685
+      },
+      "checkpoint_sha256": "d893ec50db4d8c2d9eb07340aa040a4387e34af9e038c5fff9ab35ad2078f760",
+      "train_unique": 60000,
+      "training_observations_per_epoch": 180000,
+      "test_read": false,
+      "selected_weights": "EMA .995",
+      "full_budget": true
+    }
+  ],
+  "preferred": "noise_augmented",
+  "full_training_sources": 60000,
+  "new_test_read": false,
+  "test_seed_range": [
+    2034200000,
+    2034205999
+  ],
+  "selection": "minimum direct all-1500 validation mismatch; fresh test generated afterwards",
+  "backbone_sha": "c7069d01d852cfaa5bf33f367d491b76b94ef08ff32f72c56525fa38c53a1774",
+  "basis_rank": 128
+}
