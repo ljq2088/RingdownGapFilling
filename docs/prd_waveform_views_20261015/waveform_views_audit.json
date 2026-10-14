@@ -1,0 +1,48 @@
+{
+  "source_cases": [
+    {
+      "seed": 2038201123,
+      "source_scale_strain": 5.9607560555758555e-19,
+      "tau_220_seconds": 55.349658295491864,
+      "source_plot_time_seconds": [
+        0.0,
+        332.0
+      ],
+      "source_is_simulator_input": true,
+      "stored_tdi_crop_reproduced": true,
+      "trace_sha256": "8c1168b728e9ddad3067e8fe602316cbe8d97dcf2be8437cc4c8504db3389e57"
+    },
+    {
+      "seed": 2038201889,
+      "source_scale_strain": 1.1339336096139898e-18,
+      "tau_220_seconds": 102.5180567717949,
+      "source_plot_time_seconds": [
+        0.0,
+        615.0
+      ],
+      "source_is_simulator_input": true,
+      "stored_tdi_crop_reproduced": true,
+      "trace_sha256": "50b807ace5e7dcecab91b3425c04e797fbe69259ac45c6c3718f82a0d5999079"
+    },
+    {
+      "seed": 2038204013,
+      "source_scale_strain": 4.356855706433642e-19,
+      "tau_220_seconds": 75.95234590752972,
+      "source_plot_time_seconds": [
+        0.0,
+        455.5
+      ],
+      "source_is_simulator_input": true,
+      "stored_tdi_crop_reproduced": true,
+      "trace_sha256": "da70894fc08aa076f8306b63cc5b0a3a903e27b5f70a31b35854b3813d085bcb"
+    }
+  ],
+  "tdi_arrays_sha256": "15f77c5caa946837cd18b2c1a935ff55a5294bd900777e4c81513244ac39c474",
+  "native_dt_seconds": 0.5,
+  "smoothing": false,
+  "interpolation": false,
+  "source_is_simulator_input": true,
+  "source_strain_reconstruction_claimed": false,
+  "population_statistics_unchanged": true,
+  "normalization": "Common source-polarization norm for source plots; common two-channel clean peak for TDI plots."
+}

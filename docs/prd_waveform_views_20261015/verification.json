@@ -1,0 +1,15 @@
+{
+  "original_text_preserved_outside_additions": true,
+  "source_figure_page": 13,
+  "log_figure_page": 14,
+  "pdf_pages": 14,
+  "cloud_added_files": [
+    "source_polarizations_20261015.pdf",
+    "tdi_log_amplitudes_20261015.pdf"
+  ],
+  "cloud_changed_files": [
+    "DGF.tex"
+  ],
+  "cloud_matches_local": true,
+  "original_figures_and_statistics_preserved": true
+}
