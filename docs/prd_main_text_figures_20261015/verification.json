@@ -1,0 +1,54 @@
+{
+  "pdf": "C:\\Users\\12511\\Documents\\ChatGPT\\\u673a\u5668\u5b66\u4e60+\u5f15\u529b\u6ce2\u4fe1\u53f7\u5904\u7406\\outputs\\main_text_figures_20261015\\overleaf_final.pdf",
+  "sha256": "d1af20ec09327d9fc3e878a72aca011404416177205cc6ac264b35c29084418d",
+  "pages": 12,
+  "figures": {
+    "1": {
+      "page": 4
+    },
+    "2": {
+      "page": 6
+    },
+    "3": {
+      "page": 7
+    },
+    "4": {
+      "page": 7
+    },
+    "5": {
+      "page": 8
+    },
+    "6": {
+      "page": 8
+    },
+    "7": {
+      "page": 10
+    },
+    "8": {
+      "page": 10
+    }
+  },
+  "discussion_page": 9,
+  "appendix_page": 11,
+  "all_figures_before_appendices": true,
+  "result_tables_unchanged": true,
+  "all_figure_files_unchanged": true,
+  "figure_sha256": {
+    "architecture_dgf_20261015.pdf": "c26a715c3c033aea1662a3d156959e4bc500140242018699b9afc6c1ec3ac1fe",
+    "training_workflow_dgf_20261015.pdf": "d4594da441d79758d8dbf94e0204809f3864045f40e5f0ea907b7a32140b7bd4",
+    "latest_mismatch.pdf": "12405605486a5398cc5397c9fb096fab189d486870d0700fe57c202bbdcc49de",
+    "latest_snr_gap.pdf": "de419c5d7069d53fe7a21c53a481882b82c3aa0125d92e812141b8435a01f1eb",
+    "latest_examples.pdf": "bdb0318aaf2927296b8f0c45ce482f0f1f25660a41ab0f2d136a153c46c0df9d",
+    "latest_phase.pdf": "4ef0cffe3b0f8a6258704d622aea2ab8dea965a1d8ea9c1306c603dd9d7dd839",
+    "tdi_log_amplitudes_20261015.pdf": "52da2aec823c5442953ea8289e8c2b8c60a3348268e0fc7d1b649b8203ea6904",
+    "latest_residual_psd.pdf": "caddfee43a0fe83dfc62b38aed9a97b905680d5964ebb3cb6934c494c066a2a0"
+  },
+  "figure_number_mapping": {
+    "old_7_SNR_gap": "new_4",
+    "old_4_waveform": "new_5",
+    "old_8_log_amplitude": "new_7",
+    "old_5_residual_PSD": "new_8",
+    "old_6_phase": "new_6"
+  },
+  "server_source_matches": true
+}

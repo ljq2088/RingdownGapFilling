@@ -1,0 +1,90 @@
+--- before/DGF.tex
++++ after/DGF.tex
+@@ -213,11 +213,24 @@
+ \caption{Empirical distributions of time-domain and noise-weighted mismatch for all 6,000 independent test signals. The logarithmic axes resolve the central distribution and upper tail. Both metrics use the original signal time and phase.}\label{fig:mismatch}\end{figure*}
+ 
+ \subsection{Gap location and waveform recovery}
+-We characterize gap location using the peak of the joint analytic envelope $[\sum_c|h_c+i\mathcal H[h_c]|^2]^{1/2}$, where $\mathcal H$ denotes the Hilbert transform. The peak lies inside the gap for 1935 sources. Their mean noise-weighted mismatch is 0.00912, with median 0.00285. For the remaining 4065 sources, the mean is 0.00823. These conditional distributions quantify reconstruction when the strongest part of the signal is suppressed, while retaining the source and noise variation within each group.
+-
+-Figure~\ref{fig:examples} compares the clean and reconstructed waveforms across 36- and 45-s gaps, with noise-weighted mismatches $5.59\times10^{-4}$ and $6.07\times10^{-4}$. The gaps contain 42.7\% and 56.8\% of the respective joint signal squared norms. Their gap-local relative errors are 4.6\% and 3.7\%, and both channels retain the decaying oscillations through the missing intervals. The windows extend for approximately 4.9 dominant-mode damping times after the response peak. Logarithmic-amplitude views are given in Appendix~\ref{app:complementary}.
+-\begin{figure*}[t]\centering\includegraphics[width=\textwidth]{latest_examples.pdf}
+-\caption{Waveform reconstruction across 36- and 45-s gaps in the $A$ (left) and $E$ (right) channels. Each panel superposes the noisy observation $d=Gh+n$ (gray), clean signal $h$, gapped clean signal $Gh$ and DGF reconstruction $\widehat h$ over the full 528-s record; insets resolve the gap. Shading marks signal suppression, with noise retained. All four curves use the same clean-signal amplitude normalization per source and connect the original 0.5-s samples. Source seeds, from top to bottom, are 2038202231 and 2038201952. Full-population statistics use all 6,000 test sources.}\label{fig:examples}\end{figure*}
++We characterize gap location using the peak of the joint analytic envelope $[\sum_c|h_c+i\mathcal H[h_c]|^2]^{1/2}$, where $\mathcal H$ denotes the Hilbert transform. The peak lies inside the gap for 1935 sources. Their mean noise-weighted mismatch is 0.00912, with median 0.00285. For the remaining 4065 sources, the mean is 0.00823. Both subsets retain variation in source parameters and noise realizations.
++
++\begin{figure*}[t]\centering\includegraphics[width=\textwidth]{latest_snr_gap.pdf}
++\caption{Dependence of reconstruction accuracy on network SNR and gap location for the independent test population. (a) Joint noise-weighted mismatch versus network SNR, with the dotted line at $\rho=10$. (b) Conditional mismatch distributions according to whether the joint signal-envelope peak falls inside the gap. All sources contribute to the complete-population statistics.}\label{fig:snr_gap}\end{figure*}
++
++Figure~\ref{fig:examples} compares the clean and reconstructed waveforms across 36- and 45-s gaps, with noise-weighted mismatches $5.59\times10^{-4}$ and $6.07\times10^{-4}$. The gaps contain 42.7\% and 56.8\% of the respective joint signal squared norms. Their gap-local relative errors are 4.6\% and 3.7\%, and both channels retain the decaying oscillations through the missing intervals. The windows extend for approximately 4.9 dominant-mode damping times after the response peak.
++\begin{figure*}[tp]\centering\includegraphics[width=0.885\textwidth]{latest_examples.pdf}
++\caption{Waveform reconstruction across 36- and 45-s gaps in the $A$ (left) and $E$ (right) channels. Each panel superposes the noisy observation $d=Gh+n$ (gray), clean signal $h$, gapped clean signal $Gh$ and DGF reconstruction $\widehat h$ over the full 528-s record; insets resolve the gap. Shading marks signal suppression, with noise retained. All four curves use the same clean-signal amplitude normalization per source and connect the original 0.5-s samples. Source seeds, from top to bottom, are 2038202231 and 2038201952. Full-population statistics use all 6,000 test sources.}\label{fig:examples}\par\vspace{8pt}
++\includegraphics[width=0.885\textwidth]{latest_phase.pdf}
++\caption{(a) Absolute phase-error distributions for all 6,000 sources in each channel. (b) Analytic phase of the $A$ channel for source 2038202231, also shown in Fig.~\ref{fig:examples}(a). The displayed clean-signal envelope exceeds 10\% of its peak. The common unwrapped phase branch preserves the relative phase modulo $2\pi$; the arrival time and phase remain fixed. Shading marks the gap and the dotted line marks the clean envelope peak.}\label{fig:phase}\end{figure*}
++
++\subsection{Phase recovery}\label{subsec:PhaseRecoveryAlignment}
++For each channel, define $z_c=h_c+i\mathcal H[h_c]$ and $\widehat z_c=\widehat h_c+i\mathcal H[\widehat h_c]$. At the clean-signal envelope peak $j_{\star,c}$, the phase error is
++\begin{equation}
++\Delta\phi_c=\arg[\widehat z_{c,j_{\star,c}}z_{c,j_{\star,c}}^*].
++\end{equation}
++The mean absolute phase errors are $3.84^\circ$ in $A$ and $3.79^\circ$ in $E$. The corresponding medians are $2.19^\circ$ and $2.14^\circ$, and the 95th percentiles are $12.72^\circ$ and $11.58^\circ$. This diagnostic evaluates the analytic phase of the channel waveform at fixed time; quasinormal-mode phase parameters require a separate mode decomposition.
++
+ 
+ \subsection{Amplitude and spectral fidelity}\label{subsec:MeanSquaredError}\label{subsec:AmplitudeDensityFrequencySpectrum}
+ Normalized overlap is invariant under positive amplitude rescaling. We therefore evaluate the relative waveform error
+@@ -228,18 +241,15 @@
+ 
+ For the 1935 sources with envelope peaks inside the gap, the gap-local relative error $\|m(\widehat h-h)\|_2/\|mh\|_2$ has mean 0.13552 and median 0.10337. The denominator measures the clean signal contained within the interval. The full-waveform error $E$ remains the common amplitude-sensitive measure for all sources.
+ 
+-Figure~\ref{fig:psd} compares the mean one-sided periodograms of the reconstruction residual and simulated instrument noise in each channel. Both spectra average all 6,000 test sources and are expressed in fractional-frequency units. They show the frequency dependence of the residual after joint denoising and reconstruction. Mode-resolved frequency and damping-time estimation requires fitting the individual ringdown components.
+-\begin{figure*}[t]\centering\includegraphics[width=\textwidth]{latest_residual_psd.pdf}
++Figures~\ref{fig:tdi_log_amplitudes} and~\ref{fig:psd} show the logarithmic waveform amplitudes and population-averaged residual spectra, respectively. The amplitude panels use the sources in Fig.~\ref{fig:examples} and resolve the decaying tail and the waveform zero crossings.
++\begin{figure*}[tp]\centering\includegraphics[width=\textwidth]{tdi_log_amplitudes_20261015.pdf}
++\caption{Absolute amplitudes of the clean and reconstructed $A$ (left) and $E$ (right) waveforms for the sources in Fig.~\ref{fig:examples}. Each row uses the common scale $H_{\rm TDI}=\max_{c,j}|h_{c,j}|$ from the clean signal. Shading marks the gap. The logarithmic axis resolves small-amplitude structure and differences near zero crossings. All curves use the same physical-time arrays as Fig.~\ref{fig:examples}, with native sampling and fixed arrival time and phase.}\label{fig:tdi_log_amplitudes}
++\par\vspace{8pt}
++\includegraphics[width=\textwidth]{latest_residual_psd.pdf}
+ \caption{Mean residual and noise power spectral densities in the $A/E$ channels over all 6,000 test sources. The reconstruction residual is $\widehat h-h$. Fractional-frequency amplitudes are dimensionless, so the PSD has units $\mathrm{Hz}^{-1}$. The curves use the same one-sided periodogram convention.}\label{fig:psd}\end{figure*}
+ 
+-\subsection{Phase recovery}\label{subsec:PhaseRecoveryAlignment}
+-For each channel, define $z_c=h_c+i\mathcal H[h_c]$ and $\widehat z_c=\widehat h_c+i\mathcal H[\widehat h_c]$. At the clean-signal envelope peak $j_{\star,c}$, the phase error is
+-\begin{equation}
+-\Delta\phi_c=\arg[\widehat z_{c,j_{\star,c}}z_{c,j_{\star,c}}^*].
+-\end{equation}
+-The mean absolute phase errors are $3.84^\circ$ in $A$ and $3.79^\circ$ in $E$. The corresponding medians are $2.19^\circ$ and $2.14^\circ$, and the 95th percentiles are $12.72^\circ$ and $11.58^\circ$. This diagnostic evaluates the analytic phase of the channel waveform at fixed time; quasinormal-mode phase parameters require a separate mode decomposition.
+-\begin{figure*}[t]\centering\includegraphics[width=\textwidth]{latest_phase.pdf}
+-\caption{(a) Absolute phase-error distributions for all 6,000 sources in each channel. (b) Analytic phase of the $A$ channel for source 2038202231, also shown in Fig.~\ref{fig:examples}(a). The displayed clean-signal envelope exceeds 10\% of its peak. The common unwrapped phase branch preserves the relative phase modulo $2\pi$; the arrival time and phase remain fixed. Shading marks the gap and the dotted line marks the clean envelope peak.}\label{fig:phase}\end{figure*}
++
++
+ 
+ \section{Discussion and Conclusions}\label{sec:discussion}
+ We have presented DGF for joint denoising and reconstruction of black hole ringdown signals with data gaps. The network combines complex time--frequency features with signed multiscale temporal information and synthesizes the clean $A/E$ waveforms using the observed context and gap mask. Simulations follow standard LISA response and noise models with the assumptions specified in Sec.~\ref{sec:method}. On the independent variable-gap test, the mean noise-weighted mismatch is 0.00852; the $\rho\ge10$ subset has mean 0.00532. Mean absolute phase errors are $3.84^\circ$ and $3.79^\circ$ in the two channels.
+@@ -254,6 +264,7 @@
+ The authors thank He Wang and Yiyang Guo for helpful discussions. This research is supported in part by the National Key R\&D Program of China, grant number 2020YFC2201300, and the National Natural Science Foundation of China, grant numbers 12035016, 12375058 and 12361141825.
+ 
+ \end{acknowledgments}
++\clearpage
+ \appendix
+ \section{Implementation and reproducibility}\label{app:model_analysis}
+ \subsection{Representations and attention}
+@@ -272,23 +283,9 @@
+ 
+ The simulated response peak determines the event-centered crop and gap metadata. Inference uses the cropped observation, known mask and fixed preprocessing arrays. Clean targets are used in the losses and evaluation. Configurations, source seeds and frozen checkpoint identifiers are included in the evaluation record. The project repository is \url{https://github.com/ljq2088/RingdownGapFilling}.
+ 
+-\section{Additional waveform diagnostics}\label{app:complementary}
+-Figure~\ref{fig:snr_gap} shows every independent test source as a function of network SNR and separates the distributions by gap location. Both panels use the primary variable-gap predictions from Sec.~\ref{sec:results}. The $\rho\ge10$ summaries retain 5814 of the 6,000 test sources; the complete-population results retain all sources.
+-\begin{figure*}[t]\centering\includegraphics[width=\textwidth]{latest_snr_gap.pdf}
+-\caption{Additional diagnostics for the same independent test population. (a) Joint noise-weighted mismatch versus network SNR, with the dotted line at $\rho=10$. (b) Conditional mismatch distributions according to whether the joint signal-envelope peak falls inside the gap. All sources contribute to the complete-population statistics.}\label{fig:snr_gap}\end{figure*}
+-
+ The two sources in Fig.~\ref{fig:examples} have envelope peaks inside the gap, $\rho\ge10$ and records extending for at least four $\tau_{220}$ after the joint response peak. Their global and gap-local relative errors are below 6\%, and their per-channel peak phase errors are below $2.5^\circ$. The figure data include source seeds, waveform parameters, per-source diagnostics and native-sample curvature used to construct the comparison.
+ 
+-
+-
+ The phase statistics in Sec.~\ref{subsec:PhaseRecoveryAlignment} contain one value per channel and source. This convention preserves source counts when reporting channel-specific means. In intervals containing very little clean signal, gap-local normalization by $\|mh\|_2$ magnifies residuals. The complete-population amplitude diagnostic uses the full target norm, while the main-text gap-local statistic is reported for sources whose joint envelope peaks are inside the interval.
+-
+-
+-\subsection{Logarithmic amplitude comparison}
+-Figure~\ref{fig:tdi_log_amplitudes} compares the absolute clean and reconstructed channel amplitudes on a logarithmic scale over the full analysis window. This view resolves the decay and the residuals at small amplitudes. The minima follow the zero crossings of the signed waveforms. The signed comparisons in Fig.~\ref{fig:examples} preserve the accompanying phase information.
+-\begin{figure*}[t]\centering\includegraphics[width=\textwidth]{tdi_log_amplitudes_20261015.pdf}
+-\caption{Absolute amplitudes of the clean and reconstructed $A$ (left) and $E$ (right) waveforms for the sources in Fig.~\ref{fig:examples}. Each row uses the common scale $H_{\rm TDI}=\max_{c,j}|h_{c,j}|$ from the clean signal. Shading marks the gap. The logarithmic axis resolves small-amplitude structure and differences near zero crossings. All curves use the same physical-time arrays as Fig.~\ref{fig:examples}, with native sampling and fixed arrival time and phase.}\label{fig:tdi_log_amplitudes}
+-\end{figure*}
+ 
+ \section{Fixed-duration gaps and reference comparison}\label{app:fixed_gaps}
+ We evaluate 33- and 50-s gaps on the same 6,000 source waveforms and noise realizations, preserving each gap's center. Table~\ref{tab:fixed_gaps} gives the joint noise-weighted mismatch of the selected DGF model. These tests vary the mask while holding the physical source population and noise fixed.
