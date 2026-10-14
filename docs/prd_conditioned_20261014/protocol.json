@@ -1,0 +1,112 @@
+{
+  "created_unix": 1791984406.0604458,
+  "old_branch": "codex/mask-aware-ringdown-optimization",
+  "start_checkpoint_sha256": "a1e9959a7a95fa549cbcf538f253b8fcd4c7b1442e9804c416cf67be8f3a75ad",
+  "start_validation_direct_mean": 0.008041638159014089,
+  "train_unique": 60000,
+  "training_views": [
+    {
+      "type": "uniform_variable_gap",
+      "noise": "original physical noise",
+      "gap_samples": [
+        64,
+        104
+      ]
+    },
+    {
+      "type": "uniform_variable_gap",
+      "noise_seed_range": [
+        2148200000,
+        2148259999
+      ],
+      "gap_samples": [
+        64,
+        104
+      ]
+    },
+    {
+      "type": "fixed_gap_new_independent_noise",
+      "noise_seed_range": [
+        2158200000,
+        2158259999
+      ],
+      "gap_samples": 66,
+      "random_global_sign": true
+    }
+  ],
+  "observations_per_epoch": 180000,
+  "architecture": "original DGF double branch + original low-rank head + zero-initialized conditioned reduced-basis residual",
+  "candidates": [
+    "continuous phase without absolute noise context",
+    "absolute noise context without new phase residual",
+    "absolute noise context and continuous phase"
+  ],
+  "context": "observed P0 whitened RMS, independent noise-only expected RMS, coarse observed spectral ratios, prediction residual/predicted RMS; no true SNR or target source parameters",
+  "phase": "pooled log1p(amplitude), log1p(amplitude)*cos(phase), log1p(amplitude)*sin(phase)",
+  "loss": {
+    "direct_signed_joint_AE_psd_mismatch": 1.0,
+    "psd_relative_squared_error": 0.2,
+    "physical_time_plus_2x_gap_relative_squared_error": 0.02
+  },
+  "selection_rule": "lowest full 1500-source uniform-variable validation mean direct mismatch, initial baseline is eligible; fixed66 and fixed100 secondary; raw and EMA candidate weights",
+  "pilot": {
+    "train_unique": 6000,
+    "maximum_epochs": 60,
+    "minimum_epochs": 20,
+    "patience": 20,
+    "variants": 3
+  },
+  "head_full": {
+    "train_unique": 60000,
+    "maximum_epochs": 600,
+    "minimum_epochs": 100,
+    "patience": 100,
+    "batch": 1024,
+    "initial_lr": 0.0003,
+    "warmup_epochs": 5,
+    "ema": 0.995,
+    "dropout": 0.05
+  },
+  "finetune": {
+    "maximum_epochs": 200,
+    "minimum_epochs": 40,
+    "patience": 50,
+    "batch": 128,
+    "trainable_parameters": 422151,
+    "modules": [
+      "new residual head",
+      "original coefficient adapter",
+      "physical-frequency adapter",
+      "joint residual",
+      "mask refiner",
+      "DGF decoder"
+    ],
+    "learning_rates": [
+      0.0001,
+      2e-05,
+      1e-05,
+      5e-06,
+      5e-06,
+      5e-07
+    ],
+    "ema": 0.995
+  },
+  "min_delta": 1e-06,
+  "source_equal_arithmetic_mean": true,
+  "snr_filtering": false,
+  "alignment": false,
+  "observation": "G*h+n",
+  "model_window_seconds": 528,
+  "gap_fraction": [
+    0.06060606060606061,
+    0.09848484848484848
+  ],
+  "test_seed_range": [
+    2038200000,
+    2038205999
+  ],
+  "test_unique": 6000,
+  "test_generation_after_selection": true,
+  "earlier_pipeline_test_protected": true,
+  "exact_epoch_boundary_resume": true
+}

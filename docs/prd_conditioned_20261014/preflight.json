@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "zero_initialization_max_direct_mismatch_error": 3.5364464689990882e-09,
+  "white_physical_metric_max_error": 1.2622991363286928e-07,
+  "phase_2pi_periodicity_max_error": 5.21540641784668e-08,
+  "absolute_noise_context_scale_sensitivity": 0.6931471824645996,
+  "head_model_optimizer_rng_exact_resume": true,
+  "head_batch1024_step_seconds": 0.008669700999962515,
+  "finetune_batch16_step_seconds": 0.25044355033332977,
+  "gpu_peak_mib": 358.55029296875,
+  "noise_rms": [
+    0.9993543028831482,
+    0.9990881085395813
+  ],
+  "test_read": false
+}

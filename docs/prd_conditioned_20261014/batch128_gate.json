@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "batch128_step_seconds": [
+    1.0183992189995479,
+    0.13844939600039652,
+    0.10199313100019936,
+    0.11137471400070353,
+    0.14604914600022312,
+    0.10983031100022345
+  ],
+  "steady_median_seconds": 0.11060251250046349,
+  "estimated_train_compute_seconds_per_epoch": 155.61773508815213,
+  "trainable_parameters": 422151,
+  "total_parameters": 9589685,
+  "gpu_peak_mib": 2288.29833984375,
+  "test_read": false
+}
