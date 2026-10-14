@@ -1,0 +1,189 @@
+{
+  "published_test_diagnostics_only": true,
+  "new_model_selection_uses_validation_only": true,
+  "low_snr": {
+    "n": 186,
+    "fraction": 0.031,
+    "mean_mismatch": 0.108501179976702,
+    "fraction_of_mismatch_sum": 0.39485824756594273,
+    "phase_A": 16.981886393646647,
+    "phase_E": 16.022796770842078
+  },
+  "channel_snr_phase_bins": [
+    {
+      "low": 0,
+      "high": 5,
+      "channel_values": 405,
+      "mean_abs_phase": 20.14054948078488
+    },
+    {
+      "low": 5,
+      "high": 10,
+      "channel_values": 923,
+      "mean_abs_phase": 8.679057020362473
+    },
+    {
+      "low": 10,
+      "high": 20,
+      "channel_values": 1988,
+      "mean_abs_phase": 4.740360363953469
+    },
+    {
+      "low": 20,
+      "high": 50,
+      "channel_values": 4216,
+      "mean_abs_phase": 2.827623246906106
+    },
+    {
+      "low": 50,
+      "high": 100,
+      "channel_values": 2681,
+      "mean_abs_phase": 1.9912793349575542
+    },
+    {
+      "low": 100,
+      "high": null,
+      "channel_values": 1787,
+      "mean_abs_phase": 1.637202213073114
+    }
+  ],
+  "network_snr_phase_bins": [
+    {
+      "low": 0,
+      "high": 5,
+      "n": 32,
+      "mismatch": 0.28990165681549274,
+      "phase_A": 36.066797287370136,
+      "phase_E": 29.97793066637138
+    },
+    {
+      "low": 5,
+      "high": 10,
+      "n": 154,
+      "mismatch": 0.07080757439981043,
+      "phase_A": 13.016190623522288,
+      "phase_E": 13.12302868865417
+    },
+    {
+      "low": 10,
+      "high": 20,
+      "n": 603,
+      "mismatch": 0.02173593230280455,
+      "phase_A": 6.940869616032453,
+      "phase_E": 7.287389694371858
+    },
+    {
+      "low": 20,
+      "high": 50,
+      "n": 1946,
+      "mismatch": 0.005873727678229054,
+      "phase_A": 4.134541776966911,
+      "phase_E": 4.097124834989953
+    },
+    {
+      "low": 50,
+      "high": 100,
+      "n": 1746,
+      "mismatch": 0.002468395375560475,
+      "phase_A": 2.6668692312427247,
+      "phase_E": 2.644176872746885
+    },
+    {
+      "low": 100,
+      "high": null,
+      "n": 1519,
+      "mismatch": 0.0013706106219733873,
+      "phase_A": 1.9616432097326841,
+      "phase_E": 1.834714444374174
+    }
+  ],
+  "source_mass_bins": [
+    {
+      "low": 100000.0,
+      "high": 300000.0,
+      "n": 1660,
+      "mean_mismatch": 0.018801318582462,
+      "phase_A": 5.1349798449197595,
+      "phase_E": 5.194541214430134
+    },
+    {
+      "low": 300000.0,
+      "high": 1000000.0,
+      "n": 1882,
+      "mean_mismatch": 0.0034244812568054767,
+      "phase_A": 2.9155417778365753,
+      "phase_E": 2.7865518437254164
+    },
+    {
+      "low": 1000000.0,
+      "high": 3000000.0,
+      "n": 1713,
+      "mean_mismatch": 0.004081369518401158,
+      "phase_A": 3.276785028710971,
+      "phase_E": 3.3413852466052263
+    },
+    {
+      "low": 3000000.0,
+      "high": 5000001.0,
+      "n": 745,
+      "mean_mismatch": 0.008675957072995453,
+      "phase_A": 4.565952129342374,
+      "phase_E": 4.241856726864063
+    }
+  ],
+  "validation_basis_oracle": {
+    "rank": 128,
+    "noise_weighted_mismatch": {
+      "n": 1500,
+      "mean": 0.00015721016170872442,
+      "median": 1.096098488972963e-05,
+      "p95": 0.0002662089813421862,
+      "max": 0.02692460453852996
+    },
+    "phase_A": {
+      "n": 1500,
+      "mean": 0.9031128679499159,
+      "median": 0.549325297754961,
+      "p95": 2.6387340065166005,
+      "max": 16.89036235051959
+    },
+    "phase_E": {
+      "n": 1500,
+      "mean": 0.9149847645237627,
+      "median": 0.5704364659916006,
+      "p95": 2.8810825506411546,
+      "max": 15.793366748538809
+    },
+    "basis_orthogonality_max_error": 3.4416913763379853e-15
+  },
+  "validation_baseline": {
+    "noise_weighted_mismatch": {
+      "n": 1500,
+      "mean": 0.007923060569647502,
+      "median": 0.00259055435372757,
+      "p95": 0.02789577008305344,
+      "max": 0.547922868958854
+    },
+    "phase_A": {
+      "n": 1500,
+      "mean": 3.763906072889157,
+      "median": 2.2591003936270724,
+      "p95": 11.496291747151705,
+      "max": 125.02885837403771
+    },
+    "phase_E": {
+      "n": 1500,
+      "mean": 3.7221514645530887,
+      "median": 2.2248229816287495,
+      "p95": 12.29192724627428,
+      "max": 138.95757893896752
+    }
+  },
+  "encoder_children": {
+    "totalembedding": "<class 'model.Embd.TotEmbd.TotalEmbedding'>",
+    "transformer": "<class 'model.Transformer.TransformerMod.TransformerEncoder'>",
+    "dropout": "<class 'torch.nn.modules.dropout.Dropout'>",
+    "gelu": "<class 'torch.nn.modules.activation.GELU'>",
+    "QtranTimeMixer": "<class 'model.QTranTimeMixerMod.TimeMixerEncoder'>"
+  }
+}

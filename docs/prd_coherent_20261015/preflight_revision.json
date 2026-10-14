@@ -1,0 +1,13 @@
+{
+  "time": 1792012478.717702,
+  "changes": [
+    "Stage-completion logging uses stage_name without shadowing the status stage argument.",
+    "Resume handles an already completed stopping boundary.",
+    "Resume preserves the scheduled noise augmentation generation.",
+    "Noise-feature preparation preserves the training RNG.",
+    "Cache budget adds 0.5 GiB desktop headroom."
+  ],
+  "gradient_objective_unchanged": true,
+  "completed_epochs_and_checkpoints_retained": true,
+  "final_test_read": false
+}

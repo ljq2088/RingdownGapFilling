@@ -1,0 +1,51 @@
+{
+  "train": {
+    "n": 60000,
+    "views": [
+      {
+        "minimum_original_start": 132,
+        "maximum_original_start": 263,
+        "minimum_length": 64,
+        "maximum_length": 104
+      },
+      {
+        "minimum_original_start": 132,
+        "maximum_original_start": 263,
+        "minimum_length": 64,
+        "maximum_length": 104
+      },
+      {
+        "minimum_original_start": 132,
+        "maximum_original_start": 263,
+        "minimum_length": 66,
+        "maximum_length": 66
+      }
+    ]
+  },
+  "validation": {
+    "n": 1500,
+    "views": [
+      {
+        "minimum_original_start": 132,
+        "maximum_original_start": 263,
+        "minimum_length": 64,
+        "maximum_length": 104
+      },
+      {
+        "minimum_original_start": 132,
+        "maximum_original_start": 263,
+        "minimum_length": 66,
+        "maximum_length": 66
+      },
+      {
+        "minimum_original_start": 132,
+        "maximum_original_start": 263,
+        "minimum_length": 100,
+        "maximum_length": 100
+      }
+    ]
+  },
+  "cached_gram_max_error": 5.9604644775390625e-06,
+  "logging_contract": true,
+  "passed": true
+}

@@ -1,0 +1,71 @@
+[
+  {
+    "seed": 2038201116,
+    "post_reference_source_relative_error": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tdi_original_reproduction_relative_error": 2.324369383809006e-08,
+    "direct_psd_mismatch_vs_current": {
+      "Exponential k=5": 0.04770268125233623,
+      "Current k=10": 0.0,
+      "Exponential k=20": 0.03993894562846012,
+      "C1 envelope join": 0.09446752192213337
+    },
+    "physical_relative_l2_vs_current": {
+      "Exponential k=5": 0.3534031532710147,
+      "Current k=10": 2.324369383809006e-08,
+      "Exponential k=20": 0.4110315855424136,
+      "C1 envelope join": 0.607474046772457
+    },
+    "interpretation": "All variants preserve the post-reference QNM signal. Only the numerical pre-reference extension changes; this is a sensitivity test, not a proposed astrophysical pre-merger model."
+  },
+  {
+    "seed": 2038201885,
+    "post_reference_source_relative_error": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tdi_original_reproduction_relative_error": 2.2801685740912527e-08,
+    "direct_psd_mismatch_vs_current": {
+      "Exponential k=5": 0.03677510151328278,
+      "Current k=10": 0.0,
+      "Exponential k=20": 0.02544214820638413,
+      "C1 envelope join": 0.0439859449100054
+    },
+    "physical_relative_l2_vs_current": {
+      "Exponential k=5": 0.3280750293807238,
+      "Current k=10": 2.2801685740912527e-08,
+      "Exponential k=20": 0.32119201231601036,
+      "C1 envelope join": 0.4573065075471529
+    },
+    "interpretation": "All variants preserve the post-reference QNM signal. Only the numerical pre-reference extension changes; this is a sensitivity test, not a proposed astrophysical pre-merger model."
+  },
+  {
+    "seed": 2038201777,
+    "post_reference_source_relative_error": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "tdi_original_reproduction_relative_error": 2.6229850244642854e-08,
+    "direct_psd_mismatch_vs_current": {
+      "Exponential k=5": 0.04334617044077271,
+      "Current k=10": 0.0,
+      "Exponential k=20": 0.05255992754426653,
+      "C1 envelope join": 0.8077658928241667
+    },
+    "physical_relative_l2_vs_current": {
+      "Exponential k=5": 0.46070858524287145,
+      "Current k=10": 2.6229850244642854e-08,
+      "Exponential k=20": 0.8138870718107237,
+      "C1 envelope join": 1.1568104971551951
+    },
+    "interpretation": "All variants preserve the post-reference QNM signal. Only the numerical pre-reference extension changes; this is a sensitivity test, not a proposed astrophysical pre-merger model."
+  }
+]

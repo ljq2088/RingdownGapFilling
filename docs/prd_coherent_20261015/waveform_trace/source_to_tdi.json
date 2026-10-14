@@ -1,0 +1,62 @@
+[
+  {
+    "index": 1116,
+    "seed": 2038201116,
+    "source_period_220_seconds": 201.80056796327847,
+    "tau_220_seconds": 207.04114418398552,
+    "stored_crop_bitwise_reproduced": true,
+    "source_epoch_alignment_max_error": 0.0,
+    "source_reference_ssb_seconds": 2048.0,
+    "analysis_window_ssb_seconds": [
+      -404.0,
+      124.0
+    ],
+    "onset_response_support_ssb_seconds": [
+      -344.0,
+      -260.0
+    ],
+    "fraction_parent_time_energy_captured_by_crop": 0.9977577877716302,
+    "fraction_parent_time_energy_in_onset_step_support": 0.8930423035881637,
+    "note": "Onset-step support is a numerical response diagnostic, not a decomposition into separate physical modes. SSB and constellation arrival times differ by the plane-wave light-travel time."
+  },
+  {
+    "index": 1885,
+    "seed": 2038201885,
+    "source_period_220_seconds": 152.98269637193286,
+    "tau_220_seconds": 157.75953005741593,
+    "stored_crop_bitwise_reproduced": true,
+    "source_epoch_alignment_max_error": 0.0,
+    "source_reference_ssb_seconds": 2048.0,
+    "analysis_window_ssb_seconds": [
+      -531.5,
+      -3.5
+    ],
+    "onset_response_support_ssb_seconds": [
+      -485.0,
+      -403.0
+    ],
+    "fraction_parent_time_energy_captured_by_crop": 0.9983352903840619,
+    "fraction_parent_time_energy_in_onset_step_support": 0.7780956121624372,
+    "note": "Onset-step support is a numerical response diagnostic, not a decomposition into separate physical modes. SSB and constellation arrival times differ by the plane-wave light-travel time."
+  },
+  {
+    "index": 1777,
+    "seed": 2038201777,
+    "source_period_220_seconds": 553.8119369550841,
+    "tau_220_seconds": 552.2572413188115,
+    "stored_crop_bitwise_reproduced": true,
+    "source_epoch_alignment_max_error": 0.0,
+    "source_reference_ssb_seconds": 2048.0,
+    "analysis_window_ssb_seconds": [
+      358.5,
+      886.5
+    ],
+    "onset_response_support_ssb_seconds": [
+      469.0,
+      552.0
+    ],
+    "fraction_parent_time_energy_captured_by_crop": 0.9897169178150436,
+    "fraction_parent_time_energy_in_onset_step_support": 0.9807912675676236,
+    "note": "Onset-step support is a numerical response diagnostic, not a decomposition into separate physical modes. SSB and constellation arrival times differ by the plane-wave light-travel time."
+  }
+]

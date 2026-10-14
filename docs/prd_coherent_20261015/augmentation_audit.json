@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "training_sources_checked": 512,
+  "all_feature_channels_recomputed_from_observation": true,
+  "input_consistency_max_error": 4.1961669921875e-05,
+  "legacy_feature_max_error": 0.0,
+  "physical_frequency_feature_max_error": 0.0,
+  "independent_noise_empirical_correlation": 0.002209014873860693,
+  "mixed_to_original_average_variance_ratio": 1.000624362515874,
+  "gaussian_covariance_identity": "cos(theta)^2 + sin(theta)^2 = 1 for independent equal-covariance noise",
+  "generation": 0,
+  "test_read": false
+}

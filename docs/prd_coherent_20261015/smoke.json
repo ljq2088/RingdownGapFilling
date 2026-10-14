@@ -1,0 +1,38 @@
+{
+  "adjoint_relative_error": 1.5663252270314842e-05,
+  "physical_gap_operator_max_error": 6.973743438720703e-06,
+  "variants": {
+    "phase_balanced": {
+      "initial_identity_max_error": 0.0,
+      "loss": 0.009655515663325787,
+      "trainable": 422151,
+      "gradient_tensors": 99
+    },
+    "encoder_adaptation": {
+      "initial_identity_max_error": 0.0,
+      "loss": 0.00963480956852436,
+      "trainable": 9220533,
+      "gradient_tensors": 161
+    },
+    "data_consistency": {
+      "initial_identity_max_error": 0.0,
+      "loss": 0.009728322736918926,
+      "trainable": 422762,
+      "gradient_tensors": 104
+    },
+    "noise_mix": {
+      "initial_identity_max_error": 0.0,
+      "loss": 0.00965949147939682,
+      "trainable": 422151,
+      "gradient_tensors": 99
+    }
+  },
+  "batch": 256,
+  "batch_seconds": [
+    0.3200926690005872,
+    0.1657535429985728,
+    0.16860506499870098
+  ],
+  "peak_allocated_gib": 4.886160373687744,
+  "passed": true
+}

@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-15",
+  "primary": "full-population direct signed joint A/E noise-weighted mismatch",
+  "selection": "validation only; no time or phase alignment; preserve per-channel mean peak-phase and SNR>=10 mean mismatch within 0.5% of baseline",
+  "batch": 256,
+  "baseline": "/home/ljq/code/RingdownGapFilling_PRD/FillingGap/results_prd_conditioned_20261014/finetune/best.pth",
+  "baseline_sha": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+  "variants": [
+    "phase_balanced",
+    "encoder_adaptation",
+    "data_consistency",
+    "noise_mix"
+  ],
+  "pilot": {
+    "sources": 6000,
+    "maximum_epochs": 24,
+    "minimum_epochs": 8,
+    "patience": 8
+  },
+  "full": {
+    "sources": 60000,
+    "maximum_epochs": 300,
+    "minimum_epochs": 40,
+    "patience": 40
+  },
+  "ema": 0.995,
+  "minimum_improvement": 1e-06,
+  "all_sources_retained": true,
+  "training_views": 3,
+  "noise_mix_extra_observations_fraction": 0.1,
+  "noise_mix_refresh_epochs": 20,
+  "development_test_seeds": [
+    2038200000,
+    2038205999
+  ],
+  "untouched_final_test_seeds": [
+    2040200000,
+    2040205999
+  ],
+  "test_n": 6000,
+  "observation": "G*h+n",
+  "gpu_fraction": 0.78,
+  "minimum_available_ram_gib": 6,
+  "minimum_free_gpu_gib": 4,
+  "checkpoints": "last completed epoch includes optimizer, scheduler, raw+EMA models and RNG; rerun resumes",
+  "model_augmentation": "independent equal-covariance Gaussian noise mixtures; recompute all features; no amplitude or time stretching",
+  "physics_unchanged": true
+}

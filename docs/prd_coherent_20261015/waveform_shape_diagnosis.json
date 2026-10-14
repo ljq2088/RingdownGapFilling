@@ -1,0 +1,374 @@
+{
+  "cases": [
+    {
+      "index": 1116,
+      "seed": 2038201116,
+      "parameters": {
+        "source_total_mass_msun": 1471563.3965684855,
+        "q_light_over_heavy": 0.8421697193791513,
+        "redshift": 1.4423951188391329,
+        "inclination": 2.5392476510346764,
+        "longitude": 0.8045386655582918,
+        "latitude": 0.2552396768741174,
+        "polarization": 1.8572840236812789,
+        "orbital_phase": 3.522788254146306,
+        "source_remnant_mass_msun": 1401497.4272853667,
+        "detector_remnant_mass_msun": 3423010.475467382,
+        "remnant_spin": 0.6823156206521043,
+        "distance_mpc": 10678.694836706902,
+        "longest_tau_seconds": 207.04114418398552,
+        "peak_index": 3467.0,
+        "reference_seconds": 2048.0
+      },
+      "crop_start_parent_seconds": 1644.0,
+      "source_reference_local_seconds": 404.0,
+      "modes": {
+        "22": {
+          "frequency_hz": 0.004955387440643722,
+          "period_seconds": 201.80056796327847,
+          "tau_seconds": 207.04114418398552,
+          "cycles_in_528_seconds": 2.6164445686598854,
+          "cycles_per_damping_time": 1.025969085585828
+        },
+        "21": {
+          "frequency_hz": 0.0042609536338533245,
+          "period_seconds": 234.68924703967411,
+          "tau_seconds": 204.08660163878244,
+          "cycles_in_528_seconds": 2.249783518674555,
+          "cycles_per_damping_time": 0.8696035468735459
+        },
+        "33": {
+          "frequency_hz": 0.007857253242728558,
+          "period_seconds": 127.27093923381473,
+          "tau_seconds": 201.66255609603638,
+          "cycles_in_528_seconds": 4.1486297121606786,
+          "cycles_per_damping_time": 1.5845137728225116
+        },
+        "44": {
+          "frequency_hz": 0.01064219616819658,
+          "period_seconds": 93.96556727533613,
+          "tau_seconds": 198.3037081149358,
+          "cycles_in_528_seconds": 5.619079576807794,
+          "cycles_per_damping_time": 2.1103869626399425
+        }
+      },
+      "network_snr": 343.356482381549,
+      "mismatch": 0.00027280529424855704,
+      "joint_time_energy_within_100s_of_source_onset": 0.008735178944820026,
+      "channel_zero_crossings": [
+        7,
+        6
+      ]
+    },
+    {
+      "index": 1885,
+      "seed": 2038201885,
+      "parameters": {
+        "source_total_mass_msun": 769424.9747138945,
+        "q_light_over_heavy": 0.9928783103517642,
+        "redshift": 2.555250295102166,
+        "inclination": 2.2618039220611275,
+        "longitude": 6.2327481907106135,
+        "latitude": 0.28365238277903543,
+        "polarization": 0.6156251880152278,
+        "orbital_phase": 4.72146670715299,
+        "source_remnant_mass_msun": 732328.468254538,
+        "detector_remnant_mass_msun": 2603611.0028736633,
+        "remnant_spin": 0.6864527884446375,
+        "distance_mpc": 21454.12554352728,
+        "longest_tau_seconds": 157.75953005741593,
+        "peak_index": 3179.0,
+        "reference_seconds": 2048.0
+      },
+      "crop_start_parent_seconds": 1516.5,
+      "source_reference_local_seconds": 531.5,
+      "modes": {
+        "22": {
+          "frequency_hz": 0.006536686983008793,
+          "period_seconds": 152.98269637193286,
+          "tau_seconds": 157.75953005741593,
+          "cycles_in_528_seconds": 3.451370727028643,
+          "cycles_per_damping_time": 1.0312246665718952
+        },
+        "21": {
+          "frequency_hz": 0.005612612155406169,
+          "period_seconds": 178.1701589761163,
+          "tau_seconds": 155.45666937590974,
+          "cycles_in_528_seconds": 2.9634592180544574,
+          "cycles_per_damping_time": 0.8725179921781889
+        },
+        "33": {
+          "frequency_hz": 0.010362314474911778,
+          "period_seconds": 96.50353716065095,
+          "tau_seconds": 153.70035848999242,
+          "cycles_in_528_seconds": 5.471302042753418,
+          "cycles_per_damping_time": 1.5926914495799778
+        },
+        "44": {
+          "frequency_hz": 0.01403497567104891,
+          "period_seconds": 71.25056882448195,
+          "tau_seconds": 151.1478929754051,
+          "cycles_in_528_seconds": 7.4104671543138245,
+          "cycles_per_damping_time": 2.1213570006401152
+        }
+      },
+      "network_snr": 185.37303755752032,
+      "mismatch": 0.00035631512078093674,
+      "joint_time_energy_within_100s_of_source_onset": 0.0,
+      "channel_zero_crossings": [
+        8,
+        8
+      ]
+    },
+    {
+      "index": 1777,
+      "seed": 2038201777,
+      "parameters": {
+        "source_total_mass_msun": 4445785.583903042,
+        "q_light_over_heavy": 0.6342578964408697,
+        "redshift": 1.1693688227101675,
+        "inclination": 1.325382145403072,
+        "longitude": 3.319808977926806,
+        "latitude": -0.24091470463765977,
+        "polarization": 3.139683319831321,
+        "orbital_phase": 4.881304855117123,
+        "source_remnant_mass_msun": 4249344.645498815,
+        "detector_remnant_mass_msun": 9218395.790895518,
+        "remnant_spin": 0.658170712114658,
+        "distance_mpc": 8247.817669815991,
+        "longest_tau_seconds": 552.2572413188115,
+        "peak_index": 5085.0,
+        "reference_seconds": 2048.0
+      },
+      "crop_start_parent_seconds": 2406.5,
+      "source_reference_local_seconds": -358.5,
+      "modes": {
+        "22": {
+          "frequency_hz": 0.001805667110568444,
+          "period_seconds": 553.8119369550841,
+          "tau_seconds": 552.2572413188115,
+          "cycles_in_528_seconds": 0.9533922343801385,
+          "cycles_per_damping_time": 0.9971927372226382
+        },
+        "21": {
+          "frequency_hz": 0.001565228177580226,
+          "period_seconds": 638.8844861877941,
+          "tau_seconds": 545.325198476084,
+          "cycles_in_528_seconds": 0.8264404777623593,
+          "cycles_per_damping_time": 0.853558366599296
+        },
+        "33": {
+          "frequency_hz": 0.0028664868813672636,
+          "period_seconds": 348.859088279873,
+          "tau_seconds": 537.1427431850542,
+          "cycles_in_528_seconds": 1.513505073361915,
+          "cycles_per_damping_time": 1.539712626761583
+        },
+        "44": {
+          "frequency_hz": 0.003882711555211398,
+          "period_seconds": 257.5519674279677,
+          "tau_seconds": 528.0589608832349,
+          "cycles_in_528_seconds": 2.050071701151618,
+          "cycles_per_damping_time": 2.05030062925426
+        }
+      },
+      "network_snr": 188.85941594386975,
+      "mismatch": 0.0003571817894659768,
+      "joint_time_energy_within_100s_of_source_onset": 0.0,
+      "channel_zero_crossings": [
+        3,
+        3
+      ]
+    },
+    {
+      "index": 1873,
+      "seed": 2038201873,
+      "parameters": {
+        "source_total_mass_msun": 335310.09378272947,
+        "q_light_over_heavy": 0.32740607526896437,
+        "redshift": 5.532285875940206,
+        "inclination": 2.708121951739062,
+        "longitude": 1.2469965779317904,
+        "latitude": 0.6753035862796621,
+        "polarization": 0.8393655518543749,
+        "orbital_phase": 1.2795416657579288,
+        "source_remnant_mass_msun": 325464.2207395226,
+        "detector_remnant_mass_msun": 2126025.3322606687,
+        "remnant_spin": 0.5372407527556011,
+        "distance_mpc": 53656.573293578855,
+        "longest_tau_seconds": 123.14948695147736,
+        "peak_index": 3899.0,
+        "reference_seconds": 2048.0
+      },
+      "crop_start_parent_seconds": 1871.0,
+      "source_reference_local_seconds": 177.0,
+      "modes": {
+        "22": {
+          "frequency_hz": 0.0072115063700734314,
+          "period_seconds": 138.66728373836511,
+          "tau_seconds": 123.14948695147736,
+          "cycles_in_528_seconds": 3.8076753633987717,
+          "cycles_per_damping_time": 0.8880933096218538
+        },
+        "21": {
+          "frequency_hz": 0.006474320877362763,
+          "period_seconds": 154.45635441030814,
+          "tau_seconds": 122.26383627631013,
+          "cycles_in_528_seconds": 3.418441423247539,
+          "cycles_per_damping_time": 0.7915753077501774
+        },
+        "33": {
+          "frequency_hz": 0.011500538998995488,
+          "period_seconds": 86.95244632337187,
+          "tau_seconds": 119.0921308100833,
+          "cycles_in_528_seconds": 6.072284591469618,
+          "cycles_per_damping_time": 1.3696236948548353
+        },
+        "44": {
+          "frequency_hz": 0.015576437401818815,
+          "period_seconds": 64.19953255057109,
+          "tau_seconds": 116.99866170775267,
+          "cycles_in_528_seconds": 8.224358948160335,
+          "cycles_per_damping_time": 1.8224223301873854
+        }
+      },
+      "network_snr": 43.12454804882463,
+      "mismatch": 0.002532742420155887,
+      "joint_time_energy_within_100s_of_source_onset": 0.07940645692848378,
+      "channel_zero_crossings": [
+        9,
+        9
+      ]
+    },
+    {
+      "index": 5865,
+      "seed": 2038205865,
+      "parameters": {
+        "source_total_mass_msun": 2414125.996131265,
+        "q_light_over_heavy": 0.7139477610464614,
+        "redshift": 5.418112892938459,
+        "inclination": 1.2630422651710878,
+        "longitude": 4.857922417804713,
+        "latitude": 0.1490083761116106,
+        "polarization": 2.2545944004268423,
+        "orbital_phase": 2.4411566106602485,
+        "source_remnant_mass_msun": 2303189.8258544947,
+        "detector_remnant_mass_msun": 14782132.316201417,
+        "remnant_spin": 0.6707354567422396,
+        "distance_mpc": 52367.68705513492,
+        "longest_tau_seconds": 889.8567846502717,
+        "peak_index": 3994.0,
+        "reference_seconds": 2048.0
+      },
+      "crop_start_parent_seconds": 1855.5,
+      "source_reference_local_seconds": 192.5,
+      "modes": {
+        "22": {
+          "frequency_hz": 0.0011370143033774436,
+          "period_seconds": 879.4964118125431,
+          "tau_seconds": 889.8567846502717,
+          "cycles_in_528_seconds": 0.6003435521832903,
+          "cycles_per_damping_time": 1.0117798921048204
+        },
+        "21": {
+          "frequency_hz": 0.00098152957276662,
+          "period_seconds": 1018.8180038033064,
+          "tau_seconds": 877.9258046205691,
+          "cycles_in_528_seconds": 0.5182476144207754,
+          "cycles_per_damping_time": 0.8617101399300183
+        },
+        "33": {
+          "frequency_hz": 0.00180390738577007,
+          "period_seconds": 554.3521845347454,
+          "tau_seconds": 866.1354274927214,
+          "cycles_in_528_seconds": 0.9524630996865969,
+          "cycles_per_damping_time": 1.562428094731237
+        },
+        "44": {
+          "frequency_hz": 0.002443364415207108,
+          "period_seconds": 409.27173768110913,
+          "tau_seconds": 851.5976374916232,
+          "cycles_in_528_seconds": 1.290096411229353,
+          "cycles_per_damping_time": 2.0807633635214744
+        }
+      },
+      "network_snr": 10.420442402719091,
+      "mismatch": 0.015150425849814964,
+      "joint_time_energy_within_100s_of_source_onset": 0.002751989759172067,
+      "channel_zero_crossings": [
+        4,
+        6
+      ]
+    },
+    {
+      "index": 2685,
+      "seed": 2038202685,
+      "parameters": {
+        "source_total_mass_msun": 134891.16371655048,
+        "q_light_over_heavy": 0.8196167206825928,
+        "redshift": 3.6464253096643904,
+        "inclination": 1.5883674203817064,
+        "longitude": 4.533250809114476,
+        "latitude": -0.5070849300306642,
+        "polarization": 0.19177792709236158,
+        "orbital_phase": 1.537700813858624,
+        "source_remnant_mass_msun": 128495.90782381986,
+        "detector_remnant_mass_msun": 597046.6383008992,
+        "remnant_spin": 0.6809118311290955,
+        "distance_mpc": 32851.59389376167,
+        "longest_tau_seconds": 36.09101766867945,
+        "peak_index": 4295.0,
+        "reference_seconds": 2048.0
+      },
+      "crop_start_parent_seconds": 2103.5,
+      "source_reference_local_seconds": -55.5,
+      "modes": {
+        "22": {
+          "frequency_hz": 0.028378492839342635,
+          "period_seconds": 35.23795310981583,
+          "tau_seconds": 36.09101766867945,
+          "cycles_in_528_seconds": 14.983844219172912,
+          "cycles_per_damping_time": 1.0242086864752082
+        },
+        "21": {
+          "frequency_hz": 0.024413391229453615,
+          "period_seconds": 40.96112623606125,
+          "tau_seconds": 35.57990771444116,
+          "cycles_in_528_seconds": 12.89027056915151,
+          "cycles_per_damping_time": 0.868626206940507
+        },
+        "33": {
+          "frequency_hz": 0.04500015653187489,
+          "period_seconds": 22.222144922799803,
+          "tau_seconds": 35.15041683920528,
+          "cycles_in_528_seconds": 23.760082648829943,
+          "cycles_per_damping_time": 1.5817742599248885
+        },
+        "44": {
+          "frequency_hz": 0.06095036933687449,
+          "period_seconds": 16.40679147443669,
+          "tau_seconds": 34.56438715686429,
+          "cycles_in_528_seconds": 32.18179500986973,
+          "cycles_per_damping_time": 2.1067121631136
+        }
+      },
+      "network_snr": 2.6406715548909085,
+      "mismatch": 0.8599981971953093,
+      "joint_time_energy_within_100s_of_source_onset": 0.42232176859546894,
+      "channel_zero_crossings": [
+        29,
+        32
+      ]
+    }
+  ],
+  "population": {
+    "n": 6000,
+    "frequency_220_min": 0.0004859429420766095,
+    "frequency_220_max": 0.0835221886543417,
+    "tau_220_min": 11.632792739623259,
+    "tau_220_max": 1957.3318658566104,
+    "less_than_one_cycle_in_record": 1284,
+    "less_than_two_cycles_in_record": 2369,
+    "tau_exceeds_window": 1256
+  }
+}

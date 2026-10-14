@@ -1,0 +1,94 @@
+{
+  "physical_cohort_count": 626,
+  "qualified_count": 28,
+  "physical_conditions": {
+    "peak_inside_gap": true,
+    "post_detector_peak_damping_times_at_least": 4,
+    "network_snr_at_least": 10,
+    "minimum_channel_energy_ratio": 0.1
+  },
+  "illustration_quality_conditions": {
+    "maximum_channel_peak_phase_degrees": 1.5,
+    "maximum_global_relative_error": 0.08,
+    "maximum_gap_relative_error": 0.08,
+    "minimum_visible_extrema_each_channel": 6
+  },
+  "duration_bins_seconds": [
+    [
+      32,
+      38
+    ],
+    [
+      39,
+      45
+    ],
+    [
+      46,
+      52
+    ]
+  ],
+  "ranking": "lowest joint direct PSD mismatch in each duration bin among qualified successful examples",
+  "selected": [
+    {
+      "index": 1123,
+      "seed": 2038201123,
+      "mismatch": 0.0006967149522334459,
+      "frequency_220": 0.018439007827720857,
+      "tau_220": 55.349658295491864,
+      "post_peak_damping_times": 7.3261518225673905,
+      "snr": 473.1875358206435,
+      "relative_error": 0.046498424435349094,
+      "gap_relative_error": 0.02877647040113129,
+      "gap_energy_fraction": 0.46644492261028675,
+      "phase_A": 0.24438916331755617,
+      "phase_E": 0.03087429764015837,
+      "visible_extrema": [
+        9,
+        10
+      ],
+      "balance": 0.7310283877265865,
+      "gap_seconds": 34.0
+    },
+    {
+      "index": 1889,
+      "seed": 2038201889,
+      "mismatch": 0.00044653318074794335,
+      "frequency_220": 0.010034600784492654,
+      "tau_220": 102.5180567717949,
+      "post_peak_damping_times": 4.291926845428211,
+      "snr": 515.8132090351386,
+      "relative_error": 0.056242230722826324,
+      "gap_relative_error": 0.056711792723396645,
+      "gap_energy_fraction": 0.3798487468884538,
+      "phase_A": 1.413404671826978,
+      "phase_E": 0.5105480938405248,
+      "visible_extrema": [
+        8,
+        9
+      ],
+      "balance": 0.8788839219849219,
+      "gap_seconds": 45.0
+    },
+    {
+      "index": 4013,
+      "seed": 2038204013,
+      "mismatch": 0.0005696078980204078,
+      "frequency_220": 0.013528464881779181,
+      "tau_220": 75.95234590752972,
+      "post_peak_damping_times": 5.668027693629425,
+      "snr": 343.1114350604338,
+      "relative_error": 0.04445799551656662,
+      "gap_relative_error": 0.034789594725962686,
+      "gap_energy_fraction": 0.47534639334436024,
+      "phase_A": 1.128835828225397,
+      "phase_E": 1.394772620287643,
+      "visible_extrema": [
+        9,
+        9
+      ],
+      "balance": 0.5029974691136043,
+      "gap_seconds": 52.0
+    }
+  ],
+  "all_population_statistics_unchanged": true
+}
