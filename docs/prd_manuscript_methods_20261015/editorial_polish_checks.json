@@ -1,0 +1,242 @@
+{
+  "paragraphs_or_sections_revised": 57,
+  "changes": [
+    {
+      "kind": "section",
+      "start": "\\begin{abstract}"
+    },
+    {
+      "kind": "section",
+      "start": "\\section{Introduction}"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Both channels have fractional-frequency units."
+    },
+    {
+      "kind": "paragraph",
+      "start": "A fixed calibration PSD"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Positive neighboring-bin values"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The primary gap widths"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Figure~\\ref{fig:architecture} gives"
+    },
+    {
+      "kind": "paragraph",
+      "start": "A physical-frequency adaptation path"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The temporal branch normalizes"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Elementwise addition fuses"
+    },
+    {
+      "kind": "paragraph",
+      "start": "A joint signal basis"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Here $P_0$ removes"
+    },
+    {
+      "kind": "paragraph",
+      "start": "All coefficient-head inputs"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Each comparison uses the observation's"
+    },
+    {
+      "kind": "paragraph",
+      "start": "These terms supervise both"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Figure~\\ref{fig:training_workflow} separates"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The validation population contains"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The saved DGF checkpoint"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The selected head configuration"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Selective fine-tuning updates"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Raw and exponential-moving-average"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The numerical statistics and result plots"
+    },
+    {
+      "kind": "paragraph",
+      "start": "In the earlier experiment we compare"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The augmented refinement reduces"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The clean-envelope peak lies"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Figure~\\ref{fig:examples} illustrates"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Normalized overlap is insensitive"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Inside the 121 peak-containing masks"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Figure~\\ref{fig:psd} compares"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The phase diagnostic uses"
+    },
+    {
+      "kind": "paragraph",
+      "start": "A separate matched-budget experiment"
+    },
+    {
+      "kind": "section",
+      "start": "\\section{Discussion and Conclusions}"
+    },
+    {
+      "kind": "paragraph",
+      "start": "For one $A/E$ channel, the legacy"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Each of the eight feature channels uses"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The db4 implementation selects"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The registered final physical test"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The source prior and injected response peak"
+    },
+    {
+      "kind": "paragraph",
+      "start": "This appendix identifies the data"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The earlier generator contains"
+    },
+    {
+      "kind": "paragraph",
+      "start": "with $b_a=(1,1,3,4)$"
+    },
+    {
+      "kind": "paragraph",
+      "start": "They are numerical coefficients of this benchmark."
+    },
+    {
+      "kind": "paragraph",
+      "start": "The frequency-domain function"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Fixed angles are"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The earlier reference spectrum was"
+    },
+    {
+      "kind": "paragraph",
+      "start": "The earlier refinement used"
+    },
+    {
+      "kind": "paragraph",
+      "start": "This appendix documents the earlier benchmark"
+    },
+    {
+      "kind": "paragraph",
+      "start": "Figure~\\ref{fig:complementary_examples} retains"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{Implemented DGF reconstruction architecture."
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{Source-separated data and staged training workflow"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{Direct reconstruction mismatch for all 1000"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{Empirical distributions of direct time-domain"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{High-fidelity reconstructions selected"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{Mean one-sided periodograms of the simulated noise"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{(a) Complete absolute peak-phase distributions"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{Retained validation history"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{Complementary earlier-benchmark cases selected"
+    },
+    {
+      "kind": "paragraph",
+      "start": "\\caption{Complementary population diagnostics for every"
+    }
+  ],
+  "equations_unchanged": true,
+  "numerical_tables_unchanged": true,
+  "figure_asset_references_unchanged": true,
+  "visible_workflow_note_removed": true,
+  "benchmark_scope_preserved": true,
+  "new_physical_test_statistics_inserted": false,
+  "training_status_at_edit": "Selective fine-tuning epoch 41; independent-test report pending",
+  "before_sha256": "1b9e3e783f6bd1d002dffc3c770fcbbcd313fa57694abcfe4a67a1ae768b7be8",
+  "after_sha256": "3985e7d87caa00fbba45cd7893b8f9c973d0d720e286062d9269b8ca01835c57"
+}

@@ -2,8 +2,8 @@
   "passed": true,
   "server_source_files": {
     "DGF.tex": {
-      "sha256": "1b9e3e783f6bd1d002dffc3c770fcbbcd313fa57694abcfe4a67a1ae768b7be8",
-      "bytes": 53840,
+      "sha256": "3985e7d87caa00fbba45cd7893b8f9c973d0d720e286062d9269b8ca01835c57",
+      "bytes": 46646,
       "identical": true
     },
     "DGF_references.bib": {
@@ -42,8 +42,8 @@
       "identical": true
     }
   },
-  "online_compiled_pdf_pages": 14,
-  "online_pdf_sha256": "9359b4d65fe63cec453890c818eefe51f65b3dd45aeec15ceb778dd943768967",
+  "online_compiled_pdf_pages": 13,
+  "online_pdf_sha256": "10b2d58e3765867faf9d68f4e2864f83059da4310fca3ab1bafdf382f4dc27f3",
   "architecture_page": 4,
   "training_workflow_page": 6,
   "results_table_values_unchanged": true,
@@ -60,5 +60,7 @@
   "illustrated_version": true,
   "successful_examples_in_main_text": true,
   "legacy_failure_examples_in_appendix": true,
-  "fig4_page": 9
+  "fig4_page": 8,
+  "editorial_polish_complete": true,
+  "review_pdf": "DGF_review_20261015.pdf"
 }
