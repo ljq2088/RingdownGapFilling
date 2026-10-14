@@ -1,0 +1,24 @@
+2026-10-15 统一最新结果与摘要术语
+
+修改位置：Overleaf 项目 6ac83816750c2cce452054d2。
+原始 Overleaf 项目 69bb9d12f9a917663fb9b9c0 保持原有内容。
+
+所有重建性能数据统一来自 results_prd_conditioned_20261014 的最终独立测试：6000 个源，seed 2038200000--2038205999。固定 checkpoint SHA-256 为 0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b。主测试采用 64--104 samples 的变长 gap；补充 66/100 samples gap 测试使用同一源和噪声。模型选择及 early stopping 使用独立验证集，发生在最终测试之前。
+
+训练在第 56 轮早停，选中第 6 轮。测试数据生成完成后，冻结评估模块因未定义 BATCH 而停止。恢复入口在模块作用域提供 BATCH=128，并调用原评估函数，复用已生成的 6000 个测试源。训练源码、固定资产、选定权重、测试 seed 与观测模型保持原样。最终评估完成，PSD 内积的独立计算误差小于 8e-16。恢复记录在运行输出 evaluation_recovery.json。
+
+主测试均值 mismatch=0.008518339429432937；rho>=10 子集 5814 源的均值=0.005319713983648271。总体中位数=0.0025350558876980345，95% 分位数=0.02782050628607171。A/E 平均绝对相位误差分别为 3.8376472098328667 与 3.7918675291322894 度。详细振幅、相位、缺口分层及固定时长结果见 latest_test_summary.json。所有统计保留完整源总体；有条件统计明确说明条件与样本数。
+
+摘要采用常用的 ringdown、waveform reconstruction、noise-weighted mismatch、network signal-to-noise ratio 等术语，简述 standard LISA response and noise models。具体等臂、平稳高斯噪声等假设保留在方法和讨论中。摘要删除 four-component、noise family、旧测试记录长度及过多分位数。
+
+正文和附录删除旧数值模拟结果及旧结果图引用。新图直接读取同一模型的最新预测，计算前恢复物理 fractional-frequency 单位，时移及相位拟合均为零。主文案例选择 joint envelope peak 位于缺口内的 1935 源中，直接 noise-weighted mismatch 最小的三例；选例规则在图注中明示。完整 CDF、误差谱和相位分布保留全部 6000 源。
+
+结构图、训练流程图及其配色和小图解保留。新的结果图沿用该设计风格，显示 A/E 两通道。论文沿用原题目、作者和 DGF 双分支重建任务。训练迭代历史不作为摘要或主文的研究主线。
+
+规范术语与流程依据：
+fastlisaresponse / PRD 106, 103001 (2022): https://arxiv.org/abs/2204.06633
+WaveFormer / MLST 5, 015046 (2024): https://arxiv.org/abs/2212.14283
+LISA sparse data inpainting: https://arxiv.org/abs/2104.05250
+以上文献用于术语、流程与评价方式核对；文献性能数值未用于跨数据集排名。
+
+完整云端备份、最终源码一致性及运行文件校验见 server_verification.json。DGF_unified_source_20261015.zip 是仅含当前正文使用资产的干净源码包；Overleaf 项目中保留的旧图文件属于历史资产，当前正文无对应引用。

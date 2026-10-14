@@ -1,0 +1,20 @@
+{
+  "selected_checkpoint_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+  "all_reconstruction_results_same_source_population": true,
+  "independent_test_sources": 6000,
+  "old_benchmark_values_removed": true,
+  "old_results_figures_referenced": false,
+  "abstract_word_count": 119,
+  "source_seed_range": [
+    2038200000,
+    2038205999
+  ],
+  "undefined_internal_references": [],
+  "standard_terms": [
+    "ringdown",
+    "waveform reconstruction",
+    "noise-weighted mismatch",
+    "network signal-to-noise ratio",
+    "time-delay interferometry"
+  ]
+}

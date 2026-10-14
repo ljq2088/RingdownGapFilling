@@ -1,0 +1,62 @@
+{
+  "overleaf_project": "6ac83816750c2cce452054d2",
+  "verified_files": {
+    "DGF.tex": {
+      "bytes": 39824,
+      "sha256": "dc2be9a9cb15f85f085b644e232c3276484fcbbab580316560d49bbfd72dd97f"
+    },
+    "DGF_references.bib": {
+      "bytes": 109346,
+      "sha256": "d632f74d65933c060693ca1385d0cdd8a347a012607eeb14e4c71a6b010e7cd6"
+    },
+    "architecture_dgf_20261015.pdf": {
+      "bytes": 69436,
+      "sha256": "c26a715c3c033aea1662a3d156959e4bc500140242018699b9afc6c1ec3ac1fe"
+    },
+    "training_workflow_dgf_20261015.pdf": {
+      "bytes": 53333,
+      "sha256": "d4594da441d79758d8dbf94e0204809f3864045f40e5f0ea907b7a32140b7bd4"
+    },
+    "latest_mismatch.pdf": {
+      "bytes": 34498,
+      "sha256": "12405605486a5398cc5397c9fb096fab189d486870d0700fe57c202bbdcc49de"
+    },
+    "latest_examples.pdf": {
+      "bytes": 29263,
+      "sha256": "a89f3043596eb66a60ff0dbfc680c44f9e94c82f21e23659bb57c9460534085c"
+    },
+    "latest_residual_psd.pdf": {
+      "bytes": 24420,
+      "sha256": "caddfee43a0fe83dfc62b38aed9a97b905680d5964ebb3cb6934c494c066a2a0"
+    },
+    "latest_phase.pdf": {
+      "bytes": 40335,
+      "sha256": "77c68ddd178461763a1e46f5e3b674930717fe1813b3e7dd7d9f2f4dba8876b5"
+    },
+    "latest_snr_gap.pdf": {
+      "bytes": 86163,
+      "sha256": "de419c5d7069d53fe7a21c53a481882b82c3aa0125d92e812141b8435a01f1eb"
+    },
+    "latest_diagnostic_examples.pdf": {
+      "bytes": 42237,
+      "sha256": "1b298febf4adef5e126fb6e39950fb37ad7b13234ec324ddb06cad6ad22f35d5"
+    }
+  },
+  "pdf_pages": 12,
+  "checkpoint_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+  "test_sources": 6000,
+  "seeds": [
+    2038200000,
+    2038205999
+  ],
+  "primary_mean": 0.008518339429432937,
+  "snr_ge10_mean": 0.005319713983648271,
+  "same_latest_population_for_all_reconstruction_results": true,
+  "calibration_psd_sha256": "79b825b04bbe1ac09790f70e23fbac6743dab75f710fb1dc70fea0f22c67a5b8",
+  "training_sources_and_fixed_assets_unchanged": true,
+  "model_diagram_and_training_flow_unchanged": true,
+  "old_results_absent_from_manuscript": true,
+  "selected_case_rule": "Three lowest joint noise-weighted mismatches within peak-inside-gap subgroup",
+  "selected_source_count": 1935,
+  "time_phase_alignment": false
+}
