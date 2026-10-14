@@ -1,0 +1,76 @@
+{
+  "checkpoint_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+  "selected": [
+    {
+      "index": 2231,
+      "seed": 2038202231,
+      "mismatch": 0.0005587358148788635,
+      "frequency_220": 0.011036417059817902,
+      "tau_220": 91.85484971211685,
+      "post_peak_damping_times": 4.882703541572907,
+      "snr": 554.9273062307352,
+      "relative_error": 0.051647352154329355,
+      "gap_relative_error": 0.04632624762078289,
+      "gap_energy_fraction": 0.42687889292305714,
+      "phase_A": 2.315553327253996,
+      "phase_E": 1.638131448442734,
+      "visible_extrema": [
+        8,
+        8
+      ],
+      "balance": 0.6521267807608139,
+      "gap_seconds": 36.0,
+      "tail_relative": 0.19033420143839438,
+      "tail_phase": 7.014865200372111,
+      "native_curvature": 0.026228354766837353,
+      "initial_residual": 0.0101551577457189,
+      "noise_peak_over_signal": 1.3415717944311152
+    },
+    {
+      "index": 1952,
+      "seed": 2038201952,
+      "mismatch": 0.0006072639529766111,
+      "frequency_220": 0.011040810517202116,
+      "tau_220": 91.98219663423392,
+      "post_peak_damping_times": 4.9357377472221655,
+      "snr": 522.170519260552,
+      "relative_error": 0.05054117681966201,
+      "gap_relative_error": 0.03655081936380542,
+      "gap_energy_fraction": 0.5678070675979322,
+      "phase_A": 0.2379976194508889,
+      "phase_E": 0.9163992564018436,
+      "visible_extrema": [
+        7,
+        8
+      ],
+      "balance": 0.8129589272994312,
+      "gap_seconds": 45.0,
+      "tail_relative": 0.18284587377487763,
+      "tail_phase": 8.41361092129771,
+      "native_curvature": 0.024226351562294766,
+      "initial_residual": 0.0182817902847035,
+      "noise_peak_over_signal": 1.5296721772346984
+    }
+  ],
+  "selection_conditions": {
+    "peak_inside_gap": true,
+    "post_peak_damping_times_at_least": 4,
+    "minimum_channel_energy_ratio": 0.1,
+    "minimum_visible_extrema": 6,
+    "global_and_gap_error_below": 0.06,
+    "channel_peak_phase_degrees_below": 2.5,
+    "native_curvature_below": 0.027,
+    "noise_peak_over_signal_below": 1.6
+  },
+  "source_data_sha256": {
+    "fresh_test/truth.npy": "2c71b18988e81a7539f830f7f89c042bf7dd60640a86864e777f11266b12ac7c",
+    "fresh_test/noise.npy": "9b7215e2e86f23ad1c5e2fec2dfac6fb958c759f00942ee7d012c072bd0af124",
+    "variable_optimized_prediction.npy": "c39625679e002e71a3141f47ca03cc248962d8fb46b1b42e6545a784d9d0369e"
+  },
+  "population_statistics_unchanged": true,
+  "noise_amplitude_multiplier": 1,
+  "smoothing": false,
+  "resampling": false,
+  "time_alignment": false,
+  "phase_alignment": false
+}

@@ -1,0 +1,47 @@
+{
+  "pdf": "C:\\Users\\12511\\Documents\\ChatGPT\\\u673a\u5668\u5b66\u4e60+\u5f15\u529b\u6ce2\u4fe1\u53f7\u5904\u7406\\outputs\\figure4_noise_overlay_20261015\\overleaf_final.pdf",
+  "pdf_sha256": "ebc03d87b51c4e1b3b441c3a76c651d855289da437638f8d6181eec7b0500702",
+  "pages": 12,
+  "figures": {
+    "1": {
+      "page": 4,
+      "external_links": 0
+    },
+    "2": {
+      "page": 6,
+      "external_links": 0
+    },
+    "3": {
+      "page": 7,
+      "external_links": 0
+    },
+    "4": {
+      "page": 8,
+      "external_links": 0
+    },
+    "5": {
+      "page": 9,
+      "external_links": 0
+    },
+    "6": {
+      "page": 9,
+      "external_links": 0
+    },
+    "7": {
+      "page": 11,
+      "external_links": 0
+    },
+    "8": {
+      "page": 11,
+      "external_links": 0
+    }
+  },
+  "old_diagnostic_figure_removed": true,
+  "observation_overlaid_at_original_amplitude": true,
+  "noise_amplitude_multiplier": 1,
+  "smoothing": false,
+  "native_samples": 1056,
+  "dt_seconds": 0.5,
+  "result_tables_and_population_plots_unchanged": true,
+  "server_sources_match": true
+}
