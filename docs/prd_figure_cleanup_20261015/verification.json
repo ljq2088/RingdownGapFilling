@@ -1,0 +1,49 @@
+{
+  "pdf": "C:\\Users\\12511\\Documents\\ChatGPT\\\u673a\u5668\u5b66\u4e60+\u5f15\u529b\u6ce2\u4fe1\u53f7\u5904\u7406\\outputs\\figure_cleanup_20261015\\overleaf_final.pdf",
+  "pdf_sha256": "52f8325fcde4a46bc058012630f76d24fba53abcb3f724e1aacdc150d3b86ac0",
+  "pages": 14,
+  "figures": {
+    "1": {
+      "page": 4,
+      "external_links": 0
+    },
+    "2": {
+      "page": 6,
+      "external_links": 0
+    },
+    "3": {
+      "page": 7,
+      "external_links": 0
+    },
+    "4": {
+      "page": 8,
+      "external_links": 0
+    },
+    "5": {
+      "page": 9,
+      "external_links": 0
+    },
+    "6": {
+      "page": 9,
+      "external_links": 0
+    },
+    "7": {
+      "page": 11,
+      "external_links": 0
+    },
+    "8": {
+      "page": 12,
+      "external_links": 0
+    },
+    "9": {
+      "page": 13,
+      "external_links": 0
+    }
+  },
+  "source_polarization_figure_removed": true,
+  "figure_external_links": 0,
+  "native_samples": 1056,
+  "dt_seconds": 0.5,
+  "statistics_unchanged": true,
+  "server_sources_match": true
+}
