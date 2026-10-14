@@ -1,0 +1,15 @@
+{
+  "reason": "User requested reassessment of full-waveform and late-time fidelity",
+  "previous_failure": {
+    "traceback": "Traceback (most recent call last):\n  File \"/home/ljq/code/RingdownGapFilling_PRD/prd_coherent/run.py\", line 43, in <module>\n    try:main()\n  File \"/home/ljq/code/RingdownGapFilling_PRD/prd_coherent/run.py\", line 37, in main\n    selected=fit(best['variant'],'full',TRAIN_N,FULL_MAX,FULL_MIN,FULL_PATIENCE,best['checkpoint'])\n  File \"/home/ljq/code/RingdownGapFilling_PRD/prd_coherent/train.py\", line 40, in fit\n    check();resources()\n  File \"/home/ljq/code/RingdownGapFilling_PRD/prd_coherent/common.py\", line 16, in resources\n    if (OUT/'STOP').exists():raise RuntimeError('STOP requested; resume from last completed epoch after removing STOP')\nRuntimeError: STOP requested; resume from last completed epoch after removing STOP\n",
+    "time": 1792014939.8784409
+  },
+  "previous_status": {
+    "stage": "failed",
+    "pid": 22980,
+    "updated_unix": 1792014939.8788638,
+    "error": "Traceback (most recent call last):\n  File \"/home/ljq/code/RingdownGapFilling_PRD/prd_coherent/run.py\", line 43, in <module>\n    try:main()\n  File \"/home/ljq/code/RingdownGapFilling_PRD/prd_coherent/run.py\", line 37, in main\n    selected=fit(best['variant'],'full',TRAIN_N,FULL_MAX,FULL_MIN,FULL_PATIENCE,best['checkpoint'])\n  File \"/home/ljq/code/RingdownGapFilling_PRD/prd_coherent/train.py\", line 40, in fit\n    check();resources()\n  File \"/home/ljq/code/RingdownGapFilling_PRD/prd_coherent/common.py\", line 16, in resources\n    if (OUT/'STOP').exists():raise RuntimeError('STOP requested; resume from last completed epoch after removing STOP')\nRuntimeError: STOP requested; resume from last completed epoch after removing STOP\n"
+  },
+  "last_checkpoint": "/home/ljq/code/RingdownGapFilling_PRD/FillingGap/results_prd_coherent_20261015/full/noise_mix/last.pth",
+  "time": 1792015450.655504
+}

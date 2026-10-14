@@ -1,0 +1,663 @@
+{
+  "diagnostic_only": true,
+  "uses_known_source_parameters_and_clean_fit_samples": true,
+  "never_used_as_reconstruction_predictions": true,
+  "validation_sources_probed": 128,
+  "eligible_probe_count": 128,
+  "oracle": {
+    "n": 128,
+    "mean": 0.014136724523331347,
+    "median": 0.00062846727266171,
+    "p95": 0.01997350038255284,
+    "max": 0.9955244691388178
+  },
+  "baseline": {
+    "n": 128,
+    "mean": 0.6544551243078476,
+    "median": 0.42033750463164105,
+    "p95": 1.7472993307171931,
+    "max": 6.643913575423882
+  },
+  "rows": [
+    {
+      "index": 516,
+      "known_parameter_oracle_relative_error": 0.0006495179864661534,
+      "baseline_relative_error": 1.3305838692629226
+    },
+    {
+      "index": 732,
+      "known_parameter_oracle_relative_error": 0.0005414246220677123,
+      "baseline_relative_error": 0.16698048705217342
+    },
+    {
+      "index": 873,
+      "known_parameter_oracle_relative_error": 0.00042317360174468966,
+      "baseline_relative_error": 0.7166196187987112
+    },
+    {
+      "index": 1379,
+      "known_parameter_oracle_relative_error": 0.0007034627982540608,
+      "baseline_relative_error": 0.5770925615613359
+    },
+    {
+      "index": 1040,
+      "known_parameter_oracle_relative_error": 0.0008153291209643746,
+      "baseline_relative_error": 1.2812298143352072
+    },
+    {
+      "index": 703,
+      "known_parameter_oracle_relative_error": 0.004310621391418647,
+      "baseline_relative_error": 0.16919849225470868
+    },
+    {
+      "index": 1179,
+      "known_parameter_oracle_relative_error": 0.0005725535722757798,
+      "baseline_relative_error": 1.077690417685701
+    },
+    {
+      "index": 325,
+      "known_parameter_oracle_relative_error": 0.014274557612874352,
+      "baseline_relative_error": 0.5117696314286438
+    },
+    {
+      "index": 698,
+      "known_parameter_oracle_relative_error": 0.00011404298658901734,
+      "baseline_relative_error": 2.9499257501744744
+    },
+    {
+      "index": 328,
+      "known_parameter_oracle_relative_error": 9.973658195363754e-05,
+      "baseline_relative_error": 0.24752317917576017
+    },
+    {
+      "index": 832,
+      "known_parameter_oracle_relative_error": 0.00011748917437928744,
+      "baseline_relative_error": 0.6680093250050438
+    },
+    {
+      "index": 1406,
+      "known_parameter_oracle_relative_error": 0.0001067850417697346,
+      "baseline_relative_error": 0.08863144261443742
+    },
+    {
+      "index": 679,
+      "known_parameter_oracle_relative_error": 0.0005563635420331519,
+      "baseline_relative_error": 0.4452839271908357
+    },
+    {
+      "index": 700,
+      "known_parameter_oracle_relative_error": 0.0005030948414911948,
+      "baseline_relative_error": 1.1610611352967002
+    },
+    {
+      "index": 1195,
+      "known_parameter_oracle_relative_error": 0.0006417105268862885,
+      "baseline_relative_error": 0.10287374219214955
+    },
+    {
+      "index": 324,
+      "known_parameter_oracle_relative_error": 0.00016596284921491504,
+      "baseline_relative_error": 0.23134075667069728
+    },
+    {
+      "index": 378,
+      "known_parameter_oracle_relative_error": 0.002376889892235121,
+      "baseline_relative_error": 0.23234618346861813
+    },
+    {
+      "index": 529,
+      "known_parameter_oracle_relative_error": 0.0002462627328157693,
+      "baseline_relative_error": 0.6218038451306324
+    },
+    {
+      "index": 763,
+      "known_parameter_oracle_relative_error": 0.00032603272756772457,
+      "baseline_relative_error": 0.7828932315280995
+    },
+    {
+      "index": 722,
+      "known_parameter_oracle_relative_error": 0.00017833751915268022,
+      "baseline_relative_error": 0.26095503134619125
+    },
+    {
+      "index": 921,
+      "known_parameter_oracle_relative_error": 0.001098589411537445,
+      "baseline_relative_error": 0.20449416681427168
+    },
+    {
+      "index": 1313,
+      "known_parameter_oracle_relative_error": 0.0007342340690009301,
+      "baseline_relative_error": 0.5702070523860742
+    },
+    {
+      "index": 1393,
+      "known_parameter_oracle_relative_error": 0.00042811857259117566,
+      "baseline_relative_error": 0.5370204551410369
+    },
+    {
+      "index": 754,
+      "known_parameter_oracle_relative_error": 0.004026510451946233,
+      "baseline_relative_error": 0.3299719665510992
+    },
+    {
+      "index": 1001,
+      "known_parameter_oracle_relative_error": 0.0004884768335157683,
+      "baseline_relative_error": 0.5643858673388974
+    },
+    {
+      "index": 764,
+      "known_parameter_oracle_relative_error": 0.00021728782744713957,
+      "baseline_relative_error": 0.2671206178042561
+    },
+    {
+      "index": 870,
+      "known_parameter_oracle_relative_error": 0.00010212166301868908,
+      "baseline_relative_error": 0.2308312345026732
+    },
+    {
+      "index": 1039,
+      "known_parameter_oracle_relative_error": 0.0024974008229935243,
+      "baseline_relative_error": 0.12332384038246622
+    },
+    {
+      "index": 1213,
+      "known_parameter_oracle_relative_error": 0.0008422959349163572,
+      "baseline_relative_error": 0.9963819021091049
+    },
+    {
+      "index": 906,
+      "known_parameter_oracle_relative_error": 0.0002827390540993006,
+      "baseline_relative_error": 0.15288581716251784
+    },
+    {
+      "index": 1113,
+      "known_parameter_oracle_relative_error": 0.00017937817066396942,
+      "baseline_relative_error": 0.09951505329256781
+    },
+    {
+      "index": 559,
+      "known_parameter_oracle_relative_error": 0.025012640994605102,
+      "baseline_relative_error": 0.5297263196788167
+    },
+    {
+      "index": 510,
+      "known_parameter_oracle_relative_error": 0.000784558133247761,
+      "baseline_relative_error": 0.6519566957268321
+    },
+    {
+      "index": 1486,
+      "known_parameter_oracle_relative_error": 0.000891735168692257,
+      "baseline_relative_error": 0.275913132373688
+    },
+    {
+      "index": 462,
+      "known_parameter_oracle_relative_error": 0.00019734772691157816,
+      "baseline_relative_error": 0.091388192853041
+    },
+    {
+      "index": 1151,
+      "known_parameter_oracle_relative_error": 0.00045748907217772706,
+      "baseline_relative_error": 4.572469671481737
+    },
+    {
+      "index": 278,
+      "known_parameter_oracle_relative_error": 0.0014127661957660281,
+      "baseline_relative_error": 0.17075219070574268
+    },
+    {
+      "index": 930,
+      "known_parameter_oracle_relative_error": 0.0013438789509222313,
+      "baseline_relative_error": 1.6550322967613824
+    },
+    {
+      "index": 816,
+      "known_parameter_oracle_relative_error": 0.00436966897235661,
+      "baseline_relative_error": 0.20462941579260305
+    },
+    {
+      "index": 1197,
+      "known_parameter_oracle_relative_error": 0.0009491374611292124,
+      "baseline_relative_error": 1.02243362476568
+    },
+    {
+      "index": 1132,
+      "known_parameter_oracle_relative_error": 0.0004524670747837801,
+      "baseline_relative_error": 0.4269572235227453
+    },
+    {
+      "index": 713,
+      "known_parameter_oracle_relative_error": 0.00037134082888495243,
+      "baseline_relative_error": 0.31249920287255045
+    },
+    {
+      "index": 277,
+      "known_parameter_oracle_relative_error": 0.00013621193558107332,
+      "baseline_relative_error": 0.15407683586057477
+    },
+    {
+      "index": 773,
+      "known_parameter_oracle_relative_error": 5.044739878741986e-05,
+      "baseline_relative_error": 0.9781958136907039
+    },
+    {
+      "index": 1048,
+      "known_parameter_oracle_relative_error": 0.0009328335640178655,
+      "baseline_relative_error": 6.643913575423882
+    },
+    {
+      "index": 568,
+      "known_parameter_oracle_relative_error": 0.00010289577031543299,
+      "baseline_relative_error": 0.27727713295102446
+    },
+    {
+      "index": 1309,
+      "known_parameter_oracle_relative_error": 0.000677353369365121,
+      "baseline_relative_error": 0.4137177857405368
+    },
+    {
+      "index": 85,
+      "known_parameter_oracle_relative_error": 0.0007497415952840528,
+      "baseline_relative_error": 0.24377235636834788
+    },
+    {
+      "index": 43,
+      "known_parameter_oracle_relative_error": 0.0007783214383343955,
+      "baseline_relative_error": 0.6304059117573262
+    },
+    {
+      "index": 444,
+      "known_parameter_oracle_relative_error": 0.00012018206251860509,
+      "baseline_relative_error": 0.09434938324820831
+    },
+    {
+      "index": 1119,
+      "known_parameter_oracle_relative_error": 0.9955244691388178,
+      "baseline_relative_error": 1.011342828265462
+    },
+    {
+      "index": 343,
+      "known_parameter_oracle_relative_error": 0.0007660868935735239,
+      "baseline_relative_error": 0.4758688519864971
+    },
+    {
+      "index": 536,
+      "known_parameter_oracle_relative_error": 0.0053405155383824225,
+      "baseline_relative_error": 0.21761272998021566
+    },
+    {
+      "index": 68,
+      "known_parameter_oracle_relative_error": 0.0040686977848440106,
+      "baseline_relative_error": 0.7166757427979484
+    },
+    {
+      "index": 342,
+      "known_parameter_oracle_relative_error": 0.00015403593288416237,
+      "baseline_relative_error": 0.35188545878567384
+    },
+    {
+      "index": 560,
+      "known_parameter_oracle_relative_error": 0.00011234740119286044,
+      "baseline_relative_error": 0.7243503774583498
+    },
+    {
+      "index": 1249,
+      "known_parameter_oracle_relative_error": 0.0010444823555884146,
+      "baseline_relative_error": 0.6676064657090979
+    },
+    {
+      "index": 1188,
+      "known_parameter_oracle_relative_error": 0.00011875283881014861,
+      "baseline_relative_error": 0.16261954103759113
+    },
+    {
+      "index": 771,
+      "known_parameter_oracle_relative_error": 6.642998508823777e-05,
+      "baseline_relative_error": 0.5806842007718723
+    },
+    {
+      "index": 946,
+      "known_parameter_oracle_relative_error": 0.050504076441285205,
+      "baseline_relative_error": 0.15467839223615396
+    },
+    {
+      "index": 1131,
+      "known_parameter_oracle_relative_error": 0.00019426745782804617,
+      "baseline_relative_error": 0.20110802404533015
+    },
+    {
+      "index": 684,
+      "known_parameter_oracle_relative_error": 0.0006353832597409656,
+      "baseline_relative_error": 2.843681938407854
+    },
+    {
+      "index": 496,
+      "known_parameter_oracle_relative_error": 0.0027857317289006946,
+      "baseline_relative_error": 0.17440846269375618
+    },
+    {
+      "index": 34,
+      "known_parameter_oracle_relative_error": 0.000961161638818234,
+      "baseline_relative_error": 0.5976721657891803
+    },
+    {
+      "index": 660,
+      "known_parameter_oracle_relative_error": 0.0007646121799498158,
+      "baseline_relative_error": 1.0060846351587485
+    },
+    {
+      "index": 341,
+      "known_parameter_oracle_relative_error": 0.4412812078441367,
+      "baseline_relative_error": 0.7767632032717108
+    },
+    {
+      "index": 64,
+      "known_parameter_oracle_relative_error": 0.031688909991019726,
+      "baseline_relative_error": 0.2579015062479283
+    },
+    {
+      "index": 779,
+      "known_parameter_oracle_relative_error": 0.0006020662671202387,
+      "baseline_relative_error": 0.09968900516652413
+    },
+    {
+      "index": 969,
+      "known_parameter_oracle_relative_error": 0.0003380154110128999,
+      "baseline_relative_error": 0.10470269620993977
+    },
+    {
+      "index": 556,
+      "known_parameter_oracle_relative_error": 0.0001660430218352054,
+      "baseline_relative_error": 0.46055614370583525
+    },
+    {
+      "index": 506,
+      "known_parameter_oracle_relative_error": 7.517255981208272e-05,
+      "baseline_relative_error": 0.1622815093016411
+    },
+    {
+      "index": 1012,
+      "known_parameter_oracle_relative_error": 0.0008191672617076086,
+      "baseline_relative_error": 0.5058580786802879
+    },
+    {
+      "index": 399,
+      "known_parameter_oracle_relative_error": 0.002217276526487598,
+      "baseline_relative_error": 0.29119158309109866
+    },
+    {
+      "index": 83,
+      "known_parameter_oracle_relative_error": 0.0010470705951417904,
+      "baseline_relative_error": 0.23691238561236658
+    },
+    {
+      "index": 650,
+      "known_parameter_oracle_relative_error": 0.00018048838232959618,
+      "baseline_relative_error": 0.5031092478428616
+    },
+    {
+      "index": 853,
+      "known_parameter_oracle_relative_error": 0.01107337454401186,
+      "baseline_relative_error": 0.9233438939771861
+    },
+    {
+      "index": 208,
+      "known_parameter_oracle_relative_error": 4.332792536450631e-05,
+      "baseline_relative_error": 0.12277730779478505
+    },
+    {
+      "index": 270,
+      "known_parameter_oracle_relative_error": 0.013591474901750084,
+      "baseline_relative_error": 0.49757957605242414
+    },
+    {
+      "index": 142,
+      "known_parameter_oracle_relative_error": 0.0007944831945279899,
+      "baseline_relative_error": 0.8173137607066633
+    },
+    {
+      "index": 1380,
+      "known_parameter_oracle_relative_error": 0.0006302119526658995,
+      "baseline_relative_error": 1.0249438218996028
+    },
+    {
+      "index": 805,
+      "known_parameter_oracle_relative_error": 0.0012997235534445827,
+      "baseline_relative_error": 1.4815822729353112
+    },
+    {
+      "index": 1290,
+      "known_parameter_oracle_relative_error": 0.0019900161000580147,
+      "baseline_relative_error": 0.4568811213864608
+    },
+    {
+      "index": 1070,
+      "known_parameter_oracle_relative_error": 0.00016561740544685275,
+      "baseline_relative_error": 0.27207630653094994
+    },
+    {
+      "index": 1473,
+      "known_parameter_oracle_relative_error": 0.0006078959676374612,
+      "baseline_relative_error": 0.24490005126799985
+    },
+    {
+      "index": 1157,
+      "known_parameter_oracle_relative_error": 0.0007814906821087187,
+      "baseline_relative_error": 0.1564389026874354
+    },
+    {
+      "index": 1370,
+      "known_parameter_oracle_relative_error": 0.00017084673458003533,
+      "baseline_relative_error": 0.25248545904386605
+    },
+    {
+      "index": 517,
+      "known_parameter_oracle_relative_error": 0.00041528480685561344,
+      "baseline_relative_error": 0.174603502277239
+    },
+    {
+      "index": 1121,
+      "known_parameter_oracle_relative_error": 0.00110552463958664,
+      "baseline_relative_error": 1.0833516240017884
+    },
+    {
+      "index": 1158,
+      "known_parameter_oracle_relative_error": 0.0020835372283619074,
+      "baseline_relative_error": 0.2907446564927891
+    },
+    {
+      "index": 1476,
+      "known_parameter_oracle_relative_error": 0.0004061572915638134,
+      "baseline_relative_error": 1.2920516794210326
+    },
+    {
+      "index": 577,
+      "known_parameter_oracle_relative_error": 0.0005065238780367004,
+      "baseline_relative_error": 0.1450927363870933
+    },
+    {
+      "index": 1286,
+      "known_parameter_oracle_relative_error": 0.0004504224636731778,
+      "baseline_relative_error": 1.2730266772829506
+    },
+    {
+      "index": 1455,
+      "known_parameter_oracle_relative_error": 0.0015721207314573656,
+      "baseline_relative_error": 2.1063965495793657
+    },
+    {
+      "index": 1054,
+      "known_parameter_oracle_relative_error": 0.0005034105069882759,
+      "baseline_relative_error": 0.1705652233222059
+    },
+    {
+      "index": 1294,
+      "known_parameter_oracle_relative_error": 0.00040100673289587905,
+      "baseline_relative_error": 0.16706152915401837
+    },
+    {
+      "index": 964,
+      "known_parameter_oracle_relative_error": 0.0003211121339200036,
+      "baseline_relative_error": 0.8915575507318537
+    },
+    {
+      "index": 495,
+      "known_parameter_oracle_relative_error": 0.0011305376357342793,
+      "baseline_relative_error": 0.7593245950942794
+    },
+    {
+      "index": 628,
+      "known_parameter_oracle_relative_error": 0.000199028696187285,
+      "baseline_relative_error": 0.552949890650397
+    },
+    {
+      "index": 1373,
+      "known_parameter_oracle_relative_error": 0.0012204541024811823,
+      "baseline_relative_error": 1.796981579770324
+    },
+    {
+      "index": 1254,
+      "known_parameter_oracle_relative_error": 0.00037497450436518577,
+      "baseline_relative_error": 0.986928521939378
+    },
+    {
+      "index": 4,
+      "known_parameter_oracle_relative_error": 0.0002673139728984386,
+      "baseline_relative_error": 0.13256285941995363
+    },
+    {
+      "index": 727,
+      "known_parameter_oracle_relative_error": 0.0007569563860831782,
+      "baseline_relative_error": 0.8985684897030152
+    },
+    {
+      "index": 1218,
+      "known_parameter_oracle_relative_error": 0.09153669078473899,
+      "baseline_relative_error": 1.215550688607044
+    },
+    {
+      "index": 1273,
+      "known_parameter_oracle_relative_error": 0.0001940724171178932,
+      "baseline_relative_error": 0.5792091677980921
+    },
+    {
+      "index": 639,
+      "known_parameter_oracle_relative_error": 0.00046322265483091275,
+      "baseline_relative_error": 0.5324113285815286
+    },
+    {
+      "index": 75,
+      "known_parameter_oracle_relative_error": 0.0011664195370711021,
+      "baseline_relative_error": 0.5612853112360021
+    },
+    {
+      "index": 839,
+      "known_parameter_oracle_relative_error": 0.0017407321024567896,
+      "baseline_relative_error": 0.3028128027913147
+    },
+    {
+      "index": 611,
+      "known_parameter_oracle_relative_error": 0.0004955749345901721,
+      "baseline_relative_error": 0.5054807157386346
+    },
+    {
+      "index": 465,
+      "known_parameter_oracle_relative_error": 0.0007190805908398949,
+      "baseline_relative_error": 0.2737296358019472
+    },
+    {
+      "index": 599,
+      "known_parameter_oracle_relative_error": 0.014633835194059482,
+      "baseline_relative_error": 0.1776369721356603
+    },
+    {
+      "index": 132,
+      "known_parameter_oracle_relative_error": 3.83263585394587e-05,
+      "baseline_relative_error": 0.0938856960422593
+    },
+    {
+      "index": 467,
+      "known_parameter_oracle_relative_error": 0.0003442836483970395,
+      "baseline_relative_error": 0.5263457314257166
+    },
+    {
+      "index": 404,
+      "known_parameter_oracle_relative_error": 0.0001639345166694622,
+      "baseline_relative_error": 0.25730486668413644
+    },
+    {
+      "index": 925,
+      "known_parameter_oracle_relative_error": 0.0003854608267038665,
+      "baseline_relative_error": 0.15567036350456126
+    },
+    {
+      "index": 573,
+      "known_parameter_oracle_relative_error": 0.0006637992928742615,
+      "baseline_relative_error": 0.28152238987717154
+    },
+    {
+      "index": 1428,
+      "known_parameter_oracle_relative_error": 0.00011014416253935728,
+      "baseline_relative_error": 0.07614699358799412
+    },
+    {
+      "index": 1065,
+      "known_parameter_oracle_relative_error": 0.022848704714818598,
+      "baseline_relative_error": 0.20604037680417636
+    },
+    {
+      "index": 595,
+      "known_parameter_oracle_relative_error": 0.0016068358190067709,
+      "baseline_relative_error": 1.360837184241135
+    },
+    {
+      "index": 512,
+      "known_parameter_oracle_relative_error": 0.0006267225926575205,
+      "baseline_relative_error": 0.9276559037656326
+    },
+    {
+      "index": 514,
+      "known_parameter_oracle_relative_error": 0.0011437277882241073,
+      "baseline_relative_error": 3.603345933498323
+    },
+    {
+      "index": 1111,
+      "known_parameter_oracle_relative_error": 0.0037372849616317534,
+      "baseline_relative_error": 0.1430028359768794
+    },
+    {
+      "index": 1071,
+      "known_parameter_oracle_relative_error": 0.0005478072642416713,
+      "baseline_relative_error": 1.1630129145214398
+    },
+    {
+      "index": 379,
+      "known_parameter_oracle_relative_error": 0.0006612052169242872,
+      "baseline_relative_error": 0.3055037832169688
+    },
+    {
+      "index": 384,
+      "known_parameter_oracle_relative_error": 0.0002745935835196396,
+      "baseline_relative_error": 0.23902568416119707
+    },
+    {
+      "index": 455,
+      "known_parameter_oracle_relative_error": 0.0004820525052067442,
+      "baseline_relative_error": 0.12265302777036123
+    },
+    {
+      "index": 1311,
+      "known_parameter_oracle_relative_error": 0.0005225834392963222,
+      "baseline_relative_error": 0.3511499594110171
+    },
+    {
+      "index": 257,
+      "known_parameter_oracle_relative_error": 0.0007020631054373323,
+      "baseline_relative_error": 0.1225026099348396
+    },
+    {
+      "index": 709,
+      "known_parameter_oracle_relative_error": 0.0009607642174601222,
+      "baseline_relative_error": 0.3797805432927258
+    }
+  ]
+}

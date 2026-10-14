@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "variants": [
+    "tail_basis",
+    "tail_unet",
+    "qnm_tail"
+  ],
+  "complete_epoch_checkpoint_selection": true,
+  "test_read": false
+}

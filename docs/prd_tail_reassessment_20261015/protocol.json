@@ -1,0 +1,53 @@
+{
+  "seed": 2026101561,
+  "variants": [
+    "tail_basis",
+    "tail_unet",
+    "qnm_tail"
+  ],
+  "training_sources": 60000,
+  "views": 4,
+  "observations_per_epoch": 264000,
+  "validation_sources": 1500,
+  "pilot_sources": 12000,
+  "pilot_observations_per_epoch": 52800,
+  "pilot_max": 60,
+  "pilot_min": 20,
+  "pilot_patience": 20,
+  "full_candidates": 2,
+  "full_max": 400,
+  "full_min": 80,
+  "full_patience": 80,
+  "delta": 1e-06,
+  "ema": 0.995,
+  "batch": {
+    "tail_basis": 512,
+    "tail_unet": 128,
+    "qnm_tail": 512
+  },
+  "primary": "mean direct joint signed PSD-weighted mismatch, fixed time and phase",
+  "guardrails": [
+    "per-channel peak phase <= baseline*1.005",
+    "SNR>=10 mismatch <= baseline*1.005",
+    "1%-10% envelope local error <= baseline",
+    "1%-10% and 0.1%-1% envelope phase <= baseline*1.01"
+  ],
+  "data_policy": "All 60000 physical sources retained. Four complete observation views and 10% added low-SNR training observations. No test data in model selection.",
+  "auxiliary_supervision": "Training-only detector-frame remnant mass/spin for QNM branch. Inference uses only cached observation features and the baseline prediction.",
+  "final_test": {
+    "seed_start": 2042200000,
+    "count": 6000,
+    "untouched_until_selection_freeze": true
+  },
+  "observation": "G*h+n",
+  "baseline_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+  "resources": {
+    "torch_threads": 2,
+    "gpu_memory_fraction": 0.7,
+    "gpu_cache_budget_gib": 5.2,
+    "external_gpu_reserve_gib": 4.2,
+    "ram_guard_gib": 5
+  },
+  "response_scope": "Existing isolated-QNM onset and TDI protocol retained; this run tests reconstruction error, not pre-merger robustness.",
+  "no_source_strain_reconstruction_claim": true
+}

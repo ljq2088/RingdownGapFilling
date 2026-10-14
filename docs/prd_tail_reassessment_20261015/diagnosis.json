@@ -1,0 +1,92 @@
+{
+  "validation_sources": 1500,
+  "baseline_direct_mismatch": {
+    "n": 1500,
+    "mean": 0.007923060569647502,
+    "median": 0.00259055435372757,
+    "p95": 0.02789577008305344,
+    "max": 0.547922868958854
+  },
+  "after_removing_predicted_dc_nyquist_direct_mismatch": {
+    "n": 1500,
+    "mean": 0.007923060569647502,
+    "median": 0.00259055435372757,
+    "p95": 0.02789577008305344,
+    "max": 0.547922868958854
+  },
+  "regions": {
+    "strong": {
+      "sources_with_region": 1500,
+      "relative_error": {
+        "n": 1500,
+        "mean": 0.12381081380411399,
+        "median": 0.09514437935566965,
+        "p95": 0.28368822274318184,
+        "max": 1.0502307948448946
+      },
+      "envelope_weighted_phase_rms_degrees": {
+        "n": 1500,
+        "mean": 5.179769580354036,
+        "median": 3.801400866711746,
+        "p95": 12.248641978034197,
+        "max": 71.02670857811306
+      },
+      "endpoint_energy_over_target_energy": {
+        "n": 1500,
+        "mean": 0.000220726871469846,
+        "median": 2.877748432528603e-05,
+        "p95": 0.0007215649633853019,
+        "max": 0.029097669887344094
+      }
+    },
+    "intermediate": {
+      "sources_with_region": 1500,
+      "relative_error": {
+        "n": 1500,
+        "mean": 0.4471678579183067,
+        "median": 0.28714020590195366,
+        "p95": 1.2434272767700765,
+        "max": 8.97251483499313
+      },
+      "envelope_weighted_phase_rms_degrees": {
+        "n": 1500,
+        "mean": 16.52192015973007,
+        "median": 10.932315701558785,
+        "p95": 48.53270510515083,
+        "max": 128.69134372944933
+      },
+      "endpoint_energy_over_target_energy": {
+        "n": 1500,
+        "mean": 0.08792285099441388,
+        "median": 0.0031472691867238615,
+        "p95": 0.24827793390336714,
+        "max": 9.168541805724633
+      }
+    },
+    "weak": {
+      "sources_with_region": 1002,
+      "relative_error": {
+        "n": 1002,
+        "mean": 2.488728829790409,
+        "median": 1.182615725514378,
+        "p95": 4.819503907955418,
+        "max": 724.8134023027407
+      },
+      "envelope_weighted_phase_rms_degrees": {
+        "n": 1002,
+        "mean": 61.67486639462633,
+        "median": 56.2959792085979,
+        "p95": 128.6716595116957,
+        "max": 178.9137716046696
+      },
+      "endpoint_energy_over_target_energy": {
+        "n": 1002,
+        "mean": 1.7793365095937428,
+        "median": 0.11363779746981813,
+        "p95": 4.91994033235134,
+        "max": 284.88212113581847
+      }
+    }
+  },
+  "diagnostic_only_true_envelope_used_to_define_regions": true
+}

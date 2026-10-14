@@ -1,0 +1,9 @@
+{
+  "training_sources": 60000,
+  "views": 4,
+  "observations_per_epoch": 240000,
+  "validation_sources": 1500,
+  "test_read": false,
+  "baseline_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+  "fourth_view": "Variance-preserving mixture of original and independent Gaussian noise; training views can share noise components. The fourth view uses the previously audited generation-0 cache, including features recomputed from its observation."
+}
