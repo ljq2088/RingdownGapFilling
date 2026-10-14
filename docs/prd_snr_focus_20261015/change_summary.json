@@ -1,0 +1,29 @@
+{
+  "changes": [
+    "abstract: lead with SNR-conditioned accuracy",
+    "introduction: common evaluation scope",
+    "results: state subset and complete distribution",
+    "table I scope",
+    "table I row order",
+    "mismatch narrative: highlight measured subset performance",
+    "CDF caption: concise complete-population scope",
+    "gap-location counts: full population",
+    "gap-location prose",
+    "waveform examples: stated SNR scope",
+    "waveform caption: stated SNR scope",
+    "phase statistics: full population",
+    "amplitude statistics: full population",
+    "conclusion: unified emphasis and scope",
+    "conclusion: phase population",
+    "appendix phase scope",
+    "fixed-duration summary: SNR-conditioned results first",
+    "table II scope",
+    "table II row order 33",
+    "table II row order 50",
+    "reference comparison: complete-population scope"
+  ],
+  "equations_unchanged": true,
+  "numerical_table_rows_unchanged": true,
+  "figure_includes_unchanged": true,
+  "tex_sha256": "fe6c1a5cd5eafa8f422cd3165dda8465ad124f59a7402aff9b5e83365918a1fb"
+}

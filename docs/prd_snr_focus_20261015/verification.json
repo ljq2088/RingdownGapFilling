@@ -1,0 +1,32 @@
+{
+  "cloud_source_matches": true,
+  "changed_cloud_files": [
+    "DGF.tex"
+  ],
+  "all_numeric_table_rows_preserved": true,
+  "equations_preserved": true,
+  "all_figure_assets_preserved": true,
+  "active_citation_keys": 26,
+  "pages": 12,
+  "figure_pages": {
+    "1": 4,
+    "2": 6,
+    "3": 7,
+    "4": 7,
+    "5": 8,
+    "6": 8,
+    "7": 10,
+    "8": 10
+  },
+  "appendix_start": 11,
+  "external_links_on_figure_pages": {
+    "4": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "10": 0
+  },
+  "manuscript_sha256": "f30e866d27b601861cfe340789375d07c9a3616c76df0c16474279b07217a004",
+  "source_sha256": "fe6c1a5cd5eafa8f422cd3165dda8465ad124f59a7402aff9b5e83365918a1fb",
+  "test_checkpoint_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b"
+}
