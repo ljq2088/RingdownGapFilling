@@ -1,0 +1,34 @@
+{
+  "checkpoint_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+  "source_run": "/home/ljq/code/RingdownGapFilling_PRD/FillingGap/results_prd_conditioned_20261014",
+  "n_samples": 1056,
+  "sample_spacing_seconds": 0.5,
+  "record_seconds": 528,
+  "time_alignment": false,
+  "phase_alignment": false,
+  "display_interpolation": false,
+  "smoothing": false,
+  "selection_rule_unchanged": true,
+  "selected_indices": [
+    1116,
+    1885,
+    1777
+  ],
+  "selected_seeds": [
+    2038201116,
+    2038201885,
+    2038201777
+  ],
+  "joint_mismatch": [
+    0.00027280529424855704,
+    0.00035631512078093674,
+    0.0003571817894659768
+  ],
+  "input_equation_max_error": 0.0,
+  "gapped_signal_inside_max": 0.0,
+  "source_data_sha": {
+    "fresh_test/truth.npy": "2c71b18988e81a7539f830f7f89c042bf7dd60640a86864e777f11266b12ac7c",
+    "fresh_test/noise.npy": "9b7215e2e86f23ad1c5e2fec2dfac6fb958c759f00942ee7d012c072bd0af124",
+    "variable_optimized_prediction.npy": "c39625679e002e71a3141f47ca03cc248962d8fb46b1b42e6545a784d9d0369e"
+  }
+}

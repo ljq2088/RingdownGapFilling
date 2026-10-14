@@ -1,0 +1,14 @@
+{
+  "overleaf_project": "6ac83816750c2cce452054d2",
+  "changed_cloud_files": [
+    "DGF.tex",
+    "latest_examples.pdf"
+  ],
+  "all_other_cloud_files_unchanged": true,
+  "local_remote_contents_match": true,
+  "checkpoint_and_training_assets_unchanged": true,
+  "source_sha": {
+    "DGF.tex": "c33d7700bd6fe974aa916f7b3173137d4fe1fe8f4f635cace1a79bb507a912b6",
+    "latest_examples.pdf": "c0d776e58e1bb70c0b8b2c1f361358f1c1231b51574c6531edd60eed01d57381"
+  }
+}
