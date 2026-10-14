@@ -2,8 +2,8 @@
   "passed": true,
   "server_source_files": {
     "DGF.tex": {
-      "sha256": "aa5723771cf1a6739c98f332b38c97de4aabefa15a4cee52636a5e61a6efd7f5",
-      "bytes": 50184,
+      "sha256": "a433d024f10e21b3a752ceee9fdb704ccc4c68ccf22536ab49383fcd9006e2a0",
+      "bytes": 50347,
       "identical": true
     },
     "DGF_references.bib": {
@@ -12,18 +12,18 @@
       "identical": true
     },
     "architecture_dgf_20261015.pdf": {
-      "sha256": "2c47dc020ee2d292a1913cd207c983fbbffb8b3a3818a9346abdad777255e3c3",
-      "bytes": 45711,
+      "sha256": "c26a715c3c033aea1662a3d156959e4bc500140242018699b9afc6c1ec3ac1fe",
+      "bytes": 69436,
       "identical": true
     },
     "training_workflow_dgf_20261015.pdf": {
-      "sha256": "129dae015c234b0911e72d8fbc2d0d8dfb4b60416dc019b771fe6f8edb197ab9",
-      "bytes": 40425,
+      "sha256": "d4594da441d79758d8dbf94e0204809f3864045f40e5f0ea907b7a32140b7bd4",
+      "bytes": 53333,
       "identical": true
     }
   },
   "online_compiled_pdf_pages": 13,
-  "online_pdf_sha256": "c16dd29961d2cd16d10bde73dc031fbb97c08c3743f3b948c40ba7996b6b7bfb",
+  "online_pdf_sha256": "a4c00eff7032cff843fa6cbcb6a8f29bafb49a80c296dad9ab4b0053bcd3385d",
   "architecture_page": 4,
   "training_workflow_page": 6,
   "results_table_values_unchanged": true,
@@ -36,5 +36,6 @@
     "phase_and_R.pdf",
     "mismatch_cdf.pdf"
   ],
-  "runtime_sources_unchanged": true
+  "runtime_sources_unchanged": true,
+  "illustrated_version": true
 }
