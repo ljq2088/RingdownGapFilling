@@ -1,0 +1,12 @@
+{
+  "abstract_reports_final_absolute_performance": true,
+  "checkpoint_comparison_moved_to_appendix": true,
+  "original_comparison_rows_preserved": true,
+  "main_results_final_estimator_and_interpolation_reference": true,
+  "scientific_gap_location_and_amplitude_phase_analysis_retained": true,
+  "physical_AE_test_results_inserted": false,
+  "benchmark_values_assigned_to_physical_AE": false,
+  "numerical_equations_unchanged": true,
+  "method_diagram_assets_changed": false,
+  "source_prediction_arrays_modified": false
+}

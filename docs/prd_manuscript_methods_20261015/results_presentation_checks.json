@@ -1,6 +1,7 @@
 {
   "population_count": 1000,
   "population_rows_selected_for_statistics": "all",
+  "figure_scope": "Final DGF estimator and interpolation reference; no checkpoint progression",
   "means": {
     "time_mismatch": {
       "original_mean": 0.025374510672846035,

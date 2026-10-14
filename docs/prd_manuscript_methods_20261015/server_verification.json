@@ -1,53 +1,43 @@
 {
-  "passed": true,
-  "server_source_files": {
+  "overleaf_project": "6ac83816750c2cce452054d2",
+  "verified_files": {
     "DGF.tex": {
-      "sha256": "3985e7d87caa00fbba45cd7893b8f9c973d0d720e286062d9269b8ca01835c57",
-      "bytes": 46646,
-      "identical": true
+      "bytes": 51338,
+      "sha256": "497a3bd8f97deaf2bdf1281f84ed64bcafaa8acd75dc6c8e4d6537eff4ae5e6f"
     },
     "DGF_references.bib": {
-      "sha256": "9022bf0c69b1a52d81e9db2aad383e64d94648c7c232f03c4b8b8d0bc329e9b1",
-      "bytes": 108929,
-      "identical": true
+      "bytes": 109346,
+      "sha256": "d632f74d65933c060693ca1385d0cdd8a347a012607eeb14e4c71a6b010e7cd6"
     },
     "architecture_dgf_20261015.pdf": {
-      "sha256": "c26a715c3c033aea1662a3d156959e4bc500140242018699b9afc6c1ec3ac1fe",
       "bytes": 69436,
-      "identical": true
+      "sha256": "c26a715c3c033aea1662a3d156959e4bc500140242018699b9afc6c1ec3ac1fe"
     },
     "training_workflow_dgf_20261015.pdf": {
-      "sha256": "d4594da441d79758d8dbf94e0204809f3864045f40e5f0ea907b7a32140b7bd4",
       "bytes": 53333,
-      "identical": true
+      "sha256": "d4594da441d79758d8dbf94e0204809f3864045f40e5f0ea907b7a32140b7bd4"
     },
     "examples_best_peak.pdf": {
-      "sha256": "8e9f9161a422fc0e5524b645b7c65bb36b2ece0548265ca33856694d3157a842",
-      "bytes": 29503,
-      "identical": true
+      "bytes": 26405,
+      "sha256": "c93873ebffabfc86456966f92e8431b97b030c411f50abd28dac7a5efc9ad0ab"
     },
     "mismatch_cdf_presented.pdf": {
-      "sha256": "6c33f1f2a0229b28e0f15f6087dda9cc94d61eb45657bc3d4b03f8eebac3a6d2",
-      "bytes": 66089,
-      "identical": true
+      "bytes": 41213,
+      "sha256": "0660b72f13002a7147b1074a80d5761e8e6711e9a3bb6386d1da1f433f60a555"
     },
     "error_psd_presented.pdf": {
-      "sha256": "8fd2025d2a58634d3b3cd292134fdfd0f81af278fb6d0e42503f8427baf4e341",
-      "bytes": 28031,
-      "identical": true
+      "bytes": 21482,
+      "sha256": "8354e8a7a1aabc231cc93ebd9a0dd26a5bb1e463d1fc7df176df1494aa14d369"
     },
     "phase_presented.pdf": {
-      "sha256": "a690a85b4b5b986a1267eb09ca36a75c5847e2e7d6613eff8e0683f51e5bf1f5",
-      "bytes": 36489,
-      "identical": true
+      "bytes": 22413,
+      "sha256": "d90cbabe557c865ea5ffc14c896f67ca80b5ffdbc81d05bbd84e5c02b011f616"
     }
   },
-  "online_compiled_pdf_pages": 13,
-  "online_pdf_sha256": "10b2d58e3765867faf9d68f4e2864f83059da4310fca3ab1bafdf382f4dc27f3",
-  "architecture_page": 4,
-  "training_workflow_page": 6,
-  "results_table_values_unchanged": true,
-  "final_training_statistics_inserted": false,
+  "pdf_pages": 14,
+  "online_pdf_text_verified": true,
+  "research_narrative_revision_complete": true,
+  "original_comparison_rows_preserved_in_appendix": true,
   "legacy_result_pdfs_unchanged": [
     "architecture_prd.pdf",
     "error_psd.pdf",
@@ -57,10 +47,7 @@
     "mismatch_cdf.pdf"
   ],
   "runtime_sources_unchanged": true,
-  "illustrated_version": true,
-  "successful_examples_in_main_text": true,
-  "legacy_failure_examples_in_appendix": true,
-  "fig4_page": 8,
-  "editorial_polish_complete": true,
-  "review_pdf": "DGF_review_20261015.pdf"
+  "final_physical_AE_results_inserted": false,
+  "main_figure_style_preserved": true,
+  "complete_test_population_retained": true
 }

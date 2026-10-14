@@ -6,7 +6,7 @@
   "purpose": "Illustrative successful signal recovery in an informative gap",
   "population_statistics_changed": false,
   "time_phase_alignment_applied": false,
-  "plot_normalization": "Same target peak amplitude divides all three plotted waveforms per panel",
+  "plot_normalization": "Same target peak amplitude divides the target and DGF prediction per panel",
   "inference_outputs_modified": false,
   "selected": [
     {
