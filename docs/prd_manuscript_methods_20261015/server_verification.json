@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "server_source_files": {
+    "DGF.tex": {
+      "sha256": "aa5723771cf1a6739c98f332b38c97de4aabefa15a4cee52636a5e61a6efd7f5",
+      "bytes": 50184,
+      "identical": true
+    },
+    "DGF_references.bib": {
+      "sha256": "9022bf0c69b1a52d81e9db2aad383e64d94648c7c232f03c4b8b8d0bc329e9b1",
+      "bytes": 108929,
+      "identical": true
+    },
+    "architecture_dgf_20261015.pdf": {
+      "sha256": "2c47dc020ee2d292a1913cd207c983fbbffb8b3a3818a9346abdad777255e3c3",
+      "bytes": 45711,
+      "identical": true
+    },
+    "training_workflow_dgf_20261015.pdf": {
+      "sha256": "129dae015c234b0911e72d8fbc2d0d8dfb4b60416dc019b771fe6f8edb197ab9",
+      "bytes": 40425,
+      "identical": true
+    }
+  },
+  "online_compiled_pdf_pages": 13,
+  "online_pdf_sha256": "c16dd29961d2cd16d10bde73dc031fbb97c08c3743f3b948c40ba7996b6b7bfb",
+  "architecture_page": 4,
+  "training_workflow_page": 6,
+  "results_table_values_unchanged": true,
+  "final_training_statistics_inserted": false,
+  "legacy_result_pdfs_unchanged": [
+    "architecture_prd.pdf",
+    "error_psd.pdf",
+    "training.pdf",
+    "examples.pdf",
+    "phase_and_R.pdf",
+    "mismatch_cdf.pdf"
+  ],
+  "runtime_sources_unchanged": true
+}
