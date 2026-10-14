@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "physical_observation_replay_rows": 16,
+  "max_observation_error": 0.0,
+  "noise_diagnostic_rows": 512,
+  "new_noise_p0_whitened_rms": [
+    0.9999188929029394,
+    1.0005069254443757
+  ],
+  "cross_stream_mean_correlation": 0.0026405732151601738,
+  "cross_stream_median_correlation": 0.003471918261379569,
+  "noise_seeds": [
+    2158200000,
+    2158259999
+  ],
+  "actual_gap_sample_set": [
+    66.0
+  ],
+  "target_sources_unchanged": true,
+  "test_read": false
+}
