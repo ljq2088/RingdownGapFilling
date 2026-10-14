@@ -1,0 +1,25 @@
+{
+  "population_count": 1000,
+  "population_rows_selected_for_statistics": "all",
+  "means": {
+    "time_mismatch": {
+      "original_mean": 0.025374510672846035,
+      "augmented_mean": 0.005037088243527563,
+      "relative_mean_reduction": 0.8014902313399923
+    },
+    "psd_mismatch": {
+      "original_mean": 0.027149074151819483,
+      "augmented_mean": 0.005368768966470572,
+      "relative_mean_reduction": 0.8022485431198114
+    }
+  },
+  "phase_original_mean_degrees": 4.3187097271124095,
+  "phase_augmented_mean_degrees": 1.4963951489542355,
+  "phase_example_seed": 2026240471,
+  "phase_example_source": "Fig. 4(b)",
+  "phase_display_condition": "Clean analytic-envelope amplitude exceeds 10% of its peak",
+  "phase_time_or_phase_alignment": false,
+  "phase_unwrapping": "Clean-target branch plus wrapped prediction-target phase difference; phase modulo 2pi unchanged",
+  "spectrum_aggregation": "Arithmetic mean of all 1000 one-sided error/noise periodograms",
+  "metric_arrays_modified": false
+}

@@ -2,8 +2,8 @@
   "passed": true,
   "server_source_files": {
     "DGF.tex": {
-      "sha256": "a433d024f10e21b3a752ceee9fdb704ccc4c68ccf22536ab49383fcd9006e2a0",
-      "bytes": 50347,
+      "sha256": "1b9e3e783f6bd1d002dffc3c770fcbbcd313fa57694abcfe4a67a1ae768b7be8",
+      "bytes": 53840,
       "identical": true
     },
     "DGF_references.bib": {
@@ -20,10 +20,30 @@
       "sha256": "d4594da441d79758d8dbf94e0204809f3864045f40e5f0ea907b7a32140b7bd4",
       "bytes": 53333,
       "identical": true
+    },
+    "examples_best_peak.pdf": {
+      "sha256": "8e9f9161a422fc0e5524b645b7c65bb36b2ece0548265ca33856694d3157a842",
+      "bytes": 29503,
+      "identical": true
+    },
+    "mismatch_cdf_presented.pdf": {
+      "sha256": "6c33f1f2a0229b28e0f15f6087dda9cc94d61eb45657bc3d4b03f8eebac3a6d2",
+      "bytes": 66089,
+      "identical": true
+    },
+    "error_psd_presented.pdf": {
+      "sha256": "8fd2025d2a58634d3b3cd292134fdfd0f81af278fb6d0e42503f8427baf4e341",
+      "bytes": 28031,
+      "identical": true
+    },
+    "phase_presented.pdf": {
+      "sha256": "a690a85b4b5b986a1267eb09ca36a75c5847e2e7d6613eff8e0683f51e5bf1f5",
+      "bytes": 36489,
+      "identical": true
     }
   },
-  "online_compiled_pdf_pages": 13,
-  "online_pdf_sha256": "a4c00eff7032cff843fa6cbcb6a8f29bafb49a80c296dad9ab4b0053bcd3385d",
+  "online_compiled_pdf_pages": 14,
+  "online_pdf_sha256": "9359b4d65fe63cec453890c818eefe51f65b3dd45aeec15ceb778dd943768967",
   "architecture_page": 4,
   "training_workflow_page": 6,
   "results_table_values_unchanged": true,
@@ -37,5 +57,8 @@
     "mismatch_cdf.pdf"
   ],
   "runtime_sources_unchanged": true,
-  "illustrated_version": true
+  "illustrated_version": true,
+  "successful_examples_in_main_text": true,
+  "legacy_failure_examples_in_appendix": true,
+  "fig4_page": 9
 }

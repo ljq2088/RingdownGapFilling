@@ -1,0 +1,52 @@
+{
+  "population": "Earlier benchmark: 1000 independent test sources",
+  "eligible_subgroup": "Clean analytic-envelope peak inside the 33-s mask",
+  "eligible_count": 121,
+  "selection": "Three smallest augmented direct PSD mismatches within the subgroup",
+  "purpose": "Illustrative successful signal recovery in an informative gap",
+  "population_statistics_changed": false,
+  "time_phase_alignment_applied": false,
+  "plot_normalization": "Same target peak amplitude divides all three plotted waveforms per panel",
+  "inference_outputs_modified": false,
+  "selected": [
+    {
+      "rank_in_peak_in_gap_subgroup": 1,
+      "index": 556,
+      "seed": 2026240556,
+      "direct_psd_mismatch": 0.000407612281885128,
+      "peak_abs_phase_degrees": 0.41831329625368163,
+      "masked_signal_squared_norm_fraction": 0.28570601946446206,
+      "gap_seconds": [
+        116.5,
+        149.5
+      ],
+      "shared_display_amplitude_divisor": 1.5339737303401285e-21
+    },
+    {
+      "rank_in_peak_in_gap_subgroup": 2,
+      "index": 471,
+      "seed": 2026240471,
+      "direct_psd_mismatch": 0.0004893400827519212,
+      "peak_abs_phase_degrees": 0.09592896104526312,
+      "masked_signal_squared_norm_fraction": 0.3016180759524519,
+      "gap_seconds": [
+        94.5,
+        127.5
+      ],
+      "shared_display_amplitude_divisor": 1.3231062878825035e-21
+    },
+    {
+      "rank_in_peak_in_gap_subgroup": 3,
+      "index": 728,
+      "seed": 2026240728,
+      "direct_psd_mismatch": 0.0005399769770727536,
+      "peak_abs_phase_degrees": 0.7092868757117964,
+      "masked_signal_squared_norm_fraction": 0.2987758015136465,
+      "gap_seconds": [
+        103.0,
+        136.0
+      ],
+      "shared_display_amplitude_divisor": 1.4771197044855087e-21
+    }
+  ]
+}
