@@ -1,0 +1,57 @@
+{
+  "cloud_source_matches": {
+    "DGF.tex": true,
+    "DGF_references.bib": true
+  },
+  "figure_files_sha256": {
+    "architecture_dgf_20261015.pdf": "c26a715c3c033aea1662a3d156959e4bc500140242018699b9afc6c1ec3ac1fe",
+    "training_workflow_dgf_20261015.pdf": "d4594da441d79758d8dbf94e0204809f3864045f40e5f0ea907b7a32140b7bd4",
+    "latest_mismatch.pdf": "12405605486a5398cc5397c9fb096fab189d486870d0700fe57c202bbdcc49de",
+    "latest_snr_gap.pdf": "de419c5d7069d53fe7a21c53a481882b82c3aa0125d92e812141b8435a01f1eb",
+    "latest_examples.pdf": "bdb0318aaf2927296b8f0c45ce482f0f1f25660a41ab0f2d136a153c46c0df9d",
+    "latest_phase.pdf": "4ef0cffe3b0f8a6258704d622aea2ab8dea965a1d8ea9c1306c603dd9d7dd839",
+    "tdi_log_amplitudes_20261015.pdf": "52da2aec823c5442953ea8289e8c2b8c60a3348268e0fc7d1b649b8203ea6904",
+    "latest_residual_psd.pdf": "caddfee43a0fe83dfc62b38aed9a97b905680d5964ebb3cb6934c494c066a2a0"
+  },
+  "equations_and_tables": {
+    "equation": {
+      "count": 12,
+      "unchanged": true
+    },
+    "align": {
+      "count": 3,
+      "unchanged": true
+    },
+    "tabular": {
+      "count": 2,
+      "unchanged": true
+    }
+  },
+  "cited_keys_count": 26,
+  "missing_citations": [],
+  "duplicate_active_keys": [],
+  "pages": 12,
+  "figure_pages": {
+    "1": 4,
+    "2": 6,
+    "3": 7,
+    "4": 7,
+    "5": 8,
+    "6": 8,
+    "7": 10,
+    "8": 10
+  },
+  "appendix_starts": 11,
+  "external_links_on_figure_pages": {
+    "4": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "10": 0
+  },
+  "manuscript_sha256": "7fdc051521d1dc5987802775c7c5f25fa731f97a3c4b874849d5f1b4adb18aa1",
+  "review_sha256": "5f24014f17a6cc43bc2a87ba678b1f706ccbea9dc56dce86f5b4bc0b6daef828",
+  "review_pages": 4,
+  "cloud_build": "1a13cb859b6-f1c4c9fac6906ed8",
+  "test_checkpoint_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b"
+}

@@ -1,0 +1,163 @@
+--- before/DGF_references.bib
++++ after/DGF_references.bib
+@@ -38,7 +38,7 @@
+ 
+ @article{Wang:2024waveformer,
+   author = {Wang, He and Zhou, Yue and Cao, Zhoujian and Guo, Zong-Kuan and Ren, Zhixiang},
+-  title = {WaveFormer: transformer-based denoising method for gravitational-wave data},
++  title = {{WaveFormer}: transformer-based denoising method for gravitational-wave data},
+   journal = {Machine Learning: Science and Technology},
+   volume = {5}, pages = {015046}, year = {2024},
+   doi = {10.1088/2632-2153/ad2f54},
+@@ -256,11 +256,12 @@
+ 
+ 
+ @article{Isi_2019,
+-   title={Testing the No-Hair Theorem with GW150914},
++   title={Testing the No-Hair Theorem with {GW150914}},
+    volume={123},
+    ISSN={1079-7114},
+    url={http://dx.doi.org/10.1103/PhysRevLett.123.111102},
+-   DOI={10.1103/physrevlett.123.111102},
++   DOI={10.1103/PhysRevLett.123.111102},
++   pages={111102},
+    number={11},
+    journal={Physical Review Letters},
+    publisher={American Physical Society (APS)},
+@@ -820,12 +821,12 @@
+ 
+ 
+ 
+-@techreport{Horowitz1974,
+-  author = {L. L. Horowitz},
+-  title  = {The effects of spline interpolation on power spectral density},
+-  institution = {NASA},
+-  year   = {1974},
+-  url    = {https://ntrs.nasa.gov/citations/19740041424}
++@article{Horowitz1974,
++  author={Horowitz, L. L.},
++  title={The effects of spline interpolation on power spectral density},
++  journal={IEEE Transactions on Acoustics, Speech, and Signal Processing},
++  volume={22}, number={1}, pages={22--27}, year={1974},
++  doi={10.1109/TASSP.1974.1162536}
+ }
+ 
+ @article{Maeland1988,
+@@ -873,7 +874,7 @@
+ 
+ @article{Baghi2019,
+   author  = {Quentin Baghi and James Ira Thorpe and Jacob Slutsky and John Baker and Tito Dal Canton and Natalia Korsakova and Nikos Karnesis},
+-  title   = {Gravitational-wave parameter estimation with gaps in LISA: A Bayesian data augmentation method},
++  title   = {Gravitational-wave parameter estimation with gaps in {LISA}: A Bayesian data augmentation method},
+   journal = {Physical Review D},
+   year    = {2019},
+   volume  = {100},
+@@ -884,9 +885,11 @@
+ @article{Blelly2021,
+   author  = {Aurore Blelly and J{\'e}r{\^o}me Bobin and Herv{\'e} Moutarde},
+   title   = {Sparse data inpainting for the recovery of Galactic-binary gravitational wave signals from gapped data},
+-  journal = {arXiv preprint},
++  journal = {Monthly Notices of the Royal Astronomical Society},
++  volume = {509}, number = {4}, pages = {5902--5917},
++  doi = {10.1093/mnras/stab3314}, archivePrefix = {arXiv},
+   eprint  = {2104.05250},
+-  year    = {2021},
++  year    = {2022},
+   url     = {https://arxiv.org/abs/2104.05250}
+ }
+ 
+@@ -1173,7 +1176,8 @@
+   number={16},
+   pages={163001},
+   year={2009},
+-  publisher={IOP Publishing}
++  publisher={IOP Publishing},
++  doi={10.1088/0264-9381/26/16/163001}
+ }
+ 
+ @article{isi2019testing,
+@@ -1204,14 +1208,16 @@
+ 
+ 
+ @article{dey2021gaps,
+-  title={Effect of data gaps on the detectability and parameter estimation of massive black hole binaries with LISA},
++  title={Effect of data gaps on the detectability and parameter estimation of massive black hole binaries with {LISA}},
+   author={Dey, Kallol and Karnesis, Nikolaos and Toubiana, Alexandre and Barausse, Enrico and Korsakova, Natalia and Baghi, Quentin and Basak, Soumen},
+   journal={Physical Review D},
+   volume={104},
+   number={4},
+-  pages={043004},
++  pages={044035},
+   year={2021},
+-  publisher={APS}
++  publisher={APS},
++  doi={10.1103/PhysRevD.104.044035},
++  eprint={2104.12646}, archivePrefix={arXiv}
+ }
+ 
+ @article{edwards2020nonstationary,
+@@ -1593,14 +1599,15 @@
+   publisher={APS}
+ }
+ @article{berti2006gravitational,
+-  title={Gravitational-wave spectroscopy of massive black holes with the space interferometer LISA},
++  title={Gravitational-wave spectroscopy of massive black holes with the space interferometer {LISA}},
+   author={Berti, Emanuele and Cardoso, Vitor and Will, Clifford M},
+   journal={Physical Review D},
+   volume={73},
+   number={6},
+   pages={064030},
+   year={2006},
+-  publisher={APS}
++  publisher={APS},
++  doi={10.1103/PhysRevD.73.064030}
+ }
+ 
+ @article{Cutler_1994,
+@@ -1630,14 +1637,15 @@
+    month=apr, pages={105011} }
+ 
+ @article{robson2019construction,
+-  title={The construction and use of LISA sensitivity curves},
++  title={The construction and use of {LISA} sensitivity curves},
+   author={Robson, Travis and Cornish, Neil J and Liu, Chang},
+   journal={Classical and Quantum Gravity},
+   volume={36},
+   number={10},
+   pages={105011},
+   year={2019},
+-  publisher={IOP Publishing}
++  publisher={IOP Publishing},
++  doi={10.1088/1361-6382/ab1101}
+ }
+ @article{moore2014gravitational,
+   title={Gravitational-wave sensitivity curves},
+@@ -2340,7 +2348,7 @@
+ }
+ 
+ @article{Ruan2020,
+-  title   = {Taiji program: Gravitational-wave sources},
++  title   = {{Taiji} program: Gravitational-wave sources},
+   author  = {Ruan, Wen-Hong and others},
+   journal = {International Journal of Modern Physics A},
+   year    = {2020},
+@@ -2351,8 +2359,8 @@
+ }
+ 
+ @article{Luo2016,
+-  title   = {TianQin: a space-borne gravitational wave detector},
+-  author  = {Luo, J. and others (TianQin Collaboration)},
++  title   = {{TianQin}: a space-borne gravitational wave detector},
++  author  = {Luo, Jun and others},
+   journal = {Classical and Quantum Gravity},
+   year    = {2016},
+   volume  = {33},
+@@ -2429,7 +2437,7 @@
+  url={https://github.com/lisa-analysis-tools/lisa-analysis-tools}, note={Accessed 15 October 2026}
+ }
+ @article{TSMixer2023,
+- author={Chen, Si-An and Li, Chun-Liang and Arik, Sercan O. and Pfister, Tomas},
++ author={Chen, Si-An and Li, Chun-Liang and Yoder, Nate and Arik, Sercan O. and Pfister, Tomas},
+  title={{TSMixer}: An all-{MLP} Architecture for Time Series Forecasting},
+  journal={Transactions on Machine Learning Research}, year={2023},
+  eprint={2303.06053}, archivePrefix={arXiv}, url={https://arxiv.org/abs/2303.06053}

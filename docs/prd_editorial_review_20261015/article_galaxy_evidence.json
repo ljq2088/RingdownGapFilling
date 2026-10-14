@@ -1,0 +1,490 @@
+{
+  "editorial_initial_0": [
+    {
+      "hits": [
+        {
+          "doi": "10.1088/2632-2153/ad2f54",
+          "title": "WaveFormer: transformer-based denoising method for gravitational-wave data",
+          "authors": [
+            {
+              "authorName": "He Wang"
+            },
+            {
+              "authorName": "Yue Zhou"
+            },
+            {
+              "authorName": "Zhoujian Cao"
+            }
+          ],
+          "year": 2024,
+          "journal": "machine learning science and technology",
+          "volume": "5",
+          "issue": "1",
+          "page": "015046"
+        },
+        {
+          "doi": "10.1103/physrevd.100.022003",
+          "title": "Gravitational-wave parameter estimation with gaps in LISA: A Bayesian data augmentation method",
+          "authors": [
+            {
+              "authorName": "Quentin Baghi"
+            },
+            {
+              "authorName": "James Ira Thorpe"
+            },
+            {
+              "authorName": "Jacob Slutsky"
+            }
+          ],
+          "year": 2019,
+          "journal": "physical review d",
+          "volume": "100",
+          "issue": "2"
+        },
+        {
+          "doi": "10.1103/physrevd.104.043004",
+          "title": "Black holes merging with low mass gap objects inside globular clusters",
+          "authors": [
+            {
+              "authorName": "Konstantinos Kritos"
+            },
+            {
+              "authorName": "Ilias Cholis"
+            }
+          ],
+          "year": 2021,
+          "journal": "physical review d",
+          "volume": "104",
+          "issue": "4"
+        },
+        {
+          "doi": "10.1103/physrevd.111.024067",
+          "title": "Novel stacked hybrid autoencoder for imputing LISA data gaps",
+          "authors": [
+            {
+              "authorName": "R. Q. Mao"
+            },
+            {
+              "authorName": "Jeong Eun Lee"
+            },
+            {
+              "authorName": "M. C. Edwards"
+            }
+          ],
+          "year": 2025,
+          "journal": "physical review d",
+          "volume": "111",
+          "issue": "2"
+        }
+      ]
+    }
+  ],
+  "editorial_sources_0": [
+    {
+      "hits": [
+        {
+          "doi": "10.48550/arxiv.2104.12646",
+          "title": "Effect of data gaps on the detectability and parameter estimation of massive black hole binaries with LISA",
+          "authors": [
+            {
+              "authorName": "Kallol Dey"
+            },
+            {
+              "authorName": "Nikolaos Karnesis"
+            },
+            {
+              "authorName": "Alexandre Toubiana"
+            }
+          ],
+          "year": 2021
+        },
+        {
+          "doi": "10.1103/physrevd.104.044035",
+          "title": "Effect of data gaps on the detectability and parameter estimation of massive black hole binaries with LISA",
+          "authors": [
+            {
+              "authorName": "Kallol Dey"
+            },
+            {
+              "authorName": "Nikolaos Karnesis"
+            },
+            {
+              "authorName": "Alexandre Toubiana"
+            }
+          ],
+          "year": 2021,
+          "journal": "physical review d",
+          "volume": "104",
+          "issue": "4"
+        }
+      ]
+    }
+  ],
+  "editorial_ml_source": [
+    {
+      "hits": [
+        {
+          "doi": "10.1088/2632-2153/ad2f54",
+          "title": "WaveFormer: transformer-based denoising method for gravitational-wave data",
+          "authors": [
+            {
+              "authorName": "He Wang"
+            },
+            {
+              "authorName": "Yue Zhou"
+            },
+            {
+              "authorName": "Zhoujian Cao"
+            }
+          ],
+          "year": 2024,
+          "journal": "machine learning science and technology",
+          "volume": "5",
+          "issue": "1",
+          "page": "015046",
+          "fulltextExcerpts": [
+            "All the injected templates and the denoised samples are used to calculate the matched-filtering SNR with the original injections d. Within a 0.25 s window, we use matched-filtering SNR [54] SNR mf = ⟨d | h⟩/ √ ⟨h | h⟩ on the original injections for injected templates and denoised samples. Moreover, we analyzed phase recovery performance on simulated compact binary coalescence signals.",
+            "These results demonstrate that the phase information of GW waveform can be accurately recovered using WaveFormer. Figure 4(c) also shows a comparison between the injected templates and denoised waveforms using MFSNR. As expected, the denoised SNR comes quite close to the target one in cases of high overlap. Lower overlap cases have denoised SNR with larger variance.",
+            "Among the frequency region(red dashed rectangle box, 20-200 Hz) that contains richest signal information, ASD of our denoised output is significantly consistant with that of target, the relative difference between median of power spectral density distribution is about 7%. (lower left) Signal phase recovery performance. The overlap is calculated between WaveFormer's denoised output with its corresponding groundtruth whitened waveform to evaluate phase recovery accuracy."
+          ]
+        },
+        {
+          "doi": "10.1016/j.physletb.2024.139016",
+          "title": "Gravitational wave signal extraction against non-stationary instrumental noises with deep neural network",
+          "authors": [
+            {
+              "authorName": "Yuxiang Xu"
+            },
+            {
+              "authorName": "Minghui Du"
+            },
+            {
+              "authorName": "Peng Xu"
+            }
+          ],
+          "year": 2024,
+          "journal": "physics letters b",
+          "volume": "858",
+          "page": "139016"
+        },
+        {
+          "doi": "10.1103/physrevd.111.024067",
+          "title": "Novel stacked hybrid autoencoder for imputing LISA data gaps",
+          "authors": [
+            {
+              "authorName": "R. Q. Mao"
+            },
+            {
+              "authorName": "Jeong Eun Lee"
+            },
+            {
+              "authorName": "M. C. Edwards"
+            }
+          ],
+          "year": 2025,
+          "journal": "physical review d",
+          "volume": "111",
+          "issue": "2"
+        }
+      ]
+    }
+  ],
+  "editorial_audit_0": [
+    {
+      "hits": [
+        {
+          "doi": "10.1088/0264-9381/33/3/035010",
+          "title": "TianQin: a space-borne gravitational wave detector",
+          "authors": [
+            {
+              "authorName": "Vadim K. Milyukov"
+            },
+            {
+              "authorName": "Viktor T. Toth"
+            }
+          ],
+          "year": 2016,
+          "journal": "classical and quantum gravity",
+          "volume": "33",
+          "issue": "3",
+          "page": "035010"
+        },
+        {
+          "doi": "10.1103/physrevd.85.024018",
+          "title": "Black-hole hair loss: Learning about binary progenitors from ringdown signals",
+          "authors": [
+            {
+              "authorName": "I. Kamaretsos"
+            },
+            {
+              "authorName": "M. D. Hannam"
+            },
+            {
+              "authorName": "S. Husa"
+            }
+          ],
+          "year": 2012,
+          "journal": "physical review d",
+          "volume": "85",
+          "issue": "2"
+        },
+        {
+          "doi": "10.1103/physrevd.94.124040",
+          "title": "Denoising of gravitational wave signals via dictionary learning algorithms",
+          "authors": [
+            {
+              "authorName": "A. Torres-Forné"
+            },
+            {
+              "authorName": "Antonio Marquina"
+            },
+            {
+              "authorName": "José A. Font"
+            }
+          ],
+          "year": 2016,
+          "journal": "physical review d",
+          "volume": "94",
+          "issue": "12"
+        },
+        {
+          "doi": "10.1103/physrevlett.123.111102",
+          "title": "Testing the No-Hair Theorem with GW150914",
+          "authors": [
+            {
+              "authorName": "M. Isi"
+            },
+            {
+              "authorName": "Matthew Giesler"
+            },
+            {
+              "authorName": "Will M. Farr"
+            }
+          ],
+          "year": 2019,
+          "journal": "physical review letters",
+          "volume": "123",
+          "issue": "11"
+        },
+        {
+          "doi": "10.1017/cbo9780511730344",
+          "title": "Sparse Image and Signal Processing",
+          "authors": [
+            {
+              "authorName": "Jean‐Luc Starck"
+            },
+            {
+              "authorName": "Fionn D. Murtagh"
+            },
+            {
+              "authorName": "Jalal M. Fadili"
+            }
+          ],
+          "year": 2010
+        },
+        {
+          "doi": "10.1093/mnras/stab3314",
+          "title": "Sparse data inpainting for the recovery of Galactic-binary gravitational wave signals from gapped data",
+          "authors": [
+            {
+              "authorName": "Aurore Blelly"
+            },
+            {
+              "authorName": "J. Bobin"
+            },
+            {
+              "authorName": "H. Moutarde"
+            }
+          ],
+          "year": 2021,
+          "journal": "monthly notices of the royal astronomical society",
+          "volume": "509",
+          "issue": "4",
+          "page": "5902-5917"
+        },
+        {
+          "doi": "10.1103/physrevd.106.103001",
+          "title": "Assessing the data-analysis impact of LISA orbit approximations using a GPU-accelerated response model",
+          "authors": [
+            {
+              "authorName": "Jean-Baptiste Bayle"
+            },
+            {
+              "authorName": "Alvin J. K. Chua"
+            },
+            {
+              "authorName": "Michele Vallisneri"
+            }
+          ],
+          "year": 2022,
+          "journal": "physical review d",
+          "volume": "106",
+          "issue": "10"
+        },
+        {
+          "doi": "10.1109/42.7784",
+          "title": "On the comparison of interpolation methods",
+          "authors": [
+            {
+              "authorName": "Einar Mæland"
+            }
+          ],
+          "year": 1988,
+          "journal": "ieee transactions on medical imaging",
+          "volume": "7",
+          "issue": "3",
+          "page": "213-217"
+        },
+        {
+          "doi": "10.1109/79.799930",
+          "title": "Splines: a perfect fit for signal and image processing",
+          "authors": [
+            {
+              "authorName": "Michael A. Unser"
+            }
+          ],
+          "year": 1999,
+          "journal": "ieee signal processing magazine",
+          "volume": "16",
+          "issue": "6",
+          "page": "22-38"
+        },
+        {
+          "doi": "10.1109/proc.1978.10837",
+          "title": "On the use of windows for harmonic analysis with the discrete Fourier transform",
+          "authors": [
+            {
+              "authorName": "F.J. Harris"
+            }
+          ],
+          "year": 1978,
+          "journal": "proceedings of the ieee",
+          "volume": "66",
+          "issue": "1",
+          "page": "51-83"
+        },
+        {
+          "doi": "10.1142/s0217751x2050075x",
+          "title": "Taiji program: Gravitational-wave sources",
+          "authors": [
+            {
+              "authorName": "Wen-Hong Ruan"
+            },
+            {
+              "authorName": "Zong-Kuan Guo"
+            },
+            {
+              "authorName": "Rong-Gen Cai"
+            }
+          ],
+          "year": 2020,
+          "journal": "international journal of modern physics a",
+          "volume": "35",
+          "issue": "17",
+          "page": "2050075"
+        }
+      ]
+    }
+  ],
+  "editorial_verify_secondary_1": [
+    {
+      "hits": [
+        {
+          "doi": "10.1088/0264-9381/26/16/163001",
+          "title": "Quasinormal modes of black holes and black branes",
+          "authors": [
+            {
+              "authorName": "Emanuele Berti"
+            },
+            {
+              "authorName": "Vítor Cardoso"
+            },
+            {
+              "authorName": "Andrei O. Starinets"
+            }
+          ],
+          "year": 2009,
+          "journal": "classical and quantum gravity",
+          "volume": "26",
+          "issue": "16",
+          "page": "163001"
+        },
+        {
+          "doi": "10.1088/1361-6382/ab1101",
+          "title": "The construction and use of LISA sensitivity curves",
+          "authors": [
+            {
+              "authorName": "Travis Robson"
+            },
+            {
+              "authorName": "Neil J Cornish"
+            },
+            {
+              "authorName": "Chang Liu"
+            }
+          ],
+          "year": 2019,
+          "journal": "classical and quantum gravity",
+          "volume": "36",
+          "issue": "10",
+          "page": "105011"
+        },
+        {
+          "doi": "10.1103/physrevd.73.064030",
+          "title": "Gravitational-wave spectroscopy of massive black holes with the space interferometer LISA",
+          "authors": [
+            {
+              "authorName": "Emanuele Berti"
+            },
+            {
+              "authorName": "Vítor Cardoso"
+            },
+            {
+              "authorName": "Clifford M. Will"
+            }
+          ],
+          "year": 2006,
+          "journal": "physical review d",
+          "volume": "73",
+          "issue": "6"
+        },
+        {
+          "doi": "10.48550/arxiv.0905.2975",
+          "title": "Quasinormal modes of black holes and black branes",
+          "authors": [
+            {
+              "authorName": "Emanuele Berti"
+            },
+            {
+              "authorName": "Vitor Cardoso"
+            },
+            {
+              "authorName": "Andrei O. Starinets"
+            }
+          ],
+          "year": 2009
+        }
+      ]
+    }
+  ],
+  "editorial_horowitz": [
+    {
+      "hits": [
+        {
+          "doi": "10.1109/tassp.1974.1162536",
+          "title": "The effects of spline interpolation on power spectral density",
+          "authors": [
+            {
+              "authorName": "Larry L. Horowitz"
+            }
+          ],
+          "year": 1974,
+          "journal": "ieee transactions on acoustics speech and signal processing",
+          "volume": "22",
+          "issue": "1",
+          "page": "22-27"
+        }
+      ]
+    }
+  ]
+}
