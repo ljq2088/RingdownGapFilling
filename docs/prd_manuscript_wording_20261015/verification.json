@@ -1,0 +1,21 @@
+{
+  "changed_passages": 7,
+  "active_figure_assets_checked": [
+    "architecture_dgf_20261015.pdf",
+    "training_workflow_dgf_20261015.pdf",
+    "latest_mismatch.pdf",
+    "latest_examples.pdf",
+    "latest_residual_psd.pdf",
+    "latest_phase.pdf",
+    "latest_snr_gap.pdf",
+    "latest_diagnostic_examples.pdf"
+  ],
+  "matching_passages_remaining": 0,
+  "pdf_pages": 13,
+  "figure4_page": 8,
+  "compiled_text_verified": true,
+  "cloud_changed_files": [
+    "DGF.tex"
+  ],
+  "source_sha256": "44e8ba2b4a109ac113cee2da624677c8f0f2857d057946907513441502f3845d"
+}

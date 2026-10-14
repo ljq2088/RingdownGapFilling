@@ -1,0 +1,34 @@
+{
+  "changed_passages": 7,
+  "changes": [
+    {
+      "before": "Selected successful reconstructions illustrate the oscillations recovered within informative gaps.",
+      "after": "Waveform comparisons show the recovered oscillations across gaps containing the signal-envelope peak."
+    },
+    {
+      "before": "shows accurate reconstructions across 34-, 45- and 52-s gaps",
+      "after": "compares the clean and reconstructed waveforms across 34-, 45- and 52-s gaps"
+    },
+    {
+      "before": "These selected successful cases complement the complete-population tables and distributions; central and upper-tail cases are shown in Appendix~\\ref{app:complementary}.",
+      "after": "Appendix~\\ref{app:complementary} gives waveform comparisons at the median, 90th-percentile and largest-mismatch ranks of the test population."
+    },
+    {
+      "before": "Selected successful reconstructions for 34-, 45- and 52-s gaps",
+      "after": "Waveform reconstruction across 34-, 45- and 52-s gaps"
+    },
+    {
+      "before": "Successful examples recover intervals containing approximately 38\\%--48\\% of the signal squared norm.",
+      "after": "In Fig.~\\ref{fig:examples}, the gaps contain approximately 38\\%--48\\% of the signal squared norm, and the reconstructed oscillations follow the clean waveforms across these intervals."
+    },
+    {
+      "before": "The successful examples in Fig.~\\ref{fig:examples} are selected for clear oscillations and small amplitude and phase residuals. The eligible records contain at least four $\\tau_{220}$ after the joint response peak, have $\\rho\\ge10$ and have envelope peaks inside the gap. Each displayed source has global and gap-local relative errors below 8\\% and per-channel peak phase errors below $1.5^\\circ$. Low-mismatch cases are chosen across the gap-duration ranges 32--38, 39--45 and 46--52~s; their seeds and detailed selection conditions are recorded with the figure data.",
+      "after": "The three sources in Fig.~\\ref{fig:examples} have envelope peaks inside the gap, $\\rho\\ge10$ and records extending for at least four $\\tau_{220}$ after the joint response peak. Their global and gap-local relative errors are below 8\\%, and their per-channel peak phase errors are below $1.5^\\circ$. The figure data include source seeds, waveform parameters, per-source diagnostics and the criteria used to construct the comparison."
+    },
+    {
+      "before": "These cases complement the successful illustrations in the main text and retain the full error range.",
+      "after": "Together with Fig.~\\ref{fig:examples}, these comparisons show waveform recovery across the error range of the test population."
+    }
+  ],
+  "numerical_results_preserved": true
+}
