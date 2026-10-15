@@ -12,6 +12,3 @@ print(r.returncode,r.stderr.decode('utf-8','replace')[-1000:])
 if r.returncode: print(r.stdout.decode('utf-8','replace')[-3000:])
 pdf=stage/'build/DGF.pdf'
 if pdf.exists():shutil.copy2(pdf,here/'local_manuscript.pdf');print(pdf)
-
-
-

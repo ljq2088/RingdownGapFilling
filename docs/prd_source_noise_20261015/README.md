@@ -4,17 +4,17 @@ Prepared 2026-10-15 on `codex/mask-aware-ringdown-optimization`.
 
 ## Delivery state
 
-Local manuscript compiled successfully, 18 pages. Figures 9 and 10 are on pages 13 and 14. Overleaf upload remains pending: the project disconnected, then returned a connection timeout. The attempted upload queue was cancelled before replacement confirmation. The cloud project therefore retains the earlier manuscript.
+Local and cloud manuscripts compiled successfully, 18 pages. Figures 9 and 10 are on pages 13 and 14. The connection recovered after a temporary timeout. Downloaded source archive (52) matched the earlier archive (51), confirming no intervening cloud edits. Uploaded the four revised files and downloaded the final source archive (53) and PDF (33). All four cloud files match the prepared files (with line-ending normalization for text). Cloud build: `1a13f2aa96f-6b778ea796904892`.
 
 Project: https://cn.overleaf.com/project/6ac83816750c2cce452054d2
 
-Upload these four files from `source/`: `DGF.tex`, `reproducibility_manifest.json`, `conditional_source_strain.pdf`, `conditional_frequency_contrast.pdf`. Recompile and download the source and PDF to verify the cloud changes. Reconcile any intervening cloud edits before replacing DGF.tex.
+`overleaf_final.pdf` is the verified cloud manuscript. `cloud_verification.json` records file checks and page count; `overleaf_verified.png` records the new figure in the correct project. Full cloud source ZIP is retained in the Windows output directory. The user confirmed the project identity after checking the open tabs.
 
 ## Figures and scientific meaning
 
 Figure 9 retains the original three sources (indices 3874, 4884, 4076), shows the full original noisy A/E records, and adds projected noise to the conditional incident-strain views. Figure 10 adds indices 3322 and 5712, with dominant frequencies 7.298 and 38.670 mHz. Its source panels use the same 0–240 s observer-frame axis. Every plot retains native 0.5-s samples and physical amplitudes.
 
-The source reconstruction fixes the injected detector-frame remnant mass, spin, sky position, inclination, polarization, arrival time and pre-reference waveform history. Eight real coefficients (two phase quadratures of four fundamental modes) are estimated by a PSD-weighted fit to the frozen DGF A/E output. The source synthesis uses the same QNM basis. Equation (16) in the current build defines the linear projection P. The smoothness follows from this conditional waveform prior.
+The source reconstruction fixes the injected detector-frame remnant mass, spin, sky position, inclination, polarization, arrival time and pre-reference waveform history. Eight real coefficients (two phase quadratures of four fundamental modes) are estimated by a PSD-weighted fit to the frozen DGF A/E output. The source synthesis uses the same QNM basis. Equation (17) in the current build defines the linear projection P. The smoothness follows from this conditional waveform prior.
 
 Source-domain noise is s+Pn, using the original realized A/E noise and the same projection P. Gray filling spans a single projected realization. Raw A/E observations occupy the upper two rows. The population evaluation continues to use the frozen direct A/E model outputs.
 

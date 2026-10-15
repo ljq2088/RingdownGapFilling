@@ -1,0 +1,11 @@
+{
+  "files_match": {
+    "DGF.tex": true,
+    "reproducibility_manifest.json": true,
+    "conditional_source_strain.pdf": true,
+    "conditional_frequency_contrast.pdf": true
+  },
+  "pages": 18,
+  "build": "1a13f2aa96f-6b778ea796904892",
+  "project": "6ac83816750c2cce452054d2"
+}
