@@ -1,0 +1,14 @@
+{
+  "cloud_build": "1a13e0abef9-ba4afb8657572b38",
+  "cloud_file_checks": {
+    "DGF.tex": true,
+    "reproducibility_manifest.json": true,
+    "latest_examples.pdf": true,
+    "latest_phase.pdf": true,
+    "tdi_log_amplitudes_20261015.pdf": true
+  },
+  "pages": 15,
+  "unresolved_references": false,
+  "population_metrics_unchanged": true,
+  "pdf_sha256": "6609833b37eb55b8e7cab3f2237b8ec9f8810618df8b0e972f2997f4b75e967a"
+}

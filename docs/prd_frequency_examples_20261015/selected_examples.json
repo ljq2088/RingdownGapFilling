@@ -1,0 +1,133 @@
+{
+  "selected": [
+    {
+      "index": 3874,
+      "seeds": 2042203874,
+      "snr": 198.2034039382916,
+      "mismatch": 0.000741297861559298,
+      "phase_gap": 1.7622729617992328,
+      "energy": 0.26417635861795447,
+      "relative": 0.05176763319477688,
+      "gap_relative": 0.04227131050615731,
+      "ES": 0.0015183740048790772,
+      "norm_bias": -0.0036376325889798666,
+      "time_mm": 0.0013381956017994856,
+      "coverage": 7.17761089466729,
+      "balance": 0.5630549824794089,
+      "curvature": 0.023359807867078784,
+      "noise_ratio": 3.413389614975412,
+      "phase_peak": [
+        0.04561477933395928,
+        0.9800551880780055
+      ],
+      "inside": false,
+      "extrema": [
+        6,
+        6
+      ],
+      "gap_over_tau": 0.5692853228353478,
+      "length": 37.0,
+      "start": 81.5,
+      "f220_hz": 0.015400233774573403,
+      "tau220_s": 64.99377116508126,
+      "peak_s": 61.0,
+      "detail_limits_s": [
+        0,
+        320.5
+      ],
+      "log_limits_s": [
+        0,
+        255.5
+      ],
+      "amplitude_scale": 1e-18,
+      "detail_y_limit": 0.9202604965080831
+    },
+    {
+      "index": 4884,
+      "seeds": 2042204884,
+      "snr": 297.97961321520626,
+      "mismatch": 0.0007882875726221705,
+      "phase_gap": 2.004197122752345,
+      "energy": 0.17213429020876642,
+      "relative": 0.0549951787218416,
+      "gap_relative": 0.05506491283467773,
+      "ES": 0.001663238750354384,
+      "norm_bias": 0.009194243316259065,
+      "time_mm": 0.0014565756750791747,
+      "coverage": 7.509565729470512,
+      "balance": 0.8808997323408835,
+      "curvature": 0.02427278978862821,
+      "noise_ratio": 2.877926892080872,
+      "phase_peak": [
+        1.5570153229792014,
+        0.7378358357290994
+      ],
+      "inside": false,
+      "extrema": [
+        7,
+        8
+      ],
+      "gap_over_tau": 0.5592229798541871,
+      "length": 35.0,
+      "start": 77.5,
+      "f220_hz": 0.01646554232301246,
+      "tau220_s": 62.5868414941138,
+      "peak_s": 57.5,
+      "detail_limits_s": [
+        0,
+        307.5
+      ],
+      "log_limits_s": [
+        0,
+        245.0
+      ],
+      "amplitude_scale": 1e-18,
+      "detail_y_limit": 1.3427590623529406
+    },
+    {
+      "index": 4076,
+      "seeds": 2042204076,
+      "snr": 108.60537045016225,
+      "mismatch": 0.002042786293679155,
+      "phase_gap": 3.0051672031017276,
+      "energy": 0.23574103614533645,
+      "relative": 0.1192216681400474,
+      "gap_relative": 0.06899891931067055,
+      "ES": 0.004125661306278492,
+      "norm_bias": -0.011476116224662491,
+      "time_mm": 0.007122794472457117,
+      "coverage": 14.381938548658452,
+      "balance": 0.9927944094538794,
+      "curvature": 0.08249384429377078,
+      "noise_ratio": 5.080084408624143,
+      "phase_peak": [
+        0.6695988763601773,
+        2.823359051965587
+      ],
+      "inside": false,
+      "extrema": [
+        11,
+        10
+      ],
+      "gap_over_tau": 1.0283943057545588,
+      "length": 33.0,
+      "start": 111.0,
+      "f220_hz": 0.03153465398903063,
+      "tau220_s": 32.08885912275357,
+      "peak_s": 66.0,
+      "detail_limits_s": [
+        8.0,
+        194.0
+      ],
+      "log_limits_s": [
+        8.0,
+        162.0
+      ],
+      "amplitude_scale": 1e-18,
+      "detail_y_limit": 0.6177947297362546
+    }
+  ],
+  "display_processing": "Native samples; physical fractional-frequency units; original noise retained in full records and zooms. No display smoothing or relative alignment.",
+  "selection": "Three rho>=10 examples with small waveform and gap errors, including a 31.5 mHz fundamental mode. Full-record statistics retain all 6000 sources.",
+  "log_window": "From max(0, t_peak-1.8*tau220) to min(527.5, t_peak+3*tau220), rounded down to native 0.5-s sample times. Both channels use the joint clean analytic-envelope peak. Window uses clean truth and source parameters only."
+}
