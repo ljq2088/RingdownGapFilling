@@ -1,0 +1,262 @@
+{
+  "cwt": {
+    "version": "0.6.5",
+    "mu": 13.4,
+    "input_samples": 1056,
+    "padded_samples": 2048,
+    "left_pad": 496,
+    "right_pad": 496,
+    "rows": [
+      {
+        "scale": 1,
+        "nominal_center_hz": 4.265352474862795,
+        "discrete_peak_hz": 0.9990234375,
+        "peak_gain": 2.568400945350253e-23,
+        "response_energy": 1.0936799740946105e-44
+      },
+      {
+        "scale": 2,
+        "nominal_center_hz": 2.1326762374313977,
+        "discrete_peak_hz": 0.9990234375,
+        "peak_gain": 1.809376433403731e-11,
+        "response_energy": 3.964838438463334e-21
+      },
+      {
+        "scale": 3,
+        "nominal_center_hz": 1.4217841582875985,
+        "discrete_peak_hz": 0.9990234375,
+        "peak_gain": 0.0006721242680214345,
+        "response_energy": 6.331419595888172e-06
+      },
+      {
+        "scale": 4,
+        "nominal_center_hz": 1.0663381187156988,
+        "discrete_peak_hz": 0.9990234375,
+        "peak_gain": 1.31650710105896,
+        "response_energy": 60.59781955294166
+      },
+      {
+        "scale": 5,
+        "nominal_center_hz": 0.853070494972559,
+        "discrete_peak_hz": 0.853515625,
+        "peak_gain": 1.8827464580535889,
+        "response_energy": 409.3705461908109
+      },
+      {
+        "scale": 6,
+        "nominal_center_hz": 0.7108920791437993,
+        "discrete_peak_hz": 0.7109375,
+        "peak_gain": 1.8827917575836182,
+        "response_energy": 341.33328475795025
+      },
+      {
+        "scale": 7,
+        "nominal_center_hz": 0.6093360678375421,
+        "discrete_peak_hz": 0.609375,
+        "peak_gain": 1.8827917575836182,
+        "response_energy": 292.57139120988535
+      },
+      {
+        "scale": 8,
+        "nominal_center_hz": 0.5331690593578494,
+        "discrete_peak_hz": 0.533203125,
+        "peak_gain": 1.8827917575836182,
+        "response_energy": 255.99998551012675
+      },
+      {
+        "scale": 9,
+        "nominal_center_hz": 0.4739280527625328,
+        "discrete_peak_hz": 0.4736328125,
+        "peak_gain": 1.8827269077301025,
+        "response_energy": 227.55558303878018
+      },
+      {
+        "scale": 10,
+        "nominal_center_hz": 0.4265352474862795,
+        "discrete_peak_hz": 0.4267578125,
+        "peak_gain": 1.8827464580535889,
+        "response_energy": 204.79994537140308
+      },
+      {
+        "scale": 11,
+        "nominal_center_hz": 0.3877593158966178,
+        "discrete_peak_hz": 0.3876953125,
+        "peak_gain": 1.882787823677063,
+        "response_energy": 186.18181224656237
+      },
+      {
+        "scale": 12,
+        "nominal_center_hz": 0.35544603957189963,
+        "discrete_peak_hz": 0.35546875,
+        "peak_gain": 1.8827917575836182,
+        "response_energy": 170.6666440523069
+      },
+      {
+        "scale": 13,
+        "nominal_center_hz": 0.3281040365279073,
+        "discrete_peak_hz": 0.328125,
+        "peak_gain": 1.8827917575836182,
+        "response_energy": 157.53845527835998
+      },
+      {
+        "scale": 14,
+        "nominal_center_hz": 0.30466803391877106,
+        "discrete_peak_hz": 0.3046875,
+        "peak_gain": 1.8827917575836182,
+        "response_energy": 146.28570765601432
+      },
+      {
+        "scale": 15,
+        "nominal_center_hz": 0.2843568316575197,
+        "discrete_peak_hz": 0.2841796875,
+        "peak_gain": 1.8827269077301025,
+        "response_energy": 136.53331266379345
+      },
+      {
+        "scale": 16,
+        "nominal_center_hz": 0.2665845296789247,
+        "discrete_peak_hz": 0.2666015625,
+        "peak_gain": 1.8827917575836182,
+        "response_energy": 127.99999042255999
+      }
+    ],
+    "low_nominal_hz": [
+      0.25,
+      0.1811949159194239,
+      0.13132639022018833,
+      0.09518269693579395,
+      0.06898648307306074,
+      0.04999999999999999,
+      0.036238983183884764,
+      0.026265278044037672,
+      0.01903653938715879,
+      0.01379729661461215,
+      0.01,
+      0.007247796636776954,
+      0.0052530556088075326,
+      0.003807307877431759,
+      0.0027594593229224302,
+      0.002
+    ],
+    "low_discrete_peak_hz": [
+      0.25,
+      0.181640625,
+      0.130859375,
+      0.0947265625,
+      0.0693359375,
+      0.0498046875,
+      0.0361328125,
+      0.0263671875,
+      0.0185546875,
+      0.013671875,
+      0.009765625,
+      0.0068359375,
+      0.0048828125,
+      0.00390625,
+      0.0029296875,
+      0.001953125
+    ],
+    "direct_filter_relative_error": 0.0,
+    "test_whitened_target_energy_fractions": {
+      "below_equal_025": 0.9999969784409023,
+      "above_equal_lowest_legacy_center": 2.896466981714944e-06,
+      "definition": "ratio of population-summed interior-bin whitened target power; not an ablation"
+    }
+  },
+  "gap_boundaries": {
+    "train": {
+      "n": 60000,
+      "parent_peak_min": 3129,
+      "parent_peak_max": 5243,
+      "clipped_parent_gap": 0,
+      "clipped_crop_origin": 0,
+      "reference_start_min": 132,
+      "reference_start_max": 263,
+      "all_21_lengths_in_bounds": true,
+      "minimum_possible_start": 113,
+      "maximum_possible_end": 348
+    },
+    "validation": {
+      "n": 1500,
+      "parent_peak_min": 3134,
+      "parent_peak_max": 5224,
+      "clipped_parent_gap": 0,
+      "clipped_crop_origin": 0,
+      "reference_start_min": 132,
+      "reference_start_max": 263,
+      "all_21_lengths_in_bounds": true,
+      "minimum_possible_start": 113,
+      "maximum_possible_end": 348
+    },
+    "test": {
+      "n": 6000,
+      "parent_peak_min": 3132,
+      "parent_peak_max": 5249,
+      "clipped_parent_gap": 0,
+      "clipped_crop_origin": 0,
+      "reference_start_min": 132,
+      "reference_start_max": 263,
+      "all_21_lengths_in_bounds": true,
+      "minimum_possible_start": 113,
+      "maximum_possible_end": 348
+    }
+  },
+  "noise_rms": {
+    "recomputed": [
+      0.9993543067089424,
+      0.9990880986927643
+    ],
+    "stored": [
+      0.9993543067089424,
+      0.9990880986927643
+    ],
+    "bitwise_equal": true,
+    "psd_seed_start": 2027100000,
+    "psd_segments": 512,
+    "rms_seed_range": [
+      2027100000,
+      2027100127
+    ],
+    "window_start": 6000,
+    "relationship": "first 128 of the same 512 independent noise realizations; regenerated deterministically for RMS; shared between estimators, separate from every source-data population"
+  },
+  "legacy": {
+    "n": 10000,
+    "parameter_min": [
+      100060.40625,
+      0.5000000596046448,
+      4.000242233276367
+    ],
+    "parameter_max": [
+      999927.0,
+      0.799938440322876,
+      5.999942302703857
+    ],
+    "parameter_quantiles": [
+      [
+        108648.610078125,
+        0.5031627440452575,
+        4.018754153251648
+      ],
+      [
+        550405.96875,
+        0.6505484282970428,
+        4.99999737739563
+      ],
+      [
+        990675.8562500001,
+        0.7968413740396499,
+        5.980023822784424
+      ]
+    ],
+    "condition_columns": [
+      "source_total_mass_msun",
+      "mass_ratio",
+      "redshift"
+    ],
+    "exact_parameter_tuple_overlap_with_current_populations": 0,
+    "legacy_sha256": "a3c18a9d23d84995e3970fba50d66cb1fab8095738e5f5b66ff09fc4c38e5930",
+    "training_source_loss": "mean((prediction-target)^2 + abs(prediction-target)); configured mask weight alpha=1; supplied training code uses default l1_weight=1",
+    "historical_checkpoint_has_optimizer_or_split_metadata": false
+  }
+}

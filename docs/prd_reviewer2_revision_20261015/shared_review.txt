@@ -1,0 +1,1454 @@
+@Article Galaxy 从理论物理期刊审稿人的角度，在相对隔离的环境（和本地codex的历史记录等）中工作，不要受到记忆的影响，独立地评审文章。包括文章的动机，意义，结果呈现，逻辑和叙述，以及是否有明显的AI痕迹和叙述习惯以及不符合规范的地方或者不合常理不通顺的地方。先看看这篇稿子。
+
+Worked for 2m 39s
+Viewed 4 images
+
+我已通读全部 12 页，并检查了公式、图表和附录。此次评审依据当前稿件及少量公开资料，未读取本地聊天历史、既往评审或项目笔记，也未审计代码或复算训练结果。稿件中的陈述均作为待评审材料处理。
+
+评审对象：:codex-file-citation{path="C:/Users/赖景祺/Downloads/RingdownGapFilling___PRD_revision_2026_10_09.pdf" purpose="source"}
+
+初步审稿结论：选题有明确意义，模拟实验呈现出良好的波形重建性能；按 PRD 方法论文的标准，我会建议大修。 最关键的工作是补强观测模型的物理对应、建立有说服力的基准比较，并验证网络对振铃物理量的保真程度。文字总体通顺，部分段落带有明显的审计记录和模板化编辑习惯。
+
+1．动机成立，贡献定位需要进一步聚焦
+
+振铃早期振幅衰减快，较短的缺口可以遮蔽较大比例的信号能量，因此研究缺口附近的振荡恢复具有合理动机。文献 [10] 所讨论的数据缺口对振铃参数测量的影响，也为问题提供了具体物理背景。
+原始论文
+
+当前文章已经建立的贡献可以准确表述为：
+
+在指定的多模 Kerr 振铃族、事件中心窗口和高斯噪声条件下，DGF 能够从含已知信号抑制区间的观测中预测完整干净波形，并在独立模拟样本上取得较小的波形误差。
+
+这一定位清楚、有价值。面向黑洞谱学的意义还需要通过模态测量来连接：读者最终关心 
+𝑓
+ℓ
+𝑚
+𝑛
+f
+ℓmn
+	​
+
+、
+𝜏
+ℓ
+𝑚
+𝑛
+τ
+ℓmn
+	​
+
+、相对振幅及其误差。现有结果主要回答完整波形的相似程度。
+
+引言对已有工作的介绍比较完整，但尚缺一个明确的技术判断：短振铃缺口恢复中，现有估计器究竟在哪些条件下表现欠佳，DGF 的哪一部分解决了这个困难？ “衰减快”“上下文不对称”给出了合理直觉，配套的基准实验会让创新性更有说服力。已有 LISA 缺口神经网络研究使这项比较尤其重要。
+Mao 等人的研究
+
+2．最重要的物理问题：缺口模型的含义
+
+第 3 页式 (5) 采用
+
+𝑑
+=
+𝐺
+ℎ
++
+𝑛
+,
+d=Gh+n,
+
+即缺口内信号被移除，完整的相关仪器噪声仍然可见。这对应一种明确的“信号抑制”实验。
+
+实际数据丢失可以用保留样本的选择算符 
+𝑅
+R 表示：
+
+𝑦
+=
+𝑅
+(
+ℎ
++
+𝑛
+)
+,
+𝐶
+o
+b
+s
+=
+𝑅
+𝐶
+𝑅
+𝑇
+.
+y=R(h+n),C
+obs
+	​
+
+=RCR
+T
+.
+
+这里有一个影响结果解释的区别：在有色噪声下，稿件中缺口内保留的噪声与外部噪声存在相关性。网络可能利用这些样本约束缺口外的噪声，白化也会混合不同时间的信息。因此，需要验证两种实验之间的性能关系。
+
+我会要求作者完成以下事项：
+
+明确所研究的缺口发生在 TDI 输出层、链路测量层，还是输入网络时的数值处理层。
+增加真实缺失样本条件下的测试，说明缺口填充值及其噪声统计。
+在相同源、缺口和外部噪声条件下，与当前 
+𝐺
+ℎ
++
+𝑛
+Gh+n 实验配对比较。
+
+第 9 页使用 
+𝑑
+−
+𝐺
+ℎ
+(
+𝜃
+)
+d−Gh(θ) 描述参数推断，与当前模拟模型一致。用于真实缺失数据时，似然需要针对实际保留样本及其协方差构造。这一物理对应应在方法部分讲清楚。
+
+3．网络复杂度与对照实验之间存在明显落差
+
+模型包含双分支表示、两个 CWT 设置、16 个序列块、通道修正、128 维信号基以及条件系数头，总参数约 959 万。当前对照集中于附录中的另一种 DGF 配置。
+
+按附录数值，最终配置相对参考配置的平均 mismatch 改善约为 1.85%。配对 bootstrap 区间支持该测试总体上的平均改善；这项实验同时改变了拟合后的合成参数与系数头，各模块贡献仍待分解。
+
+至少需要三类基准：
+
+基准	回答的问题
+使用相同振铃族的缺口外参数拟合	已知物理模型能够达到怎样的恢复精度？
+使用同一训练信号基的正则化系数拟合	低维信号基本身贡献了多少性能？
+较简单的神经网络及模块消融	双分支、联合通道和条件头分别带来多少收益？
+
+特别是式 (6)：去除 DC、Nyquist 后，最终输出位于训练得到的 128 维子空间。这使信号基成为方法的核心组成部分。建议报告基的表示误差、秩敏感性，以及“仅使用该基拟合”的结果。
+
+4．波形族的约束可能使重建任务显著简化
+
+第 2 页采用非自旋前身、固定四个基模、质量比决定的激发振幅，以及
+
+𝜙
+ℓ
+𝑚
+=
+𝑚
+𝜙
+o
+r
+b
+ϕ
+ℓm
+	​
+
+=mϕ
+orb
+	​
+
+
+的相位约束。这些设定构成了相关性较强的信号族，适合开展受控实验。
+
+对其物理适用范围，我最关注两点。
+
+第一，参考时刻之前的人工 ring-up。PyCBC 文档明确描述了用于平滑开启的快速增长段。
+PyCBC 实现说明 稿件将其连同延迟 TDI 响应一起保留在目标中。对于跨越峰值的缺口，这段历史可能影响缺口两侧的可预测关系。建议至少用连续 IMR 历史生成响应，检查主要结果是否保持。
+
+第二，训练先验对模态恢复的影响。独立改变相对模态相位、振幅或频率后，网络可能将输出拉向训练信号族。若文章希望服务黑洞谱学，应增加这种扰动测试，测量弱模态及偏离训练关系的信号能保留多少。
+
+这些验证能够直接说明网络学到的重建规律在什么条件下成立。
+
+5．结果有说服力的部分，以及需要补充的部分
+
+现有结果呈现有几项值得保留：
+
+6000 个独立测试源全部进入总体统计。
+overlap 在原始时刻和相位计算，定义明确。
+同时报均值、中位数、95 分位及幅度敏感误差。
+缺口包含峰值的样本有独立统计。
+固定缺口宽度测试使用相同源和噪声，比较条件合理。
+
+我会优先补充以下结果。
+
+低 SNR 子总体。 按表 I 的四舍五入数值推算，186 个 
+𝜌
+<
+10
+ρ<10 源的平均 mismatch 约为 0.109。这说明总体误差尾部值得单独分析。建议直接给出该子总体的误差分布和失败案例。
+
+实际剩余信息量。 文中 
+𝜌
+ρ 由完整目标定义。相同完整信号 SNR 下，缺口移除的信息量可以差别很大。建议增加保留数据的 SNR、缺口覆盖的信号能量比例、缺口长度与 
+𝜏
+220
+τ
+220
+	​
+
+ 的比值，并分析它们与重建误差的关系。
+
+具有代表性的波形示例。 附录说明图 5 的两个源同时满足峰值位于缺口内、较高 SNR、较长衰减覆盖、小于 6% 的误差及较小相位误差。这样的筛选适合展示成功案例。主文还应展示接近中位数、95 分位和失败尾部的样本，让读者理解通常表现及失败方式。
+
+缺口内部的相位。 图 6(a) 测量各通道干净信号峰值处的相位误差，覆盖了峰值处于缺口外的源。建议对峰值位于缺口内的子总体单独统计，并报告缺口内部的幅度加权相位误差。
+
+6．图表和叙述上的具体问题
+
+图 7：
+∣
+ℎ
+(
+𝑡
+)
+∣
+∣h(t)∣ 的对数图混合了零交叉与包络效应。 图中的深谷对采样点、相位偏差十分敏感。正文目前同时提及弱尾部和零交叉，表述基本谨慎。若要讨论衰减包络保真度，建议增加解析信号包络或指定模态包络。
+
+图 8：残差 PSD 的参照不足。 目前可以看到残差与噪声功率的比较。增加目标信号 PSD、相关频带内的积分残差或按 SNR 分组的统计，会让物理含义更清楚。
+
+图 1、图 2：信息密度较高。 小图中塞入大量维度、训练流程和审计信息，缩到期刊版面后阅读费力。图 1 保留主要数据流，图 2 保留数据划分和训练阶段，其余参数用表格承载更合适。
+
+预训练过程需要闭合。 第 5 页从已有 checkpoint 开始描述训练。读者还需要知道原始骨干的训练数据、损失、选择方式，以及它与当前验证和测试总体的关系。哈希用于标识资产，完整的生成过程用于复现方法。
+
+7．AI 痕迹：存在可辨认的写作习惯，来源判断的置信度较低
+
+我的阅读印象是：技术细节具体，部分段落经过较强的模板化编辑，重复强调评估边界和过程合规。 语言特征可以支持编辑建议；作者是否使用 AI，需要写作过程方面的证据。
+
+最明显的地方有三类。
+
+重复声明。 “fixed arrival time and phase”“all 6,000 sources”“independent test”“known mask”“fixed calibration”多次出现在正文和图注中。首次定义、关键表注及必要图注保留即可。当前重复频率使文章有一种持续核对评估清单的语感。
+
+工程日志进入论文叙事。 附录中的 “unused multihead-attention tensors”、加载时转置存储的处理，以及图 2 的 “Atomic model / EMA / optimizer / scheduler / RNG checkpoints”，都很具体。这些内容更适合代码说明和复现文档。主文与附录应优先承载影响算法定义和结果解释的信息。
+
+局部措辞的对象或条件含糊。
+
+位置及原文	问题与建议
+第 3 页 “The basis and coefficient adapter produce … 
+𝑏
+b”	补充运算关系，明确 
+𝑏
+b 是否已位于基张成的子空间；这直接关系零初始化声明的成立条件。
+第 4 页图 1 “Residual correction preserves the initial model”	在文字上加上“at initialization”，与零初始化机制对应。
+第 9 页 “recover the clean LISA A/E waveforms”	涉及总体能力时，可写成“estimate the clean waveforms”，与点估计及误差统计一致。
+第 1 页 “Gaps covering as much as 20% …”	给出该数字的具体来源及作用，随后衔接本文 6%–10% 的实验范围。
+第 11 页 “preceding fitted synthesis parameters”	用明确的配置名称或模型标识代替依赖开发顺序的说法。
+
+全文句法总体通顺，物理和机器学习术语也基本稳定。需要处理的主要是重复、信息层级和局部指代。
+
+8．规范性与修改优先级
+
+参考文献 [23]、[26] 建议补充明确的软件版本或提交号、可定位的文档地址，以及相应软件引用。引用涉及具体实现行为时，版本信息尤为重要。
+
+“公开仓库”“归档训练记录”“哈希清单”也应对应到可定位的发布版本或持久归档。当前我仅检查了稿件中的复现说明，相关资产的可用性仍待核验。
+
+如果由我写正式审稿意见，会要求优先完成四项修改：
+
+说明当前缺口模型与真实缺失数据的关系，并给出配对验证。
+增加物理拟合、信号基拟合及主要模块消融。
+用模态参数恢复或模态扰动实验连接黑洞谱学动机。
+补充典型及失败案例，压缩重复声明和工程日志式内容。
+
+这四项完成后，文章的物理定位、方法收益和结果可信范围都会更容易评估。
+
+请继续逐页细查，重点找出有明显 AI 叙述习惯、逻辑跳跃、不通顺或不符合论文规范的具体句子，列出页码、原句、问题和建议改法，并区分必须修改和可选润色。
+
+Worked for 2m 53s
+
+以下按 PDF 实际页码排列。英文原句已合并排版断行；数学符号作等价转写。
+
+必须修改：涉及技术对象错误、成立条件缺失、证据范围不匹配，或影响方法复现的歧义。
+可选润色：原意基本成立，修改可改善准确性、流畅度及论文语体。
+AI 叙述习惯：指重复声明、泛化过渡、模板化收束和审计清单式写法。这些特征用于评价文风，作者来源判断需要写作过程证据。
+
+校正上一轮一处判断：附录提供了两个案例的良好性能指标，实际筛选规则仍待说明；我此前使用“严格优选”过于确定。
+
+原文依据：:codex-file-citation{path="C:/Users/赖景祺/Downloads/RingdownGapFilling___PRD_revision_2026_10_09.pdf" purpose="source"}
+
+下文方括号表示作者需要依据实际实现补充的内容。
+
+第 1 页：摘要与引言
+
+1．必须修改｜突然出现、缺少依据的“20%”
+
+“Gaps covering as much as 20% of a short ringdown record illustrate the severity of this problem.”
+
+问题： 前文没有给出这一比例的来源或案例，本文实验随即采用 6%–10%。这个句子引入了另一组数字，却没有建立它与本文设计的关系，形成论证跳跃。
+
+建议改法： 删除该句，将后句改为：
+
+“We study 32–52-s gaps in 528-s records and quantify their effect on waveform reconstruction.”
+
+若 20% 对应具体文献，应增加引用，并说明该文献的分析窗口和缺口条件。
+
+2．可选润色｜因果连接过快，句义层次重复
+
+“The reconstruction problem consequently concerns the phase and decay envelope across the gap, as well as the complete waveform.”
+
+问题： “consequently”承接的是频谱泄漏，但相位与包络恢复的重要性还来自前面讨论的快速衰减。“phase and decay envelope”与“complete waveform”也存在包含关系。句子具有常见的概念罗列式过渡习惯。
+
+建议改法：
+
+“We assess reconstruction through waveform overlap, amplitude error and analytic-phase error, with particular attention to the missing interval.”
+
+这样直接引出本文实际使用的评价量。
+
+3．必须修改｜被条件化的对象写错
+
+“A coefficient head conditions a training-derived signal basis on the observed noise level and phase features.”
+
+问题： 后文中的基 
+𝐵
+B 在训练后保持固定。受到噪声与相位特征条件化的是系数预测。当前句子会使读者理解为基向量本身随输入变化。
+
+建议改法：
+
+“A coefficient head adjusts the coefficients of a fixed, training-derived signal basis using observation-derived noise and phase features.”
+
+4．可选润色｜摘要中的峰值定义不够具体
+
+“Mean absolute phase errors at the signal-envelope peak are below 4° in both A/E channels.”
+
+问题： 实际计算分别使用每个通道自己的干净信号包络峰值。“the signal-envelope peak”容易被理解为联合包络的同一个峰值，而后文确实还定义了联合包络。
+
+建议改法：
+
+“The mean absolute analytic-phase error, evaluated at each channel’s clean-signal envelope peak, is below 4° in both A and E.”
+
+第 2 页：信号、响应与噪声
+
+5．必须修改｜引力波角向展开的术语需要明确
+
+“Spherical angular harmonics and luminosity-distance scaling specify the polarizations.”
+
+问题： 对引力波极化，需明确这里使用的自旋加权球谐函数。“spherical angular harmonics”容易让读者理解为普通标量球谐函数；“luminosity-distance scaling”也没有给出具体幅度约定。
+
+建议改法：
+
+“We construct the polarizations using spin-weight −2 spherical harmonics and the amplitude normalization [give the explicit mass–distance factor].”
+
+质量取源参考系还是探测器参考系，应在幅度公式中直接写清。
+
+6．必须修改｜人工 ring-up 的定义不足
+
+“PyCBC’s pre-reference exponential ring-up joins continuously to the damped-mode segment, whose excitation normalization is retained.”
+
+问题： 句子同时涉及增长段、连接时刻和归一化，却没有定义增长时间尺度及截断方式。“whose excitation normalization is retained”的参照对象也不够明确。该结构会进入 TDI 延迟与重建目标，属于物理生成模型的重要部分。
+
+建议改法：
+
+“For times before the reference epoch, we use PyCBC’s exponential ring-up with [state the time dependence and truncation]. The ring-up and damped segments have the same amplitude at the reference epoch.”
+
+应以实际使用版本的实现为准补全。
+
+7．可选润色｜表述拗口，窗口限制可直接量化
+
+“Reconstruction is evaluated on that finite window, including for signals whose damping times exceed its duration.”
+
+问题： “including for signals”不够自然；“that finite window”的强调也较抽象。
+
+建议改法：
+
+“All reconstruction metrics are computed over the 528-s window, including cases with 
+𝜏
+220
+>
+528
+ 
+s
+τ
+220
+	​
+
+>528s.”
+
+若这里指所有模态中的最大阻尼时间，应相应替换 
+𝜏
+220
+τ
+220
+	​
+
+。
+
+第 3 页：白化、缺口与网络结构
+
+8．必须修改｜“white noise”与“whitened noise”需要区分
+
+“The first 128 calibration segments determine the expected white-noise RMS, excluding DC and Nyquist, for the coefficient head.”
+
+问题： 上下文描述的是仪器噪声经过指定变换后的 RMS。“white-noise RMS”容易被理解为另一个白噪声过程的理论 RMS。
+
+建议改法：
+
+“We estimate the RMS of the whitened instrument noise from the first 128 calibration segments, after removing the DC and Nyquist components, and use this estimate in the coefficient head.”
+
+还应说明对 128 段采用 RMS 的平均，还是汇总样本后计算 RMS。
+
+9．必须修改｜缺口位置与裁剪规则难以重现
+
+“The parent response peak sets the event-centered simulation window, with reference gap offsets drawn between −66 and 66 s.”
+
+“A second seeded draw places the reference interval start at local samples 132–263 and determines the crop.”
+
+问题： 两次随机抽样分别作用于缺口和窗口，但“offset”的零点、“reference interval”的宽度、第二次抽样的分布及索引约定均不清楚。“seeded”说明可重复性，具体的抽样规则决定实验内容。
+
+建议改法： 用明确的生成步骤或公式替换：
+
+“Let 
+𝑡
+p
+t
+p
+	​
+
+ denote [define the response peak]. We draw [define the gap offset and its distribution] and set the reference gap start to [expression]. We then draw the local start index from [distribution on indices 132–263] and set the crop origin accordingly.”
+
+这段需要补事实；单纯调整英语无法消除歧义。
+
+10．必须修改｜主 CWT 的尺度定义缺失
+
+“Sixteen scales and a factor-four temporal subsampling give a 
+2
+×
+16
+×
+264
+2×16×264 array per channel.”
+
+问题： 后面的第二个 CWT 给出了频率范围，主 CWT 的 16 个尺度却没有定义。尺度选择直接决定表示内容与复现结果。
+
+建议改法：
+
+“We evaluate the complex Morlet CWT at the 16 scales [list the values or specify their construction], using [state the wavelet parameters and boundary treatment], and retain every fourth time sample.”
+
+详细参数可集中放入附录或配置表。
+
+11．必须修改｜核心中间变量缺少运算定义
+
+“The basis and coefficient adapter produce the whitened prediction 
+𝑏
+b.”
+
+问题： 这里没有交代 adapter 的输入、输出，以及 
+𝑏
+b 与基 
+𝐵
+B 的关系。后面的初始化等价性恰好依赖这一关系。
+
+建议改法：
+
+“The coefficient adapter maps [input] to [output]. The intermediate prediction is then constructed as 
+𝑏
+=
+[
+explicit expression
+]
+b=[explicit expression].”
+
+若 
+𝑃
+0
+𝑏
+P
+0
+	​
+
+b 已位于 
+𝐵
+B 张成的子空间，应明确写出这一性质。
+
+12．必须修改｜470 维输入的组成仍然无法核验
+
+“The 470-dimensional input 
+𝑧
+z contains 262 normalized waveform, coefficient and mask coordinates; 16 absolute-noise and spectral-energy features; and 192 pooled continuous-phase features.”
+
+问题： 维数总和明确，但“262 normalized waveform, coefficient and mask coordinates”没有列出具体分项和归一化方法。这是网络输入定义中的实质缺口。
+
+建议改法：
+
+“We concatenate [list each component and its dimension] to form the 262-dimensional coordinate vector. Table [X] specifies the normalization of each component.”
+
+建议增加一张输入特征表，同时列出 16 个噪声与谱能量特征的定义。
+
+第 4 页：系数头、图 1 与评价定义
+
+13．可选润色｜“continuous phase”容易引起方法误解
+
+“For the physical-frequency CWT, continuous phase is encoded as …”
+
+问题： 式 (7) 使用 
+cos
+⁡
+𝜃
+𝐶
+cosθ
+C
+	​
+
+ 与 
+sin
+⁡
+𝜃
+𝐶
+sinθ
+C
+	​
+
+ 构成圆周上的连续表示。这里的“continuous phase”可能被理解为已进行相位展开。
+
+建议改法：
+
+“We encode the CWT phase using an amplitude-weighted circular representation,”
+
+随后接式 (7)。
+
+14．必须修改｜图 1 中初始化性质缺少条件
+
+“Residual correction preserves the initial model”
+
+问题： 该性质对应零初始化时刻。进一步说，零修正给出
+
+𝑢
+^
+=
+𝐵
+𝐵
+𝑇
+𝑃
+0
+𝑏
++
+(
+𝐼
+−
+𝑃
+0
+)
+𝑏
+,
+u
+^
+=BB
+T
+P
+0
+	​
+
+b+(I−P
+0
+	​
+
+)b,
+
+它与原始 
+𝑏
+b 相同还需要 
+𝐵
+𝐵
+𝑇
+𝑃
+0
+𝑏
+=
+𝑃
+0
+𝑏
+BB
+T
+P
+0
+	​
+
+b=P
+0
+	​
+
+b。
+
+建议改法：
+
+“Zero-initialized correction preserves the initial coefficients.”
+
+若希望保留“model”，应在正文明确上述子空间条件，并写成：
+
+“At initialization, the head preserves the basis-adapted prediction.”
+
+15．必须修改｜“optimal SNR”的适用假设需交代
+
+“The joint-channel mismatch and optimal network signal-to-noise ratio (SNR) are …”
+
+问题： 文中已说明有限记录的完整噪声协方差与对角 Fourier 权重之间存在区别。“optimal”需要对应明确的统计假设，否则术语强度超过当前定义。
+
+建议改法：
+
+“We define the joint-channel mismatch and PSD-weighted network SNR as …”
+
+若继续使用“optimal”，应补充独立 Fourier-bin 近似等成立条件，并说明它在后文中的用途。
+
+第 5 页：损失、训练与统计解释
+
+16．必须修改｜误差项的名称与公式内容不一致
+
+“The objective combines waveform agreement, a noise-weighted amplitude residual and a time-domain residual with three times the weight inside the gap.”
+
+问题： 
+𝐸
+𝑆
+E
+S
+	​
+
+ 包含幅度、相位和形状误差。“amplitude residual”缩窄了其数学含义。
+
+建议改法：
+
+“The objective combines mismatch, normalized noise-weighted waveform error, and normalized time-domain waveform error, with a factor-three weight inside the gap.”
+
+17．必须修改｜训练增强规则缺少具体关系
+
+“Each source contributes two variable-width observations and one fixed 33-s observation with an additional independent noise realization. Selected views undergo a global sign reversal of both observation and target.”
+
+问题： 两个可变宽度观测是否共享噪声和缺口中心没有写清；“selected views”也没有给出抽取规则。它们决定每个 epoch 的有效训练分布。
+
+建议改法：
+
+“For each source, the two variable-width views [state their noise and gap relationship]. The 33-s view uses an independent noise realization. We reverse the signs of both input and target for [state the view-selection rule or probability].”
+
+18．必须修改｜预训练流程缺少可追溯定义
+
+“The encoder and waveform synthesis modules inherit a pretrained DGF checkpoint …”
+
+问题： “inherit”带有开发记录语气。更关键的是，当前训练流程从一个已经拟合的模型开始，骨干预训练的数据、目标及模型选择方式仍需交代。
+
+建议改法：
+
+“We initialize the encoder and waveform synthesis modules from the DGF checkpoint trained using [dataset and objective], as described in [section or reference].”
+
+同时明确预训练数据与当前验证、测试数据的划分关系。
+
+19．可选润色｜结论过于泛化，带有防御式收尾感
+
+“These conditional populations also differ in source parameters and noise realizations, so their comparison describes the test population with each gap location.”
+
+问题： “describes the test population with each gap location”信息较少，读者真正需要知道哪些因素共同影响了组间差别。
+
+建议改法：
+
+“The subgroup statistics reflect the joint distributions of gap location, source parameters and noise realizations in the simulated population.”
+
+若希望讨论缺口位置的作用，后接配对实验设计会更有内容。
+
+第 6 页：图 2、波形示例与相位统计
+
+20．必须修改｜图中出现正文未定义的实验阶段
+
+“Residual-head pilots”
+“6,000 sources; 3 variants”
+“Phase / noise / combined”
+
+问题： 正文训练协议主要描述两个阶段，图中另有预实验。6000 个源的来源、三种候选的定义及选择规则没有对应说明。这影响方法选择过程的透明度。
+
+建议改法： 在训练协议增加：
+
+“Before full training, we compare three coefficient-head variants using 6,000 sources from [identify the training subset]. The variants use [define the feature sets], and selection follows [state the validation criterion].”
+
+若该阶段与本文方法定义无关，可从主图移到补充材料。
+
+21．必须修改｜成功案例的选样规则需要在展示处说明
+
+“Figure 5 compares the clean and reconstructed waveforms across 36- and 45-s gaps, with noise-weighted mismatches 
+5.59
+×
+10
+−
+4
+5.59×10
+−4
+ and 
+6.07
+×
+10
+−
+4
+6.07×10
+−4
+.”
+
+问题： 两例的误差显著低于总体中位数，附录还列出了较好的幅度与相位指标。读者需要在案例出现时知道它们的选取规则和展示目的。
+
+建议改法：
+
+“Figure 5 illustrates two successful reconstructions with noise-weighted mismatches of 
+5.59
+×
+10
+−
+4
+5.59×10
+−4
+ and 
+6.07
+×
+10
+−
+4
+6.07×10
+−4
+. The examples were selected using [state the actual selection rule].”
+
+后一句需要作者核对实际操作。
+
+22．可选润色｜将单个案例写成一般结果
+
+“Phase evolution through the resolved oscillations is shown in Fig. 6(b).”
+
+问题： 图 6(b) 展示一个源的 A 通道。“resolved oscillations”缺少判据，也使展示范围显得偏广。
+
+建议改法：
+
+“Figure 6(b) compares the clean and reconstructed analytic phases for the A channel of one example.”
+
+第 7 页：分布图与幅度误差
+
+23．可选润色｜统计图类型可更准确
+
+“Empirical distributions of time-domain and noise-weighted mismatch …”
+
+问题： 图 3 展示的是经验累积分布函数。准确命名比泛称“distributions”更便于阅读。
+
+建议改法：
+
+“Empirical cumulative distribution functions of the time-domain and noise-weighted mismatches …”
+
+纵轴可相应写成“Cumulative fraction”。
+
+24．可选润色｜范数差与幅度缩放的关系可更精确
+
+“The norm bias measures overall amplitude scaling, while 
+𝐸
+E also includes errors in waveform shape.”
+
+问题： 范数比描述总体范数的偏差；存在形状误差时，它也会受到形状变化影响。“measures overall amplitude scaling”容易使读者理解为一个独立估计的乘性幅度参数。
+
+建议改法：
+
+“The norm bias measures the fractional difference between the reconstructed and target waveform norms. The error 
+𝐸
+E measures their full waveform difference.”
+
+25．可选润色｜归一化分母的物理量名称过于含糊
+
+“The denominator measures the clean signal contained within the interval.”
+
+问题： 分母具体是缺口内目标波形的欧氏范数；“the clean signal”没有区分振幅范数、能量与 SNR。
+
+建议改法：
+
+“The denominator is the Euclidean norm of the clean waveform restricted to the gap.”
+
+第 8 页：图 5 与图 6 的图注
+
+26．必须修改｜幅度归一化规则没有明确公式
+
+“All four curves use the same clean-signal amplitude normalization per source …”
+
+问题： “same”交代了曲线之间的比较关系，归一化因子本身仍未定义。联合通道最大值、单通道最大值及波形范数会给出不同标度。
+
+建议改法：
+
+“For each source, all four curves in both channels are divided by 
+𝐻
+=
+[
+define the normalization
+]
+H=[define the normalization].”
+
+若与图 7 使用同一个 
+𝐻
+T
+D
+I
+H
+TDI
+	​
+
+，直接引用该定义即可。
+
+27．必须修改｜相位展开与分支选择的操作不明确
+
+“The common unwrapped phase branch preserves the relative phase modulo 
+2
+𝜋
+2π; the arrival time and phase remain fixed.”
+
+问题： “common unwrapped phase branch”没有说明展开算法及整数周偏移的选择规则。“preserves the relative phase modulo 
+2
+𝜋
+2π”属于数学性质，读者需要的是绘图操作。该操作尤其应与连续相位对齐区分清楚。
+
+建议改法：
+
+“We unwrap each phase using [algorithm]. The reconstructed phase is placed on the displayed branch by adding an integer multiple of 
+2
+𝜋
+2π, chosen using [reference rule].”
+
+具体实现若没有添加整数周偏移，应据实删除第二句。
+
+28．可选润色｜图注重复声明总体样本数
+
+“Full-population statistics use all 6,000 test sources.”
+
+问题： 图 5 仅展示两个案例，6000 个源的总体统计已在正文和表 I 定义。这是全文较明显的审计清单式重复之一。
+
+建议改法： 删除。图注保留案例身份、选择规则、归一化和线型说明。
+
+第 9 页：结果解释与讨论
+
+29．必须修改｜由图示推导出未定义的残差结论
+
+“Tail-relative residuals grow as the clean envelope decays …”
+
+问题： 文中没有定义“tail-relative residuals”，图 7 展示的是波形绝对值。当前句子将视觉观察写成了一个随时间变化的残差统计结论。
+
+建议改法：
+
+“In the two illustrated examples, the logarithmic plots reveal discrepancies in the late-time waveform and near zero crossings.”
+
+若希望保留“grow”，应先定义尾部区间、归一化方式并展示相应统计。
+
+30．必须修改｜对全部指标的概括范围偏大
+
+“Weak late-time oscillations contribute less to the full-record metrics and retain larger relative discrepancies, as the logarithmic amplitude plots illustrate.”
+
+问题： “full-record metrics”覆盖了不同评价量。时域平方误差、PSD 加权 mismatch 和归一化相位指标对弱尾部的权重关系各不相同。此外，后半句目前依据两个案例。
+
+建议改法：
+
+“The two examples show visible late-time discrepancies on a logarithmic amplitude scale. Their contribution to each full-record metric depends on the metric’s weighting.”
+
+更有信息量的版本是补充早期和晚期误差分解。
+
+31．必须修改｜已完成的工作与拟议用途之间时态含糊
+
+“Parameter inference uses the original observation likelihood, constructed from 
+𝑑
+−
+𝐺
+ℎ
+(
+𝜃
+)
+d−Gh(θ) and the noise covariance.”
+
+问题： 文章没有报告参数推断实验，陈述语气容易使读者理解为本文已经实现并验证了这一步。此外，这个似然针对式 (5) 的观测模型。
+
+建议改法：
+
+“For parameter inference under the observation model in Eq. (5), the likelihood should be constructed from 
+𝑑
+−
+𝐺
+ℎ
+(
+𝜃
+)
+d−Gh(θ) and its noise covariance.”
+
+后接明确的计划：
+
+“We leave the corresponding posterior-bias and coverage tests to future work.”
+
+32．可选润色｜未来工作写成过宽的条件清单
+
+“Moving unequal-arm constellations, confusion foregrounds, nonstationary noise, overlapping sources and multiple gaps require simulations spanning those conditions.”
+
+问题： “需要相应模拟来测试相应条件”提供的信息有限，具有常见的模板化未来工作语感。
+
+建议改法： 优先保留最紧迫的两项，并解释它们改变什么：
+
+“Future tests should include moving unequal-arm constellations and nonstationary noise to assess sensitivity to response and noise-model errors.”
+
+其余条件可另用一句列出，或移入补充讨论。
+
+第 10 页：图 7 与图 8
+
+33．可选润色｜绝对值与包络的术语需要保持一致
+
+“Absolute amplitudes of the clean and reconstructed A … and E … waveforms …”
+
+问题： 图中绘制 
+∣
+ℎ
+𝑐
+(
+𝑡
+)
+∣
+∣h
+c
+	​
+
+(t)∣，其零交叉附近会出现深谷。为了与全文的解析包络区别，直接称“absolute values”更准确。
+
+建议改法：
+
+“Absolute values of the clean and reconstructed A- and E-channel waveforms for the examples in Fig. 5.”
+
+34．必须修改｜periodogram 约定需要可定位的定义
+
+“The curves use the same one-sided periodogram convention.”
+
+问题： “same”说明两条曲线处理一致，但窗函数、去均值或 detrending、归一化及平均顺序尚不明确。图 8 的谱形解释依赖这些细节。
+
+建议改法：
+
+“For each source, we compute the one-sided periodograms of the reconstruction residual and [identify the noise series], using [window, detrending and normalization]. We then average the periodograms over the 6,000 sources.”
+
+详细公式也可集中放入附录，并在图注引用。
+
+第 11 页：实现、复现与参考模型
+
+35．可选润色｜实现遗留信息打断算法说明
+
+“The stored parameter count includes unused multihead-attention tensors allocated by the implementation.”
+
+问题： 内容具体，也有复现价值；放在注意力公式后，会使读者暂时转向实现遗留问题。更适合模型规模说明或复现文档。
+
+建议改法：
+
+“The checkpoint stores 9,589,685 parameters; [give count] participate in the forward computation.”
+
+若保留原句，建议与模型参数统计集中放置。
+
+36．可选润色｜底层加载操作具有开发日志语气
+
+“When loading, we clone the initially transposed storage before reading the tensors so that their saved values are preserved on both CPU and GPU.”
+
+问题： “initially transposed storage”依赖具体代码背景，读者难以从论文理解。真正影响算法的是两个映射是否独立。
+
+建议改法： 正文保留：
+
+“The encoder embedding and decoder patch maps use independent parameter tensors.”
+
+存储复制的操作移至代码加载说明；若它影响复现，应提供具体脚本位置。
+
+37．必须修改｜复现记录缺少可定位标识
+
+“The reproducibility record contains raw and EMA checkpoints, training histories, noise calibration, masks, seeds and per-source predictions.”
+
+“SHA-256 manifests identify the source files and fixed assets.”
+
+问题： 清单较完整，但“the reproducibility record”没有版本标识。后面的仓库地址也需要对应到实际生成本文结果的版本。
+
+建议改法：
+
+“The checkpoints, training histories, calibration arrays and evaluation outputs are archived at [persistent URL or release]. The results in this paper correspond to commit [hash] and manifest [identifier].”
+
+如果部分资产尚未公开，应直接写出其提供方式和范围。
+
+38．可选润色｜对普通统计操作作多余解释
+
+“This convention preserves source counts when reporting channel-specific means.”
+
+问题： 每个源、每个通道各产生一个数值，是自然的统计定义。“preserves source counts”使这一步显得像专门设计的保障机制，带有审计式解释习惯。
+
+建议改法：
+
+“Each channel-specific distribution contains 6,000 phase-error values.”
+
+或者保留前一句“one value per channel and source”，删除此句。
+
+39．必须修改｜参考配置依赖开发顺序，模型身份不明确
+
+“It uses the preceding fitted synthesis parameters and omits the final noise-conditioned head.”
+
+问题： “preceding”属于作者开发过程中的时间关系。读者需要可识别的模型配置、训练阶段和参数差异。
+
+建议改法：
+
+“The reference model uses checkpoint [identifier], with synthesis parameters obtained from [training stage], and contains no noise-conditioned coefficient head.”
+
+建议再用配置表列出两者共同部分与变化部分。
+
+40．必须修改｜配对差值的方向及 bootstrap 对象需明确
+
+“The selected model has paired mean difference 
+−
+1.61
+×
+10
+−
+4
+−1.61×10
+−4
+, with 95% bootstrap interval …”
+
+问题： 没有显式定义哪个模型减哪个模型；bootstrap 区间是针对总体平均差值还是其他统计量，也应直接写清。
+
+建议改法：
+
+“For each source, we define 
+Δ
+𝑀
+=
+𝑀
+s
+e
+l
+e
+c
+t
+e
+d
+−
+𝑀
+r
+e
+f
+e
+r
+e
+n
+c
+e
+ΔM=M
+selected
+	​
+
+−M
+reference
+	​
+
+. The mean difference is 
+−
+1.61
+×
+10
+−
+4
+−1.61×10
+−4
+. A paired bootstrap with 5,000 source-level resamples gives a 95% confidence interval of […].”
+
+再说明区间采用 percentile、basic 或 BCa 等哪一种构造方法。
+
+第 12 页：参考文献
+
+41．必须修改｜软件文献需要明确版本
+
+“[23] PyCBC developers, PyCBC time-domain ringdown waveform documentation, accessed 15 October 2026.”
+
+“[26] LISA Analysis Tools developers, LISA Analysis Tools: detector and sensitivity implementation, accessed 15 October 2026.”
+
+问题： 访问日期用于说明查阅时间；本文依赖具体波形和噪声实现，还需要实验使用的软件版本或提交号。已有文档超链接时，也应补上版本信息。
+
+建议格式：
+
+“PyCBC developers, [specific documentation title], PyCBC version [X], [versioned URL] (accessed 15 October 2026).”
+
+“LISA Analysis Tools developers, version [X] or commit [hash], [repository or archived release URL].”
+
+软件正式引用与版本记录可分别承担学术归属和实现定位的作用。
+
+42．可选润色｜参考文献格式需要统一
+
+“[1] … Physical Review D …”
+“[19] … Phys. Rev. D …”
+
+问题： 同一期刊混用全称和缩写，体现参考文献可能来自不同来源。文献标题中的专名大小写也应检查，例如 Fourier、Bayesian、Galactic 等。
+
+建议改法： 用目标期刊的同一 bibliography style 统一生成；在 BibTeX 中保护专名大小写，并保留原文标题、作者和书目信息。
+
+评估更新后的稿子，是否还有以上硬伤。
+
+Worked for 2m 39s
+Viewed 5 images
+
+新版已解决上一轮大部分具体表述与方法定义问题。仍有一项核心物理对应问题，以及几处需要补充说明或核查的技术问题。 新增的基拟合对照、表示误差和缺口内相位统计，明显增强了结果的说服力。
+
+我已通读新版全部 13 页，并检查图表。以下判断依据稿件文本；训练记录、代码执行结果和归档资产尚未独立核验。
+
+评审对象：:codex-file-citation{path="C:/Users/赖景祺/Downloads/RingdownGapFilling___PRD_revision_2026_10_09 (1).pdf" purpose="source"}
+
+一、上一轮哪些硬伤已经解决
+
+上一轮问题	新版位置	当前判断
+无依据的“20% 缺口”突然出现	第 1 页	已解决，已删除并明确本文范围
+将条件化对象写成固定信号基	第 1、3–4 页	已解决，明确调整基系数
+极化构造与质量—距离幅度因子含糊	第 2 页	已解决，补充自旋权重及幅度因子
+ring-up 的数学形式缺失	第 2 页	定义已解决；物理适用性仍待验证
+白化噪声 RMS 的计算含糊	第 3 页	已解决，给出独立样本、计算顺序及数值
+缺口位置与裁剪规则难以复现	第 3 页	基本解决，补充索引及公式；边界条件见下文
+中间预测 
+𝑏
+b 与信号基关系不明	第 3 页式 (6)	已解决
+零初始化保持预测的条件缺失	第 3–4 页	已解决，给出正交性和子空间条件
+470 维输入组成不明确	第 11–12 页、表 II	基本解决，特征定义已列出
+将完整波形残差称为幅度残差	第 5 页	已解决
+训练增强及预实验不明确	第 5 页	已解决主要规则
+参数推断语气暗示已完成验证	第 9 页	已解决，改为后续分析
+periodogram 处理不明确	第 10–11 页	已解决，公式和处理步骤一致
+参考模型身份、差值方向与 bootstrap 不明	第 12 页	已解决
+软件版本及文献格式不统一	第 11、13 页	已明显改善
+缺少信号基本身的对照与表示误差	第 12 页附录 C	得到实质补强
+
+其中，附录 C 很重要：现在可以明确区分信号基的表示能力与观测条件下的系数估计能力。
+
+二、仍然存在的核心问题
+
+1．真实数据缺失与当前信号抑制模型：说明更清楚，物理对应仍待建立
+
+第 3 页：
+
+“Instrument noise remains present inside the interval. Signal suppression is imposed numerically on the synthesized TDI A/E series, after the response calculation and before whitening.”
+
+这段已经准确说明实际实验操作。核心问题仍在：全文以数据缺失为动机，实验使用完整噪声可见的 
+𝑑
+=
+𝐺
+ℎ
++
+𝑛
+d=Gh+n。
+
+在有色噪声条件下，缺口内噪声与外部噪声相关。这些保留样本可以提供关于外部噪声的信息，并通过白化影响整个输入。实际缺失样本的观测则需要在保留样本空间中定义。
+
+审稿判断：这仍是最重要的未解决事项。 当前结果支持“指定信号抑制模型下的重建性能”；应用到实际缺失数据的性能需要对应实验。
+
+建议采取以下两种明确路径之一：
+
+保持真实缺口应用定位：增加实际缺失样本及明确填充值规则的配对测试。
+聚焦当前受控实验：在摘要和讨论中直接突出“post-TDI signal suppression”，把真实数据缺失列为待验证应用。
+
+可增加：
+
+“Our simulations suppress the signal after TDI synthesis while retaining the instrument-noise realization throughout the record. Application to missing TDI samples requires validation with an explicit missing-data observation model.”
+
+第 9 页的推断表述目前已限定在式 (5)，这一修改是合适的。
+
+2．原始预训练权重的来源：仍有复现缺口
+
+第 11 页：
+
+“The supplied legacy DGF weights initialize reproduction. Their training code uses pointwise squared and absolute errors on a separate 10,000-waveform simulation bank.”
+
+后续物理适配阶段已写得更清楚，但这两句仍有问题：
+
+“initialize reproduction”含义不自然，建议直接写初始化哪些模块。
+“Their training code uses …”描述的是代码，实际权重的训练过程需要对应记录。
+10000 个波形的生成分布、损失组合，以及与验证、测试源的独立关系仍未交代。
+
+审稿判断：原始训练流程的可追溯性仍需补充。 权重按需提供是一种可接受的资产提供方式；训练来源还应在论文中简要说明。
+
+建议改成：
+
+“We initialize [modules] from checkpoint [identifier], trained on 10,000 simulated waveforms drawn from [distribution] using [explicit loss]. This simulation bank is independent of the physical training, validation and test populations.”
+
+最后一句应根据实际记录填写。
+
+3．成功案例的透明度提高，代表性展示仍然偏弱
+
+第 11 页：
+
+“Figure 5 uses sources with the joint peak in the gap, 
+𝜌
+≥
+10
+ρ≥10, at least four 
+𝜏
+220
+τ
+220
+	​
+
+ of post-peak coverage and six visible extrema per channel.”
+
+“Full-record and gap-local errors are below 6%, and peak-phase errors below 2.5°.”
+
+正文和图注现在已指向案例条件，解决了此前信息分散的问题。但仍需说明：
+
+误差阈值属于选样条件，还是选定案例后的描述？
+满足条件的候选有多少？
+最终两个源怎样确定？
+
+审稿判断：总体统计仍然有效；图 5 应明确作为成功案例展示。 建议另增加一个接近中位数和一个接近 95 分位的案例。这样比继续增加选图条件更能帮助读者判断通常表现。
+
+第 11 页仍有：
+
+“The plotting manifest gives the channel-balance, native-sample curvature and noise-amplitude criteria.”
+
+这一句还带有较强的作图审计语感。建议把实际选样规则简化为读者可理解的几项，并将全部技术条件放在可定位的附属材料中。
+
+三、新增细节暴露出的技术核查项
+
+4．第 3 页主 CWT 的尺度范围需要优先核查
+
+原文：
+
+“The Morlet parameter is 
+𝜇
+=
+13.4
+μ=13.4. We evaluate scales 
+1
+,
+2
+,
+…
+,
+16
+1,2,…,16 …”
+
+同页第二个 CWT 使用尺度关系
+
+𝑎
+=
+𝜇
+𝑓
+𝑠
+2
+𝜋
+𝑓
+.
+a=
+2πf
+μf
+s
+	​
+
+	​
+
+.
+
+若主 CWT 使用同一尺度约定，则其名义中心频率为
+
+𝑓
+(
+𝑎
+)
+≃
+13.4
+×
+2
+2
+𝜋
+𝑎
+.
+f(a)≃
+2πa
+13.4×2
+	​
+
+.
+
+相应得到：
+
+尺度 
+𝑎
+a	名义中心频率
+1	4.27 Hz
+4	1.07 Hz
+5	0.85 Hz
+16	0.267 Hz
+
+采样率为 2 Hz，Nyquist 频率为 1 Hz。因此，前四个尺度的连续小波中心频率位于可解析频带之外。官方实现通过尺度与离散角频率的乘积求取小波响应，这使实际滤波器形状需要检查。
+ssqueezepy 小波实现
+
+这是由稿件参数推导出的核查问题，实际影响需要按所用版本和代码确认。
+
+建议核查：
+
+1
+,
+…
+,
+16
+1,…,16 是实际尺度，还是尺度编号？
+各尺度离散滤波器的峰值频率和响应强度是多少？
+主分支究竟覆盖哪些振铃频率，低频 adapter 承担多少信号表示？
+
+若这些确为实际尺度，论文应据实解释其作用。补齐尺度参数后，这个问题比上一版更容易被审稿人发现。
+
+5．第 3 页缺口规则的边界条件尚未闭合
+
+目前定义
+
+𝑎
+𝐿
+=
+𝑎
+−
+𝐿
+−
+66
+2
+,
+a
+L
+	​
+
+=a−
+2
+L−66
+	​
+
+,
+
+但裁剪操作允许参考缺口靠近父序列边界。例如，按所写规则取 
+𝑔
+=
+0
+g=0，则 
+𝑜
+=
+0
+,
+𝑎
+=
+0
+o=0,a=0；当 
+𝐿
+=
+104
+L=104 时，
+
+𝑎
+𝐿
+=
+−
+19.
+a
+L
+	​
+
+=−19.
+
+因此，文字给出的完整规则需要说明如何保证
+
+0
+≤
+𝑎
+𝐿
+,
+𝑎
+𝐿
++
+𝐿
+≤
+𝑁
+.
+0≤a
+L
+	​
+
+,a
+L
+	​
+
++L≤N.
+
+这是一处明确的边界定义缺口；现有模拟是否触发，需要数据检查。
+
+若所有源都天然远离父序列边界，可写明并报告验证结果。若允许触发，应给出拒绝重采样或边界处理规则，并确认实际缺口长度。
+
+四、新增实验解决了多少科学问题
+
+6．基拟合对照有效，但结论范围需要保持准确
+
+附录 C 报告：
+
+𝜌
+≥
+10
+ρ≥10：DGF 平均 mismatch 为 0.00532，基拟合为 0.04131。
+全体样本：分别为 0.00852 和 0.05193。
+rank-128 的目标投影平均 mismatch 为 
+1.65
+×
+10
+−
+4
+1.65×10
+−4
+。
+
+这些结果支持：
+
+在指定观测模型下，DGF 优于文中定义的训练先验正则化线性基拟合；该基对测试目标具有较好的表示能力。
+
+第 9 页现在将比较限定在这两个估计器，表述基本合适。
+
+尚需区分两个后续问题：
+
+架构贡献：双分支、低频 adapter、联合通道修正分别贡献多少，仍需要消融。
+物理用途：频率、阻尼时间、弱模态及偏离训练关系的信号恢复，仍需要模态实验。
+
+对于当前“波形重建方法”的定位，这两项可以按贡献主张安排验证优先级。若论文把“改善黑洞谱学测量”作为主要结论，模态验证应成为主要实验。
+
+7．缺口内相位统计已实质解决上一轮的指标对应问题
+
+第 7 页新增式 (15)，并对峰值位于缺口内的子总体报告加权相位误差。这直接回应了“全总体峰值相位误差与缺口内恢复对应不足”的问题。
+
+第 8 页还明确了绘图相位：
+
+𝜙
+d
+i
+s
+p
+l
+a
+y
+=
+𝜙
+c
+l
+e
+a
+n
++
+arg
+⁡
+(
+𝑧
+^
+𝑧
+∗
+)
+.
+ϕ
+display
+	​
+
+=ϕ
+clean
+	​
+
++arg(
+z
+^
+z
+∗
+).
+
+该公式清楚定义了以干净相位为参考的分支表示。图注宜将曲线称为：
+
+“Reconstructed phase expressed relative to the clean-phase branch.”
+
+若要展示独立累计相位及周数恢复，还需分别展开两条相位并检查 cycle slips。当前圆周相位误差统计可以保留。
+
+五、AI 叙述习惯还有多少
+
+新版的模板化和审计清单语感已明显减轻，剩余问题主要属于可选润色。 图 1、图 2 更简洁，初始化条件也用数学关系说明，阅读质量提高。
+
+还可压缩三处：
+
+位置	原句	建议
+第 5 页	“These values quantify recovery at the original arrival time and phase.”	评价约定已定义，可删除
+第 6 页	“These conditional summaries include variation in source parameters, noise and gap duration.”	与前段组间统计限定重复，可合并说明
+第 9 页	“Their contribution to a full-record error depends on its weighting.”	内容较泛，可删除，或补充具体误差分解
+
+此外，讨论连续三句使用“Tests with … would assess … / would test …”，仍有模板化未来工作节奏。可合并为一句，将最重要的验证对象和目的写清。
+
+当前最应优先处理的是：信号抑制与真实缺失数据的对应、主 CWT 尺度的实际频率响应、缺口边界规则，以及原始预训练权重的来源说明。

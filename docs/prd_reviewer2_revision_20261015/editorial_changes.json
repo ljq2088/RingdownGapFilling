@@ -1,0 +1,19 @@
+[
+  "State the tested observation conditions directly in the abstract",
+  "Condense the abstract ending and remove a duplicated noise-model qualification",
+  "Match the introductory description to the two actual CWT banks",
+  "Correct the shared PSD/RMS calibration population, confirmed by bitwise reproduction",
+  "Distinguish independence from source data and reuse between calibration estimators",
+  "Close the boundary definition and report the complete-population check",
+  "Explain the high-frequency legacy bank without attributing low-frequency coverage to it",
+  "Identify the explicit low-frequency input path",
+  "Remove a repeated evaluation convention",
+  "Remove a repeated subgroup qualification",
+  "Remove a generic error-weighting statement",
+  "Clarify that the phase plot uses a clean-referenced branch",
+  "Specify the displayed phase quantity without implying an independent cycle-count test",
+  "Condense repetitive future-work phrasing and state the application boundary",
+  "Record discrete-response verification, including the substantial scale-4 tail",
+  "Identify the fixed initialization and document the auxiliary data and actual archived loss",
+  "Distinguish example selection thresholds from population statistics without success-case labels"
+]

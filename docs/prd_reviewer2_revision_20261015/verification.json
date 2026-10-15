@@ -1,0 +1,23 @@
+{
+  "project": "6ac83816750c2cce452054d2",
+  "build": "1a13d263868-d5fa5847d9badd9f",
+  "pages": 13,
+  "changed_cloud_files": [
+    "DGF.tex",
+    "reproducibility_manifest.json",
+    "training_workflow_dgf_20261015.pdf"
+  ],
+  "all_changed_files_match_local": true,
+  "tex_line_endings_normalized_by_overleaf": true,
+  "all_four_numeric_tables_unchanged": true,
+  "core_equations_unchanged": true,
+  "all_results_figure_assets_unchanged": true,
+  "external_links_on_figure_pages": 0,
+  "local_compile_exit": 0,
+  "pdf_sha256": "6cb7b7ec2d55683dd9a8579b06aff20c41f9f9df986bdef344527add65dcf026",
+  "sha256": {
+    "DGF.tex": "772de036ff325f80573211014c481b60162a50335213489aecf7885992c4350d",
+    "reproducibility_manifest.json": "dbb73a7311a0c15904491c784047ad094e8fae9543f965137312e713fe6f4271",
+    "training_workflow_dgf_20261015.pdf": "75bc47abb6090d57c810ec7286d3557655f0c59fefc7762f4cc42465640f0016"
+  }
+}
