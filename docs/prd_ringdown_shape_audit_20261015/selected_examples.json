@@ -1,0 +1,64 @@
+{
+  "selected": [
+    {
+      "index": 2428,
+      "seeds": 2042202428,
+      "snr": 272.30970905650247,
+      "mismatch": 0.0007222117250679227,
+      "phase_gap": 2.213857980269937,
+      "energy": 0.41887419006520515,
+      "relative": 0.04657300325895193,
+      "gap_relative": 0.05344593217204914,
+      "ES": 0.0014489556159114644,
+      "norm_bias": -0.0042795159560552465,
+      "time_mm": 0.0010799870095095088,
+      "coverage": 6.242449920205405,
+      "balance": 0.9317260856022529,
+      "curvature": 0.03382996941072238,
+      "noise_ratio": 2.5822866204576824,
+      "phase_peak": [
+        0.2663854750280821,
+        0.2102551491951364
+      ],
+      "inside": false,
+      "extrema": [
+        7,
+        8
+      ],
+      "gap_over_tau": 0.7782364622006738,
+      "length": 47.0,
+      "start": 99.5
+    },
+    {
+      "index": 4884,
+      "seeds": 2042204884,
+      "snr": 297.97961321520626,
+      "mismatch": 0.0007882875726221705,
+      "phase_gap": 2.004197122752345,
+      "energy": 0.17213429020876642,
+      "relative": 0.0549951787218416,
+      "gap_relative": 0.05506491283467773,
+      "ES": 0.001663238750354384,
+      "norm_bias": 0.009194243316259065,
+      "time_mm": 0.0014565756750791747,
+      "coverage": 7.509565729470512,
+      "balance": 0.8808997323408835,
+      "curvature": 0.02427278978862821,
+      "noise_ratio": 2.877926892080872,
+      "phase_peak": [
+        1.5570153229792014,
+        0.7378358357290994
+      ],
+      "inside": false,
+      "extrema": [
+        7,
+        8
+      ],
+      "gap_over_tau": 0.5592229798541871,
+      "length": 35.0,
+      "start": 77.5
+    }
+  ],
+  "display_processing": "native 0.5-s samples; fractional frequency in units of 1e-18; original observation in every waveform panel; detail axes magnify amplitude and time; no smoothing, resampling, time/phase alignment or noise rescaling",
+  "selection": "Resolved decaying A/E oscillations and small full-record and gap-local errors; full 528-s observations plus labelled waveform-detail intervals; population statistics retain all 6000 sources"
+}

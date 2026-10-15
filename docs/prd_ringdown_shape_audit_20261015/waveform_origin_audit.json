@@ -1,0 +1,53 @@
+{
+  "reference": "https://arxiv.org/abs/1305.4306, Fig.1: Schwarzschild Zerilli multipoles, radial infall E=1, 2M=1, cumulative overtones n=0..3",
+  "source_taper": "exp(10t/tau) before t=0; exp(-t/tau) after t=0; one-sided envelope derivatives differ by 11 A/tau",
+  "fits": "Eight real sine/cosine basis functions at four prescribed fundamental QNM frequencies and damping times. Truth fits diagnose simulated waveform content; they do not replace model predictions.",
+  "sources": [
+    {
+      "index": 2428,
+      "seed": 2042202428,
+      "truth_reproduced_bitwise": true,
+      "noise_reproduced_bitwise": true,
+      "detector_remnant_mass_msun": 999735.1096081559,
+      "spin": 0.6793204272372259,
+      "f220_hz": 0.016926258444412468,
+      "tau220_s": 60.39295546124221,
+      "cycles_per_efold": 1.022226772358877,
+      "samples_per_cycle": 118.15960429578698,
+      "source_fit_relative_error": 1.8227245885261326e-15,
+      "tdi_late_fit_relative_error": [
+        1.3326837486582099e-05,
+        1.7156724911502638e-05
+      ],
+      "tdi_fit_interval_s": [
+        230.5,
+        450.5
+      ],
+      "joint_peak_s": 150.5,
+      "tdi_max_abs": 9.749483039390736e-19
+    },
+    {
+      "index": 4884,
+      "seed": 2042204884,
+      "truth_reproduced_bitwise": true,
+      "noise_reproduced_bitwise": true,
+      "detector_remnant_mass_msun": 1033156.6496542123,
+      "spin": 0.685907622817086,
+      "f220_hz": 0.01646554232301246,
+      "tau220_s": 62.5868414941138,
+      "cycles_per_efold": 1.0305262874850032,
+      "samples_per_cycle": 121.46578355969324,
+      "source_fit_relative_error": 9.163192446055692e-16,
+      "tdi_late_fit_relative_error": [
+        5.0996143134746125e-05,
+        5.5202473981566226e-05
+      ],
+      "tdi_fit_interval_s": [
+        137.5,
+        357.5
+      ],
+      "joint_peak_s": 57.5,
+      "tdi_max_abs": 1.1189659246942323e-18
+    }
+  ]
+}

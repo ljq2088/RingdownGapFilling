@@ -1,0 +1,19 @@
+{
+  "cloud_build": "1a13dfdd3b3-d0288bef2ddedc6a",
+  "byte_identical_uploaded_files": {
+    "DGF.tex": false,
+    "DGF_references.bib": false,
+    "reproducibility_manifest.json": true,
+    "latest_examples.pdf": true,
+    "tdi_log_amplitudes_20261015.pdf": true,
+    "latest_residual_psd.pdf": true
+  },
+  "pages": 14,
+  "unresolved_reference_markers": false,
+  "pdf_sha256": "09402a00ef46548a8655fc1539b881ff3ce5c9c7365ff84ffca7a07aefd2d2e9",
+  "text_content_equivalence": {
+    "DGF.tex": true,
+    "DGF_references.bib": true
+  },
+  "text_difference_note": "Overleaf normalizes CRLF to LF; text content matches."
+}
