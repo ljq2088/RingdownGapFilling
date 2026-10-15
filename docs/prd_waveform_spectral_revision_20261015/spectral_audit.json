@@ -1,0 +1,15 @@
+{
+  "population": 6000,
+  "input_error": "d-h=n-m*h",
+  "reconstruction_error": "prediction-h",
+  "periodogram": "rectangular, constant detrend, one-sided density, arithmetic source mean",
+  "integrated_residual_to_input_power": [
+    7.518767355169623e-05,
+    7.393184567808196e-05
+  ],
+  "integrated_reduction_db": [
+    41.23853352856137,
+    41.311684516842504
+  ],
+  "all_interior_bins_lower": true
+}

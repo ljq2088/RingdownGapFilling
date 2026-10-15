@@ -1,0 +1,458 @@
+[
+  {
+    "index": 3349,
+    "curv_concentration": 13.80334804875073,
+    "prediction_roughness": 0.013741765236456933,
+    "score": 16.419417591820224,
+    "mismatch": 0.000898901893409243,
+    "inside": false
+  },
+  {
+    "index": 4884,
+    "curv_concentration": 13.041410814975473,
+    "prediction_roughness": 0.022877202526303434,
+    "score": 16.429034642042648,
+    "mismatch": 0.0007882875726221705,
+    "inside": false
+  },
+  {
+    "index": 443,
+    "curv_concentration": 13.397322739972804,
+    "prediction_roughness": 0.019139470461754182,
+    "score": 16.5968932300443,
+    "mismatch": 0.0011077508612725717,
+    "inside": false
+  },
+  {
+    "index": 4409,
+    "curv_concentration": 14.042953152301907,
+    "prediction_roughness": 0.021800643889026267,
+    "score": 17.356778701990255,
+    "mismatch": 0.001089244770393849,
+    "inside": false
+  },
+  {
+    "index": 2428,
+    "curv_concentration": 13.120610757639607,
+    "prediction_roughness": 0.034828986598733874,
+    "score": 17.534969482692034,
+    "mismatch": 0.0007222117250679227,
+    "inside": false
+  },
+  {
+    "index": 5839,
+    "curv_concentration": 13.40267488236493,
+    "prediction_roughness": 0.031057681212058753,
+    "score": 17.70155668410725,
+    "mismatch": 0.0008262715113969143,
+    "inside": false
+  },
+  {
+    "index": 3198,
+    "curv_concentration": 14.017047249241413,
+    "prediction_roughness": 0.025464526055678505,
+    "score": 17.739497974107916,
+    "mismatch": 0.0007896009464845033,
+    "inside": false
+  },
+  {
+    "index": 4061,
+    "curv_concentration": 13.800658408357886,
+    "prediction_roughness": 0.030105975580035294,
+    "score": 17.795645063270452,
+    "mismatch": 0.0005662691520269547,
+    "inside": true
+  },
+  {
+    "index": 230,
+    "curv_concentration": 14.679017366577494,
+    "prediction_roughness": 0.02533839265746961,
+    "score": 18.089254818999606,
+    "mismatch": 0.0004872745708021098,
+    "inside": false
+  },
+  {
+    "index": 2797,
+    "curv_concentration": 13.280281291688407,
+    "prediction_roughness": 0.037695965896316005,
+    "score": 18.337613422505314,
+    "mismatch": 0.0006902206264498556,
+    "inside": true
+  },
+  {
+    "index": 886,
+    "curv_concentration": 14.475080072242093,
+    "prediction_roughness": 0.02809707837566539,
+    "score": 18.375967584987066,
+    "mismatch": 0.0005694812031051821,
+    "inside": true
+  },
+  {
+    "index": 5019,
+    "curv_concentration": 13.091305435914286,
+    "prediction_roughness": 0.04320883183853986,
+    "score": 18.636810787057748,
+    "mismatch": 0.0008050518543716301,
+    "inside": true
+  },
+  {
+    "index": 501,
+    "curv_concentration": 14.1824638590528,
+    "prediction_roughness": 0.03520036540647532,
+    "score": 18.807074446578028,
+    "mismatch": 0.0006506906528171985,
+    "inside": false
+  },
+  {
+    "index": 93,
+    "curv_concentration": 15.58337501903666,
+    "prediction_roughness": 0.022099892081459828,
+    "score": 18.861018819139183,
+    "mismatch": 0.0004569301547652227,
+    "inside": false
+  },
+  {
+    "index": 3766,
+    "curv_concentration": 13.655536056390009,
+    "prediction_roughness": 0.04154848847159709,
+    "score": 19.203968824343185,
+    "mismatch": 0.0010034418591234884,
+    "inside": false
+  },
+  {
+    "index": 221,
+    "curv_concentration": 14.034313880775864,
+    "prediction_roughness": 0.04191913446571178,
+    "score": 19.433257124312014,
+    "mismatch": 0.0004333568688269507,
+    "inside": false
+  },
+  {
+    "index": 2885,
+    "curv_concentration": 15.891769906667108,
+    "prediction_roughness": 0.022589418078968204,
+    "score": 19.477661809352583,
+    "mismatch": 0.0009000220165967798,
+    "inside": false
+  },
+  {
+    "index": 5389,
+    "curv_concentration": 14.768095450933256,
+    "prediction_roughness": 0.03501586612917572,
+    "score": 19.729072891419307,
+    "mismatch": 0.001326911134731601,
+    "inside": true
+  },
+  {
+    "index": 1593,
+    "curv_concentration": 15.675256400856432,
+    "prediction_roughness": 0.03225728885000409,
+    "score": 19.972622705114418,
+    "mismatch": 0.0006221508277585164,
+    "inside": true
+  },
+  {
+    "index": 5834,
+    "curv_concentration": 13.883658866183294,
+    "prediction_roughness": 0.0437093743305337,
+    "score": 20.0558131717569,
+    "mismatch": 0.0013233294731820333,
+    "inside": true
+  },
+  {
+    "index": 3735,
+    "curv_concentration": 14.769894529186166,
+    "prediction_roughness": 0.0371580954783019,
+    "score": 20.064630099314527,
+    "mismatch": 0.001159541362372285,
+    "inside": false
+  },
+  {
+    "index": 5153,
+    "curv_concentration": 16.491592183977406,
+    "prediction_roughness": 0.026138817768348487,
+    "score": 20.111598633262325,
+    "mismatch": 0.0007001840569949014,
+    "inside": false
+  },
+  {
+    "index": 770,
+    "curv_concentration": 14.96967807129582,
+    "prediction_roughness": 0.04172185011319126,
+    "score": 20.335016962549627,
+    "mismatch": 0.000706304311692274,
+    "inside": true
+  },
+  {
+    "index": 3561,
+    "curv_concentration": 15.823961362860981,
+    "prediction_roughness": 0.03304109057738814,
+    "score": 20.36349009743946,
+    "mismatch": 0.0011631055629391929,
+    "inside": true
+  },
+  {
+    "index": 5070,
+    "curv_concentration": 17.0082512342806,
+    "prediction_roughness": 0.025758940086324296,
+    "score": 20.446154460214196,
+    "mismatch": 0.0002985679270178787,
+    "inside": true
+  },
+  {
+    "index": 1728,
+    "curv_concentration": 16.619094872042595,
+    "prediction_roughness": 0.030250823751079663,
+    "score": 20.565425463437847,
+    "mismatch": 0.00039715484584668115,
+    "inside": false
+  },
+  {
+    "index": 2082,
+    "curv_concentration": 12.999911422683248,
+    "prediction_roughness": 0.05802686798574664,
+    "score": 20.596528052929067,
+    "mismatch": 0.0011748748546351884,
+    "inside": false
+  },
+  {
+    "index": 3322,
+    "curv_concentration": 17.308908538623296,
+    "prediction_roughness": 0.025732958509174297,
+    "score": 20.725801066858295,
+    "mismatch": 0.0002600664769383254,
+    "inside": true
+  },
+  {
+    "index": 4587,
+    "curv_concentration": 16.788800254595557,
+    "prediction_roughness": 0.024261593767768718,
+    "score": 20.73218820926324,
+    "mismatch": 0.0010950405839300625,
+    "inside": true
+  },
+  {
+    "index": 3955,
+    "curv_concentration": 16.780269362210802,
+    "prediction_roughness": 0.028972622107820156,
+    "score": 20.784587160456528,
+    "mismatch": 0.0012414398721259934,
+    "inside": true
+  },
+  {
+    "index": 2267,
+    "curv_concentration": 17.195103859122415,
+    "prediction_roughness": 0.02465840851438185,
+    "score": 20.79592266779979,
+    "mismatch": 0.0006601125817202735,
+    "inside": true
+  },
+  {
+    "index": 3108,
+    "curv_concentration": 16.48197191712852,
+    "prediction_roughness": 0.030561673447466478,
+    "score": 20.866129366986378,
+    "mismatch": 0.0008011944257765302,
+    "inside": false
+  },
+  {
+    "index": 3587,
+    "curv_concentration": 14.63453964054516,
+    "prediction_roughness": 0.05082907521763597,
+    "score": 21.044802066525385,
+    "mismatch": 0.0008519994380737916,
+    "inside": false
+  },
+  {
+    "index": 3929,
+    "curv_concentration": 16.888937715271968,
+    "prediction_roughness": 0.03011819315848651,
+    "score": 21.15807938720033,
+    "mismatch": 0.0008587553884897847,
+    "inside": true
+  },
+  {
+    "index": 2469,
+    "curv_concentration": 16.31660407048291,
+    "prediction_roughness": 0.0361069973939121,
+    "score": 21.289500978496438,
+    "mismatch": 0.0011331069461358867,
+    "inside": false
+  },
+  {
+    "index": 4436,
+    "curv_concentration": 15.276403927446122,
+    "prediction_roughness": 0.04801146464415607,
+    "score": 21.29985848115795,
+    "mismatch": 0.0008815302846491013,
+    "inside": false
+  },
+  {
+    "index": 5425,
+    "curv_concentration": 17.601526725277218,
+    "prediction_roughness": 0.030667473664511936,
+    "score": 21.64225103024755,
+    "mismatch": 0.0007094073700878445,
+    "inside": false
+  },
+  {
+    "index": 3545,
+    "curv_concentration": 15.947669940070512,
+    "prediction_roughness": 0.04685025499267027,
+    "score": 21.923410537768603,
+    "mismatch": 0.0007746798022780776,
+    "inside": true
+  },
+  {
+    "index": 305,
+    "curv_concentration": 17.633852611814145,
+    "prediction_roughness": 0.034409951281815725,
+    "score": 22.37991975815164,
+    "mismatch": 0.0009061577487867734,
+    "inside": false
+  },
+  {
+    "index": 2682,
+    "curv_concentration": 16.400440859115182,
+    "prediction_roughness": 0.0468485060402231,
+    "score": 22.42050752051304,
+    "mismatch": 0.0012760839755535658,
+    "inside": false
+  },
+  {
+    "index": 5187,
+    "curv_concentration": 18.43490225561649,
+    "prediction_roughness": 0.032347714850408,
+    "score": 22.642454571561082,
+    "mismatch": 0.0003359681430928907,
+    "inside": false
+  },
+  {
+    "index": 1913,
+    "curv_concentration": 18.523888074403636,
+    "prediction_roughness": 0.03228813253632784,
+    "score": 22.7336952207173,
+    "mismatch": 0.0005603390232022942,
+    "inside": false
+  },
+  {
+    "index": 3647,
+    "curv_concentration": 18.327957221256312,
+    "prediction_roughness": 0.02999203031512485,
+    "score": 22.73822346486649,
+    "mismatch": 0.001029184296965524,
+    "inside": true
+  },
+  {
+    "index": 591,
+    "curv_concentration": 18.89538362190973,
+    "prediction_roughness": 0.029533390904776115,
+    "score": 22.8948547987538,
+    "mismatch": 0.000683207844751399,
+    "inside": true
+  },
+  {
+    "index": 2249,
+    "curv_concentration": 19.531693450871924,
+    "prediction_roughness": 0.030989678217897797,
+    "score": 23.55166756409447,
+    "mismatch": 0.0006968681880387129,
+    "inside": false
+  },
+  {
+    "index": 533,
+    "curv_concentration": 19.875962459995698,
+    "prediction_roughness": 0.029464371861328532,
+    "score": 23.766222807720233,
+    "mismatch": 0.0004080621298373499,
+    "inside": false
+  },
+  {
+    "index": 3559,
+    "curv_concentration": 20.01690998692871,
+    "prediction_roughness": 0.032632596484947415,
+    "score": 24.10554972029269,
+    "mismatch": 0.0004991854160161235,
+    "inside": false
+  },
+  {
+    "index": 5587,
+    "curv_concentration": 17.871515481955257,
+    "prediction_roughness": 0.04994887565484916,
+    "score": 24.314827291985775,
+    "mismatch": 0.001402830060133975,
+    "inside": true
+  },
+  {
+    "index": 2125,
+    "curv_concentration": 16.0489616980893,
+    "prediction_roughness": 0.07081330293042358,
+    "score": 24.36873833133619,
+    "mismatch": 0.000461278375015195,
+    "inside": false
+  },
+  {
+    "index": 2712,
+    "curv_concentration": 20.81924485762523,
+    "prediction_roughness": 0.025647092715158377,
+    "score": 24.626296533260835,
+    "mismatch": 0.0013779656452839184,
+    "inside": false
+  },
+  {
+    "index": 3,
+    "curv_concentration": 21.412324110318576,
+    "prediction_roughness": 0.02915086013707099,
+    "score": 25.317268372867957,
+    "mismatch": 0.00042830952606998096,
+    "inside": false
+  },
+  {
+    "index": 1208,
+    "curv_concentration": 15.756377815059565,
+    "prediction_roughness": 0.08452390172817167,
+    "score": 25.796332172491315,
+    "mismatch": 0.0012453935998730792,
+    "inside": true
+  },
+  {
+    "index": 575,
+    "curv_concentration": 20.48326197452031,
+    "prediction_roughness": 0.04208841134868756,
+    "score": 25.804729904954982,
+    "mismatch": 0.0010865347997686126,
+    "inside": false
+  },
+  {
+    "index": 1304,
+    "curv_concentration": 15.292585181333456,
+    "prediction_roughness": 0.10372200608052279,
+    "score": 27.299860069415836,
+    "mismatch": 0.0011804019670521582,
+    "inside": false
+  },
+  {
+    "index": 3435,
+    "curv_concentration": 20.62184750983323,
+    "prediction_roughness": 0.05787344098900956,
+    "score": 27.844547877689273,
+    "mismatch": 0.001283381692922525,
+    "inside": false
+  },
+  {
+    "index": 4699,
+    "curv_concentration": 23.116208790991088,
+    "prediction_roughness": 0.03751281732757389,
+    "score": 28.021500712196254,
+    "mismatch": 0.0007318513749403621,
+    "inside": true
+  },
+  {
+    "index": 5276,
+    "curv_concentration": 22.70293218437712,
+    "prediction_roughness": 0.07635097612530867,
+    "score": 31.85696418351534,
+    "mismatch": 0.0015619183241327717,
+    "inside": false
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "project": "6ac83816750c2cce452054d2",
+  "build": "1a13def85b1-af0ab8ecdbe85456",
+  "updated_files_sha256": {
+    "DGF.tex": "bbbbb8db43f59c6c03f4b9cd3327411c9dd8d4c5362fb923547913fc4d1ca3ad",
+    "reproducibility_manifest.json": "290a9ed76eeb3da110e173c8525ac6061306e4d95e30750d5ed14c60c40d51a0",
+    "latest_examples.pdf": "ea4ff0be69011b686d2766d53c3df315235bb8c59a7c7a1a98392f0895a45ff6",
+    "latest_phase.pdf": "111b2229e12594fe055518ebebc1718c03ce974b856c6af8bdcb2b1859362d9e",
+    "tdi_log_amplitudes_20261015.pdf": "7d6eee38a6e2de22620506449eb68ca3b1461d28c7d14214f401a35d5855fba9",
+    "latest_residual_psd.pdf": "6eb828d884011aa7d3aff8ec238482dc39b8a962ba52d190fac51cb391e06c86"
+  },
+  "pages": 14,
+  "cloud_local_numeric_tokens_equal_by_page": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "pdf_sha256": "369e9f42e42120ef1537bd6e73f773974b2c7c77a45d231327836f857a309515",
+  "numerical_verification": {
+    "native_sampling_seconds": 0.5,
+    "noise_identity_exact": true,
+    "gapped_target_identity_exact": true,
+    "direct_mismatch_recomputed": [
+      0.0007222117250677007,
+      0.0007882875726222816
+    ],
+    "same_population_tables": true,
+    "example_seeds": [
+      2042202428,
+      2042204884
+    ],
+    "checkpoint": "e504aae2ba10eb3684c503e4acb76998ab8563b63e28256bf0dc46dfa9c1c1d5",
+    "figure_changes": [
+      "waveform examples",
+      "phase example",
+      "log absolute amplitudes",
+      "input versus output error spectra"
+    ],
+    "source_hash": "bbbbb8db43f59c6c03f4b9cd3327411c9dd8d4c5362fb923547913fc4d1ca3ad"
+  }
+}

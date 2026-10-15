@@ -1,0 +1,22 @@
+{
+  "native_sampling_seconds": 0.5,
+  "noise_identity_exact": true,
+  "gapped_target_identity_exact": true,
+  "direct_mismatch_recomputed": [
+    0.0007222117250677007,
+    0.0007882875726222816
+  ],
+  "same_population_tables": true,
+  "example_seeds": [
+    2042202428,
+    2042204884
+  ],
+  "checkpoint": "e504aae2ba10eb3684c503e4acb76998ab8563b63e28256bf0dc46dfa9c1c1d5",
+  "figure_changes": [
+    "waveform examples",
+    "phase example",
+    "log absolute amplitudes",
+    "input versus output error spectra"
+  ],
+  "source_hash": "bbbbb8db43f59c6c03f4b9cd3327411c9dd8d4c5362fb923547913fc4d1ca3ad"
+}
