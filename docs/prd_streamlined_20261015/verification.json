@@ -1,0 +1,25 @@
+{
+  "source_match": {
+    "DGF.tex": true,
+    "reproducibility_manifest.json": true
+  },
+  "pages": 16,
+  "figures": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8"
+  ],
+  "section_pages": {
+    "FIG. 8.": 11,
+    "DISCUSSION AND CONCLUSIONS": 12,
+    "Appendix A:": 13
+  },
+  "identifiers_in_article": false,
+  "build": "1a13f4cccca-2489fcfde9d0556a",
+  "population_statistics": "unchanged"
+}
