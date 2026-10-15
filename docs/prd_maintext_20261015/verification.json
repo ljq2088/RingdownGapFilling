@@ -1,0 +1,14 @@
+{
+  "source_match": {
+    "DGF.tex": true,
+    "reproducibility_manifest.json": true
+  },
+  "pages": 18,
+  "section_pages": {
+    "FIG. 9.": 12,
+    "FIG. 10.": 13,
+    "DISCUSSION AND CONCLUSIONS": 14,
+    "Appendix A:": 15
+  },
+  "build": "1a13f362ad6-9faa281d4b4760e6"
+}
