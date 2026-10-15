@@ -1,0 +1,15 @@
+{
+  "spectra_max_relative_difference_in_plotted_bins": {
+    "input": 8.758067000749294e-16,
+    "residual": 5.249244362919219e-13,
+    "noise": 9.533459007956137e-16
+  },
+  "3322": {
+    "source_display_relative_error": 0.01238455724357101,
+    "direct_mismatch": 0.0002600664769383254
+  },
+  "5712": {
+    "source_display_relative_error": 0.053537392170711906,
+    "direct_mismatch": 0.002631440131199536
+  }
+}

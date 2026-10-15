@@ -1,0 +1,12 @@
+{
+  "DGF.tex": true,
+  "reproducibility_manifest.json": true,
+  "figure_count": 8,
+  "all_figure_files_match": true,
+  "pages": 16,
+  "unresolved_references": false,
+  "source_seed_prose": false,
+  "cloud_pdf_sha256": "0084f86817970974ea22867b68c31fc44a99a4431cc471bfdb648eb889cc5ed3",
+  "cloud_build": "1a13f82ff6b-0114ae34db6919c4",
+  "project": "6ac83816750c2cce452054d2"
+}
