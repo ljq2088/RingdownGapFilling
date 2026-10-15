@@ -1,0 +1,38 @@
+{
+  "base_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+  "residual_sha256": "e504aae2ba10eb3684c503e4acb76998ab8563b63e28256bf0dc46dfa9c1c1d5",
+  "prediction_reproduction_relative_error": 0.0,
+  "prediction_max_absolute_error": 0.0,
+  "model_parameter_counts": {
+    "intermediate": 9589685,
+    "residual": 646658,
+    "total": 10236343
+  },
+  "loss_formula": {
+    "code": 0.02030046284198761,
+    "independent": 0.02030046284198761,
+    "absolute_error": 0.0
+  },
+  "linear_independent_checks": [
+    {
+      "index": 0,
+      "coefficient_relative_error": 8.056804565064197e-15,
+      "physical_mismatch_error": 7.771561172376096e-16
+    },
+    {
+      "index": 17,
+      "coefficient_relative_error": 1.0099512051721139e-14,
+      "physical_mismatch_error": 2.220446049250313e-16
+    },
+    {
+      "index": 63,
+      "coefficient_relative_error": 8.995464710247073e-15,
+      "physical_mismatch_error": 1.1102230246251565e-16
+    },
+    {
+      "index": 127,
+      "coefficient_relative_error": 1.132445519595984e-14,
+      "physical_mismatch_error": 1.1102230246251565e-16
+    }
+  ]
+}

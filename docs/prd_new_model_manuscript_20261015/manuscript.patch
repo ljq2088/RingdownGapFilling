@@ -1,0 +1,311 @@
+--- 
++++ 
+@@ -47,7 +47,7 @@
+ \affiliation{Institute of Theoretical Physics, Chinese Academy of Sciences, Beijing 100190, China}
+ 
+ \begin{abstract}
+-Data gaps near the onset of black hole ringdown can obscure much of its rapidly decaying signal. We present DenoiseGapFiller (DGF), a neural network that jointly denoises and reconstructs ringdown waveforms using complementary time--frequency and temporal representations. We evaluate DGF on 6,000 independent simulated LISA $A/E$ observations formed by adding stationary Gaussian instrument noise to ringdown signals with gaps spanning approximately 6\%--10\% of each record. For network signal-to-noise ratios $\rho\ge10$, the mean direct noise-weighted mismatch is $5.32\times10^{-3}$ at fixed arrival time and phase. The corresponding mean over all 6,000 test signals is $8.52\times10^{-3}$. Across the full test population, the mean absolute analytic-phase error at each channel's clean-signal envelope peak is below $4^\circ$. These results demonstrate recovery of damped oscillations through intervals containing the signal peak in the simulated source population.
++Data gaps near the onset of black hole ringdown can obscure much of its rapidly decaying signal. We present DenoiseGapFiller (DGF), a neural network that jointly denoises and reconstructs ringdown waveforms using complementary time--frequency and temporal representations. We evaluate DGF on 6,000 independent simulated LISA $A/E$ observations formed by adding stationary Gaussian instrument noise to ringdown signals with gaps spanning approximately 6\%--10\% of each record. For network signal-to-noise ratios $\rho\ge10$, the mean direct noise-weighted mismatch is $5.10\times10^{-3}$ at fixed arrival time and phase. The corresponding mean over all 6,000 test signals is $8.21\times10^{-3}$. Across the full test population, the mean absolute analytic-phase error at each channel's clean-signal envelope peak is below $4^\circ$. These results demonstrate recovery of damped oscillations through intervals containing the signal peak in the simulated source population.
+ \end{abstract}
+ 
+ \maketitle
+@@ -60,11 +60,11 @@
+ 
+ Neural methods learn reconstruction maps from simulated waveforms and noisy observations. Xu \textit{et al.}~\cite{Xu_2024} used a DenseNet--BiLSTM model for inspiral--merger--ringdown signals under several forms of corruption. Mao \textit{et al.}~\cite{Mao:2025cae} combined a convolutional autoencoder with a bidirectional gated recurrent unit for long LISA sequences containing gaps. WaveFormer~\cite{Wang:2024waveformer} combines convolutional feature extraction and Transformer blocks for denoising ground-based data, and assesses amplitude and phase recovery separately. Here we focus on short ringdown records, where a gap can cover the amplitude peak and leave substantially different signal strengths on its two sides.
+ 
+-We develop DGF to recover damped oscillations from noisy observations with a known gap. The time--frequency branch uses complex Morlet continuous wavelet transform (CWT) features, including a second bank with explicit low-frequency coverage. The temporal branch preserves the sign and multiscale structure of the waveform. Mixing layers combine these complementary features, and sequence blocks connect context on both sides of the interval before a decoder synthesizes the clean waveform. Related time-series models use temporal and feature mixing to combine information across scales~\cite{TSMixer2023,TimeMixer2024}. Whitening uses a calibrated power spectral density (PSD), while mask-aware and joint-channel modules refine the decoded waveform. A coefficient head adjusts the coefficients of a fixed, training-derived signal basis using observation-derived noise and phase features.
++We develop DGF to recover damped oscillations from noisy observations with a known gap. The time--frequency branch uses complex Morlet continuous wavelet transform (CWT) features, including a second bank with explicit low-frequency coverage. The temporal branch preserves the sign and multiscale structure of the waveform. Mixing layers combine these complementary features, and sequence blocks connect context on both sides of the interval before a decoder synthesizes the clean waveform. Related time-series models use temporal and feature mixing to combine information across scales~\cite{TSMixer2023,TimeMixer2024}. Whitening uses a calibrated power spectral density (PSD), while mask-aware and joint-channel modules refine the decoded waveform. A coefficient head adjusts a training-derived signal basis using observation-derived noise and phase features. A multiscale convolutional module then reconstructs residual structure in physical coordinates, with supervision that follows the decaying envelope.
+ 
+ The observation model is $d=Gh+n$: $G$ suppresses the signal over one interval, and noise is present throughout the record. We report reconstruction accuracy for $\rho\ge10$ alongside the complete test population, and examine recovery across intervals containing the signal-envelope peak.
+ 
+-Section~\ref{sec:method} presents the reconstruction framework, signal and noise models, and training protocol. Section~\ref{sec:results} evaluates waveform recovery, gap-location dependence, amplitude fidelity and phase accuracy. Section~\ref{sec:discussion} discusses the implications for ringdown analysis and the scope of the simulations. The appendixes give implementation and reproducibility details, fixed-duration gap tests and a comparison with a reference DGF configuration.
++Section~\ref{sec:method} presents the reconstruction framework, signal and noise models, and training protocol. Section~\ref{sec:results} evaluates waveform recovery, gap-location dependence, amplitude fidelity and phase accuracy. Section~\ref{sec:discussion} discusses the implications for ringdown analysis and the scope of the simulations. The appendixes give implementation and reproducibility details, fixed-duration gap tests and comparisons with the intermediate estimator and regularized basis fitting.
+ 
+ \section{Methodology}\label{sec:method}
+ We generate simulated ringdown observations using standard LISA response and noise models. DGF operates on the $A/E$ time-delay interferometry (TDI) channels and estimates their complete clean waveforms from the observations and known gap mask. The signal, response, noise calibration and preprocessing described below are shared by the training, validation and independent test sets.
+@@ -123,7 +123,7 @@
+ 
+ \begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{architecture_dgf_20261015.pdf}
+-\caption{DGF architecture. The time--frequency and signed temporal representations feed a shared encoder and waveform decoder. Mask-aware and joint-channel refiners precede the signal-basis adapter and conditioned coefficient head. The head adjusts coefficients of a fixed basis; its zero-initialized correction preserves the basis-adapted prediction at initialization. Inverse whitening returns the $A/E$ estimates to physical units. Dashed arrows mark conditioning inputs. The small waveform, transform and network drawings are schematic.}\label{fig:pipeline}\label{fig:architecture}
++\caption{DGF architecture. (a) Time--frequency and signed temporal representations feed a shared encoder and waveform decoder. (b) Mask-aware and joint-channel refiners, the signal-basis adapter and conditioned coefficient head produce an intermediate estimate. (c) A conditioned one-dimensional U-Net predicts a residual in physical coordinates. Skip connections join matching temporal resolutions; the numbers give feature-channel widths. A fixed frequency taper restricts the learned residual before addition to the intermediate estimate. The miniature waveforms and feature maps are schematic.}\label{fig:pipeline}\label{fig:architecture}
+ \end{figure*}
+ 
+ \subsection{Joint-channel refinement and noise-conditioned coefficients}\label{sec:coefficients}
+@@ -140,19 +140,29 @@
+ \begin{align}
+ c_0&=B^{\mathsf T}P_0b,\qquad
+ c=c_0+0.1s\tanh F_\psi(z),\label{eq:refinement}\\
+-\widehat u&=Bc+(I-P_0)b,\qquad
+-\widehat h=W^{-1}\widehat u.\nonumber
+-\end{align}
+-Equation~\eqref{eq:refinement} preserves the endpoint components of $b$. At initialization, the final layer gives $F_\psi=0$ and $c=c_0$. Together with $B^{\mathsf T}B=I$ and $P_0b\in\operatorname{span}(B)$, this yields $\widehat u=b$ to floating-point precision.
++u_0&=Bc+(I-P_0)b,\qquad h_0=W^{-1}u_0.\nonumber
++\end{align}
++Equation~\eqref{eq:refinement} preserves the endpoint components of $b$. At initialization, the final layer gives $F_\psi=0$ and $c=c_0$. Together with $B^{\mathsf T}B=I$ and $P_0b\in\operatorname{span}(B)$, this yields $u_0=b$ to floating-point precision.
+ 
+ The 470-dimensional input $z$ contains 262 normalized coefficient and mask coordinates, 16 noise-level and spectral features, and 192 pooled phase features. Appendix~\ref{app:model_analysis} defines each component and its normalization. For the physical-frequency CWT, we use an amplitude-weighted circular phase representation,
+ \begin{equation}
+ a_C\{1,\cos\theta_C,\sin\theta_C\},\quad
+ a_C=\log(1+|C|),\quad\theta_C=\arg C.\label{eq:continuous_phase}
+ \end{equation}
+-Amplitude weighting makes the phase features approach zero as the local CWT amplitude approaches zero. Pooling these features to a $4\times8$ grid in each channel gives 192 entries. The head maps 470 inputs to width 192, applies two residual multilayer perceptron (MLP) blocks and outputs 128 coefficients. Each residual block uses layer normalization, two linear layers, GELU and dropout 0.05, and adds 0.25 times its output to the incoming features. The coefficient head has 264,128 parameters. The complete stored model has 9,589,685 parameters.
++Amplitude weighting makes the phase features approach zero as the local CWT amplitude approaches zero. Pooling these features to a $4\times8$ grid in each channel gives 192 entries. The head maps 470 inputs to width 192, applies two residual multilayer perceptron (MLP) blocks and outputs 128 coefficients. Each residual block uses layer normalization, two linear layers, GELU and dropout 0.05, and adds 0.25 times its output to the incoming features. The coefficient head has 264,128 parameters. The waveform estimator through this head has 9,589,685 parameters.
+ 
+ The head uses the observation, current prediction, mask and noise calibration. Source parameters and clean targets enter simulation, supervision and evaluation.
++
++\subsection{Multiscale residual reconstruction}\label{sec:multiscale}
++The coefficient representation captures the joint waveform structure. A one-dimensional U-Net~\cite{Ronneberger2015UNet} supplements it with a learned residual evaluated at the original sampling rate. Its inputs combine the observation and intermediate prediction in whitened and physical coordinates, the predicted analytic envelopes, the gap mask and normalized time. These quantities form 12 temporal channels. A 470-dimensional context vector uses the features in Table~\ref{tab:head_features}, recomputed with $y=u_0$.
++
++The contracting path has feature widths 32, 64, 96 and 128 at lengths 1056, 528, 264 and 132. Each block contains two kernel-five convolutions with padding two, eight-group normalization and GELU. Factor-two average pooling connects successive levels. The expanding path uses linear upsampling, concatenation with the matching contracting-path features, and blocks of widths 96, 64 and 32. At the bottleneck, a $470\to192\to256$ context network supplies channel-wise scale and offset parameters. A kernel-one output layer predicts two residual series.
++
++Writing $U_\theta$ for this output and $\sigma_h$ for the RMS of the intermediate physical waveform, the final estimate is
++\begin{equation}
++\widehat h=h_0+0.1\sigma_h\,\mathcal P_f U_\theta.\label{eq:multiscale_output}
++\end{equation}
++The Fourier multiplier of $\mathcal P_f$ is unity up to $0.3\,\mathrm{Hz}$, follows a half-cosine taper between $0.3$ and $0.4\,\mathrm{Hz}$, and is zero above $0.4\,\mathrm{Hz}$. This fixed operation acts on the learned residual. The output layer is initialized to zero, preserving $h_0$ at initialization. The residual module has 646,658 parameters, giving 10,236,343 parameters for the complete estimator. Appendix~\ref{app:residual_details} gives the normalization and conditioning conventions.
+ 
+ \subsection{Training objective and data partition}\label{loss}
+ We define the direct joint-channel inner product by
+@@ -168,35 +178,36 @@
+ \end{equation}
+ The SNR refers to the complete clean target before signal suppression. We evaluate overlap at the original time and phase. For nonzero waveforms, $\mathcal M_{AE}\in[0,2]$, with values above one for anticorrelated predictions. An overall positive rescaling of the PSD cancels in the normalized overlap; its frequency dependence sets the relative bin weights.
+ 
+-Final two-channel optimization uses
+-\begin{equation}
+-\mathcal L=\mathcal M_{AE}+0.2E_S+0.02E_{\rm time,gap},\label{eq:loss}
++The reconstruction objective is
++\begin{equation}
++\begin{split}
++\mathcal L={}&\mathcal M_{AE}+0.2E_S+0.02E_{\rm time,gap}\\
++&+a_e\frac{\rho^2}{\rho^2+100}(0.04E_{\rm env}+0.03E_\phi),
++\end{split}\label{eq:loss}
+ \end{equation}
+ with
+ \begin{align}
+ E_S&=\frac{(\widehat h-h|\widehat h-h)_S}{(h|h)_S},\nonumber\\
+ E_{\rm time,gap}&=\frac{\sum_{c,j}(1+2m_j)(\widehat h_{c,j}-h_{c,j})^2}{\sum_{c,j}h_{c,j}^2}.\label{eq:auxiliary_errors}
+ \end{align}
+-The objective combines mismatch, normalized noise-weighted waveform error and normalized time-domain waveform error, with a factor-three weight inside the gap. Losses and population mismatches are arithmetic means over sources.
+-
+-Figure~\ref{fig:training_workflow} summarizes training. The 60,000 physical training sources each contribute three views. Two have independently sampled variable gap widths around the same reference center; the first retains the original noise realization and the second uses independent noise. The third has a 33-s gap and another independent noise realization. The second and third views receive a common input--target sign drawn with equal probability from $\{-1,1\}$ for each source. Widths, noise and signs are drawn once and held fixed across epochs. CWT and db4 features are recomputed from each observation. One epoch contains 180,000 observations.
++The first three terms combine direct mismatch with noise-weighted and physical-time residual errors, with a factor-three weight inside the gap. The envelope-normalized Huber term $E_{\rm env}$ and circular-phase term $E_\phi$ resolve the decaying waveform after its joint envelope peak. They use samples where the target envelope exceeds 1\% of its channel maximum. Their weight grows as $a_e=\min(1,e/10)$ at training epoch $e$ and is moderated by $\rho^2/(\rho^2+100)$. Appendix~\ref{app:residual_details} defines both terms. The objective is averaged over training observations; evaluation means give equal weight to each source.
++
++Figure~\ref{fig:training_workflow} summarizes training. Each of the 60,000 physical training sources contributes four cached observation views. The first two have independently sampled variable gap widths around the same center and independent noise realizations; the third has a 33-s gap and another independent noise realization. The second and third views receive a common input--target sign drawn from $\{-1,1\}$ with equal probability. The fourth uses a variable gap and $n_{\rm mix}=n_0\cos\vartheta+n_1\sin\vartheta$, with $\vartheta$ uniform on $[0,2\pi)$ and $n_0,n_1$ independent noise realizations with the same instrument-noise covariance. This mixture preserves the Gaussian noise covariance. Widths, noise and signs are fixed across epochs, and all transform features are computed from the corresponding observations. Each residual-training epoch uses all 240,000 cached observations and 24,000 additional draws from training sources with $\rho<20$, for a total of 264,000 observations.
+ 
+ The validation set contains 1,500 independent sources. Model selection uses the mean direct mismatch over this complete set with uniformly sampled variable gap widths. Fixed 33- and 50-s gaps provide additional checks on the same sources. The independent test set contains 6,000 sources generated after model selection. Population summaries include all generated sources; SNR-conditioned summaries state the corresponding sample counts.
+ 
+ \begin{figure*}[t]
+ \centering\includegraphics[width=\textwidth]{training_workflow_dgf_20261015.pdf}
+-\caption{Simulation and training workflow. Physical source populations and noise-calibration realizations are separate. Supervised A/E adaptation initializes the waveform estimator and coefficient adapter; head training and joint fine-tuning then use the augmented training views. Validation controls learning rates, early stopping and model selection. The selected estimator is evaluated on newly generated test sources. Dashed arrows show validation feedback; the small drawings are schematic.}\label{fig:training_workflow}
++\caption{Simulation and training workflow. The source populations and noise calibration are separate. Supervised waveform estimation combines the dual branches, joint-channel synthesis and multiscale residual reconstruction. Four observation views per source vary the noise and gap conditions. Validation controls learning rates, early stopping and estimator selection. The complete estimator is frozen before independent testing. Dashed arrows show validation feedback; the miniature drawings are schematic.}\label{fig:training_workflow}
+ \end{figure*}
+ 
+ \subsection{Training protocol}\label{sec:training}
+-We initialize the encoder and waveform synthesis modules from a DGF model adapted to the physical $A/E$ training sources. Appendix~\ref{app:initialization} describes the initialization stages and their objectives. Before full coefficient-head training, we compare phase-only, noise-only and combined feature sets on the first 6,000 training sources. All three heads receive the same 262 coefficient and mask coordinates; the phase-only and noise-only variants set the other feature group to zero. The full 1,500-source validation mean selects the combined head. The selected feature set then undergoes two optimization stages. First, the coefficient head is trained with the waveform estimator held fixed, using cached predictions and features. AdamW uses batches of 1024, weight decay $3\times10^{-4}$ and a five-epoch warmup to learning rate $3\times10^{-4}$. Validation plateaus halve the learning rate. Training has a maximum of 600 epochs, minimum 100, patience 100 and improvement threshold $10^{-6}$.
+-
+-The second stage jointly trains the decoder, physical-frequency adapter, channel-wise and joint residual modules, coefficient adapter and head. The encoder, transforms and signal basis remain fixed. This stage has 422,151 trainable parameters. Group learning rates range from $5\times10^{-7}$ for the decoder to $10^{-4}$ for the head. It uses batches of 128, the same weight decay, a maximum of 200 epochs, minimum 40 and patience 50. Validation plateaus trigger further learning-rate reductions.
+-
+-Raw and exponential-moving-average weights, with decay factor 0.995, are evaluated using the complete validation mean. Model selection, early stopping and learning-rate scheduling use validation sources. The independent test set is reserved for the selected estimator. Appendix~\ref{app:model_analysis} gives the numerical conventions, and Appendix~\ref{app:fixed_gaps} reports supplementary evaluation on the same independent test sources.
++Training separates waveform estimation from residual reconstruction. The dual-branch encoder, decoder and coefficient modules are adapted to the physical $A/E$ population as described in Appendix~\ref{app:initialization}. Their parameters remain fixed while the multiscale residual module learns from cached intermediate predictions and observation-derived features. AdamW uses batches of 128, initial learning rate $2\times10^{-4}$, weight decay $10^{-4}$ and gradient-norm clipping at one. A validation plateau of 15 epochs reduces the learning rate by a factor of 0.7, with a floor of $10^{-6}$.
++
++A 12,000-source training subset initializes the residual module, followed by training on all 60,000 sources. The full stage has a maximum of 400 epochs, a minimum of 80 and early-stopping patience of 80, with an absolute improvement threshold of $10^{-6}$. Raw and exponential-moving-average weights, with decay 0.995, are evaluated on all 1,500 validation sources. Selection minimizes their mean direct mismatch subject to validation phase and envelope-error tolerances specified in Appendix~\ref{app:residual_details}. The complete estimator is fixed before generating the 6,000 independent test sources. All population metrics use the original time and phase, the common PSD and the same source population.
+ 
+ \section{Reconstruction results}\label{sec:results}
+-We evaluate the validation-selected checkpoint on 6,000 independent LISA test sources. Each 528-s record contains 1056 samples at 2 Hz and one 32--52-s gap drawn as specified in Sec.~\ref{sec:gaps}. We first report the $\rho\ge10$ population, which contains 5814 sources, together with statistics for the full test set. The distributions include all 6,000 sources. The fixed-duration tests in Appendix~\ref{app:fixed_gaps} use the same source waveforms and noise realizations.
++We evaluate the validation-selected checkpoint on 6,000 independent LISA test sources. Each 528-s record contains 1056 samples at 2 Hz and one 32--52-s gap drawn as specified in Sec.~\ref{sec:gaps}. We first report the $\rho\ge10$ population, which contains 5810 sources, together with statistics for the full test set. The distributions include all 6,000 sources. The fixed-duration tests in Appendix~\ref{app:fixed_gaps} use the same source waveforms and noise realizations.
+ 
+ \subsection{Waveform mismatch}\label{subsec:Mismatch}
+ We evaluate the noise-weighted mismatch in Eq.~\eqref{eq:joint_mismatch} jointly over the $A/E$ channels at the injected time and phase. The corresponding time-domain mismatch is
+@@ -206,54 +217,54 @@
+ These normalized overlaps measure waveform agreement. Population means assign equal weight to each source. We report amplitude-sensitive residuals separately in Sec.~\ref{subsec:AmplitudeFidelity}.
+ 
+ \begin{table*}[t]\centering
+-\caption{DGF reconstruction accuracy for the independent variable-gap test. The first row gives the 5814 sources with network SNR $\rho\ge10$; the second includes all 6,000 test sources. The overlap is evaluated at the injected time and phase.}\label{tab:results}
++\caption{DGF reconstruction accuracy for the independent variable-gap test. The first row gives the 5810 sources with network SNR $\rho\ge10$; the second includes all 6,000 test sources. The overlap is evaluated at the injected time and phase.}\label{tab:results}
+ \begin{tabular}{lrrrrr}\hline\hline
+ Population & $n$ & Mean $\mathcal M_{AE}$ & Median $\mathcal M_{AE}$ & 95th percentile $\mathcal M_{AE}$ & Mean $\mathcal M_t$\\\hline
+-$\rho\ge10$ & 5814 & 0.00532 & 0.00241 & 0.01970 & 0.00934 \\
+-All test signals & 6000 & 0.00852 & 0.00254 & 0.02782 & 0.01367 \\
++$\rho\ge10$ & 5810 & 0.00510 & 0.00212 & 0.01767 & 0.00877 \\
++All test signals & 6000 & 0.00821 & 0.00223 & 0.02454 & 0.01286 \\
+ \hline\hline\end{tabular}\end{table*}
+ 
+-For $\rho\ge10$, DGF achieves a mean direct noise-weighted mismatch of 0.00532, a median of 0.00241 and a 95th percentile of 0.01970 (Table~\ref{tab:results}). The full 6,000-source population has mean 0.00852, median 0.00254 and 95th percentile 0.02782. Figure~\ref{fig:mismatch} shows its complete mismatch distributions. Network SNR spans 1.69--923.52, with median 54.77; Fig.~\ref{fig:snr_gap} shows the dependence on SNR and gap location. A regularized fit in the same training-derived signal basis has mean mismatch 0.04131 for $\rho\ge10$, compared with 0.00532 for DGF on identical observations. Appendix~\ref{app:basis_comparison} specifies this fit and quantifies basis representation error.
++For $\rho\ge10$, DGF achieves a mean direct noise-weighted mismatch of 0.00510, a median of 0.00212 and a 95th percentile of 0.01767 (Table~\ref{tab:results}). The full 6,000-source population has mean 0.00821, median 0.00223 and 95th percentile 0.02454. Figure~\ref{fig:mismatch} shows its complete mismatch distributions. Network SNR spans 1.91--1105.41, with median 54.43; Fig.~\ref{fig:snr_gap} shows the dependence on SNR and gap location. A regularized fit in the training-derived signal basis has mean mismatch 0.04426 for $\rho\ge10$, compared with 0.00510 for DGF on identical observations. Appendix~\ref{app:basis_comparison} specifies this fit and quantifies basis representation error.
+ \begin{figure*}[t]\centering\includegraphics[width=\textwidth]{latest_mismatch.pdf}
+-\caption{Empirical cumulative distribution functions of time-domain and noise-weighted mismatch for the complete test population. The logarithmic axes show the full range of reconstruction errors.}\label{fig:mismatch}\end{figure*}
++\caption{Empirical cumulative distributions of time-domain and noise-weighted mismatch for all 6,000 test sources and the 5810-source $\rho\ge10$ population. The logarithmic axes show the full range of errors in each population.}\label{fig:mismatch}\end{figure*}
+ 
+ \subsection{Gap location and waveform recovery}
+-We characterize gap location using the peak of the joint analytic envelope $[\sum_c|h_c+i\mathcal H[h_c]|^2]^{1/2}$, where $\mathcal H$ denotes the Hilbert transform. In the full test population, the peak lies inside the gap for 1935 sources. Their mean noise-weighted mismatch is 0.00912, with median 0.00285. For the remaining 4065 sources, the mean is 0.00823. These statistics reflect the joint distributions of gap location, source parameters and noise realizations within each group.
++We characterize gap location using the peak of the joint analytic envelope $[\sum_c|h_c+i\mathcal H[h_c]|^2]^{1/2}$, where $\mathcal H$ denotes the Hilbert transform. In the full test population, the peak lies inside the gap for 1882 sources. Their mean noise-weighted mismatch is 0.00905, with median 0.00253. For the remaining 4118 sources, the mean is 0.00783. These statistics reflect the joint distributions of gap location, source parameters and noise realizations within each group.
+ 
+ \begin{figure*}[t]\centering\includegraphics[width=\textwidth]{latest_snr_gap.pdf}
+ \caption{Dependence of reconstruction accuracy on network SNR and gap location for the independent test population. (a) Joint noise-weighted mismatch versus network SNR, with the dotted line at $\rho=10$. (b) Conditional mismatch distributions according to whether the joint signal-envelope peak falls inside the gap. The two groups partition the test population.}\label{fig:snr_gap}\end{figure*}
+ 
+ 
+ 
+-We also characterize gap severity by $\eta=\sum_{c,j}m_jh_{c,j}^2/\sum_{c,j}h_{c,j}^2$ and $T_{\rm gap}/\tau_{220}$. In the $\rho\ge10$ population, their medians are 0.289 and 0.238, and their 95th percentiles are 0.666 and 1.44. The 2638 sources with $\eta<0.25$ have mean mismatch 0.00469; the 127 with $\eta\ge0.75$ have mean 0.01583.
+-
+-Figure~\ref{fig:examples} shows two $\rho\ge10$ sources reconstructed across 36- and 45-s gaps, with noise-weighted mismatches $5.59\times10^{-4}$ and $6.07\times10^{-4}$. The gaps contain 42.7\% and 56.8\% of the respective joint signal squared norms. Their gap-local relative errors are 4.6\% and 3.7\%, and both channels retain the decaying oscillations through the missing intervals. For these two sources, the windows extend for approximately 4.9 dominant-mode damping times after the response peak.
++We also characterize gap severity by $\eta=\sum_{c,j}m_jh_{c,j}^2/\sum_{c,j}h_{c,j}^2$ and $T_{\rm gap}/\tau_{220}$. In the $\rho\ge10$ population, their medians are 0.282 and 0.242, and their 95th percentiles are 0.662 and 1.50. The 2695 sources with $\eta<0.25$ have mean mismatch 0.00472; the 123 with $\eta\ge0.75$ have mean 0.01837.
++
++Figure~\ref{fig:examples} shows two $\rho\ge10$ sources reconstructed across 40- and 48-s gaps, with noise-weighted mismatches $2.60\times10^{-4}$ and $5.69\times10^{-4}$. The gaps contain 41.2\% and 45.5\% of the respective joint signal squared norms. Their gap-local relative errors are 4.6\% and 5.5\%, and both channels retain the decaying oscillations through the missing intervals. The windows extend for 3.2 and 5.6 dominant-mode damping times after the joint envelope peak.
+ \begin{figure*}[tp]\centering\includegraphics[width=0.885\textwidth]{latest_examples.pdf}
+-\caption{Waveform reconstruction for two $\rho\ge10$ sources across 36- and 45-s gaps in the $A$ (left) and $E$ (right) channels. Each panel superposes the noisy observation $d=Gh+n$ (gray), clean signal $h$, gapped clean signal $Gh$ and DGF reconstruction $\widehat h$ over the full 528-s record; insets resolve the gap. Shading marks signal suppression, with noise retained. For each source, all curves in both channels are divided by $H_{\rm TDI}=\max_{c,j}|h_{c,j}|$ and connect the original 0.5-s samples. Source seeds, from top to bottom, are 2038202231 and 2038201952. The example criteria are given in Appendix~\ref{app:model_analysis}.}\label{fig:examples}\par\vspace{8pt}
++\caption{Waveform reconstruction for two $\rho\ge10$ sources across 40- and 48-s gaps in the $A$ (left) and $E$ (right) channels. Each panel superposes the noisy observation $d=Gh+n$ (gray), clean signal $h$, gapped clean signal $Gh$ and DGF reconstruction $\widehat h$ over the full 528-s record; insets resolve the gap. Shading marks signal suppression, with noise retained. All curves in both channels use the common scale $H_{\rm TDI}=\max_{c,j}|h_{c,j}|$ and connect the original 0.5-s samples. Source seeds are 2042203322 and 2042200886. Appendix~\ref{app:model_analysis} gives the example criteria.}\label{fig:examples}\par\vspace{8pt}
+ \includegraphics[width=0.885\textwidth]{latest_phase.pdf}
+-\caption{(a) Absolute phase-error distributions for all 6,000 sources in each channel. (b) Clean analytic phase and reconstructed phase on the clean-phase branch for the $A$ channel of source 2038202231, also shown in Fig.~\ref{fig:examples}(a). The displayed clean-signal envelope exceeds 10\% of its peak. The clean phase is $\phi_c=\operatorname{unwrap}(\arg z_c)$; the displayed reconstruction is $\phi_c+\arg(\widehat z_cz_c^*)$. Unwrapping removes adjacent jumps greater than $\pi$. Shading marks the gap and the dotted line marks the clean envelope peak.}\label{fig:phase}\end{figure*}
++\caption{(a) Absolute phase-error distributions for all 6,000 sources in each channel. (b) Clean analytic phase and reconstructed phase on the clean-phase branch for the $A$ channel of source 2042203322, also shown in Fig.~\ref{fig:examples}(a). The displayed clean-signal envelope exceeds 10\% of its peak. The clean phase is $\phi_c=\operatorname{unwrap}(\arg z_c)$; the displayed reconstruction is $\phi_c+\arg(\widehat z_cz_c^*)$. Unwrapping removes adjacent jumps greater than $\pi$. Shading marks the gap and the dotted line marks the clean envelope peak.}\label{fig:phase}\end{figure*}
+ 
+ \subsection{Phase recovery}\label{subsec:PhaseRecoveryAlignment}
+ For each channel, define $z_c=h_c+i\mathcal H[h_c]$ and $\widehat z_c=\widehat h_c+i\mathcal H[\widehat h_c]$. At the clean-signal envelope peak $j_{\star,c}$, the phase error is
+ \begin{equation}
+ \Delta\phi_c=\arg[\widehat z_{c,j_{\star,c}}z_{c,j_{\star,c}}^*].
+ \end{equation}
+-For the complete test population, the mean absolute phase errors are $3.84^\circ$ in $A$ and $3.79^\circ$ in $E$. The corresponding medians are $2.19^\circ$ and $2.14^\circ$, and the 95th percentiles are $12.72^\circ$ and $11.58^\circ$. These statistics describe the analytic phase of each channel at its clean-signal envelope peak. Figure~\ref{fig:phase}(b) compares the clean analytic phase with the reconstruction expressed on the clean-phase branch for the $A$ channel of one example. Individual quasinormal-mode phases require a separate mode decomposition.
++For the complete test population, the mean absolute phase errors are $3.73^\circ$ in $A$ and $3.80^\circ$ in $E$. The corresponding medians are $2.19^\circ$ and $2.17^\circ$, and the 95th percentiles are $11.56^\circ$ and $11.97^\circ$. These statistics describe the analytic phase of each channel at its clean-signal envelope peak. Figure~\ref{fig:phase}(b) compares the clean analytic phase with the reconstruction expressed on the clean-phase branch for the $A$ channel of one example. Individual quasinormal-mode phases require a separate mode decomposition.
+ 
+ To measure recovery within the interval, we define the envelope-weighted gap phase error
+ \begin{equation}
+ \Phi_{\rm gap}=\left[\frac{\sum_{c,j}m_j|z_{c,j}|^2[\arg(\widehat z_{c,j}z_{c,j}^*)]^2}{\sum_{c,j}m_j|z_{c,j}|^2}\right]^{1/2}.\label{eq:gap_phase}
+ \end{equation}
+-Among the 1885 sources with $\rho\ge10$ and the joint envelope peak inside the gap, its mean, median and 95th percentile are $4.92^\circ$, $3.89^\circ$ and $11.61^\circ$. Over the complete peak-inside-gap population of 1935 sources, the corresponding mean is $5.51^\circ$.
++Among the 1824 sources with $\rho\ge10$ and the joint envelope peak inside the gap, its mean, median and 95th percentile are $4.90^\circ$, $3.81^\circ$ and $11.17^\circ$. Over the complete peak-inside-gap population of 1882 sources, the corresponding mean is $5.47^\circ$.
+ 
+ 
+ 
+ \subsection{Amplitude and spectral fidelity}\label{subsec:AmplitudeFidelity}\label{subsec:AmplitudeDensityFrequencySpectrum}
+ Normalized overlap is invariant under positive amplitude rescaling. We assess amplitude fidelity through gap-local waveform errors and the noise-weighted error defined in Eq.~\eqref{eq:auxiliary_errors}.
+ 
+-For the 1935 sources with envelope peaks inside the gap, the gap-local relative error $\|m(\widehat h-h)\|_2/\|mh\|_2$ has mean 0.13552 and median 0.10337. The denominator is the Euclidean norm of the clean waveform restricted to the gap.
+-
+-Figure~\ref{fig:tdi_log_amplitudes} plots waveform absolute values for the sources in Fig.~\ref{fig:examples}. In these two examples, the logarithmic scale reveals differences in the late-time waveform and near zero crossings. Figure~\ref{fig:psd} compares population-averaged target, residual and instrument-noise spectra. For $\rho\ge10$, the mean normalized noise-weighted squared waveform error $E_S$ is 0.01190; its complete-population mean is 0.01786. The periodogram definition is given in Appendix~\ref{app:model_analysis}.
++For the 1882 sources with envelope peaks inside the gap, the gap-local relative error $\|m(\widehat h-h)\|_2/\|mh\|_2$ has mean 0.13510 and median 0.10008. The denominator is the Euclidean norm of the clean waveform restricted to the gap.
++
++Figure~\ref{fig:tdi_log_amplitudes} plots waveform absolute values for the sources in Fig.~\ref{fig:examples}. In these two examples, the logarithmic scale reveals differences in the late-time waveform and near zero crossings. Figure~\ref{fig:psd} compares population-averaged target, residual and instrument-noise spectra. For $\rho\ge10$, the mean normalized noise-weighted squared waveform error $E_S$ is 0.01144; its complete-population mean is 0.01779. The periodogram definition is given in Appendix~\ref{app:model_analysis}.
+ \begin{figure*}[tp]\centering\includegraphics[width=\textwidth]{tdi_log_amplitudes_20261015.pdf}
+ \caption{Absolute values of the clean and reconstructed $A$ (left) and $E$ (right) waveforms for the sources in Fig.~\ref{fig:examples}. Each row uses the common scale $H_{\rm TDI}=\max_{c,j}|h_{c,j}|$ from the clean signal. Shading marks the gap. The logarithmic axis resolves small-amplitude structure and differences near zero crossings. The curves connect the native samples used in Fig.~\ref{fig:examples}.}\label{fig:tdi_log_amplitudes}
+ \par\vspace{8pt}
+@@ -264,9 +275,9 @@
+ 
+ 
+ \section{Discussion and Conclusions}\label{sec:discussion}
+-DGF reconstructs black hole ringdown waveforms by combining time--frequency information with signed multiscale temporal features. A shared encoder and joint-channel refinement estimate the clean LISA $A/E$ waveforms from the noisy observation and gap mask. For the 5814 test sources with $\rho\ge10$ and 32--52-s gaps, the mean direct noise-weighted mismatch is 0.00532. The mean over all 6,000 independent sources is 0.00852. The waveform comparisons show recovery of the decaying oscillations across intervals containing the signal peak, while gap-local and spectral errors quantify amplitude-sensitive deviations.
+-
+-The signal-basis comparison connects representation accuracy with coefficient estimation from noisy observations. The small clean-target projection error shows that the rank-128 basis resolves the simulated waveform family. DGF achieves lower mismatch than regularized fitting in the same basis by estimating the coefficients from the combined temporal, phase and noise features. For the 1885 sources with $\rho\ge10$ and the joint envelope peak inside the gap, the mean envelope-weighted phase error within the gap is $4.92^\circ$. This statistic measures phase recovery throughout the suppressed interval, complementing the peak-phase error and full-record mismatch.
++DGF reconstructs black hole ringdown waveforms by combining time--frequency information with signed multiscale temporal features. A shared encoder, joint-channel synthesis and multiscale residual reconstruction estimate the clean LISA $A/E$ waveforms from the noisy observation and gap mask. For the 5810 test sources with $\rho\ge10$ and 32--52-s gaps, the mean direct noise-weighted mismatch is 0.00510. The mean over all 6,000 independent sources is 0.00821. The waveform comparisons show recovery of the decaying oscillations across intervals containing the signal peak, while gap-local and spectral errors quantify amplitude-sensitive deviations.
++
++The signal-basis comparison connects representation accuracy with coefficient estimation from noisy observations. The small clean-target projection error shows that the rank-128 basis resolves the simulated waveform family. DGF combines learned coefficients with a multiscale residual to recover the waveform from temporal, phase and noise features. Its mean mismatch is lower than that of the regularized basis fit on the same observations. For the 1824 sources with $\rho\ge10$ and the joint envelope peak inside the gap, the mean envelope-weighted phase error within the gap is $4.90^\circ$. This statistic measures phase recovery throughout the suppressed interval, complementing the peak-phase error and full-record mismatch.
+ 
+ The variable-gap and fixed-duration tests cover the event-centered LISA $A/E$ records defined in Sec.~\ref{sec:method}. The recovered waveforms provide point estimates of the damped oscillations and a starting point for waveform fits. Combining these estimates with mode-resolved inference and reconstruction uncertainties offers a route toward applications in black hole spectroscopy.
+ 
+@@ -293,11 +304,11 @@
+ \subsection{Numerical and test conventions}
+ The RMS floor in whitened coordinates is $10^{-4}$ for coefficient and residual normalization. Training spectral target and prediction squared norms are floored at $10^{-12}$ for finite numerical division. The time-domain training term uses the same denominator floor in the scaled working representation. Physical evaluation uses float64 transforms, the common frozen PSD and the complete target norm. Overlap is clipped to $[-1,1]$ to bound roundoff. A zero prediction is assigned mismatch one.
+ 
+-Source seeds are consecutive integers starting at 2028000000, 2028100000 and 2038200000 for training, validation and testing, respectively. The selected checkpoint has SHA-256 prefix \texttt{0ffce08b8856}; the reproducibility manifest gives full hashes and separate noise seeds.
+-
+-The implementation uses PyCBC 2.8.2, LALSuite 7.25.1, \texttt{fastlisaresponse} 1.1.17, LISA Analysis Tools 1.2.8, \texttt{ssqueezepy} 0.6.5 and \texttt{pytorch\_wavelets} 1.3.0. The computational source version is \texttt{ae47cce8a5c0}. Code is maintained at \url{https://github.com/ljq2088/RingdownGapFilling}. Checkpoints, calibration arrays and evaluation records are available from the authors on request; the accompanying reproducibility manifest identifies the assets and software versions.
+-
+-The examples in Fig.~\ref{fig:examples} have the joint peak in the gap, $\rho\ge10$, at least four $\tau_{220}$ of post-peak coverage and six visible extrema per channel. Their gap-local errors are below 6\% and their peak-phase errors below $2.5^\circ$; the source seeds are given in the caption.
++Source seeds are consecutive integers starting at 2028000000, 2028100000 and 2042200000 for training, validation and testing, respectively. The waveform-estimator and residual-module checkpoints have SHA-256 prefixes \texttt{0ffce08b8856} and \texttt{e504aae2ba10}, respectively; the reproducibility manifest gives full hashes and separate noise seeds.
++
++The implementation uses PyCBC 2.8.2, LALSuite 7.25.1, \texttt{fastlisaresponse} 1.1.17, LISA Analysis Tools 1.2.8, \texttt{ssqueezepy} 0.6.5 and \texttt{pytorch\_wavelets} 1.3.0. The computational source version is \texttt{96a8ea344c45}. Code is maintained at \url{https://github.com/ljq2088/RingdownGapFilling}. Checkpoints, calibration arrays and evaluation records are available from the authors on request; the accompanying reproducibility manifest identifies the assets and software versions.
++
++The examples in Fig.~\ref{fig:examples} are chosen for clear oscillations and small waveform residuals. Both have the joint envelope peak in the gap, $\rho\ge10$, more than three $\tau_{220}$ of post-peak coverage and at least six resolved extrema per channel. Their gap-local relative errors are below 6\% and their channel peak-phase errors below $3.5^\circ$. The source seeds are given in the caption; population statistics include every test source.
+ 
+ Each channel-specific phase distribution contains one value per test source. Gap-local errors use the target norm within the gap; the peak-inside-gap population provides intervals containing appreciable signal.
+ 
+@@ -324,6 +335,29 @@
+ \smallskip\parbox{0.96\textwidth}{The four frequency-bin groups are $K=\{1,\ldots,4\}$, $\{5,\ldots,16\}$, $\{17,\ldots,64\}$ and $\{65,\ldots,527\}$. Both channels contribute to each feature group, giving $262+16+192=470$ inputs.}
+ \end{table*}
+ 
++\subsection{Residual-module conventions}\label{app:residual_details}
++Let $\sigma_0$ be the arithmetic mean of the two channel noise standard deviations obtained by integrating the calibrated PSD. Physical-coordinate arithmetic in the residual module uses $\bar h_0=h_0/\sigma_0$ and $\bar d=d/\sigma_0$. Set $r=\max[\operatorname{RMS}(u),10^{-4}]$, $s_h=\max[\operatorname{RMS}(\bar h_0),10^{-5}]$ and $s_d=\max[\operatorname{RMS}(\bar d),10^{-5}]$. The 12 input channels are
++\begin{equation}
++\left(\frac{u}{r},\frac{u_0}{r},\frac{\bar h_0}{s_h},\frac{\bar d}{s_d},\frac{|\mathcal A[\bar h_0]|}{s_h},m,\frac{t}{528\,\mathrm{s}}\right),
++\end{equation}
++where $\mathcal A[x]=x+i\mathcal H[x]$ and each of the first five entries contains two channels. Thus $\sigma_h=\sigma_0s_h$ in Eq.~\eqref{eq:multiscale_output}. The context vector is recomputed from $u,u_0,m$ and the physical-frequency CWT using the feature definitions in Table~\ref{tab:head_features}. The context network has one hidden GELU layer and produces $(\gamma,\beta)\in\mathbb R^{128}\times\mathbb R^{128}$. It transforms bottleneck features $D$ as $D[1+0.1\tanh\gamma]+0.1\beta$, broadcasting along time. Convolutions use zero padding; upsampling uses linear interpolation with \texttt{align\_corners=False}.
++
++The envelope and phase terms use scaled targets $y=h/\sigma_0$, predictions $\widehat y=\widehat h/\sigma_0$, and analytic series $z=\mathcal A[y]$, $w=\mathcal A[\widehat y]$. Write $A_{c,j}=|z_{c,j}|$, $A_{c,\max}=\max(\max_j A_{c,j},10^{-6})$ and $j_\star=\arg\max_j\sum_c A_{c,j}^2$. Let $R_{c,j}$ indicate $j\ge j_\star$ and $A_{c,j}\ge0.01A_{c,\max}$. Then
++\begin{align}
++E_{\rm env}&=\frac{\sum_{c,j}R_{c,j}\,\ell_{0.5}\!\left(\frac{\widehat y_{c,j}-y_{c,j}}{A_{c,j}+0.03A_{c,\max}}\right)}{\max(\sum_{c,j}R_{c,j},1)},\nonumber\\
++E_\phi&=\frac{\sum_{c,j}\omega_{c,j}[1-\operatorname{Re}(w_{c,j}z_{c,j}^*)/D_{c,j}]}{\max(\sum_{c,j}\omega_{c,j},10^{-6})},\label{eq:envelope_losses}
++\end{align}
++where $\ell_{0.5}(x)=x^2$ for $|x|<0.5$ and $|x|-0.25$ otherwise, $\omega_{c,j}=R_{c,j}\sqrt{A_{c,j}/A_{c,\max}}$, and
++\begin{equation}
++\begin{gathered}
++d_{c,j}=\sqrt{|w_{c,j}|^2+10^{-6}A_{c,j}^2}\max(A_{c,j},10^{-6}),\\
++D_{c,j}=\max(d_{c,j},10^{-12}).
++\end{gathered}
++\end{equation}
++Clean targets supply the supervised envelopes and SNR. Inference obtains envelopes from $h_0$.
++
++Validation selection combines the complete-population mismatch with phase and envelope-error constraints. Relative to the intermediate estimator, the channel peak-phase means and $\rho\ge10$ mismatch may increase by at most 0.5\%; envelope-weighted phase errors in the 1\%--10\% and 0.1\%--1\% post-peak amplitude bands may increase by at most 1\%, while the relative waveform error in the 1\%--10\% band is bounded by its intermediate-estimator value to numerical tolerance. All constraints use the 1,500 validation sources. Model and checkpoint selection precede independent test generation.
++
+ \subsection{Periodograms}
+ For a series $x_j$, the one-sided periodogram used in Fig.~\ref{fig:psd} is
+ \begin{equation}
+@@ -334,43 +368,43 @@
+ \subsection{Initialization and adaptation}\label{app:initialization}
+ The encoder and waveform decoder are initialized from DGF weights identified in the accompanying manifest. The associated bank contains 10,000 auxiliary single-series simulations with source total mass uniform over $[10^5,10^6]\,M_\odot$, mass ratio over $[0.5,0.8]$ and redshift over $[4,6]$. The associated training configuration combines pointwise squared and absolute errors with equal weights and unit mask weight. The physical training, validation and test populations use the disjoint seed ranges given above. Physical $A/E$ adaptation uses 12,000 training sources with 33-s gaps and objective $\mathcal M_{AE}+0.5E_S+0.5E_{\rm time,gap}$, then 60,000 sources for joint-channel and physical-frequency adaptation with an additional Hann-windowed penalty.
+ 
+-The signal basis uses the 60,000 clean training directions. Coefficient-adapter training and variable-gap joint training use $\mathcal M_{AE}+0.5E_S+0.05E_{\rm time,gap}+0.02[\mathcal M_H+0.5(\sqrt{1+E_H}-1)]$, where $\mathcal M_H,E_H$ use a Hann window and its noise calibration. All physical-data stages select on the same complete validation mean. Their configurations and weights are identified in the manifest. The final-head initialization has identifier \texttt{a1e9959a7a95}; final optimization uses Eq.~\eqref{eq:loss} and Sec.~\ref{sec:training}, followed by new independent testing.
+-
+-\section{Fixed-duration gaps and reference comparison}\label{app:fixed_gaps}
+-We evaluate 33- and 50-s gaps on the same 6,000 source waveforms and noise realizations, preserving each gap's center. Table~\ref{tab:fixed_gaps} reports both the $\rho\ge10$ and full-population results. For $\rho\ge10$, the mean joint noise-weighted mismatches are 0.00438 and 0.00715 for 33- and 50-s gaps, respectively. These tests vary the mask while holding the physical sources and noise fixed.
++The signal basis uses the 60,000 clean training directions. Coefficient-adapter training and variable-gap joint training use $\mathcal M_{AE}+0.5E_S+0.05E_{\rm time,gap}+0.02[\mathcal M_H+0.5(\sqrt{1+E_H}-1)]$, where $\mathcal M_H,E_H$ use a Hann window and its noise calibration. All physical-data stages select on the same complete validation mean. Their configurations and weights are identified in the manifest. The conditioned coefficient head starts from weights \texttt{a1e9959a7a95}. It is fitted with the waveform estimator fixed and then jointly with the decoder and refinement modules, using $\mathcal M_{AE}+0.2E_S+0.02E_{\rm time,gap}$. This gives the intermediate estimator $u_0$ used in Sec.~\ref{sec:multiscale}. Its configuration and checkpoint are recorded in the manifest.
++
++\section{Fixed-duration gaps and multiscale reconstruction}\label{app:fixed_gaps}
++We evaluate 33- and 50-s gaps on the same 6,000 source waveforms and noise realizations, preserving each gap's center. Table~\ref{tab:fixed_gaps} reports both the $\rho\ge10$ and full-population results. For $\rho\ge10$, the mean joint noise-weighted mismatches are 0.00408 and 0.00694 for 33- and 50-s gaps, respectively. These tests vary the mask while holding the physical sources and noise fixed.
+ \begin{table}[t]\centering\setlength{\tabcolsep}{2pt}
+-\caption{Additional gap-duration tests on the same independent sources. For each duration, the $\rho\ge10$ row contains 5814 sources and the complete-population row contains all 6,000 sources.}\label{tab:fixed_gaps}
++\caption{Additional gap-duration tests on the same independent sources. For each duration, the $\rho\ge10$ row contains 5810 sources and the complete-population row contains all 6,000 sources.}\label{tab:fixed_gaps}
+ \begin{tabular}{lrrr}\hline\hline
+ Gap and SNR & Mean $\mathcal M_{AE}$ & Median $\mathcal M_{AE}$ & \shortstack{95th\\percentile}\\\hline
+-33 s / $\rho\ge10$ & 0.00438 & 0.00195 & 0.01608\\
+-33 s / all & 0.00716 & 0.00204 & 0.02389\\
+-50 s / $\rho\ge10$ & 0.00715 & 0.00334 & 0.02498\\
+-50 s / all & 0.01112 & 0.00350 & 0.03653\\
++33 s / $\rho\ge10$ & 0.00408 & 0.00169 & 0.01519\\
++33 s / all & 0.00709 & 0.00178 & 0.02198\\
++50 s / $\rho\ge10$ & 0.00694 & 0.00299 & 0.02314\\
++50 s / all & 0.01110 & 0.00313 & 0.03381\\
+ \hline\hline\end{tabular}\end{table}
+ 
+-A reference DGF configuration with joint-channel synthesis and the training-derived signal basis is evaluated on the identical test observations. This reference uses the variable-gap joint-training checkpoint \texttt{a1e9959a7a95}, comprising the waveform estimator and coefficient adapter. For variable gaps across all 6,000 test sources, its mean mismatch is 0.00868, compared with 0.00852 for the selected model. For each source, define $\Delta\mathcal M=\mathcal M_{\rm DGF}-\mathcal M_{\rm ref}$. Its mean is $-1.61\times10^{-4}$. A paired bootstrap with 5,000 source-level resamples gives the 95\% percentile interval $[-2.45\times10^{-4},-8.11\times10^{-5}]$ for the mean difference. This comparison concerns the complete fitted configurations, including their synthesis parameters and coefficient heads.
++To assess multiscale residual reconstruction, we evaluate the intermediate estimator $h_0$ on the same independent observations. For variable gaps, its complete-population mean mismatch is 0.00903, compared with 0.00821 for the full DGF model. The paired difference $\mathcal M_{\rm DGF}-\mathcal M_{h_0}$ has mean $-8.21\times10^{-4}$ and a 95\% percentile bootstrap interval $[-9.46\times10^{-4},-6.96\times10^{-4}]$, using 5,000 source-level resamples. The corresponding $\rho\ge10$ means are 0.00578 and 0.00510. This comparison holds the waveform estimator, observations and evaluation weights fixed while adding the residual module.
+ 
+ 
+ 
+ \section{Signal-basis fitting and representation error}\label{app:basis_comparison}
+-We compare DGF with a linear estimator using the same rank-128 basis $B$. Four orthonormal DC and Nyquist directions, collected in $B_{\rm end}$, supply endpoint degrees of freedom. Each clean training waveform is divided by $\|P_0Wh\|_2$ before projecting onto $[B,B_{\rm end}]$. The mean squared coefficients define prior variances, floored at $10^{-16}$. Let $D$ contain their square roots and $Q=[B,B_{\rm end}]D$. The regularized estimate is
++We compare DGF with a linear estimator using the rank-128 basis $B$ of its coefficient module. Four orthonormal DC and Nyquist directions, collected in $B_{\rm end}$, supply endpoint degrees of freedom. Each clean training waveform is divided by $\|P_0Wh\|_2$ before projecting onto $[B,B_{\rm end}]$. The mean squared coefficients define prior variances, floored at $10^{-16}$. Let $D$ contain their square roots and $Q=[B,B_{\rm end}]D$. The regularized estimate is
+ \begin{align}
+ \widehat a_\lambda&=\arg\min_a\{\|P_0W(d-GW^{-1}Qa)\|_2^2+\lambda\|a\|_2^2\},\nonumber\\
+ \widehat h_{\rm lin}&=W^{-1}Q\widehat a_\lambda.
+ \end{align}
+-Thus the forward map applies the same physical signal suppression before whitening. The Gaussian coefficient prior uses training data only. A grid containing zero and $10^{-6},10^{-5},\ldots,10^2$ selects $\lambda=10^{-3}$ by the complete validation mean. Table~\ref{tab:basis_fit} compares this estimator and DGF on identical test observations. The complete-population paired mean difference, DGF minus linear fit, is $-0.04341$, with 95\% percentile bootstrap interval $[-0.04532,-0.04156]$ from 5,000 source-level resamples.
++Thus the forward map applies the same physical signal suppression before whitening. The Gaussian coefficient prior uses training data only. A grid containing zero and $10^{-6},10^{-5},\ldots,10^2$ selects $\lambda=10^{-3}$ by the complete validation mean. Table~\ref{tab:basis_fit} compares this estimator and DGF on identical test observations. The complete-population paired mean difference, DGF minus linear fit, is $-0.04744$, with 95\% percentile bootstrap interval $[-0.04938,-0.04545]$ from 5,000 source-level resamples.
+ 
+ \begin{table}[t]\centering\setlength{\tabcolsep}{3pt}
+ \caption{Direct noise-weighted mismatch for DGF and the training-prior regularized basis fit.}\label{tab:basis_fit}
+ \begin{tabular}{llrrr}\hline\hline
+ Population & Estimator & Mean & Median & 95th perc.\\\hline
+-$\rho\ge10$ & DGF & 0.00532 & 0.00241 & 0.01970\\
+-& Basis fit & 0.04131 & 0.02030 & 0.14912\\
+-All sources & DGF & 0.00852 & 0.00254 & 0.02782\\
+-& Basis fit & 0.05193 & 0.02141 & 0.21892\\
++$\rho\ge10$ & DGF & 0.00510 & 0.00212 & 0.01767\\
++& Basis fit & 0.04426 & 0.02172 & 0.16585\\
++All sources & DGF & 0.00821 & 0.00223 & 0.02454\\
++& Basis fit & 0.05565 & 0.02279 & 0.22817\\
+ \hline\hline\end{tabular}\end{table}
+ 
+-To isolate representation error, we project each clean target onto the first $r$ columns of $B$ in whitened coordinates. For $r=32,64,128$, the mean mismatches are 0.03690, 0.00410 and $1.65\times10^{-4}$ over all sources; the corresponding $\rho\ge10$ means are 0.03322, 0.00319 and $1.11\times10^{-4}$. This target projection measures the subspace approximation error.
++To isolate representation error, we project each clean target onto the first $r$ columns of $B$ in whitened coordinates. For $r=32,64,128$, the mean mismatches are 0.03926, 0.00426 and $1.55\times10^{-4}$ over all sources; the corresponding $\rho\ge10$ means are 0.03491, 0.00316 and $9.42\times10^{-5}$. This target projection measures the subspace approximation error.
+ 
+ 
+ \clearpage

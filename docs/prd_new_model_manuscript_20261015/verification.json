@@ -1,0 +1,97 @@
+{
+  "overleaf_project": "6ac83816750c2cce452054d2",
+  "build": "1a13dcc0c3f-5a81a03f2aae54d1",
+  "verified_files": {
+    "DGF.tex": "c66f95d06b1429f1290b8dab7a7dae449365e7bdb47aee9fd4d9fd0bd6affd82",
+    "DGF_references.bib": "67c2508f4d6068b7e15bf3b1d2cd9a4f61b7bedf4544cc51691b8d58881adfba",
+    "reproducibility_manifest.json": "c8a7c6569b2a4f3222bb013b2953a2500751561f66e6017c4e345235dfdf7966",
+    "architecture_dgf_20261015.pdf": "fb04253597a8bb25f402b31c2cc7b5bf88cf583e0a127dd1ac6bbee34eed425f",
+    "training_workflow_dgf_20261015.pdf": "3a544859444f0531d308c02e23dc5277a70977d1e0f954df5a780249446501e4",
+    "latest_mismatch.pdf": "2b351b53a364a3d1f27415a7f3f7129d8a5122cfa7136e86deb034464c85419a",
+    "latest_snr_gap.pdf": "770e06c8750f63f543754261c4781b92e9f5165564b804302c90e6f65e95949e",
+    "latest_examples.pdf": "79667b6597d7ebc8e65a93f25fcd621d433e82b4f81fbe4204843863b52dd46b",
+    "latest_phase.pdf": "154cb179505ac7b7ca8a2f96ad481e3647be1c8c786ef4e09cc36c0a4cc0857a",
+    "tdi_log_amplitudes_20261015.pdf": "68a338e229073ee7262cd20738697ccedfd2c8875d70716d3740e18413fa7589",
+    "latest_residual_psd.pdf": "a3dd42085e6c6854d771af1e5e6f6168014628584c387c55c586d33b3b8fe304"
+  },
+  "pdf_sha256": "560c5fee099f56a6f89f098e72749673e41dd734856551165b2ac85badd41dca",
+  "pages": 14,
+  "cloud_local_numeric_tokens_equal_by_page": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "figure_pages": {
+    "4": [
+      "1"
+    ],
+    "6": [
+      "2"
+    ],
+    "7": [
+      "3"
+    ],
+    "8": [
+      "4"
+    ],
+    "9": [
+      "5",
+      "6"
+    ],
+    "10": [
+      "7",
+      "8"
+    ]
+  },
+  "tables": 4,
+  "figure_count": 8,
+  "numerical_verification": {
+    "base_sha256": "0ffce08b8856f1e4f2c76b519941303edf226b8f7c4fd426db7fc98527d7e11b",
+    "residual_sha256": "e504aae2ba10eb3684c503e4acb76998ab8563b63e28256bf0dc46dfa9c1c1d5",
+    "prediction_reproduction_relative_error": 0.0,
+    "prediction_max_absolute_error": 0.0,
+    "model_parameter_counts": {
+      "intermediate": 9589685,
+      "residual": 646658,
+      "total": 10236343
+    },
+    "loss_formula": {
+      "code": 0.02030046284198761,
+      "independent": 0.02030046284198761,
+      "absolute_error": 0.0
+    },
+    "linear_independent_checks": [
+      {
+        "index": 0,
+        "coefficient_relative_error": 8.056804565064197e-15,
+        "physical_mismatch_error": 7.771561172376096e-16
+      },
+      {
+        "index": 17,
+        "coefficient_relative_error": 1.0099512051721139e-14,
+        "physical_mismatch_error": 2.220446049250313e-16
+      },
+      {
+        "index": 63,
+        "coefficient_relative_error": 8.995464710247073e-15,
+        "physical_mismatch_error": 1.1102230246251565e-16
+      },
+      {
+        "index": 127,
+        "coefficient_relative_error": 1.132445519595984e-14,
+        "physical_mismatch_error": 1.1102230246251565e-16
+      }
+    ]
+  }
+}

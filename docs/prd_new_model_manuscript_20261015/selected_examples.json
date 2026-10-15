@@ -1,0 +1,64 @@
+{
+  "selected": [
+    {
+      "index": 3322,
+      "seeds": 2042203322,
+      "snr": 872.87384832964,
+      "mismatch": 0.0002600664769383254,
+      "phase_gap": 1.5826993169204933,
+      "energy": 0.411855144042818,
+      "relative": 0.04217983386587862,
+      "gap_relative": 0.045604698519196324,
+      "ES": 0.0006572783001144015,
+      "norm_bias": 0.008035861360470076,
+      "time_mm": 0.0008504475797291855,
+      "coverage": 3.1559098782943416,
+      "balance": 0.8715175777347589,
+      "curvature": 0.02926358656378098,
+      "noise_ratio": 1.4957746917456756,
+      "phase_peak": [
+        0.7607571940167358,
+        0.2430534001510351
+      ],
+      "inside": true,
+      "extrema": [
+        7,
+        6
+      ],
+      "gap_over_tau": 0.2949448484387235,
+      "length": 40.0,
+      "start": 81.5
+    },
+    {
+      "index": 886,
+      "seeds": 2042200886,
+      "snr": 604.8733641896353,
+      "mismatch": 0.0005694812031051821,
+      "phase_gap": 2.2152994667563846,
+      "energy": 0.45514807352778075,
+      "relative": 0.054558983758921785,
+      "gap_relative": 0.05470975986780937,
+      "ES": 0.0011567406390342492,
+      "norm_bias": -0.005341199773186589,
+      "time_mm": 0.0014819927663222154,
+      "coverage": 5.591019073897919,
+      "balance": 0.8765410430210991,
+      "curvature": 0.03191988047971677,
+      "noise_ratio": 1.602280177715899,
+      "phase_peak": [
+        0.7289818549047167,
+        3.3546441307845885
+      ],
+      "inside": true,
+      "extrema": [
+        7,
+        8
+      ],
+      "gap_over_tau": 0.6134146641076573,
+      "length": 48.0,
+      "start": 87.5
+    }
+  ],
+  "display_processing": "native 0.5-s samples; common clean-signal amplitude scale; no display smoothing, resampling, time/phase alignment or noise rescaling",
+  "selection": "Visual clarity of full A/E records, resolved decay, small gap-local and full-record residuals; these illustrative sources do not define population statistics"
+}
