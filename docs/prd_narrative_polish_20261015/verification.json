@@ -1,0 +1,27 @@
+{
+  "project": "6ac83816750c2cce452054d2",
+  "pages": 13,
+  "changed_files": [
+    "DGF.tex",
+    "reproducibility_manifest.json"
+  ],
+  "all_changed_files_match": true,
+  "numeric_tables_unchanged": true,
+  "core_equations_unchanged": true,
+  "all_eight_figure_assets_unchanged": true,
+  "review_specific_sections_removed": true,
+  "figure_pages": [
+    4,
+    6,
+    7,
+    8,
+    10
+  ],
+  "external_links_on_figure_pages": 0,
+  "pdf_sha256": "9b1ff16af7f8878dcbb58b68d79c17d2349bec15237e3b64b4db900bc3132605",
+  "files_sha256": {
+    "DGF.tex": "e2c2a10981498d333803481cc9f1f0a48577f1d0afc47f29a2572df771568d0f",
+    "reproducibility_manifest.json": "489e0cc77e4dde7c148ec27cb1e51d5266dbaacdf440540252ad30d54920da57"
+  },
+  "build": "1a13d3103b7-bfd2ba5d9415593e"
+}
