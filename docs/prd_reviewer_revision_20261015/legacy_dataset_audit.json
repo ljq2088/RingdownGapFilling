@@ -1,0 +1,35 @@
+{
+  "type": "<class 'dataset.dataset.GWSignalDataset'>",
+  "count": 10000,
+  "attributes": {
+    "signals": {
+      "type": "<class 'torch.Tensor'>",
+      "shape": [
+        10000,
+        1056
+      ]
+    },
+    "pro_signals": {
+      "type": "<class 'torch.Tensor'>",
+      "shape": [
+        10000,
+        1056
+      ]
+    },
+    "pro_masked_signals": {
+      "type": "<class 'torch.Tensor'>",
+      "shape": [
+        10000,
+        1056
+      ]
+    },
+    "conditions": {
+      "type": "<class 'torch.Tensor'>",
+      "shape": [
+        10000,
+        3,
+        1
+      ]
+    }
+  }
+}

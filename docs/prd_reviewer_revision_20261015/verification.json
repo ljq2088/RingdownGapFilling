@@ -1,0 +1,34 @@
+{
+  "overleaf_project": "6ac83816750c2cce452054d2",
+  "build": "1a13ce9b41e-6cfc060442b30de8",
+  "pages": 13,
+  "changed_cloud_files": [
+    "DGF.tex",
+    "reproducibility_manifest.json",
+    "latest_residual_psd.pdf",
+    "training_workflow_dgf_20261015.pdf",
+    "architecture_dgf_20261015.pdf",
+    "DGF_references.bib"
+  ],
+  "all_six_uploaded_files_match": true,
+  "unchanged_figures_preserved": true,
+  "figure_pages": [
+    4,
+    6,
+    7,
+    8,
+    10
+  ],
+  "external_links_on_figure_pages": 0,
+  "pdf_sha256": "d3f1f102c57faa344e11605fcc2954db3724ccec62c0bcee74e1d09fda5f3370",
+  "source_sha256": {
+    "DGF.tex": "0263b3659f4f2b38ae949010e75d91a83bd729ff1f4fc36da93d985ba02394a1",
+    "DGF_references.bib": "e9e24fc0f38f7c006d1ef0fc7d9782ca6d5448dc2ba43ccb1829b38cead4e2ba",
+    "architecture_dgf_20261015.pdf": "54319133b4becfa903896bc461297762c2f0c2a449c6a6365a17c4b49ea4b665",
+    "training_workflow_dgf_20261015.pdf": "b3c8ab87bbd14d793d5de62812cf6f51ae00776c093c3a18827d9a7e57cdef3f",
+    "latest_residual_psd.pdf": "a44458c20d980e376cd1474b573c6ccf9541c2e15449dd0665b33e887f6dd7ed",
+    "reproducibility_manifest.json": "338f4b2b65f6bb2dfa87ad53eb84cca83335270f66e2ea4da209b525544d978e"
+  },
+  "local_compile_exit": 0,
+  "main_checkpoint_unchanged": true
+}

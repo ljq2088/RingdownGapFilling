@@ -1,0 +1,9 @@
+Implementation notes retained outside manuscript prose
+
+The stored 9,589,685-parameter count includes allocated multihead-attention tensors not consumed by the forward pass. The actual attention is specified by the manuscript equation softmax(ZZ^T/sqrt(64)) Z, with no learned QKV projection in that operation.
+
+PhysicalDGF.__init__ clones the decoder inverse_linear storage before loading the original state dictionary. The encoder embedding and decoder patch maps hold independent trained values. The frozen loading implementation remains unchanged.
+
+The 128 noise-RMS realizations are independent of the PSD calibration realizations. For each channel, RMS is the square root of the mean of segment mean squares after whitening and removing DC/Nyquist. The temporal transform returns A8,D8,...,D2 from an eight-level zero-padded db4 decomposition.
+
+Reproduction starts from provided legacy weights. The original historical split indices and complete historical run configuration were not recovered in this audit. The current physical A/E adaptation source sets, objectives, validation rules and fixed initialization assets are recorded in the manuscript and accompanying manifest.

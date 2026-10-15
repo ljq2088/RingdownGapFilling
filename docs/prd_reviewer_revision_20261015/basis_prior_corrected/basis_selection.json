@@ -1,0 +1,32 @@
+{
+  "lambda_grid": [
+    0.0,
+    1e-06,
+    9.999999999999999e-06,
+    9.999999999999999e-05,
+    0.001,
+    0.01,
+    0.09999999999999999,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "mean_validation_mismatch": [
+    0.8216265546758791,
+    0.3415229708945648,
+    0.15723130278320968,
+    0.07917234247186528,
+    0.0515456561637825,
+    0.08104476268578721,
+    0.15969123700471669,
+    0.19368398355617683,
+    0.19855197596646776,
+    0.1990616273063243
+  ],
+  "selected_lambda": 0.001,
+  "selected_using": "all 1500 validation sources only",
+  "objective": "||P0 W(d-G W^-1 Q a)||_2^2 + lambda ||a||_2^2; Q=[B,E] diag(training_direction_coefficient_std)",
+  "basis_rank": 128,
+  "endpoint_nuisance_coefficients": 4,
+  "white_fourier_weights": "same frozen PSD and excluded DC/Nyquist as DGF"
+}

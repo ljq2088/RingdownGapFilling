@@ -1,0 +1,212 @@
+[
+  {
+    "index": 1,
+    "status": "完成",
+    "text": "删除无明确来源的 20% 数字，直接定义 32-52 s / 528 s。"
+  },
+  {
+    "index": 2,
+    "status": "完成",
+    "text": "删除 consequently 引出的概念罗列，直接列评价量。"
+  },
+  {
+    "index": 3,
+    "status": "完成",
+    "text": "明确固定信号基及依赖观测的系数修正。"
+  },
+  {
+    "index": 4,
+    "status": "完成",
+    "text": "摘要注明每个通道各自的干净解析包络峰值。"
+  },
+  {
+    "index": 5,
+    "status": "完成",
+    "text": "补明自旋权重 -2 球谐函数、探测器系质量/距离因子和复极化约定。"
+  },
+  {
+    "index": 6,
+    "status": "完成",
+    "text": "写出 ring-up 的指数、tau/10 时间尺度、开始时刻和截断。"
+  },
+  {
+    "index": 7,
+    "status": "完成",
+    "text": "明确指标在 528-s 窗口上计算。"
+  },
+  {
+    "index": 8,
+    "status": "完成并修正事实",
+    "text": "RMS 来自另 128 个独立噪声实现，明确汇总均方后开方；不属于 PSD 样本前缀。"
+  },
+  {
+    "index": 9,
+    "status": "完成",
+    "text": "定义父序列实通道峰值、离散均匀偏移、裁剪和变长缺口起点。"
+  },
+  {
+    "index": 10,
+    "status": "完成",
+    "text": "补 Morlet mu、1-16 尺度、观测 RMS 归一化、L1 约定及 reflection padding。"
+  },
+  {
+    "index": 11,
+    "status": "完成",
+    "text": "给出细化预测 v、适配系数 beta 和 b 的运算关系。"
+  },
+  {
+    "index": 12,
+    "status": "完成",
+    "text": "新增表 II，列出 262+16+192 输入、分项维数、归一化、频率组及截断。"
+  },
+  {
+    "index": 13,
+    "status": "完成",
+    "text": "用 amplitude-weighted circular phase representation 替代 continuous phase。"
+  },
+  {
+    "index": 14,
+    "status": "完成",
+    "text": "补出 P0 b 在 span(B) 内的条件；图注限定零初始化时刻。"
+  },
+  {
+    "index": 15,
+    "status": "完成",
+    "text": "改为 PSD-weighted network SNR，注明使用完整目标。"
+  },
+  {
+    "index": 16,
+    "status": "完成",
+    "text": "E_S 称 normalized noise-weighted waveform error。"
+  },
+  {
+    "index": 17,
+    "status": "完成",
+    "text": "定义三视图的共同中心、独立噪声、固定宽度/符号抽样和跨 epoch 复用。"
+  },
+  {
+    "index": 18,
+    "status": "部分完成",
+    "text": "补当前物理数据适配阶段、目标、源集合、选择方式与检查点链。旧初始化按固定权重提供；原始历史随机划分索引与完整早期运行记录仍待补齐。"
+  },
+  {
+    "index": 19,
+    "status": "完成",
+    "text": "将条件统计解释为组内源、噪声与缺口位置联合分布。"
+  },
+  {
+    "index": 20,
+    "status": "完成",
+    "text": "正文定义 6000 训练源上三类特征组合及验证选择；流程图保留主要阶段。"
+  },
+  {
+    "index": 21,
+    "status": "按现有展示要求处理",
+    "text": "保留两例清楚的波形对比；在图注指向实际例图条件及伴随 manifest，避免典型性与总体代表性暗示。"
+  },
+  {
+    "index": 22,
+    "status": "完成",
+    "text": "相位示例表述限定一个源的 A 通道。"
+  },
+  {
+    "index": 23,
+    "status": "完成",
+    "text": "图 3 图注明确为经验累积分布函数，原曲线及数据保留。"
+  },
+  {
+    "index": 24,
+    "status": "完成",
+    "text": "norm bias 定义为两波形范数之差的相对量。"
+  },
+  {
+    "index": 25,
+    "status": "完成",
+    "text": "缺口误差分母写为缺口内目标的欧氏范数。"
+  },
+  {
+    "index": 26,
+    "status": "完成",
+    "text": "给出两通道共用 H_TDI=max|h| 的明确归一化。"
+  },
+  {
+    "index": 27,
+    "status": "完成",
+    "text": "按真实绘图代码写 unwrap(arg z)+Arg(zhat z*)，采用 pi 跳变判据。"
+  },
+  {
+    "index": 28,
+    "status": "完成",
+    "text": "删除图 5 末尾重复的全体样本数声明。"
+  },
+  {
+    "index": 29,
+    "status": "完成",
+    "text": "删除未经定义的 tail-relative residuals grow，限定对两例绝对值图的观察。"
+  },
+  {
+    "index": 30,
+    "status": "完成",
+    "text": "尾部差异只对应所展示案例；各指标的贡献依赖具体权重。"
+  },
+  {
+    "index": 31,
+    "status": "完成",
+    "text": "参数推断改为后续工作，似然与现有观测模型对应。"
+  },
+  {
+    "index": 32,
+    "status": "完成",
+    "text": "未来工作聚焦响应误差、非平稳噪声及训练模态关系之外的信号。"
+  },
+  {
+    "index": 33,
+    "status": "完成",
+    "text": "图 7 明确为 absolute values，保持与解析包络的术语区分。"
+  },
+  {
+    "index": 34,
+    "status": "完成",
+    "text": "定义 boxcar、constant detrend、单边密度及逐源平均；图 8 加目标 PSD。"
+  },
+  {
+    "index": 35,
+    "status": "完成",
+    "text": "删除论文中 unused attention tensors 的工程说明；存储参数统计保留其原含义。"
+  },
+  {
+    "index": 36,
+    "status": "完成",
+    "text": "删除底层存储 clone 叙述，保留两个映射为独立参数。"
+  },
+  {
+    "index": 37,
+    "status": "部分完成",
+    "text": "加入实际源版本、检查点/资产哈希、软件版本及取得方式，云端附科学复现 manifest。公开版本化完整资产包仍待发布。"
+  },
+  {
+    "index": 38,
+    "status": "完成",
+    "text": "每源每通道一个相位值，删除 preserves source counts 式解释。"
+  },
+  {
+    "index": 39,
+    "status": "完成",
+    "text": "参考模型以 a1e9959a7a95 检查点及模块组成标识。"
+  },
+  {
+    "index": 40,
+    "status": "完成",
+    "text": "定义 DGF-reference 差值方向、源级配对 bootstrap、5000 次及 percentile 构造。"
+  },
+  {
+    "index": 41,
+    "status": "完成",
+    "text": "软件文献增加真实版本和已核对的版本定位链接。"
+  },
+  {
+    "index": 42,
+    "status": "完成",
+    "text": "统一活跃引文的期刊缩写，保护 Fourier、Bayesian 等专名。"
+  }
+]

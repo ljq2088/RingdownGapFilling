@@ -1,0 +1,188 @@
+--- before/bibliography
++++ after/bibliography
+@@ -39,7 +39,7 @@
+ @article{Wang:2024waveformer,
+   author = {Wang, He and Zhou, Yue and Cao, Zhoujian and Guo, Zong-Kuan and Ren, Zhixiang},
+   title = {{WaveFormer}: transformer-based denoising method for gravitational-wave data},
+-  journal = {Machine Learning: Science and Technology},
++  journal = {Mach. Learn.: Sci. Technol.},
+   volume = {5}, pages = {015046}, year = {2024},
+   doi = {10.1088/2632-2153/ad2f54},
+   eprint = {2212.14283}, archivePrefix = {arXiv}, primaryClass = {gr-qc}
+@@ -263,7 +263,7 @@
+    DOI={10.1103/PhysRevLett.123.111102},
+    pages={111102},
+    number={11},
+-   journal={Physical Review Letters},
++   journal={Phys. Rev. Lett.},
+    publisher={American Physical Society (APS)},
+    author={Isi, Maximiliano and Giesler, Matthew and Farr, Will M. and Scheel, Mark A. and Teukolsky, Saul A.},
+    year={2019},
+@@ -824,7 +824,7 @@
+ @article{Horowitz1974,
+   author={Horowitz, L. L.},
+   title={The effects of spline interpolation on power spectral density},
+-  journal={IEEE Transactions on Acoustics, Speech, and Signal Processing},
++  journal={IEEE Trans. Acoust. Speech Signal Process.},
+   volume={22}, number={1}, pages={22--27}, year={1974},
+   doi={10.1109/TASSP.1974.1162536}
+ }
+@@ -832,7 +832,7 @@
+ @article{Maeland1988,
+   author  = {E. Maeland},
+   title   = {On the comparison of interpolation methods},
+-  journal = {IEEE Transactions on Medical Imaging},
++  journal = {IEEE Trans. Med. Imaging},
+   year    = {1988},
+   volume  = {7},
+   number  = {3},
+@@ -843,7 +843,7 @@
+ @article{Unser1999,
+   author  = {Michael Unser},
+   title   = {Splines—A Perfect Fit for Signal and Image Processing},
+-  journal = {IEEE Signal Processing Magazine},
++  journal = {IEEE Signal Process. Mag.},
+   year    = {1999},
+   volume  = {16},
+   number  = {6},
+@@ -853,8 +853,8 @@
+ 
+ @article{Harris1978,
+   author  = {Fredric J. Harris},
+-  title   = {On the Use of Windows for Harmonic Analysis with the Discrete Fourier Transform},
+-  journal = {Proceedings of the IEEE},
++  title   = {On the Use of Windows for Harmonic Analysis with the Discrete {Fourier} Transform},
++  journal = {Proc. IEEE},
+   year    = {1978},
+   volume  = {66},
+   number  = {1},
+@@ -874,8 +874,8 @@
+ 
+ @article{Baghi2019,
+   author  = {Quentin Baghi and James Ira Thorpe and Jacob Slutsky and John Baker and Tito Dal Canton and Natalia Korsakova and Nikos Karnesis},
+-  title   = {Gravitational-wave parameter estimation with gaps in {LISA}: A Bayesian data augmentation method},
+-  journal = {Physical Review D},
++  title   = {Gravitational-wave parameter estimation with gaps in {LISA}: A {Bayesian} data augmentation method},
++  journal = {Phys. Rev. D},
+   year    = {2019},
+   volume  = {100},
+   pages   = {022003},
+@@ -884,8 +884,8 @@
+ 
+ @article{Blelly2021,
+   author  = {Aurore Blelly and J{\'e}r{\^o}me Bobin and Herv{\'e} Moutarde},
+-  title   = {Sparse data inpainting for the recovery of Galactic-binary gravitational wave signals from gapped data},
+-  journal = {Monthly Notices of the Royal Astronomical Society},
++  title   = {Sparse data inpainting for the recovery of {Galactic}-binary gravitational wave signals from gapped data},
++  journal = {Mon. Not. R. Astron. Soc.},
+   volume = {509}, number = {4}, pages = {5902--5917},
+   doi = {10.1093/mnras/stab3314}, archivePrefix = {arXiv},
+   eprint  = {2104.05250},
+@@ -1129,7 +1129,7 @@
+    ISSN={0370-2693},
+    url={http://dx.doi.org/10.1016/j.physletb.2024.139016},
+    DOI={10.1016/j.physletb.2024.139016},
+-   journal={Physics Letters B},
++   journal={Phys. Lett. B},
+    publisher={Elsevier BV},
+    author={Xu, Yuxiang and Du, Minghui and Xu, Peng and Liang, Bo and Wang, He},
+    year={2024},
+@@ -1171,7 +1171,7 @@
+ @article{berti2009qnm,
+   title={Quasinormal modes of black holes and black branes},
+   author={Berti, Emanuele and Cardoso, Vitor and Starinets, Andrei O},
+-  journal={Classical and Quantum Gravity},
++  journal={Class. Quantum Grav.},
+   volume={26},
+   number={16},
+   pages={163001},
+@@ -1210,7 +1210,7 @@
+ @article{dey2021gaps,
+   title={Effect of data gaps on the detectability and parameter estimation of massive black hole binaries with {LISA}},
+   author={Dey, Kallol and Karnesis, Nikolaos and Toubiana, Alexandre and Barausse, Enrico and Korsakova, Natalia and Baghi, Quentin and Basak, Soumen},
+-  journal={Physical Review D},
++  journal={Phys. Rev. D},
+   volume={104},
+   number={4},
+   pages={044035},
+@@ -1601,7 +1601,7 @@
+ @article{berti2006gravitational,
+   title={Gravitational-wave spectroscopy of massive black holes with the space interferometer {LISA}},
+   author={Berti, Emanuele and Cardoso, Vitor and Will, Clifford M},
+-  journal={Physical Review D},
++  journal={Phys. Rev. D},
+   volume={73},
+   number={6},
+   pages={064030},
+@@ -1639,7 +1639,7 @@
+ @article{robson2019construction,
+   title={The construction and use of {LISA} sensitivity curves},
+   author={Robson, Travis and Cornish, Neil J and Liu, Chang},
+-  journal={Classical and Quantum Gravity},
++  journal={Class. Quantum Grav.},
+   volume={36},
+   number={10},
+   pages={105011},
+@@ -2350,7 +2350,7 @@
+ @article{Ruan2020,
+   title   = {{Taiji} program: Gravitational-wave sources},
+   author  = {Ruan, Wen-Hong and others},
+-  journal = {International Journal of Modern Physics A},
++  journal = {Int. J. Mod. Phys. A},
+   year    = {2020},
+   volume  = {35},
+   number  = {17},
+@@ -2361,7 +2361,7 @@
+ @article{Luo2016,
+   title   = {{TianQin}: a space-borne gravitational wave detector},
+   author  = {Luo, Jun and others},
+-  journal = {Classical and Quantum Gravity},
++  journal = {Class. Quantum Grav.},
+   year    = {2016},
+   volume  = {33},
+   number  = {3},
+@@ -2382,7 +2382,7 @@
+ @article{Kamaretsos2012,
+   title   = {Black-hole hair loss: Learning about binary progenitors from ringdown signals},
+   author  = {Kamaretsos, Ioannis and Hannam, Mark and Husa, Sascha and Sathyaprakash, B. S.},
+-  journal = {Physical Review D},
++  journal = {Phys. Rev. D},
+   year    = {2012},
+   volume  = {85},
+   pages   = {024018},
+@@ -2425,21 +2425,21 @@
+ @article{Katz2022Response,
+  author={Katz, Michael L. and Bayle, Jean-Baptiste and Chua, Alvin J. K. and Vallisneri, Michele},
+  title={Assessing the data-analysis impact of {LISA} orbit approximations using a {GPU}-accelerated response model},
+- journal={Physical Review D}, volume={106}, pages={103001}, year={2022},
++ journal={Phys. Rev. D}, volume={106}, pages={103001}, year={2022},
+  doi={10.1103/PhysRevD.106.103001}, eprint={2204.06633}, archivePrefix={arXiv}
+ }
+ @misc{PyCBCRingdown,
+- author={{PyCBC developers}}, title={{PyCBC} time-domain ringdown waveform documentation},
+- url={https://pycbc.org/pycbc/latest/html/pycbc.waveform.html}, note={Accessed 15 October 2026}
++ author={{PyCBC developers}}, title={{PyCBC} 2.8.2 ringdown waveform implementation},
++ url={https://github.com/gwastro/pycbc/blob/v2.8.2/pycbc/waveform/ringdown.py}, note={Accessed 15 October 2026}
+ }
+ @misc{LISAAnalysisTools,
+- author={{LISA Analysis Tools developers}}, title={{LISA Analysis Tools}: detector and sensitivity implementation},
+- url={https://github.com/lisa-analysis-tools/lisa-analysis-tools}, note={Accessed 15 October 2026}
++ author={{LISA Analysis Tools developers}}, title={{LISA Analysis Tools}: version 1.2.8: detector and sensitivity implementation},
++ url={https://github.com/lisa-analysis-tools/lisa-analysis-tools/releases/tag/v1.2.8}, note={Accessed 15 October 2026}
+ }
+ @article{TSMixer2023,
+  author={Chen, Si-An and Li, Chun-Liang and Yoder, Nate and Arik, Sercan O. and Pfister, Tomas},
+  title={{TSMixer}: An all-{MLP} Architecture for Time Series Forecasting},
+- journal={Transactions on Machine Learning Research}, year={2023},
++ journal={Trans. Mach. Learn. Res.}, year={2023},
+  eprint={2303.06053}, archivePrefix={arXiv}, url={https://arxiv.org/abs/2303.06053}
+ }
+ @inproceedings{TimeMixer2024,
+@@ -2452,6 +2452,6 @@
+ @article{TorresForne2016,
+   author = {Torres-Forn{\'e}, Alejandro and Marquina, Antonio and Font, Jos{\'e} A. and Ib{\'a}{\~n}ez, Jos{\'e} M.},
+   title = {Denoising of gravitational wave signals via dictionary learning algorithms},
+-  journal = {Physical Review D}, volume = {94}, pages = {124040}, year = {2016},
++  journal = {Phys. Rev. D}, volume = {94}, pages = {124040}, year = {2016},
+   doi = {10.1103/PhysRevD.94.124040}, eprint = {1612.01305}, archivePrefix = {arXiv}
+ }
