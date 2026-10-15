@@ -1,0 +1,87 @@
+{
+  "method": "Noise-weighted least-squares projection of frozen DGF A/E output onto eight exact response basis functions, followed by source-strain synthesis. Four injected fundamental modes, two phase quadratures per mode.",
+  "conditions": "Injected detector-frame mass, remnant spin, sky position, inclination, polarization, arrival epoch, and the simulated ringup history are fixed. Coefficients are fitted from the model output. This is a conditional source reconstruction with a strong waveform prior, not an independent source-parameter recovery.",
+  "source_display": "Post-reference 0 to 4 tau220; h+ and hcross use the original 0.5-s source sampling. The reference epoch is the source model t=0. The A/E suppression interval has a distributed source-time response, so no single source-time gap is shaded.",
+  "weighted_fit": "Both A/E channels jointly; frozen calibration PSD; DC and Nyquist excluded; column-normalized least squares rcond=1e-10.",
+  "sources": [
+    {
+      "index": 3874,
+      "seed": 2042203874,
+      "frequency_hz": 0.015400233774573403,
+      "tau_seconds": 64.99377116508126,
+      "rank": 8,
+      "column_normalized_condition": 6.573189090409147,
+      "clean_response_linearity_error": 5.586560180989477e-16,
+      "clean_source_roundtrip_relative_error": 1.6833025478214944e-15,
+      "conditional_source_joint_relative_error": 0.02331876792201892,
+      "conditional_direct_observation_fit_error": 0.036456923055311403,
+      "observation_fit_rank": 8,
+      "observation_fit_condition": 6.733295899808415,
+      "dgf_response_projection_relative_error": 0.03325251663066946,
+      "coefficient_fit": [
+        1.009028256808824,
+        -0.0027752234168800785,
+        0.834230184121406,
+        0.1365000489957805,
+        0.951847910563073,
+        0.06668273624268237,
+        1.1354152913807134,
+        0.2469121155458714
+      ],
+      "projected_noise_relative_norm": 0.02630818481641478
+    },
+    {
+      "index": 4884,
+      "seed": 2042204884,
+      "frequency_hz": 0.01646554232301246,
+      "tau_seconds": 62.5868414941138,
+      "rank": 8,
+      "column_normalized_condition": 6.580657266294564,
+      "clean_response_linearity_error": 3.1130441802430994e-16,
+      "clean_source_roundtrip_relative_error": 7.463922681735293e-16,
+      "conditional_source_joint_relative_error": 0.030454157245321665,
+      "conditional_direct_observation_fit_error": 0.011261974712771117,
+      "observation_fit_rank": 8,
+      "observation_fit_condition": 6.717358603533217,
+      "dgf_response_projection_relative_error": 0.03279306640565597,
+      "coefficient_fit": [
+        0.99458578498946,
+        -0.004413635728152257,
+        2.631202598850168,
+        -1.0728194904892516,
+        0.17691251572125827,
+        0.4048222599003099,
+        0.7051917495470522,
+        0.26558383786415324
+      ],
+      "projected_noise_relative_norm": 0.007995439683868885
+    },
+    {
+      "index": 4076,
+      "seed": 2042204076,
+      "frequency_hz": 0.03153465398903063,
+      "tau_seconds": 32.08885912275357,
+      "rank": 8,
+      "column_normalized_condition": 7.392556897808629,
+      "clean_response_linearity_error": 3.5293260325858336e-16,
+      "clean_source_roundtrip_relative_error": 9.147619883162077e-16,
+      "conditional_source_joint_relative_error": 0.04622535503662117,
+      "conditional_direct_observation_fit_error": 0.023918477637280132,
+      "observation_fit_rank": 8,
+      "observation_fit_condition": 7.3293179498872085,
+      "dgf_response_projection_relative_error": 0.057587558834346395,
+      "coefficient_fit": [
+        1.0001529191821756,
+        0.06642139613191192,
+        2.1234011157689197,
+        -1.0273482585203466,
+        0.997681034759684,
+        -0.36258608135894144,
+        -2.023884381152745,
+        5.363550859461411
+      ],
+      "projected_noise_relative_norm": 0.028622737860581525
+    }
+  ],
+  "noise_display": "Top two rows show the original full A/E observation and signal-suppression interval. Bottom rows show s+Pn where P is the same fixed conditional source projection used on DGF output and n is the original realized A/E noise. Gray filling joins s to s+Pn; it is one noise realization, not an uncertainty band. Noise amplitudes are unscaled. The low-rank QNM projection makes Pn correlated and smooth."
+}

@@ -1,0 +1,76 @@
+{
+  "sources": [
+    {
+      "index": 3322,
+      "seed": 2042203322,
+      "frequency_hz": 0.007298243003436031,
+      "tau_seconds": 135.6185748343736,
+      "rank": 8,
+      "column_normalized_condition": 9.405086478787053,
+      "clean_response_linearity_error": 1.6933405525916241e-15,
+      "clean_source_roundtrip_relative_error": 9.815287002013475e-16,
+      "conditional_source_joint_relative_error": 0.012637241878631307,
+      "conditional_direct_observation_fit_error": 0.002568728542519905,
+      "observation_fit_rank": 8,
+      "observation_fit_condition": 6.426796393641848,
+      "dgf_response_projection_relative_error": 0.02198331517642029,
+      "coefficient_fit": [
+        1.0134965391147,
+        -0.0032435310346064666,
+        0.9770451427681957,
+        0.20366409058040288,
+        0.9961192225220457,
+        -0.005568024802664602,
+        0.8993859418446507,
+        -0.4328587187229878
+      ],
+      "projected_noise_relative_norm": 0.0017663876212009998,
+      "direct_mismatch": 0.0002600664769383254,
+      "snr": 872.87384832964,
+      "gap_relative": 0.045604698519196324,
+      "source_display_seconds": [
+        0,
+        240
+      ],
+      "display_joint_relative_error": 0.01238455724357101,
+      "strain_axis_exponent": -18
+    },
+    {
+      "index": 5712,
+      "seed": 2042205712,
+      "frequency_hz": 0.03866962689722053,
+      "tau_seconds": 26.65548712811781,
+      "rank": 8,
+      "column_normalized_condition": 6.856603179344144,
+      "clean_response_linearity_error": 3.097545001216959e-16,
+      "clean_source_roundtrip_relative_error": 2.582517437780487e-15,
+      "conditional_source_joint_relative_error": 0.05352920213311831,
+      "conditional_direct_observation_fit_error": 0.07385261861447136,
+      "observation_fit_rank": 8,
+      "observation_fit_condition": 6.65298857224857,
+      "dgf_response_projection_relative_error": 0.06523906193108285,
+      "coefficient_fit": [
+        0.9829032522906621,
+        0.024483017391558996,
+        0.2535377085907092,
+        0.4153061312463087,
+        0.4980340279610993,
+        -0.5571381288933865,
+        1.0508458998147705,
+        1.0466133979077294
+      ],
+      "projected_noise_relative_norm": 0.0683154795604983,
+      "direct_mismatch": 0.002631440131199536,
+      "snr": 63.84514648376849,
+      "gap_relative": 0.10232870511755437,
+      "source_display_seconds": [
+        0,
+        240
+      ],
+      "display_joint_relative_error": 0.053537392170711906,
+      "strain_axis_exponent": -19
+    }
+  ],
+  "selection": "Two illustrative good-recovery cases at separated dominant-mode frequencies. Screened 8 low-frequency and 8 high-frequency cases with rho>=10, direct mismatch<0.005 and gap-relative error<0.15. Conditional source errors also assessed; no population metrics changed.",
+  "display": "Original native 0.5-s samples, common source-time axis 0..240 observer-frame seconds from amplitude reference epoch, original noise amplitudes."
+}
