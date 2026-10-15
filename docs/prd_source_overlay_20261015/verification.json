@@ -1,0 +1,11 @@
+{
+  "cloud_files_match": {
+    "DGF.tex": true,
+    "reproducibility_manifest.json": true,
+    "conditional_source_strain.pdf": true,
+    "conditional_frequency_contrast.pdf": true
+  },
+  "build": "1a13f2f867b-cb1b33f865143d79",
+  "population_statistics": "unchanged",
+  "sample_arrays": "unchanged"
+}
