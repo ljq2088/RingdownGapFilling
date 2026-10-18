@@ -1,0 +1,42 @@
+{
+  "attention": {
+    "fp32_gap_mean": 0.5461313858867668,
+    "bf16_gap_mean": 0.5463112941233739,
+    "mean_absolute_mismatch_change": 0.0007047002571507338,
+    "maximum_absolute_mismatch_change": 0.004466534229892405,
+    "benchmarks": [
+      {
+        "precision": "fp32",
+        "batch": 16,
+        "median_step_seconds": 0.12653271050658077,
+        "peak_memory_gib": 5.322512626647949
+      },
+      {
+        "precision": "bf16",
+        "batch": 16,
+        "median_step_seconds": 0.3176794620012515,
+        "peak_memory_gib": 4.874161720275879
+      }
+    ]
+  },
+  "spectral": {
+    "fp32_gap_mean": 0.5351029218589926,
+    "bf16_gap_mean": 0.5351560414731329,
+    "mean_absolute_mismatch_change": 0.0010813745252917922,
+    "maximum_absolute_mismatch_change": 0.00619673891120065,
+    "benchmarks": [
+      {
+        "precision": "fp32",
+        "batch": 16,
+        "median_step_seconds": 0.10275920500862412,
+        "peak_memory_gib": 1.3108577728271484
+      },
+      {
+        "precision": "bf16",
+        "batch": 16,
+        "median_step_seconds": 0.25203749450156465,
+        "peak_memory_gib": 1.0885729789733887
+      }
+    ]
+  }
+}

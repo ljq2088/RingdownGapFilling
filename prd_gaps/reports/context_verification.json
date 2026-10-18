@@ -1,0 +1,25 @@
+{
+  "mask_equivalence_cases": 20,
+  "deterministic_views": true,
+  "epoch_refresh": true,
+  "models": {
+    "attention": {
+      "parameters": 2619362,
+      "loss": 19.130126953125,
+      "batch2_forward_backward_seconds": 1.6564433640014613,
+      "peak_memory_gib": 0.640589714050293,
+      "fp32_bf16_relative_rms": 2.738211514952127e-05,
+      "fp32_bf16_mismatch": 7.278850078229482e-09,
+      "all_parameters_receive_gradients": true
+    },
+    "spectral": {
+      "parameters": 29301218,
+      "loss": 19.123884201049805,
+      "batch2_forward_backward_seconds": 0.06937647699669469,
+      "peak_memory_gib": 0.31583499908447266,
+      "fp32_bf16_relative_rms": 3.09709066641517e-05,
+      "fp32_bf16_mismatch": 6.477045899622169e-09,
+      "all_parameters_receive_gradients": true
+    }
+  }
+}

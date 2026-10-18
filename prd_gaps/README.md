@@ -1,7 +1,12 @@
 # Full-stream gaps with IMR signals and link-propagated TDI availability
 
+Current expanded experiments are described in [LONGRUN.md](LONGRUN.md).
+That document specifies the 8192/512-source bank, two higher-resolution models,
+targeted augmentation and bounded training campaign. The original pilot below
+remains a historical validation reference.
+
 This package implements a new experimental protocol on branch
-`codex/physical-gaps-tdi-imr`. The baseline commit is `dbda45a`.
+`physical-gaps-tdi-imr`. The baseline commit is `dbda45a`.
 Historical `prd_physical` results and the Overleaf manuscript retain their own
 observation model and provenance. This package supplies a separately evaluated
 method for **d = G(s+n)**, with G equal to one on available samples.

@@ -1,6 +1,11 @@
 # Implementation and pilot status — 2026-10-18
 
-Branch: `codex/physical-gaps-tdi-imr`, based on `dbda45a`.
+Current expanded experiments are described in [LONGRUN.md](LONGRUN.md).
+That document specifies the 8192/512-source bank, two higher-resolution models,
+targeted augmentation and bounded training campaign. The original pilot below
+remains a historical validation reference.
+
+Branch: `physical-gaps-tdi-imr`, based on `dbda45a`.
 
 The implementation supplies complete-stream masking, IMR signals, propagated
 link availability, finite-support whitening features, a new 1,121,938-parameter

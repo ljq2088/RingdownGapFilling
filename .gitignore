@@ -35,3 +35,6 @@ FillingGap/results_prd_strategy_20261013/
 
 # Local full-stream gap pilot datasets and checkpoints
 /outputs/physical_gaps_pilot*/
+
+# Larger IMR bank, checkpoints and cloud deployment archives
+/outputs/physical_gaps_longrun_20261018/

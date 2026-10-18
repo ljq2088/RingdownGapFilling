@@ -1,0 +1,13 @@
+{
+  "maximum_parameter_difference": 2.2724270820617676e-07,
+  "best_metric_difference": 1.0469214939412552e-08,
+  "steps": [
+    8,
+    8
+  ],
+  "epochs": [
+    2,
+    2
+  ],
+  "tolerance": 1e-05
+}
