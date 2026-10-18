@@ -1,12 +1,22 @@
 """Run two bounded experiments sequentially; resume checkpoints after interruption."""
-import argparse,json,os,subprocess,sys,time
+import argparse,fcntl,json,os,subprocess,sys,time
 from pathlib import Path
 from .train_context import atomic_json
 
 def run(args):
     out=Path(args.output).resolve();out.mkdir(parents=True,exist_ok=True)
     data=Path(args.data).resolve();status_path=out/'campaign_status.json'
+    lock=(out/'campaign.lock').open('a')
+    try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    except BlockingIOError:raise RuntimeError('This campaign already has an active controller')
     if status_path.exists() and not args.resume:raise FileExistsError('Existing campaign: use --resume')
+    if status_path.exists():
+        previous=json.loads(status_path.read_text());pid=previous.get('training_pid')
+        command_path=Path(f'/proc/{pid}/cmdline')
+        if pid and command_path.exists():
+            command=command_path.read_bytes().split(b'\0')
+            if b'prd_gaps.train_context' in command and any(str(out).encode() in arg for arg in command):
+                raise RuntimeError(f'Training process {pid} is active; leave it running or stop it gracefully before resuming')
     begun=time.perf_counter();completed=[]
     for kind in ['spectral','attention']:
         destination=out/('long_'+kind)
