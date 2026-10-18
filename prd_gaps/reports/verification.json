@@ -1,0 +1,116 @@
+{
+  "fir_valid_support_max_error": 5.945497649761933e-08,
+  "hidden_sample_invariance": true,
+  "taper_high_frequency_power_ratio": 2.4553039456068824e-05,
+  "marginal_covariance_mean_quadratic": 76.59950549280327,
+  "retained_dof": 76,
+  "attention_gradients": {
+    "attention.layers.0.self_attn.in_proj_weight": 131.13160705566406,
+    "attention.layers.0.self_attn.in_proj_bias": 1.4110721349716187,
+    "attention.layers.0.self_attn.out_proj.weight": 129.726806640625,
+    "attention.layers.0.self_attn.out_proj.bias": 2.202497720718384,
+    "attention.layers.1.self_attn.in_proj_weight": 99.15465545654297,
+    "attention.layers.1.self_attn.in_proj_bias": 1.0625823736190796,
+    "attention.layers.1.self_attn.out_proj.weight": 103.1515121459961,
+    "attention.layers.1.self_attn.out_proj.bias": 1.567204475402832,
+    "attention.layers.2.self_attn.in_proj_weight": 74.50997161865234,
+    "attention.layers.2.self_attn.in_proj_bias": 0.7933266758918762,
+    "attention.layers.2.self_attn.out_proj.weight": 84.55596923828125,
+    "attention.layers.2.self_attn.out_proj.bias": 1.3140807151794434,
+    "attention.layers.3.self_attn.in_proj_weight": 74.32814025878906,
+    "attention.layers.3.self_attn.in_proj_bias": 0.7897989749908447,
+    "attention.layers.3.self_attn.out_proj.weight": 91.47759246826172,
+    "attention.layers.3.self_attn.out_proj.bias": 1.314640760421753
+  },
+  "qkv_gradient_norms": [
+    [
+      11.343341827392578,
+      10.797162055969238,
+      108.99110412597656
+    ],
+    [
+      8.35981559753418,
+      8.31548023223877,
+      82.47936248779297
+    ],
+    [
+      4.929842948913574,
+      4.918646335601807,
+      64.6614761352539
+    ],
+    [
+      4.378648281097412,
+      4.6260199546813965,
+      65.32347106933594
+    ]
+  ],
+  "parameters": 1121938,
+  "initial_synthetic_loss": 2.822486639022827,
+  "device": "cuda",
+  "physics": {
+    "metadata": {
+      "mass_source": 800000.0,
+      "q": 0.7,
+      "redshift": 2.0,
+      "inclination": 1.0,
+      "longitude": 0.8,
+      "latitude": 0.3,
+      "polarization": 0.5,
+      "phase": 0.4,
+      "approximant": "IMRPhenomTHM",
+      "distance_mpc": 15936.22617736706,
+      "remnant_detector_mass_estimate": 2290345.158745084,
+      "remnant_spin_estimate": 0.6688790318747926,
+      "f220_estimate_hz": 0.007327788257014781,
+      "tau220_estimate_seconds": 137.77328856793343,
+      "source_polarization_peak_seconds": 1024.0,
+      "detector_energy_peak_index": 1503,
+      "lower_frequency_hz": 0.0010354693182856535,
+      "prehistory_seconds": 4186.484580244091,
+      "phase_reference_frequency_hz": 0.0016918787227340301,
+      "terminal_relative_amplitude": 4.823913049035704e-19,
+      "observation": "G*(s+n)",
+      "tdi": "2nd generation",
+      "noise": "scirdv1",
+      "fs_hz": 2.0,
+      "n": 8192,
+      "padding_seconds": 2048.0,
+      "tdi_mask_guard_samples": 27,
+      "units": "fractional frequency",
+      "foreground": false,
+      "events": [
+        {
+          "link": 12,
+          "start_s": 1030.0,
+          "duration_s": 33.0
+        },
+        {
+          "link": 23,
+          "start_s": 1500.0,
+          "duration_s": 1.0
+        }
+      ]
+    },
+    "links": [
+      12,
+      23,
+      31,
+      13,
+      32,
+      21
+    ],
+    "retained_replacement_relative_error": 0.0,
+    "unmasked_replacement_effect": 14.263519174228364,
+    "missing_seconds_by_channel": [
+      189.0,
+      205.0
+    ],
+    "calibration_noise_records": 64,
+    "noise_variance_parseval_relative_error": 0.0,
+    "fully_valid_fir_fraction": [
+      0.930419921875,
+      0.926513671875
+    ]
+  },
+  "seconds": 3.795981796007254
+}

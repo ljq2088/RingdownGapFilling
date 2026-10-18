@@ -1,0 +1,245 @@
+{
+  "role": "Paired validation stress test; model trained on propagated-link masks",
+  "guard_seconds": 72.0,
+  "best_epoch": 15,
+  "summary": {
+    "all": {
+      "n": 32,
+      "post_tdi_interval": 0.2291419586894553,
+      "propagated_link": 0.27372442280113296,
+      "extended_guard": 0.36163651706926125
+    },
+    "ringdown_has_gap": {
+      "n": 16,
+      "post_tdi_interval": 0.3902810764663468,
+      "propagated_link": 0.4796437000278036,
+      "extended_guard": 0.655787983425151
+    }
+  },
+  "samples": [
+    {
+      "source_seed": 41000000,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.5057480555215652,
+      "propagated_link": 0.42739501901371446,
+      "extended_guard": 0.319529750388171
+    },
+    {
+      "source_seed": 41000001,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.02994449690598311,
+      "propagated_link": 0.029655896298724338,
+      "extended_guard": 0.029022533591280042
+    },
+    {
+      "source_seed": 41000002,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.06167437248133478,
+      "propagated_link": 0.06260706389510862,
+      "extended_guard": 0.10972079769803211
+    },
+    {
+      "source_seed": 41000003,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.04581264879154889,
+      "propagated_link": 0.04548728820151848,
+      "extended_guard": 0.047200437590491195
+    },
+    {
+      "source_seed": 41000004,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.4599294690566249,
+      "propagated_link": 0.7801018855527373,
+      "extended_guard": 1.0453240988523294
+    },
+    {
+      "source_seed": 41000005,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.00809519476168774,
+      "propagated_link": 0.008075224568426687,
+      "extended_guard": 0.007902112822889218
+    },
+    {
+      "source_seed": 41000006,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.0396892219148931,
+      "propagated_link": 0.10610294982288115,
+      "extended_guard": 0.16656332164047938
+    },
+    {
+      "source_seed": 41000007,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.014200337726090195,
+      "propagated_link": 0.014180353386000877,
+      "extended_guard": 0.01305928425442171
+    },
+    {
+      "source_seed": 41000008,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.9573465439524736,
+      "propagated_link": 0.9823020554461264,
+      "extended_guard": 0.9900369256387366
+    },
+    {
+      "source_seed": 41000009,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.007341369442485979,
+      "propagated_link": 0.007214106180045143,
+      "extended_guard": 0.007457854500887651
+    },
+    {
+      "source_seed": 41000010,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 1.3130215891398962,
+      "propagated_link": 1.1401900967115546,
+      "extended_guard": 0.9862620244527402
+    },
+    {
+      "source_seed": 41000011,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.007526660839018984,
+      "propagated_link": 0.007470228656104472,
+      "extended_guard": 0.007342380061327036
+    },
+    {
+      "source_seed": 41000012,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.13314751711405381,
+      "propagated_link": 0.3222100850808871,
+      "extended_guard": 0.37376826548292463
+    },
+    {
+      "source_seed": 41000013,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.023973040365099396,
+      "propagated_link": 0.023680799045980083,
+      "extended_guard": 0.02369274438984381
+    },
+    {
+      "source_seed": 41000014,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.18677983142719135,
+      "propagated_link": 0.5130266343418284,
+      "extended_guard": 0.7580934121631515
+    },
+    {
+      "source_seed": 41000015,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.030236673393650326,
+      "propagated_link": 0.03005602623985615,
+      "extended_guard": 0.03013874441178488
+    },
+    {
+      "source_seed": 41000016,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.8127863755511898,
+      "propagated_link": 0.6895731293297935,
+      "extended_guard": 1.2057403275982943
+    },
+    {
+      "source_seed": 41000017,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.4008925462848004,
+      "propagated_link": 0.4012917853098693,
+      "extended_guard": 0.3970109092830134
+    },
+    {
+      "source_seed": 41000018,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.023676562758321862,
+      "propagated_link": 0.1353005025979186,
+      "extended_guard": 0.5440876717081169
+    },
+    {
+      "source_seed": 41000019,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.01061976909310014,
+      "propagated_link": 0.010524012296660668,
+      "extended_guard": 0.010471528086888338
+    },
+    {
+      "source_seed": 41000020,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.04659418739815935,
+      "propagated_link": 0.1690623388517276,
+      "extended_guard": 0.22248969817188025
+    },
+    {
+      "source_seed": 41000021,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.03311997076006368,
+      "propagated_link": 0.033182164095238,
+      "extended_guard": 0.03357369655436859
+    },
+    {
+      "source_seed": 41000022,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 1.0515602494316794,
+      "propagated_link": 1.0192039479490675,
+      "extended_guard": 1.1727279888861584
+    },
+    {
+      "source_seed": 41000023,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.020574033959469773,
+      "propagated_link": 0.019853188909361053,
+      "extended_guard": 0.020795904194235826
+    },
+    {
+      "source_seed": 41000024,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.48267918203696536,
+      "propagated_link": 0.6770154055674781,
+      "extended_guard": 1.194387893644858
+    },
+    {
+      "source_seed": 41000025,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.016717451043593456,
+      "propagated_link": 0.016634516234634078,
+      "extended_guard": 0.017348342477210843
+    },
+    {
+      "source_seed": 41000026,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.05660718044545965,
+      "propagated_link": 0.2376192506917445,
+      "extended_guard": 0.5559347953667152
+    },
+    {
+      "source_seed": 41000027,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.008070847860641606,
+      "propagated_link": 0.008011086185519711,
+      "extended_guard": 0.008029248718383508
+    },
+    {
+      "source_seed": 41000028,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.0786256662329774,
+      "propagated_link": 0.3085283394379893,
+      "extended_guard": 0.4622850863832807
+    },
+    {
+      "source_seed": 41000029,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.04119732059467851,
+      "propagated_link": 0.04105056516937933,
+      "extended_guard": 0.039486751474840265
+    },
+    {
+      "source_seed": 41000030,
+      "ringdown_has_gap": true,
+      "post_tdi_interval": 0.03463121899876209,
+      "propagated_link": 0.10406049615430013,
+      "extended_guard": 0.38565567672654577
+    },
+    {
+      "source_seed": 41000031,
+      "ringdown_has_gap": false,
+      "post_tdi_interval": 0.38972309277911,
+      "propagated_link": 0.38851508841407945,
+      "extended_guard": 0.3872283390020803
+    }
+  ]
+}

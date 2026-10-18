@@ -1,0 +1,7 @@
+{
+  "max_parameter_difference": 2.766028046607971e-06,
+  "tolerance": 1e-05,
+  "passed": true,
+  "completed_epochs": 2,
+  "same_best_score": true
+}

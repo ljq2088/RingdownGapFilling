@@ -32,3 +32,6 @@ FillingGap/results_prd_strategy_20261013/
 /FillingGap/results_prd_coherent_20261015/
 
 /FillingGap/results_prd_tail_20261015/
+
+# Local full-stream gap pilot datasets and checkpoints
+/outputs/physical_gaps_pilot*/

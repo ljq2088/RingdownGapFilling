@@ -1,0 +1,51 @@
+{
+  "fir_valid_support_max_error": 5.945497649761933e-08,
+  "hidden_sample_invariance": true,
+  "taper_high_frequency_power_ratio": 2.4553039456068824e-05,
+  "marginal_covariance_mean_quadratic": 76.59950549280327,
+  "retained_dof": 76,
+  "attention_gradients": {
+    "attention.layers.0.self_attn.in_proj_weight": 131.13160705566406,
+    "attention.layers.0.self_attn.in_proj_bias": 1.4110722541809082,
+    "attention.layers.0.self_attn.out_proj.weight": 129.72682189941406,
+    "attention.layers.0.self_attn.out_proj.bias": 2.202497959136963,
+    "attention.layers.1.self_attn.in_proj_weight": 99.1546630859375,
+    "attention.layers.1.self_attn.in_proj_bias": 1.0625823736190796,
+    "attention.layers.1.self_attn.out_proj.weight": 103.15151977539062,
+    "attention.layers.1.self_attn.out_proj.bias": 1.5672045946121216,
+    "attention.layers.2.self_attn.in_proj_weight": 74.50997161865234,
+    "attention.layers.2.self_attn.in_proj_bias": 0.7933266758918762,
+    "attention.layers.2.self_attn.out_proj.weight": 84.55597686767578,
+    "attention.layers.2.self_attn.out_proj.bias": 1.314080834388733,
+    "attention.layers.3.self_attn.in_proj_weight": 74.32814025878906,
+    "attention.layers.3.self_attn.in_proj_bias": 0.7897989749908447,
+    "attention.layers.3.self_attn.out_proj.weight": 91.47760009765625,
+    "attention.layers.3.self_attn.out_proj.bias": 1.314640760421753
+  },
+  "qkv_gradient_norms": [
+    [
+      11.343342781066895,
+      10.797162055969238,
+      108.99110412597656
+    ],
+    [
+      8.359813690185547,
+      8.315479278564453,
+      82.4793701171875
+    ],
+    [
+      4.929842948913574,
+      4.918646335601807,
+      64.66148376464844
+    ],
+    [
+      4.378647804260254,
+      4.626019477844238,
+      65.32347869873047
+    ]
+  ],
+  "parameters": 1121938,
+  "initial_synthetic_loss": 2.822486639022827,
+  "device": "cuda",
+  "seconds": 1.3512873689905973
+}

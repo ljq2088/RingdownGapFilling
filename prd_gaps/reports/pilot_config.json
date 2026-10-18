@@ -1,0 +1,31 @@
+{
+  "data": "outputs/physical_gaps_pilot_v3_20261018",
+  "output": "outputs/physical_gaps_pilot_training_v3_20261018",
+  "epochs": 60,
+  "patience": 12,
+  "min_delta": 0.0001,
+  "lr": 0.0002,
+  "batch_size": 4,
+  "seed": 126,
+  "resume": false,
+  "manifest_sha256": "4379ee16be6c5f0c235c7355ab2f7613cc26134d0c1fccd581e72b916a897dd5",
+  "parameters": 1121938,
+  "source_code_sha256": {
+    "train.py": "00f2c623e9f2e361e110e5ba0c6a7a2eeeb84af3121d7d95a0e5a01f4273b23c",
+    "check_physics.py": "327d1cd08ef23894490780034dd0e5249109621f0760f38a53b75b9f7f672f67",
+    "diagnostics.py": "9d14218181f9a50eaaaad8f16a31ec1e722e871b33d3572ffc86f50e38da0c25",
+    "generate.py": "3045492d9809f54b02e6bbc6e4901bd08afa3b08b575a28fe4c8a6ea56f5261b",
+    "preprocess.py": "616fb6133d3a1d269a4297efe72cf4ea2f58e03d7395d7835f0df9b12cdef2e6",
+    "metrics.py": "650fd7aa3c985b69d5397fad94e05af04fbf7705517fc47958e19ff5649cd35b",
+    "evaluate_pilot.py": "1f7c639f418a0568008cd2950e2a68da2b50c52a61e322595ad16e96e7317688",
+    "verify.py": "ac6635feaf6e3ddfe38df31aaf401504dbc7765994bf12810fff9581cd1114c0",
+    "__init__.py": "81be2a3f50f5440c0dd8e6127f2f50baddbd77a46c69e4ee216c944208d5bc80",
+    "masks.py": "d945960cc52d152c8eddb9e3effa58cc17d75abca7bda5e828b4c4f8447dc5f2",
+    "model.py": "1a99a71d5ef8d3c225ab12429abf3aa53c945e5288dfea1f78d7f8a2a2c53ef6",
+    "covariance.py": "0e8f8afb9235103bed8ac7d49499f62b186434577d640f9a2eaa930affdcd24c",
+    "physics.py": "982b3343f6320edb75e5d3e66fe38c50efb0d57e126288f9f97cb93d6712a32f"
+  },
+  "selection_metric": "mean direct A/E mismatch: detector peak through six tau220",
+  "data_role": "pilot; no independent test evaluated",
+  "device": "cuda"
+}

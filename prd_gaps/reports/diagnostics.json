@@ -1,0 +1,145 @@
+{
+  "link_replacement_cases": [
+    {
+      "link": 12,
+      "input_gap_seconds": 0.5,
+      "missing_AE_seconds": [
+        78.0,
+        86.0
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 12,
+      "input_gap_seconds": 33.0,
+      "missing_AE_seconds": [
+        110.5,
+        118.5
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 23,
+      "input_gap_seconds": 0.5,
+      "missing_AE_seconds": [
+        78.0,
+        86.0
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 23,
+      "input_gap_seconds": 33.0,
+      "missing_AE_seconds": [
+        110.5,
+        118.5
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 31,
+      "input_gap_seconds": 0.5,
+      "missing_AE_seconds": [
+        86.0,
+        86.0
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 31,
+      "input_gap_seconds": 33.0,
+      "missing_AE_seconds": [
+        118.5,
+        118.5
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 13,
+      "input_gap_seconds": 0.5,
+      "missing_AE_seconds": [
+        86.0,
+        86.0
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 13,
+      "input_gap_seconds": 33.0,
+      "missing_AE_seconds": [
+        118.5,
+        118.5
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 32,
+      "input_gap_seconds": 0.5,
+      "missing_AE_seconds": [
+        78.0,
+        86.0
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 32,
+      "input_gap_seconds": 33.0,
+      "missing_AE_seconds": [
+        110.5,
+        118.5
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 21,
+      "input_gap_seconds": 0.5,
+      "missing_AE_seconds": [
+        78.0,
+        86.0
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": 21,
+      "input_gap_seconds": 33.0,
+      "missing_AE_seconds": [
+        110.5,
+        118.5
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": "all",
+      "input_gap_seconds": 0.5,
+      "missing_AE_seconds": [
+        86.0,
+        86.0
+      ],
+      "retained_relative_error": 0.0
+    },
+    {
+      "link": "all",
+      "input_gap_seconds": 33.0,
+      "missing_AE_seconds": [
+        118.5,
+        118.5
+      ],
+      "retained_relative_error": 0.0
+    }
+  ],
+  "exact_spectral_covariance_offdiagonal_fraction": {
+    "complete": 0.051351619507666875,
+    "hard_gap": 0.2111336330508187,
+    "tapered_gap": 0.32147526365007234
+  },
+  "echo_guard_samples": 144,
+  "primary_missing_AE_seconds": [
+    110.5,
+    118.5
+  ],
+  "guarded_missing_AE_seconds": [
+    254.5,
+    262.5
+  ],
+  "covariance_note": "Finite colored-noise windows already couple bins; tapering changes covariance and effective exposure."
+}
